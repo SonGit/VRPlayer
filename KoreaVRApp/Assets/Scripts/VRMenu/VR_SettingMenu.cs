@@ -1,0 +1,170 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using RenderHeads.Media.AVProVideo.Demos;
+
+public class VR_SettingMenu : MonoBehaviour
+{
+	[SerializeField] private GameObject Root;
+
+	public GameObject VideoSetting;
+	public GameObject ScreenSetting;
+	public GameObject alert2DBnt;
+	public VCR vcr;
+	public float _delayCount = 0;
+	public float _delayTime = 0.5f;
+	[SerializeField] private RawImage BG;
+
+	private EventSystem eventSystem;
+
+
+	void Awake(){
+	}
+
+	void Start()
+    {
+		eventSystem = Object.FindObjectOfType<EventSystem> ();
+		vcr = Object.FindObjectOfType<VCR> ();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+		#if UNITY_ANDROID && !UNITY_EDITOR
+		CheckOOB ();
+		#endif 
+    }
+
+	public void ShowSetting(){
+		if (!Root.activeSelf){
+			Root.SetActive (true);
+
+			if (VR_TopMenuManager.instance != null){
+				VR_TopMenuManager.instance.Init ();
+			}
+
+			ShowVideoSetting ();
+
+			// Force pause video when setting is shown
+			if (vcr != null) {
+				vcr.OnPauseButton ();
+			} else {
+				vcr = Object.FindObjectOfType<VCR> ();
+				if (vcr != null) {
+					vcr.OnPauseButton ();
+				}
+			}
+
+			if (BG != null) {
+				BG.enabled = true;
+			} else {
+				Debug.LogError ("VR_SettingMenu BG is null!");
+			}
+		}
+	}
+
+	public void HideSetting(){
+		if (Root.activeSelf){
+			Root.SetActive (false);
+		}
+
+		// Force resuyme video when setting is shown
+		if (vcr != null) {
+			vcr.OnPlayButton ();
+		} else {
+			vcr = Object.FindObjectOfType<VCR> ();
+			if (vcr != null) {
+				vcr.OnPlayButton ();
+			}
+
+		}
+
+		if (BG != null) {
+			BG.enabled = false;
+		}else {
+			Debug.LogError ("VR_SettingMenu BG is null!");
+		}
+			
+	}
+
+	#region VideoSetting
+	public void ShowVideoSetting(){
+		VideoSetting.SetActive (true);
+		HideScreenSetting ();
+		HideAlert2DBnt ();
+	}
+
+	public void HideVideoSetting(){
+		if (VideoSetting.activeSelf) {
+			VideoSetting.SetActive (false);
+		}
+	}
+	#endregion
+
+
+	#region ScreenSetting
+	public void ShowScreenSetting(){
+		if (!ScreenSetting.activeSelf) {
+			ScreenSetting.SetActive (true);
+			HideVideoSetting ();
+			HideAlert2DBnt ();
+		}
+	}
+
+	public void HideScreenSetting(){
+		if (ScreenSetting.activeSelf) {
+			ScreenSetting.SetActive (false);
+		}
+	}
+	#endregion
+
+	#region Alert2DBnt
+	public void ShowAlert2DBnt(){
+		if (alert2DBnt != null ) {
+			alert2DBnt.SetActive (true);
+		}else{
+			Debug.LogError ("Null................");
+		}
+	}
+
+	public void HideAlert2DBnt(){
+		if (alert2DBnt != null) {
+			alert2DBnt.SetActive (false);
+		}else{
+			Debug.LogError ("Null................");
+		}
+	}
+	#endregion
+
+	public void CheckOOB()
+	{
+		if (eventSystem == null) {
+			Debug.Log ("Event System not found!");
+			return;
+		}
+
+		if (Root.activeSelf) {
+			if (!eventSystem.IsPointerOverGameObject ()) {
+				_delayCount += Time.deltaTime;
+
+				if (_delayCount >= _delayTime && Root.activeSelf) {
+					HideSetting ();
+					_delayCount = 0;
+					print ("Hiding>>>>>");
+				}
+
+			} else {
+				_delayCount = 0;
+			}
+		}
+
+	}
+
+	public void ClickYesButton_2D(){
+		if (MainAllController.instance != null){
+			MainAllController.instance.ModeVR_OnMediaPlayerMenu ();
+		}
+	}
+}
