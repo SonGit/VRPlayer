@@ -58,6 +58,8 @@ public class VR_PageController : MonoBehaviour
 
 		currentTier = targetTier;
 
+		GoToPage (StartTierPage);
+
 //		int pageMax = totalObjects / VR_BasicMenu.MAX_ITEM_PER_PAGE;
 //		currentTier = pageMax / 5;
 //
