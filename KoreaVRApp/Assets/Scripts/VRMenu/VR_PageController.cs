@@ -49,12 +49,21 @@ public class VR_PageController : MonoBehaviour
 
 	public void FinalPage()
 	{
-		int pageMax = totalObjects / VR_BasicMenu.MAX_ITEM_PER_PAGE;
-		currentTier = pageMax / 5;
 
-		UnselectAll ();
-	//	pageBtns [0].Selected ();
-		GoToPage (pageMax);
+		int pageMax = totalObjects / VR_BasicMenu.MAX_ITEM_PER_PAGE;
+
+		int StartTierPage = ((pageMax /  5) * 5);
+
+		int targetTier = StartTierPage / 5;
+
+		currentTier = targetTier;
+
+//		int pageMax = totalObjects / VR_BasicMenu.MAX_ITEM_PER_PAGE;
+//		currentTier = pageMax / 5;
+//
+//		UnselectAll ();
+//
+//		GoToPage (pageMax);
 	}
 
 	public void NextPage()
@@ -73,6 +82,15 @@ public class VR_PageController : MonoBehaviour
 
 	public void LastPage()
 	{
+
+//		int pageMax = totalObjects / VR_BasicMenu.MAX_ITEM_PER_PAGE;
+//
+//		int StartTierPage = ((pageMax /  5) * 5);
+//
+//		int targetTier = StartTierPage / 5;
+//
+//		currentTier = targetTier;
+//
 		int highestPageNextTier = ((currentTier - 1) * 5) + 5;
 		int pageMax = totalObjects / VR_BasicMenu.MAX_ITEM_PER_PAGE;
 
@@ -84,8 +102,7 @@ public class VR_PageController : MonoBehaviour
 			currentTier--;
 			UnselectAll ();
 			pageBtns [pageBtns.Length - 1].Selected ();
-            currentPage = pageBtns[pageBtns.Length - 1].pageNo;
-        }
+		}
 
 	}
 
