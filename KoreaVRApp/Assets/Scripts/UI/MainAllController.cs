@@ -1563,4 +1563,9 @@ public class MainAllController : MonoBehaviour
 		get { return isShowRecenterPanel; }
 		set { isShowRecenterPanel = value; }
 	}
+
+	public string GetUserNameInput(){
+		string username = loginMenu.GetUsernameInput ();
+		return username;
+	}
 }
