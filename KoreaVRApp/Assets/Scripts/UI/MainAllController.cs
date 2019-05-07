@@ -1440,16 +1440,16 @@ public class MainAllController : MonoBehaviour
 
 	private void OnApplicationPause(bool pauseStatus)
 	{
-//		if (pauseStatus)
-//		{
-//			Debug.Log("Application pause.........................................................");
-//			SubmitAllData ();
-//		}
-//		else
-//		{
-//		
-//		}
-//
+		if (pauseStatus)
+		{
+			Debug.Log("Application pause.........................................................");
+			SubmitAllData ();
+		}
+		else
+		{
+		
+		}
+
 //		EasyMobile.NativeUI.AlertPopup[] popups = GameObject.FindObjectsOfType<EasyMobile.NativeUI.AlertPopup> ();
 //		foreach (EasyMobile.NativeUI.AlertPopup popup in popups) {
 //			popup.Release ();
@@ -1515,22 +1515,22 @@ public class MainAllController : MonoBehaviour
 	private bool isPortrait;
 
 	private void CheckOrientation(){
-//		if (currentScene is Scene2D){
-//			if (currentMenu is MediaPlayerMenu) {
-//				if (isLandscape){
-//					Screen.orientation = ScreenOrientation.LandscapeLeft;
-//					isLandscape = false;
-//					Debug.Log ("LandscapeLeft..........................");
-//				}
-//			} else {
-//				if(isPortrait){
-//					Screen.orientation = ScreenOrientation.Portrait;
-//					isPortrait = false;
-//					Debug.Log ("Portrait..............................");
-//				}
-//
-//			}
-//		}
+		if (currentScene is Scene2D){
+			if (currentMenu is MediaPlayerMenu) {
+				if (isLandscape){
+					Screen.orientation = ScreenOrientation.LandscapeLeft;
+					isLandscape = false;
+					Debug.Log ("LandscapeLeft..........................");
+				}
+			} else {
+				if(isPortrait){
+					Screen.orientation = ScreenOrientation.Portrait;
+					isPortrait = false;
+					Debug.Log ("Portrait..............................");
+				}
+
+			}
+		}
 	}
 
 	private void SetLandscapeRotation(){
