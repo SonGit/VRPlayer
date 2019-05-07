@@ -903,6 +903,8 @@ public class MainAllController : MonoBehaviour
 	#region MediaPlayerMenu
 	public void ModeVR_OnMediaPlayerMenu()
 	{
+		Play3D_2D ();
+
 		accessMenu.Close ();
 
 		if (!(currentMenu is MediaPlayerMenu)) {
@@ -911,8 +913,6 @@ public class MainAllController : MonoBehaviour
 			accessMenu.SetHandleViewable (false);
 			currentMenu = mediaPlayerMenu;
 		}
-
-		Play3D_2D ();
 	}
 
 	private void MediaPlayerMenu_OnBack(){
