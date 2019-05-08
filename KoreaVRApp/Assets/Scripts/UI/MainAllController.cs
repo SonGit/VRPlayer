@@ -1444,10 +1444,18 @@ public class MainAllController : MonoBehaviour
 		{
 			Debug.Log("Application pause.........................................................");
 			SubmitAllData ();
+
+			if (SystemLanguageManager.instance != null){
+				SystemLanguageManager.instance.LanguageViewable ();
+			}
 		}
 		else
 		{
-		
+			Debug.Log("Application resumed.......................................................");
+
+			if (SystemLanguageManager.instance != null){
+				SystemLanguageManager.instance.LanguageViewable ();
+			}
 		}
 
 //		EasyMobile.NativeUI.AlertPopup[] popups = GameObject.FindObjectsOfType<EasyMobile.NativeUI.AlertPopup> ();
@@ -1464,6 +1472,8 @@ public class MainAllController : MonoBehaviour
 //			popup.Release ();
 //		}
 //		Debug.Log("Application resumed......................................................." + hasFocus);
+
+
 	}
 
 	#endregion

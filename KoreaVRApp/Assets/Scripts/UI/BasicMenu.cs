@@ -87,13 +87,13 @@ public class BasicMenu : MonoBehaviour
 	}
 
 	public void UpdateNetworkConnectionUI(){
-//		bool isConnect = CheckNetworkConnection ();
-//
-//		if (isConnect) {
-//			DisableNetworkAlert ();
-//		} else {
-//			EnableNetworkAlert ();
-//		}
+		bool isConnect = CheckNetworkConnection ();
+
+		if (isConnect) {
+			DisableNetworkAlert ();
+		} else {
+			EnableNetworkAlert ();
+		}
 	}
 
 	public void DisableNetworkAlert(){
