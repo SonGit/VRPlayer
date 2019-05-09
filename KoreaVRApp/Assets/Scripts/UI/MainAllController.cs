@@ -70,9 +70,18 @@ public class MainAllController : MonoBehaviour
 	private bool isGoVR;
 	private bool isShowRecenterPanel;
 
+	//Resolution
+	public int maxWidth;
+	public int maxHeight;
+
 	void Awake()
 	{
 		instance = this;
+
+		maxWidth = Screen.currentResolution.width;
+		maxHeight = Screen.currentResolution.height;
+
+		Screen.SetResolution (maxWidth,maxHeight,false);
 	}
 
 	private void Start()
