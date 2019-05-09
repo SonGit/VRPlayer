@@ -353,5 +353,23 @@ public class LocalVideoManager : MonoBehaviour
     }
 
 
-
+//	public Dictionary<string,Texture2D> dictionary = new Dictionary<string, Texture2D>();
+//
+//	public Texture2D GetThumbnailFromCache(string url)
+//	{
+//		if (dictionary.ContainsKey (url)) {
+//			return dictionary [url];
+//		} else {
+//			return null;
+//		}
+//	}
+//
+//	public void AddThumbnailToCache(string url,Texture2D tex)
+//	{
+//		Debug.Log ("Adding ThumbnailToCache   " + url );
+//		if (!dictionary.ContainsKey (url)) {
+//			dictionary.Add (url,tex);
+//			Debug.Log ("Added ThumbnailToCache   " );
+//		}
+//	}
 }

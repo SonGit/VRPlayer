@@ -28,36 +28,49 @@ public class LocalVideoUI: VideoUI
 
 		videoLength.text = MakeLengthString ();
 
-#if UNITY_ANDROID && !UNITY_EDITOR
-		LoadThumbnail_Threaded ((video as LocalVideo).videoURL);
-#endif
+		#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
+		StartCoroutine(LoadThumbnail ());
+		#endif
 
-#if UNITY_IOS && !UNITY_EDITOR
-        StartCoroutine(LoadThumbnail_ios());
-#endif
     }
 
-    IEnumerator LoadThumbnail_ios()
+    IEnumerator LoadThumbnail()
     {
         bool gotThumbnail = false;
-        string path = Application.persistentDataPath + "/localTemp/" + (video as LocalVideo).videoName;
-        Debug.Log("Looking at path: " + path);
-        while (!gotThumbnail)
-        {
-            Debug.Log("gotiiiiing Thumbnail");
-            if (File.Exists(path))
-            {
-                Debug.Log("Found thumbnail at" + path);
-                LoadThumbnail(path);
-                gotThumbnail = true;
-               
-                yield break;
-            }
-            yield return new WaitForSeconds(.5f);
-        }
+
+		string path = Application.persistentDataPath + "/localTemp/" + (video as LocalVideo).videoName;
+
+		#if UNITY_ANDROID
+		path = Application.persistentDataPath + "/" + (video as LocalVideo).videoName;
+		#endif
+
+		#if UNITY_IOS
+		path = Application.persistentDataPath + "/localTemp/" + (video as LocalVideo).videoName;
+		#endif
+
+		//Texture2D texture = LocalVideoManager.instance.GetThumbnailFromCache (path);
+		Texture2D texture = null;
+
+		if (texture == null) {
+			Debug.Log ("Looking at path: " + path);
+			while (!gotThumbnail) {
+
+				if (File.Exists (path)) {
+					Debug.Log ("Found thumbnail at" + path);
+					LoadThumbnail (path);
+					gotThumbnail = true;
+
+					yield break;
+				}
+
+				yield return new WaitForSeconds (.5f);
+			}
+		} else {
+			Debug.Log ("Texture found in cache, loading.....");
+		}
+
        
     }
-
 
 
     public void Delete()
@@ -88,7 +101,7 @@ public class LocalVideoUI: VideoUI
 	{
 		plugin = new AndroidJavaClass ("com.example.unityplugin.PluginClass");
 
-		this.StartCoroutineAsync (LoadThumbnail_async(path));
+		this.StartCoroutine (LoadThumbnail_async(path));
 	}
 
 	AndroidJavaClass plugin;
@@ -98,35 +111,35 @@ public class LocalVideoUI: VideoUI
 
 	IEnumerator LoadThumbnail_async(string path)
 	{
-		AndroidJNI.AttachCurrentThread();
+		//AndroidJNI.AttachCurrentThread();
 
 		byte[] pixelData;
 
-		using (var thumbnail = plugin.CallStatic<AndroidJavaObject> ("getThumbnail", path)) {
-
-			if (!thumbnail.Call<bool>("isLoaded")) {
-				Debug.LogError("NatShare Error: Failed to get thumbnail for video at path: "+path);
-				yield break;
-			}
-			var width = thumbnail.Get<int>("width");
-			var height = thumbnail.Get<int>("height");
-
-			using (var pixelBuffer = thumbnail.Get<AndroidJavaObject> ("pixelBuffer")) {
-				using (var array = pixelBuffer.Call<AndroidJavaObject>("array")) {
-					pixelData = AndroidJNI.FromByteArray(array.GetRawObject());
-				}
-			}
-
-			AndroidJNI.DetachCurrentThread ();
-
-			yield return Ninja.JumpToUnity;
-
-			thumbnailTexture = new Texture2D(width, height, TextureFormat.RGB565, false); // Weird texture format IMO
-			thumbnailTexture.LoadRawTextureData(pixelData);
-			thumbnailTexture.Apply ();
-			videoImage.texture = thumbnailTexture;
-			Debug.Log ("------------------DONE");
-		}
+//		using (var thumbnail = plugin.CallStatic<AndroidJavaObject> ("getThumbnail", path)) {
+//
+//			if (!thumbnail.Call<bool>("isLoaded")) {
+//				Debug.LogError("NatShare Error: Failed to get thumbnail for video at path: "+path);
+//				yield break;
+//			}
+//			var width = thumbnail.Get<int>("width");
+//			var height = thumbnail.Get<int>("height");
+//
+//			using (var pixelBuffer = thumbnail.Get<AndroidJavaObject> ("pixelBuffer")) {
+//				using (var array = pixelBuffer.Call<AndroidJavaObject>("array")) {
+//					pixelData = AndroidJNI.FromByteArray(array.GetRawObject());
+//				}
+//			}
+//
+//			AndroidJNI.DetachCurrentThread ();
+//
+//			yield return Ninja.JumpToUnity;
+//
+//			thumbnailTexture = new Texture2D(width, height, TextureFormat.RGB565, false); // Weird texture format IMO
+//			thumbnailTexture.LoadRawTextureData(pixelData);
+//			thumbnailTexture.Apply ();
+//			videoImage.texture = thumbnailTexture;
+//			Debug.Log ("------------------DONE");
+//		}
 
 
 		yield return new WaitForEndOfFrame ();

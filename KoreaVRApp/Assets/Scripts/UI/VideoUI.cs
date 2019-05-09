@@ -71,11 +71,13 @@ public class VideoUI : Cacheable
 			byte[] fileData = File.ReadAllBytes( thumbnailURL );
 
 			if (thumbnailTexture == null) {
-				thumbnailTexture = new Texture2D(4, 4, TextureFormat.PVRTC_RGB4, false);
+				thumbnailTexture = new Texture2D(4, 4, TextureFormat.RGB565, false);
 			}
 
 			thumbnailTexture.LoadImage(fileData);
 			thumbnailTexture.name = video.videoInfo.id;
+
+//			LocalVideoManager.instance.AddThumbnailToCache(thumbnailURL,thumbnailTexture);
 
 			OnLoadedThumbnail();
 		} catch(Exception e) {
