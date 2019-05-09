@@ -352,24 +352,91 @@ public class LocalVideoManager : MonoBehaviour
         }
     }
 
+    public void BuildLocalVideo(string video)
+    {
+        string[] element;
 
-//	public Dictionary<string,Texture2D> dictionary = new Dictionary<string, Texture2D>();
-//
-//	public Texture2D GetThumbnailFromCache(string url)
-//	{
-//		if (dictionary.ContainsKey (url)) {
-//			return dictionary [url];
-//		} else {
-//			return null;
-//		}
-//	}
-//
-//	public void AddThumbnailToCache(string url,Texture2D tex)
-//	{
-//		Debug.Log ("Adding ThumbnailToCache   " + url );
-//		if (!dictionary.ContainsKey (url)) {
-//			dictionary.Add (url,tex);
-//			Debug.Log ("Added ThumbnailToCache   " );
-//		}
-//	}
+        if (video != null && video != string.Empty)
+        {
+            element = video.Split('@');
+
+            /// Format: videoName@URL@length@size@date
+            /// 
+            string videoName = element[0];
+
+            string videoURL = element[1];
+
+            string videoLength = element[2];
+
+            string videoSize = element[3];
+
+            string videoDate = element[4];
+
+            if (videoName != null && videoName != string.Empty)
+            {
+                Debug.Log("videoName  " + videoName + " videoURL  " + videoURL + " videoLength  " + videoLength + " videoSize  " + videoSize + " videoDate  " + videoDate);
+                LocalVideo newVideo = new LocalVideo(videoName, videoURL, videoLength, videoSize, videoDate);
+
+                bool exists = false;
+
+                if (newVideo != null)
+                {
+                    for (int i = 0; i < localVideos.Count; i++)
+                    {
+
+                        if (localVideos[i].videoInfo.id == newVideo.videoInfo.id)
+                        {
+                            exists = true;
+                            break;
+                        }
+
+                    }
+
+                    if (exists)
+                    {
+
+                    }
+                    else
+                    {
+                        localVideos.Add(newVideo);
+                        StorageMenu.instance.FastRefresh();
+                    }
+
+
+                    Debug.Log("MADE new local " + videoURL);
+                }
+
+
+            }
+            else
+            {
+                Debug.Log("NOT making new local " + videoURL);
+            }
+
+        }
+
+    }
+
+
+
+
+    //	public Dictionary<string,Texture2D> dictionary = new Dictionary<string, Texture2D>();
+    //
+    //	public Texture2D GetThumbnailFromCache(string url)
+    //	{
+    //		if (dictionary.ContainsKey (url)) {
+    //			return dictionary [url];
+    //		} else {
+    //			return null;
+    //		}
+    //	}
+    //
+    //	public void AddThumbnailToCache(string url,Texture2D tex)
+    //	{
+    //		Debug.Log ("Adding ThumbnailToCache   " + url );
+    //		if (!dictionary.ContainsKey (url)) {
+    //			dictionary.Add (url,tex);
+    //			Debug.Log ("Added ThumbnailToCache   " );
+    //		}
+    //	}
 }

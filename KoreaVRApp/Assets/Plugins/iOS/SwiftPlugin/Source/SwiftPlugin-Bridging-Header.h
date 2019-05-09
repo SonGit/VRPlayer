@@ -11,5 +11,6 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "UnityInterface.h"
 
 #endif /* SwiftPlugin_Bridging_Header_h */
