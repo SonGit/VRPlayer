@@ -903,6 +903,8 @@ public class MainAllController : MonoBehaviour
 	#region MediaPlayerMenu
 	public void ModeVR_OnMediaPlayerMenu()
 	{
+		Play3D_2D ();
+
 		accessMenu.Close ();
 
 		if (!(currentMenu is MediaPlayerMenu)) {
@@ -911,8 +913,6 @@ public class MainAllController : MonoBehaviour
 			accessMenu.SetHandleViewable (false);
 			currentMenu = mediaPlayerMenu;
 		}
-
-		Play3D_2D ();
 	}
 
 	private void MediaPlayerMenu_OnBack(){
@@ -1440,16 +1440,24 @@ public class MainAllController : MonoBehaviour
 
 	private void OnApplicationPause(bool pauseStatus)
 	{
-//		if (pauseStatus)
-//		{
-//			Debug.Log("Application pause.........................................................");
-//			SubmitAllData ();
-//		}
-//		else
-//		{
-//		
-//		}
-//
+		if (pauseStatus)
+		{
+			Debug.Log("Application pause.........................................................");
+			SubmitAllData ();
+
+			if (SystemLanguageManager.instance != null){
+				SystemLanguageManager.instance.LanguageViewable ();
+			}
+		}
+		else
+		{
+			Debug.Log("Application resumed.......................................................");
+
+			if (SystemLanguageManager.instance != null){
+				SystemLanguageManager.instance.LanguageViewable ();
+			}
+		}
+
 //		EasyMobile.NativeUI.AlertPopup[] popups = GameObject.FindObjectsOfType<EasyMobile.NativeUI.AlertPopup> ();
 //		foreach (EasyMobile.NativeUI.AlertPopup popup in popups) {
 //			popup.Release ();
@@ -1464,6 +1472,8 @@ public class MainAllController : MonoBehaviour
 //			popup.Release ();
 //		}
 //		Debug.Log("Application resumed......................................................." + hasFocus);
+
+
 	}
 
 	#endregion
@@ -1515,22 +1525,22 @@ public class MainAllController : MonoBehaviour
 	private bool isPortrait;
 
 	private void CheckOrientation(){
-//		if (currentScene is Scene2D){
-//			if (currentMenu is MediaPlayerMenu) {
-//				if (isLandscape){
-//					Screen.orientation = ScreenOrientation.LandscapeLeft;
-//					isLandscape = false;
-//					Debug.Log ("LandscapeLeft..........................");
-//				}
-//			} else {
-//				if(isPortrait){
-//					Screen.orientation = ScreenOrientation.Portrait;
-//					isPortrait = false;
-//					Debug.Log ("Portrait..............................");
-//				}
-//
-//			}
-//		}
+		if (currentScene is Scene2D){
+			if (currentMenu is MediaPlayerMenu) {
+				if (isLandscape){
+					Screen.orientation = ScreenOrientation.LandscapeLeft;
+					isLandscape = false;
+					Debug.Log ("LandscapeLeft..........................");
+				}
+			} else {
+				if(isPortrait){
+					Screen.orientation = ScreenOrientation.Portrait;
+					isPortrait = false;
+					Debug.Log ("Portrait..............................");
+				}
+
+			}
+		}
 	}
 
 	private void SetLandscapeRotation(){
@@ -1562,5 +1572,10 @@ public class MainAllController : MonoBehaviour
 	{
 		get { return isShowRecenterPanel; }
 		set { isShowRecenterPanel = value; }
+	}
+
+	public string GetUserNameInput(){
+		string username = loginMenu.GetUsernameInput ();
+		return username;
 	}
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System;
+using UnityEngine.UI;
 
 public class VR_MainMenu : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class VR_MainMenu : MonoBehaviour
 
 	[SerializeField] private BasicButtonMenu btnLogin;
 	[SerializeField] private BasicButtonMenu btnLogout;
+	[SerializeField] private Text userNameText;
 	[SerializeField]
 	private GameObject loginAlert;
 	[SerializeField]
@@ -301,6 +303,15 @@ public class VR_MainMenu : MonoBehaviour
 			btnLogin.gameObject.SetActive (visible);
 		else {
 			Debug.LogError ("btnLogin null!");
+		}
+	}
+
+	public void UserNameViewable_VR(string name)
+	{
+		if (userNameText != null)
+			userNameText.text = name;
+		else {
+			Debug.LogError ("userNameText null!");
 		}
 	}
 

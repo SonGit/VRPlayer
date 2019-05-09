@@ -22,9 +22,9 @@ public class FavoriteVideoUI : UserVideoUI
 		this.video = video;
 		video_name.text = video.videoInfo.video_name;
 		//video_length.text = (video.videoInfo.length).ToString();
-		this.video_length.text = "00:00:00";
-		video_size.text = ((video.videoInfo.size / 1024) / 1024) + " MB";
-		video_desc.text = video.videoInfo.description;
+		//this.video_length.text = "00:00:00";
+		video_size.text = video.videoInfo.date + "  |  " + ((video.videoInfo.size / 1024) / 1024) + " MB";
+		//video_desc.text = video.videoInfo.description;
 
 		SetupFavoriteBtns ();
 
@@ -34,26 +34,6 @@ public class FavoriteVideoUI : UserVideoUI
 	}
 	#endregion	
 		
-//
-//	public void UnfavoriteVideo(){
-//
-//		if (MainAllController.instance != null && Networking.instance != null) {
-//			string authToken = MainAllController.instance.user.token;
-//			if (authToken != null){
-//				Networking.instance.UnfavoriteVideoRequest (video.videoInfo.id, authToken, OnGetUnFavoriteVideo, ErrorGetUnFavoriteVideo);
-//			}
-//		}
-//	}
-//
-//	public void OnGetUnFavoriteVideo(UnfavoriteVideoResponse respone){
-//		Destroy (this.gameObject);
-//	}
-//
-//	public void ErrorGetUnFavoriteVideo(){
-//		Debug.LogError ("ERORR....");
-//		NativeUI.AlertPopup alert = NativeUI.Alert("ErrorGetUnFavoriteVideo!", "");
-//	}
-//		
 
 	#region Object Pool implementation
 

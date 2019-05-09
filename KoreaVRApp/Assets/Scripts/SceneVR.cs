@@ -47,6 +47,10 @@ public class SceneVR : AppScene
 		} else {
 			ClickLogoutBnt ();
 		}
+
+		if (MainAllController.instance != null) {
+			vrMainMenu.UserNameViewable_VR (MainAllController.instance.GetUserNameInput());
+		}
 	}
 
 	public void ShowStorageMenu()
@@ -66,6 +70,10 @@ public class SceneVR : AppScene
 	public void ClickLogoutBnt(){
 		vrMainMenu.LoginViewable_VR (true);
 		vrMainMenu.LogoutViewable_VR (false);
+
+		if (MainAllController.instance != null) {
+			vrMainMenu.UserNameViewable_VR (MainAllController.instance.GetUserNameInput());
+		}
 	}
 
 	public void ShowUserVideoMenu()
