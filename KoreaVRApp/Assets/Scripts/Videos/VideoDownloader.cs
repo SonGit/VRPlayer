@@ -318,7 +318,7 @@ public class VideoDownloader : MonoBehaviour
 
 	void UpdateEverySecond(){
 		if (iExistLen != 0 && iFileSize != 0) {
-			downloadSpeed = ((float)iExistLen - tmp_down)/1048576f;
+			downloadSpeed = ((float)iExistLen - tmp_down)/1024f;
 			tmp_down = (float)iExistLen;
 		}
 	}

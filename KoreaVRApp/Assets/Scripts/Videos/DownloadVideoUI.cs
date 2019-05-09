@@ -161,7 +161,13 @@ public class DownloadVideoUI : VideoUI
 				float progress = (float)videoDownloader.downloadProgress;;
 				video_DownloadProgressSlider.value = progress;
 				video_DownloadProgressText.text = progress.ToString("0.0") + " %";
-				video_DownloadSpeedText.text = videoDownloader.downloadSpeed.ToString ("0.0") + " MB/s";
+
+				if (videoDownloader.downloadSpeed >= 1024f) {
+					video_DownloadSpeedText.text = (videoDownloader.downloadSpeed / 1024f).ToString ("0.0") + "  MB/s";
+				} else {
+					video_DownloadSpeedText.text = videoDownloader.downloadSpeed.ToString ("0.0") + "  KB/s";
+				}
+
 			}
 
 		}
