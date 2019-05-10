@@ -924,6 +924,7 @@ public class MainAllController : MonoBehaviour
 			mediaPlayerMenu.SetActive (true);
 			accessMenu.SetHandleViewable (false);
 			currentMenu = mediaPlayerMenu;
+			SetLandscapeRotation ();
 		}
 	}
 
@@ -1072,8 +1073,6 @@ public class MainAllController : MonoBehaviour
 
 	private void Play3D_2D()
 	{
-		SetLandscapeRotation ();
-
 		if (currentScene is SceneVR) {
 			this.vrPlayer = (currentScene as SceneVR).vrPlayer;
 		}
@@ -1456,18 +1455,10 @@ public class MainAllController : MonoBehaviour
 		{
 			Debug.Log("Application pause.........................................................");
 			SubmitAllData ();
-
-			if (SystemLanguageManager.instance != null){
-				SystemLanguageManager.instance.LanguageViewable ();
-			}
 		}
 		else
 		{
 			Debug.Log("Application resumed.......................................................");
-
-			if (SystemLanguageManager.instance != null){
-				SystemLanguageManager.instance.LanguageViewable ();
-			}
 		}
 
 //		EasyMobile.NativeUI.AlertPopup[] popups = GameObject.FindObjectsOfType<EasyMobile.NativeUI.AlertPopup> ();

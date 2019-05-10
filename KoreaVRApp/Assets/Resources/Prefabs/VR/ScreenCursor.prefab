@@ -60,7 +60,7 @@ GameObject:
   - component: {fileID: 1863205183734123564}
   - component: {fileID: 1863205183734123561}
   - component: {fileID: 1863205183734123562}
-  - component: {fileID: 1863205183734123563}
+  - component: {fileID: 932333428}
   m_Layer: 5
   m_Name: Start_Button
   m_TagString: Untagged
@@ -124,7 +124,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
---- !u!114 &1863205183734123563
+--- !u!114 &932333428
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1863205183734123565}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: f4a6234890f6e5943bbcdfa0a9f2afc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -177,6 +177,9 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  _timeCountdown: 1
+  _text: {fileID: 0}
+  _loopable: 0
 --- !u!1 &1863205184503127997
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,6 +191,7 @@ GameObject:
   - component: {fileID: 1863205184503127996}
   - component: {fileID: 1863205184503127994}
   - component: {fileID: 1863205184503127995}
+  - component: {fileID: 1383728483}
   m_Layer: 5
   m_Name: 3seconds_Text
   m_TagString: Untagged
@@ -212,7 +216,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1500, y: 70}
+  m_SizeDelta: {x: 1700, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1863205184503127994
 CanvasRenderer:
@@ -243,7 +247,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: f49af5510249cb84c8c6680f3ec74035, type: 3}
     m_FontSize: 35
     m_FontStyle: 0
     m_BestFit: 0
@@ -256,6 +260,25 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Hover the on-screen cursor for 3 seconds to start the player
+--- !u!114 &1383728483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863205184503127997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e62188adca544cf1b96ccf1630f15f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DoNotTesselate: 0
+  savedPos: {x: 0, y: -125.00073, z: -0.0073242188}
+  savedUp: {x: 0, y: 1, z: 0}
+  savedRectSize: {x: 1700, y: 70}
+  savedColor: {r: 1, g: 1, b: 1, a: 1}
+  savedTextUV0: {x: 0.9707031, y: 0.028320312}
+  savedFill: 0
 --- !u!1 &1863205185049649270
 GameObject:
   m_ObjectHideFlags: 0
@@ -326,6 +349,7 @@ GameObject:
   - component: {fileID: 6552045343706204660}
   - component: {fileID: 5822841178596936887}
   - component: {fileID: 4019075305571935063}
+  - component: {fileID: 1873311787}
   m_Layer: 5
   m_Name: ClickZone
   m_TagString: Untagged
@@ -389,6 +413,25 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+--- !u!114 &1873311787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3674836521771320110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e62188adca544cf1b96ccf1630f15f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DoNotTesselate: 0
+  savedPos: {x: 3.5095215, y: -42.51172, z: -0.0073242188}
+  savedUp: {x: 0, y: 1, z: 0}
+  savedRectSize: {x: 471, y: 453}
+  savedColor: {r: 0.9568627, g: 1, b: 0, a: 0}
+  savedTextUV0: {x: 0, y: 0}
+  savedFill: 1
 --- !u!1 &3716565208635597704
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,6 +505,7 @@ GameObject:
   - component: {fileID: 5028098180344410748}
   - component: {fileID: 3990585207238286138}
   - component: {fileID: 2720577327161498876}
+  - component: {fileID: 2016743320}
   m_Layer: 5
   m_Name: BlackBG
   m_TagString: Untagged
@@ -523,6 +567,25 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &2016743320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4504946810992307497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e62188adca544cf1b96ccf1630f15f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DoNotTesselate: 0
+  savedPos: {x: 0, y: 8.993164, z: -0.0073242188}
+  savedUp: {x: 0, y: 1, z: 0}
+  savedRectSize: {x: 100, y: 100}
+  savedColor: {r: 0, g: 0, b: 0, a: 1}
+  savedTextUV0: {x: 0, y: 0}
+  savedFill: 0
 --- !u!1 &5048402858877067564
 GameObject:
   m_ObjectHideFlags: 0
@@ -535,6 +598,7 @@ GameObject:
   - component: {fileID: 4253504374490684348}
   - component: {fileID: 8686850395995694662}
   - component: {fileID: 3762070450672418320}
+  - component: {fileID: 1662253539}
   m_Layer: 5
   m_Name: RecenterZone
   m_TagString: Untagged
@@ -629,6 +693,25 @@ MonoBehaviour:
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
         Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   delegates: []
+--- !u!114 &1662253539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5048402858877067564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e62188adca544cf1b96ccf1630f15f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DoNotTesselate: 0
+  savedPos: {x: -19.012451, y: -28.01587, z: -0.0073242188}
+  savedUp: {x: 0, y: 1, z: 0}
+  savedRectSize: {x: 5000, y: 5000}
+  savedColor: {r: 1, g: 0, b: 0, a: 0}
+  savedTextUV0: {x: 0, y: 0}
+  savedFill: 1
 --- !u!1 &7175939659609238307
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,8 +723,9 @@ GameObject:
   - component: {fileID: 873388694987868522}
   - component: {fileID: 5775058139451139475}
   - component: {fileID: 4963065571595836280}
+  - component: {fileID: 503699502}
   m_Layer: 5
-  m_Name: Bottom_Text
+  m_Name: Precautions_Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -664,7 +748,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1500, y: 200}
+  m_SizeDelta: {x: 1700, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5775058139451139475
 CanvasRenderer:
@@ -695,7 +779,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: f49af5510249cb84c8c6680f3ec74035, type: 3}
     m_FontSize: 24
     m_FontStyle: 0
     m_BestFit: 0
@@ -707,8 +791,33 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Precautions\nAvoid prolonged usage.If you experience any abnormal symptoms
-    such as eye fatigue or motion sickness, \nstop using the device immediately\n"
+  m_Text: 'Precautions
+
+    Avoid prolonged usage.If you experience any abnormal symptoms such as eye fatigue
+    or motion sickness,
+
+    stop using the device immediately
+
+'
+--- !u!114 &503699502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7175939659609238307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e62188adca544cf1b96ccf1630f15f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DoNotTesselate: 0
+  savedPos: {x: 0, y: -321.9917, z: -0.0073242188}
+  savedUp: {x: 0, y: 1, z: 0}
+  savedRectSize: {x: 1700, y: 200}
+  savedColor: {r: 0.6603774, g: 0.6323425, b: 0.6323425, a: 1}
+  savedTextUV0: {x: 0.83691406, y: 0.043945312}
+  savedFill: 0
 --- !u!1 &8560838591858772154
 GameObject:
   m_ObjectHideFlags: 0
@@ -720,6 +829,7 @@ GameObject:
   - component: {fileID: 8533636197134455997}
   - component: {fileID: 1937674782730666015}
   - component: {fileID: 8080704746881931462}
+  - component: {fileID: 1316922678}
   m_Layer: 5
   m_Name: '----Line----'
   m_TagString: Untagged
@@ -783,3 +893,22 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+--- !u!114 &1316922678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8560838591858772154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e62188adca544cf1b96ccf1630f15f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DoNotTesselate: 0
+  savedPos: {x: 0, y: -191.01025, z: -0.0073242188}
+  savedUp: {x: 0, y: 1, z: 0}
+  savedRectSize: {x: 800, y: 2}
+  savedColor: {r: 1, g: 1, b: 1, a: 1}
+  savedTextUV0: {x: 0, y: 0}
+  savedFill: 1
