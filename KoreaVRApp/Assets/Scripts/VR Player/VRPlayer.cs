@@ -46,6 +46,16 @@ public class VRPlayer : MonoBehaviour
 
 	private SubtitlesUGUI[] subtitlesUGUIs;
 
+	public AspectRatio aspectRatio;
+	public float screenSize = 1.2f;
+
+	public static VRPlayer instance;
+
+	void Awake()
+	{
+		instance = this;
+	}
+
 	void Start()
     {
 		vrModes = Object.FindObjectsOfType<VRMode> ();
@@ -216,7 +226,6 @@ public class VRPlayer : MonoBehaviour
 
 	public void FlatMode()
 	{
-        print("sdddddd");
 		foreach (VRMode mode in vrModes) {
 
 			if (mode is FlatMode) {
@@ -294,6 +303,7 @@ public class VRPlayer : MonoBehaviour
 	#region Scale Setting
 	public void SetSize(float scale)
 	{
+		scale = scale / 10;
 		if (currentMode == null) {
 			Debug.Log ("Current mode is null!");
 			return;
@@ -305,20 +315,29 @@ public class VRPlayer : MonoBehaviour
 	}
 	public void Ratio43()
 	{
-		if (currentMode != null && currentMode is CinemaMode) {
-			currentMode.Ratio43 ();
+		aspectRatio = AspectRatio.RATIO_43;
+		if (currentMode != null) {
+			if (currentMode is CinemaMode || currentMode is FlatMode) {
+				currentMode.Ratio43 ();
+			} 		
 		}
 	}
 	public void Ratio1851()
 	{
-		if (currentMode != null && currentMode is CinemaMode) {
-			currentMode.Ratio1851 ();
+		aspectRatio = AspectRatio.RATIO_1851;
+		if (currentMode != null) {
+			if (currentMode is CinemaMode || currentMode is FlatMode) {
+				currentMode.Ratio1851 ();
+			}	
 		}
 	}
 	public void Ratio169()
 	{
-		if (currentMode != null && currentMode is CinemaMode) {
-			currentMode.Ratio169 ();
+		aspectRatio = AspectRatio.RATIO_169;
+		if (currentMode != null) {
+			if (currentMode is CinemaMode || currentMode is FlatMode) {
+				currentMode.Ratio169 ();
+			}
 		}
 	}
 

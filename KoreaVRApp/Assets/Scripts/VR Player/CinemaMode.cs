@@ -11,7 +11,7 @@ public class CinemaMode : VRMode
     // Start is called before the first frame update
     void Start()
     {
-		DefaultSize ();
+		//DefaultSize ();
     }
 
     // Update is called once per frame
@@ -25,5 +25,7 @@ public class CinemaMode : VRMode
 		base.Show ();
 		mediaPlayer.VideoLayoutMapping = RenderHeads.Media.AVProVideo.VideoMapping.Unknown;
 		applyToMesh.ForceUpdate ();
+
+		ResumeRatio ();
 	}
 }

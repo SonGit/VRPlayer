@@ -22,8 +22,6 @@ public abstract class VRMode : MonoBehaviour
 	[SerializeField]
 	protected ApplyToMesh applyToMesh;
 
-	protected AspectRatio currentRatio;
-
 	protected virtual void Init()
     {
         applyToMesh = this.GetComponentInChildren<ApplyToMesh> ();
@@ -169,9 +167,9 @@ public abstract class VRMode : MonoBehaviour
 			scale = -(Mathf.Abs (1 - scale));
 		}
 
-		currentScale = scale;
+		currentScale = scale * 9f;
 
-		switch (currentRatio) {
+		switch (VRPlayer.instance.aspectRatio) {
 
 		case AspectRatio.RATIO_43:
 			Ratio43 ();
@@ -183,36 +181,45 @@ public abstract class VRMode : MonoBehaviour
 			Ratio1851 ();
 			break;
 		}
+
+		VRPlayer.instance.screenSize = currentScale;
 	}
 
 	public void DefaultSize()
 	{
 		applyToMesh.transform.localScale = ratio169;
-		currentRatio = AspectRatio.RATIO_169;
 	}
 
-	Vector3 ratio43 = new Vector3(13.3f,9.4f,1f);
-	Vector3 ratio169 = new Vector3(14.6f,7.5f,1f);
-	Vector3 ratio1851 = new Vector3(14.6f,7.1f,1f);
+	protected void ResumeRatio()
+	{
+		SetSize (VRPlayer.instance.screenSize);
+	}
+
+	Vector3 ratio43 = new Vector3(14.5f,10.8777f,1f);
+	Vector3 ratio169 = new Vector3(14.6f,8.213f,1f);
+	Vector3 ratio1851 = new Vector3(14.6f,8.918f,1f);
 
 	public void Ratio43()
 	{
-		applyToMesh.transform.localScale = ratio43 + new Vector3 (currentScale,currentScale,0);
-		currentRatio = AspectRatio.RATIO_43;
+		float scaleX = ratio43.x + currentScale;
+		float scaleY = scaleX / 1.333f;
+		applyToMesh.transform.localScale = new Vector3 (scaleX,scaleY,0);
 	}
 
 	public void Ratio169()
 	{
-		applyToMesh.transform.localScale = ratio169 + new Vector3 (currentScale,currentScale,0);
-		currentRatio = AspectRatio.RATIO_169;
+		float scaleX = ratio169.x + currentScale;
+		float scaleY = scaleX / 1.777777f;
+		applyToMesh.transform.localScale = new Vector3 (scaleX,scaleY,0);
 	}
 
 	public void Ratio1851()
 	{
-		applyToMesh.transform.localScale = ratio1851 + new Vector3 (currentScale,currentScale,0);
-		currentRatio = AspectRatio.RATIO_1851;
+		float scaleX = ratio1851.x + currentScale;
+		float scaleY = scaleX / 1.85f;
+			applyToMesh.transform.localScale = new Vector3 (scaleX,scaleY,0);
 	}
-
+		
 	// Force applyToMesh to be child of a transform
 	// useful for Screenlock/Unlock function
 	public void MakeMeshChildOf(Transform t)

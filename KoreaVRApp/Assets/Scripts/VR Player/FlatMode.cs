@@ -14,7 +14,7 @@ public class FlatMode : VRMode
 	// Start is called before the first frame update
 	void Start()
 	{
-		DefaultSize ();
+		//DefaultSize ();
 	}
 
 	// Update is called once per frame
@@ -29,6 +29,8 @@ public class FlatMode : VRMode
 		base.Show ();
 		mediaPlayer.VideoLayoutMapping = RenderHeads.Media.AVProVideo.VideoMapping.Unknown;
 		applyToMesh.ForceUpdate ();
+
+		ResumeRatio ();
 	}
 
 	public override void Hide()

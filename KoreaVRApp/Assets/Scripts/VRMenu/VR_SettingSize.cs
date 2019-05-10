@@ -35,7 +35,7 @@ public class VR_SettingSize : MonoBehaviour
 			plus.interactable = false;
 		}
 
-		_amount.text = _slider.value.ToString ("0.0");
+		_amount.text = (_slider.value/10).ToString ("0.0");
     }
 
 	void Init()
