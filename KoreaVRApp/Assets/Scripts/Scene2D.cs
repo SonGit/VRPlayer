@@ -46,7 +46,8 @@ public class Scene2D : AppScene
 			Debug.Log ("++++ 2D current " + Screen.currentResolution.width + "  " + Screen.currentResolution.height);
 		}
 
-
+		QualitySettings.vSyncCount = 0;
+		Application.targetFrameRate = 50;
 
 //		Debug.Log ("++++ " + Screen.currentResolution.width + "  " + Screen.currentResolution.height);
 //		Screen.orientation = ScreenOrientation.Portrait;

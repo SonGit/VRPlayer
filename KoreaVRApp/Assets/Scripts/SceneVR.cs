@@ -293,6 +293,9 @@ public class SceneVR : AppScene
 		Debug.Log ("++++ VR RES " + Screen.resolutions[0].width + "  " + Screen.resolutions[0].height);
 
 		VR_Recenterer.instance.Recenter ();
+
+		QualitySettings.vSyncCount = 0;
+		Application.targetFrameRate = 60;
 	}
 
 	public override void Hide()
