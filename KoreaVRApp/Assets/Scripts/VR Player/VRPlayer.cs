@@ -72,6 +72,9 @@ public class VRPlayer : MonoBehaviour
 		//SetupSubtitle ();
 
 		//ScreenUnlock ();
+
+		// Default is Ratio 16:9
+		Ratio169 ();
     }
 
     // Update is called once per frame
