@@ -27,20 +27,26 @@ public class Scene2D : AppScene
 	IEnumerator LoadDevice(string newDevice)
 	{
 
-		int targetWidth = MainAllController.instance.maxWidth / 2;
-		int targetHeight = MainAllController.instance.maxHeight / 2;
+
 
 		yield return new WaitForEndOfFrame();
 		UnityEngine.XR.XRSettings.LoadDeviceByName(newDevice);
 		yield return null;
 		UnityEngine.XR.XRSettings.enabled = true;
 
-		Debug.Log ("++++ 2D last " + Screen.currentResolution.width + "  " + Screen.currentResolution.height);
-		Screen.orientation = ScreenOrientation.Portrait;
-		yield return new WaitForSeconds (.25f);
-		Screen.SetResolution (targetWidth,targetHeight,false);
-		yield return new WaitForSeconds (.25f);
-		Debug.Log ("++++ 2D current " + Screen.currentResolution.width + "  " + Screen.currentResolution.height);
+		int targetWidth = MainAllController.instance.maxWidth / 2;
+		int targetHeight = MainAllController.instance.maxHeight / 2;
+
+		if (targetHeight > 1000) {
+			Debug.Log ("++++ 2D last " + Screen.currentResolution.width + "  " + Screen.currentResolution.height);
+			Screen.orientation = ScreenOrientation.Portrait;
+			yield return new WaitForSeconds (.25f);
+			Screen.SetResolution (targetWidth,targetHeight,false);
+			yield return new WaitForSeconds (.25f);
+			Debug.Log ("++++ 2D current " + Screen.currentResolution.width + "  " + Screen.currentResolution.height);
+		}
+
+
 
 //		Debug.Log ("++++ " + Screen.currentResolution.width + "  " + Screen.currentResolution.height);
 //		Screen.orientation = ScreenOrientation.Portrait;

@@ -81,7 +81,10 @@ public class MainAllController : MonoBehaviour
 		maxWidth = Screen.currentResolution.width;
 		maxHeight = Screen.currentResolution.height;
 
-		Screen.SetResolution (maxWidth,maxHeight,false);
+		if (maxHeight > 1000) {
+			Screen.SetResolution (maxWidth/2,maxHeight/2,false);
+		}
+
 	}
 
 	private void Start()
