@@ -527,7 +527,7 @@ namespace RenderHeads.Media.AVProVideo
 
 	public static class Helper
 	{
-		public const string ScriptVersion = "1.9.12";
+		public const string ScriptVersion = "1.9.14";
 
 		public static string GetName(Platform platform)
 		{
@@ -657,6 +657,7 @@ namespace RenderHeads.Media.AVProVideo
 			Orientation result = Orientation.Landscape;
 			if (t != null)
 			{
+				// TODO: check that the Portrait and PortraitFlipped are the right way around
 				if (t[0] == 0f && t[1]== 1f && t[2] == -1f && t[3] == 0f)
 				{
 					result = Orientation.Portrait;
@@ -680,6 +681,7 @@ namespace RenderHeads.Media.AVProVideo
 		public static Matrix4x4 GetMatrixForOrientation(Orientation ori)
 		{
 			// TODO: cache these matrices
+			// TODO: check that -90 is correct, perhaps Portrait and PortraitFlipped are the wrong way around - need to check on iOS
 			Matrix4x4 portrait = Matrix4x4.TRS(new Vector3(0f, 1f, 0f), Quaternion.Euler(0f, 0f, -90f), Vector3.one);
 			Matrix4x4 portraitFlipped = Matrix4x4.TRS(new Vector3(1f, 0f, 0f), Quaternion.Euler(0f, 0f, 90f), Vector3.one);
 			Matrix4x4 landscapeFlipped = Matrix4x4.TRS(new Vector3(1f, 1f, 0f), Quaternion.identity, new Vector3(-1f, -1f, 1f));

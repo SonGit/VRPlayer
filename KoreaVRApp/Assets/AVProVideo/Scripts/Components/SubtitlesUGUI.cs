@@ -23,6 +23,7 @@ namespace RenderHeads.Media.AVProVideo
 		[SerializeField]
 		private MediaPlayer _mediaPlayer = null;
 
+		[SerializeField]
 		public Text _text = null;
 
 		void Start()

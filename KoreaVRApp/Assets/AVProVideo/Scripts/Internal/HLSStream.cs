@@ -105,13 +105,12 @@ namespace RenderHeads.Media.AVProVideo
 					int endPos = line.IndexOf(',', bandwidthPos + BANDWITH_NAME.Length);
 					if (endPos < 0)
 					{
-						endPos = line.Length - 1;
+						endPos = line.Length;
 					}
 
 					if (endPos >= 0 && endPos - BANDWITH_NAME.Length > bandwidthPos)
 					{
 						int length = endPos - bandwidthPos - BANDWITH_NAME.Length;
-
 						string bandwidthString = line.Substring(bandwidthPos + BANDWITH_NAME.Length, length);
 						if (!int.TryParse(bandwidthString, out bandwidth))
 						{
@@ -130,7 +129,7 @@ namespace RenderHeads.Media.AVProVideo
 					int endPos = line.IndexOf(',', resolutionPos + RESOLUTION_NAME.Length);
 					if (endPos < 0)
 					{
-						endPos = line.Length - 1;
+						endPos = line.Length;
 					}
 
 					if (endPos >= 0 && endPos - RESOLUTION_NAME.Length > resolutionPos)

@@ -24,6 +24,14 @@ namespace RenderHeads.Media.AVProVideo.Editor
 
 			SerializedProperty propItems = property.FindPropertyRelative("_items");
 
+			if (propItems.arraySize == 0)
+			{
+				if (GUILayout.Button("Insert Item"))
+				{
+					propItems.InsertArrayElementAtIndex(0);
+				}
+			}
+
 			for (int i = 0; i < propItems.arraySize; i++)
 			{
 				SerializedProperty propItem = propItems.GetArrayElementAtIndex(i);

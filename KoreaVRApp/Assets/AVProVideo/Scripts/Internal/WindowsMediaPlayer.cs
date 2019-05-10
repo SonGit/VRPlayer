@@ -610,7 +610,12 @@ namespace RenderHeads.Media.AVProVideo
 
 		public override bool IsPlaybackStalled()
 		{
-			return Native.IsPlaybackStalled(_instance);
+			bool result = Native.IsPlaybackStalled(_instance);
+			if (!result)
+			{
+				result = base.IsPlaybackStalled();
+			}
+			return result;
 		}
 
 		public override string GetCurrentAudioTrackId()

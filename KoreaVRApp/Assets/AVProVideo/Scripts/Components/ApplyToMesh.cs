@@ -340,9 +340,16 @@ namespace RenderHeads.Media.AVProVideo
 								}
 #if UNITY_PLATFORM_SUPPORTS_LINEAR
 								// Apply gamma
-								if (mat.HasProperty(_propApplyGamma) && _media.Info != null)
+								if (mat.HasProperty(_propApplyGamma))
 								{
-									Helper.SetupGammaMaterial(mat, _media.Info.PlayerSupportsLinearColorSpace());
+									if (texture == _defaultTexture || _media.Info == null)
+									{
+										Helper.SetupGammaMaterial(mat, true);
+									}
+									else
+									{
+										Helper.SetupGammaMaterial(mat, _media.Info.PlayerSupportsLinearColorSpace());
+									}
 								}
 #else
 								_propApplyGamma |= 0;

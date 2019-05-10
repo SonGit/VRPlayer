@@ -14,7 +14,7 @@
 	#endif
 #endif
 
-#if (!UNITY_STANDALONE_WIN && !UNITY_EDITOR_WIN) && (UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX || UNITY_IPHONE || UNITY_IOS || UNITY_TVOS)
+#if (!UNITY_STANDALONE_WIN && !UNITY_EDITOR_WIN) && (UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX || UNITY_IPHONE || UNITY_IOS || UNITY_TVOS || UNITY_ANDROID)
 	#define UNITY_PLATFORM_SUPPORTS_VIDEOTRANSFORM
 #endif
 
@@ -142,13 +142,36 @@ namespace RenderHeads.Media.AVProVideo
 				}
 			}
 #endif
+
+#if UNITY_IOS
+			bool hasMask = HasMask(gameObject);
+			if (hasMask)
+			{
+				Debug.LogWarning("[AVProVideo] Using DisplayUGUI with a Mask necessitates disabling YpCbCr mode on the MediaPlayer. Memory consumption will increase.");
+				_mediaPlayer.PlatformOptionsIOS.useYpCbCr420Textures = false;
+			}
+#endif
+
 			base.Awake();
+		}
+
+		private bool HasMask(GameObject obj)
+		{
+			if (obj.GetComponent<Mask>() != null)
+				return true;
+			if (obj.transform.parent != null)
+				return HasMask(obj.transform.parent.gameObject);
+			return false;
 		}
 
 		protected override void Start()
 		{
 			_userMaterial = (this.m_Material != null);
-				
+			if (_userMaterial) {
+				_material = new Material(this.material);
+				this.material = _material;
+			}
+
 			base.Start();
 		}
 
@@ -432,7 +455,7 @@ namespace RenderHeads.Media.AVProVideo
 
 				if (_mediaPlayer != null)
 				{
-#if UNITY_PLATFORM_SUPPORTS_VIDEOTRANSFORM
+#if UNITY_PLATFORM_SUPPORTS_VIDEOTRANSFORM && !REAL_ANDROID
 					if (_mediaPlayer.Info != null)
 					{
 						Orientation ori = Helper.GetOrientation(_mediaPlayer.Info.GetTextureTransform());
@@ -516,6 +539,7 @@ namespace RenderHeads.Media.AVProVideo
 				m = Helper.GetMatrixForOrientation(Helper.GetOrientation(_mediaPlayer.Info.GetTextureTransform()));
 			}
 #endif
+
 			vbo.Clear();
 
 			var vert = UIVertex.simpleVert;
@@ -578,7 +602,7 @@ namespace RenderHeads.Media.AVProVideo
 				var textureSize = new Vector2(mainTexture.width, mainTexture.height);
 				{
 					// Adjust textureSize based on orientation
-#if UNITY_PLATFORM_SUPPORTS_VIDEOTRANSFORM
+#if UNITY_PLATFORM_SUPPORTS_VIDEOTRANSFORM && !REAL_ANDROID
 					if (HasValidTexture())
 					{
 						Matrix4x4 m = Helper.GetMatrixForOrientation(Helper.GetOrientation(_mediaPlayer.Info.GetTextureTransform()));

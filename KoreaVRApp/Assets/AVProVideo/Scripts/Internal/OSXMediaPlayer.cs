@@ -297,7 +297,7 @@ namespace RenderHeads.Media.AVProVideo
 #endif
 		private delegate void DebugLogCallbackDelegate(int level, int flags, string str);
 
-#if UNITY_IPHONE || UNITY_IOS || UNITY_TVOS
+#if UNITY_IPHONE || UNITY_IOS || UNITY_TVOS || ENABLE_IL2CPP
 		[MonoPInvokeCallback(typeof(DebugLogCallbackDelegate))]
 #endif
 		private static void DebugLogCallback(int level, int flags, string str)
@@ -334,7 +334,7 @@ namespace RenderHeads.Media.AVProVideo
 #endif
 		private delegate void ValueAtKeyPathDidChangeDelegate(IntPtr self, string keyPath);
 
-#if UNITY_IPHONE || UNITY_IOS || UNITY_TVOS
+#if UNITY_IPHONE || UNITY_IOS || UNITY_TVOS || ENABLE_IL2CPP
 		[MonoPInvokeCallback(typeof(ValueAtKeyPathDidChangeDelegate))]
 #endif
 		private static void ValueAtKeyPathDidChangeThunk(IntPtr self, string keyPath)
@@ -476,6 +476,7 @@ namespace RenderHeads.Media.AVProVideo
 			_isMetaDataReady = false;
 			_planeCount = 0;
 			_YpCbCrTransformIsValid = false;
+			_status = AVPPlayerStatus.Unknown;
 			
 			base.CloseVideo();
 		}

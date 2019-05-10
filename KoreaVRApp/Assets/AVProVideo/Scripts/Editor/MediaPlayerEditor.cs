@@ -122,7 +122,7 @@ namespace RenderHeads.Media.AVProVideo.Editor
 		private static bool _showAlpha = false;
 		private static string[] _platformNames;
 
-		[MenuItem("GameObject/AVPro Video/Media Player", false, 0)]
+		[MenuItem("GameObject/AVPro Video/Media Player", false, 10)]
 		public static void CreateMediaPlayerEditor()
 		{
 			GameObject go = new GameObject("MediaPlayer");
@@ -131,7 +131,7 @@ namespace RenderHeads.Media.AVProVideo.Editor
 		}
 
 #if UNITY_5 || UNITY_5_4_OR_NEWER
-		[MenuItem("GameObject/AVPro Video/Media Player with Unity Audio", false, 0)]
+		[MenuItem("GameObject/AVPro Video/Media Player with Unity Audio", false, 10)]
 		public static void CreateMediaPlayerWithUnityAudioEditor()
 		{
 			GameObject go = new GameObject("MediaPlayer");
