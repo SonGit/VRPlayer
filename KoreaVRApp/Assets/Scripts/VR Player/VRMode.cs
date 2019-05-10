@@ -9,6 +9,7 @@ public enum AspectRatio
 	RATIO_43,
 	RATIO_169,
 	RATIO_1851,
+	ORIGINAL
 }
 
 public abstract class VRMode : MonoBehaviour
@@ -218,6 +219,14 @@ public abstract class VRMode : MonoBehaviour
 		float scaleX = ratio1851.x + currentScale;
 		float scaleY = scaleX / 1.85f;
 			applyToMesh.transform.localScale = new Vector3 (scaleX,scaleY,0);
+	}
+
+	public void RatioOriginal()
+	{
+		float ratio = (float)mediaPlayer.Info.GetVideoWidth () /  (float)mediaPlayer.Info.GetVideoHeight();
+		float scaleX = ratio169.x + currentScale;
+		float scaleY = scaleX / ratio;
+		applyToMesh.transform.localScale = new Vector3 (scaleX,scaleY,0);
 	}
 		
 	// Force applyToMesh to be child of a transform

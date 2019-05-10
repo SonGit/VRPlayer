@@ -344,6 +344,15 @@ public class VRPlayer : MonoBehaviour
 		}
 	}
 
+	public void RatioOriginal()
+	{
+		aspectRatio = AspectRatio.ORIGINAL;
+		if (currentMode != null) {
+			if (currentMode is CinemaMode || currentMode is FlatMode) {
+				currentMode.RatioOriginal ();
+			}
+		}
+	}
 
 
 	#endregion
