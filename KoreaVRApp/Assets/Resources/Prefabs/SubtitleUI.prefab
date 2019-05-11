@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2071127410174921258}
   - component: {fileID: 815901659774353276}
   - component: {fileID: 8514466429362077358}
-  - component: {fileID: 2653223454532701313}
+  - component: {fileID: 4850333004198895009}
   m_Layer: 0
   m_Name: SubtitleCircle
   m_TagString: Untagged
@@ -75,7 +75,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
---- !u!114 &2653223454532701313
+--- !u!114 &4850333004198895009
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -84,7 +84,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1455767565929185213}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: f4a6234890f6e5943bbcdfa0a9f2afc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -117,6 +117,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  _timeCountdown: 1
+  _text: {fileID: 0}
+  _loopable: 0
 --- !u!1 &2495428537719908898
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,6 +171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _languageLabel: {fileID: 2315755442504300768}
+  _selectedImg: {fileID: 0}
 --- !u!1 &3668527251469562980
 GameObject:
   m_ObjectHideFlags: 0

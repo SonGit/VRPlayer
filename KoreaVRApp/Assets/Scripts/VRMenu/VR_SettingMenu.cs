@@ -19,8 +19,9 @@ public class VR_SettingMenu : MonoBehaviour
 
 	private EventSystem eventSystem;
 
+    public Camera cameraSubtitle;
 
-	void Awake(){
+    void Awake(){
 	}
 
 	void Start()
@@ -62,7 +63,14 @@ public class VR_SettingMenu : MonoBehaviour
 			} else {
 				Debug.LogError ("VR_SettingMenu BG is null!");
 			}
-		}
+
+            if (cameraSubtitle != null)
+            {
+                cameraSubtitle.enabled = false;
+            }
+        }
+
+
 	}
 
 	public void HideSetting(){
@@ -86,8 +94,13 @@ public class VR_SettingMenu : MonoBehaviour
 		}else {
 			Debug.LogError ("VR_SettingMenu BG is null!");
 		}
-			
-	}
+
+        if (cameraSubtitle != null)
+        {
+            cameraSubtitle.enabled = true;
+        }
+
+    }
 
 	#region VideoSetting
 	public void ShowVideoSetting(){

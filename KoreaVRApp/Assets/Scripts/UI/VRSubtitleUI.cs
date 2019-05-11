@@ -43,7 +43,7 @@ public class VRSubtitleUI : MonoBehaviour
 	{
 		string urlSubtitle = string.Empty;
 
-		if (video is UserVideo) {
+		if (video is UserVideo || video is FavoriteVideo) {
 			
 			urlSubtitle = MainAllController.instance.user.GetPathToSubtitle (video.videoInfo.id, subtitle.language);
 

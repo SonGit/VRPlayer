@@ -27,7 +27,9 @@ public class UserDetailMenu : BasicMenuNavigation
 	[SerializeField] private GameObject downloadedUI;
 	[SerializeField] private GameObject haventDownloadedUI;
 
-	private byte[] raw ;
+    [SerializeField] private ScrollRect scrollRect;
+
+    private byte[] raw ;
 
 	protected override void Start ()
 	{
@@ -109,17 +111,26 @@ public class UserDetailMenu : BasicMenuNavigation
 	/// Resets the scroll view (RectTransform).
 	/// </summary>
 	public void ResetScrollView(){
-		if (verticalGrid != null) {
-			verticalGrid.GetComponent<RectTransform> ().offsetMax = new Vector2 (0,0);
-		}
+        StartCoroutine(ResetScroll());
 	}
+
+    IEnumerator ResetScroll()
+    {
+        verticalGrid.enabled = false;
+        yield return new WaitForEndOfFrame();
+        verticalGrid.enabled = true;
+        if (verticalGrid != null)
+        {
+            verticalGrid.GetComponent<RectTransform>().offsetMax = new Vector2(0, 0);
+        }
+        yield return null;
+    }
 
 	Video video;
 	VideoUI currentShowUI;
 
 	public void Setup(Video video, VideoUI currentShowUI)
 	{
-		ResetScrollView ();
 		GetVideoName().text = video.videoInfo.video_name;
 		GetVideoID ().text = video.videoInfo.id;
 		GetVideoDescription ().text = video.videoInfo.description;
@@ -140,7 +151,9 @@ public class UserDetailMenu : BasicMenuNavigation
 		SetupFavoriteBtns ();
 
 		UiSwitch ();
-	}
+
+        ResetScrollView();
+    }
 
 	#region Streaming 3D
 

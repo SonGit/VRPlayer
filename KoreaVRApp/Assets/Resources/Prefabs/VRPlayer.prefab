@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 231507815}
   - component: {fileID: 231507814}
   - component: {fileID: 231507813}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 462860773}
   - component: {fileID: 462860772}
   - component: {fileID: 462860771}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -210,7 +210,7 @@ GameObject:
   - component: {fileID: 768934475}
   - component: {fileID: 768934474}
   - component: {fileID: 768934473}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: SubtitlesText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -256,7 +256,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: dd053917c61f3884d8eed4a1e8d629ae, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
@@ -304,7 +304,7 @@ GameObject:
   - component: {fileID: 1193940303}
   - component: {fileID: 1193940302}
   - component: {fileID: 1193940301}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: SubtitlesText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -350,7 +350,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: dd053917c61f3884d8eed4a1e8d629ae, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
@@ -398,7 +398,7 @@ GameObject:
   - component: {fileID: 1262066319}
   - component: {fileID: 1262066318}
   - component: {fileID: 1262066320}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: SubtitlesText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -444,7 +444,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: dd053917c61f3884d8eed4a1e8d629ae, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
@@ -492,7 +492,7 @@ GameObject:
   - component: {fileID: 1535105841}
   - component: {fileID: 1535105840}
   - component: {fileID: 1535105839}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -591,7 +591,7 @@ GameObject:
   - component: {fileID: 1571623761}
   - component: {fileID: 1571623760}
   - component: {fileID: 1571623759}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: SubtitlesText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -637,7 +637,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: dd053917c61f3884d8eed4a1e8d629ae, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
@@ -685,7 +685,7 @@ GameObject:
   - component: {fileID: 1722216252}
   - component: {fileID: 1722216251}
   - component: {fileID: 1722216250}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1967,6 +1967,8 @@ MonoBehaviour:
   vrSubtitle: {fileID: 0}
   seekSlider: {fileID: 0}
   videoNameLabel: {fileID: 0}
+  aspectRatio: 0
+  screenSize: 1.2
 --- !u!1 &8409886294433715981
 GameObject:
   m_ObjectHideFlags: 0
