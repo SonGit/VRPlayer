@@ -66,7 +66,7 @@ public class VR_SettingMenu : MonoBehaviour
 
             if (cameraSubtitle != null)
             {
-                cameraSubtitle.enabled = false;
+                //cameraSubtitle.enabled = false;
             }
         }
 
@@ -97,7 +97,7 @@ public class VR_SettingMenu : MonoBehaviour
 
         if (cameraSubtitle != null)
         {
-            cameraSubtitle.enabled = true;
+            //cameraSubtitle.enabled = true;
         }
 
     }
