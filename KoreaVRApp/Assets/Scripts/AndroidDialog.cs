@@ -70,9 +70,9 @@ public class AndroidDialog : MonoBehaviour
 
 	int lastDialog;
 
-	public void showLoginDialog(string message, ConfirmCallback callback,string confirmMessage = "Confirm",string cancelMessage = "Cancel")
+	public void showLoginDialog(string message, ConfirmCallback callback,string confirmMessage = "Confirm",string cancelMessage = "Cancel",bool remember = true)
 	{
-		#if UNITY_ANDROID && !UNITY_EDITOR
+		#if UNITY_ANDROID
 		AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
 		AndroidJavaObject activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
 
@@ -103,16 +103,24 @@ public class AndroidDialog : MonoBehaviour
 		lastCallback = callback;
 		lastConfirmMessage = confirmMessage;
 		lastCancelMessage = cancelMessage;
-		lastDialog = 1;
+
+				if(remember)
+				{
+					lastDialog = 1;
+				}else
+				{
+					lastDialog = -1;
+				}
+
 			}
 		)
 		);
 		#endif
 	}
 
-	public void showWarningDialog(string message)
+	public void showWarningDialog(string message,bool remember = true)
 	{
-		#if UNITY_ANDROID && !UNITY_EDITOR
+		#if UNITY_ANDROID 
 		AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
 		AndroidJavaObject activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
 
@@ -134,7 +142,13 @@ public class AndroidDialog : MonoBehaviour
 
 				lastMessage = message;
 
-				lastDialog = 2;
+				if(remember)
+				{
+					lastDialog = 2;
+				}else
+				{
+					lastDialog = -1;
+				}
 			}
 		)
 		);
@@ -146,21 +160,20 @@ public class AndroidDialog : MonoBehaviour
 	{
 		if (pauseStatus)
 		{
-			Debug.Log("Application pause.........................................................");
 			if (dialog != null) {
 				dialog.Call("dismiss");
 			}
 		}
 		else
 		{
-			Debug.Log("Application resumed.......................................................");
 			if (lastDialog == 1) {
-				showLoginDialog (lastMessage,lastCallback,lastConfirmMessage,lastCancelMessage);
+				showLoginDialog (lastMessage,lastCallback,lastConfirmMessage,lastCancelMessage,false);
 			}
 
 			if (lastDialog == 2) {
-				showWarningDialog (lastMessage);
+				showWarningDialog (lastMessage,false);
 			}
+
 		}
 
 	}
