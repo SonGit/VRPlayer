@@ -929,7 +929,7 @@ public class MainAllController : MonoBehaviour
 	}
 
 	private void MediaPlayerMenu_OnBack(){
-		SetPortraitRotation ();
+        GoToScene2D();
 		AccessMenu_OnMyStorage ();
 		accessMenu.SetHandleViewable (true);
 		mediaPlayerMenu.CloseVideo ();
@@ -1073,15 +1073,9 @@ public class MainAllController : MonoBehaviour
 
 	private void Play3D_2D()
 	{
-		if (currentScene is SceneVR) {
-			this.vrPlayer = (currentScene as SceneVR).vrPlayer;
-		}
+        GoTo2DMediaPlayer();
 
-		if (!(currentScene is Scene2D)) {
-			GoToScene2D ();
-		}
-			
-		if (isStreaming) {
+        if (isStreaming) {
 			mediaPlayerMenu.Streaming (videoStreaming, urlStreaming);
 		} else {
 			mediaPlayerMenu.Play (video, this.vrPlayer);
@@ -1199,12 +1193,33 @@ public class MainAllController : MonoBehaviour
 		}
 	}
 
-	#endregion
+    void GoTo2DMediaPlayer()
+    {
+        foreach (AppScene scene in scenes)
+        {
+            if (scene is SceneMediaPlayer)
+            {
+
+                scene.Show(currentMenu);
+
+                currentScene = scene;
+
+                if (currentMenu != null)
+                    currentMenu.Init();
+            }
+            else
+            {
+                scene.Hide();
+            }
+        }
+    }
+
+    #endregion
 
 
-	#region UserName Data
+    #region UserName Data
 
-	public void SubmitNewUserName(string username)
+    public void SubmitNewUserName(string username)
 	{
 		if (loginMenu != null) {
 			loginMenu.SetUsernameInput (username);

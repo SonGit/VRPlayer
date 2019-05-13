@@ -151,11 +151,11 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 		}
 			
 		// Attemp to resume video from last time
-		for (int i = 0; i < vrPlayer.playedVideoList.Count; i++) {
-			if (video.videoInfo.id == vrPlayer.playedVideoList [i].videoInfo.id) {
-				resumeMs = vrPlayer.playedVideoList [i].lastTimeMs;
-			}
-		}
+		//for (int i = 0; i < vrPlayer.playedVideoList.Count; i++) {
+			//if (video.videoInfo.id == vrPlayer.playedVideoList [i].videoInfo.id) {
+				//resumeMs = vrPlayer.playedVideoList [i].lastTimeMs;
+			//}
+		//}
 
 		string url = string.Empty;
 
@@ -269,11 +269,12 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 	}
 
 	public void OnPointerDown(PointerEventData e) {
-		
+        Debug.Log("OnPointerDown");
 	}
 
 	public void OnPointerUp(PointerEventData e) {
-		if (allUI != null ) {
+        Debug.Log("OnPointerUp");
+        if (allUI != null ) {
 			if (allUI.activeSelf) {
 				allUI.SetActive (false);
 			} else {
