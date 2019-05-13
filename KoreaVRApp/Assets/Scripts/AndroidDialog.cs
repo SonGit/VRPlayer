@@ -39,6 +39,8 @@ public class AndroidDialog : MonoBehaviour
 			if (callback != null) {
                 callback();
 			}
+
+			AndroidDialog.instance.dialog = null;
 		}
 	}
 
@@ -55,6 +57,8 @@ public class AndroidDialog : MonoBehaviour
 		{
 			mDialog.mYesPressed = false;
 			mDialog.mNoPressed = true;
+
+			AndroidDialog.instance.dialog = null;
 		}
 	}
 	#endif
@@ -166,12 +170,14 @@ public class AndroidDialog : MonoBehaviour
 		}
 		else
 		{
-			if (lastDialog == 1) {
-				showLoginDialog (lastMessage,lastCallback,lastConfirmMessage,lastCancelMessage,false);
-			}
+			if (dialog != null) {
+				if (lastDialog == 1) {
+					showLoginDialog (lastMessage,lastCallback,lastConfirmMessage,lastCancelMessage);
+				}
 
-			if (lastDialog == 2) {
-				showWarningDialog (lastMessage,false);
+				if (lastDialog == 2) {
+					showWarningDialog (lastMessage);
+				}
 			}
 
 		}

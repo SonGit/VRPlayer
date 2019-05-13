@@ -5,6 +5,7 @@ using UnityEngine.XR;
 
 public class Scene2D : AppScene
 {
+	public Camera camera;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +27,8 @@ public class Scene2D : AppScene
 
 	IEnumerator LoadDevice(string newDevice)
 	{
-
+		if(camera != null)
+		camera.enabled = false;
 
 
 		yield return new WaitForEndOfFrame();
@@ -45,6 +47,9 @@ public class Scene2D : AppScene
 			yield return new WaitForSeconds (.25f);
 			Debug.Log ("++++ 2D current " + Screen.currentResolution.width + "  " + Screen.currentResolution.height);
 		}
+
+		if(camera != null)
+		camera.enabled = true;
 
 		QualitySettings.vSyncCount = 0;
 		Application.targetFrameRate = 50;
