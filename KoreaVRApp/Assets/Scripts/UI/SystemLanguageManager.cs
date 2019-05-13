@@ -1325,7 +1325,7 @@ public class SystemLanguageManager : MonoBehaviour
 		if (text != null) {
 			text.text = value;
 		} else {
-			Debug.Log(text.name + "null...........................");
+			Debug.Log( "null...........................");
 		}
 	}
 }

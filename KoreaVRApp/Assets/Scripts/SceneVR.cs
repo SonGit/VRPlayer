@@ -150,7 +150,9 @@ public class SceneVR : AppScene
 
 		if (video is LocalVideo) {
 			vrPlayer.InitSubtitle ();
-		} else {
+            MainAllController.instance.IsShowRecenterPanel = false;
+
+        } else {
 			if (currentVideo != null && currentVideo.videoInfo.id == video.videoInfo.id) {
 				Debug.Log ("Not Setup Subtitle");
 			} else {

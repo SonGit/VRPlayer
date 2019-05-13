@@ -19,13 +19,20 @@ public class CinemaMode : VRMode
     {
         
     }
-
+    bool first = false;
 	public override void Show()
 	{
 		base.Show ();
 		mediaPlayer.VideoLayoutMapping = RenderHeads.Media.AVProVideo.VideoMapping.Unknown;
 		applyToMesh.ForceUpdate ();
 
-		ResumeRatio ();
+        if(first)
+        {
+            ResumeRatio();
+        }else
+        {
+            first = true;
+        }
+
 	}
 }

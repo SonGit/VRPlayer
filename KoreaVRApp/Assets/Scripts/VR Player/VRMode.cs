@@ -157,6 +157,13 @@ public abstract class VRMode : MonoBehaviour
 
 	public void SetSize(float scale)
 	{
+        if (scale == 0)
+        {
+            scale = 1;
+        }
+        VRPlayer.instance.screenSize = scale;
+
+        float multiplier = 9;
 		if (scale > 2)
 			scale = 2;
 		if (scale < .5f)
@@ -165,10 +172,20 @@ public abstract class VRMode : MonoBehaviour
 		if (scale > 1) {
 			scale = scale - 1;
 		} else {
-			scale = -(Mathf.Abs (1 - scale));
+
+            if(scale == 1)
+            {
+                scale = 0;
+                multiplier = 0;
+            }
+            else
+            {
+                scale = -(Mathf.Abs(1 - scale));
+            }
+
 		}
 
-		currentScale = scale * 9f;
+		currentScale = scale * multiplier;
 
 		switch (VRPlayer.instance.aspectRatio) {
 
@@ -183,7 +200,7 @@ public abstract class VRMode : MonoBehaviour
 			break;
 		}
 
-		VRPlayer.instance.screenSize = currentScale;
+
 	}
 
 	public void DefaultSize()
