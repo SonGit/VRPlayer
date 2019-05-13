@@ -62,9 +62,17 @@ public class AndroidDialog : MonoBehaviour
 	public delegate void ConfirmCallback();
 	public delegate void CancelCallback();
 
+	AndroidJavaObject dialog;
+	string lastMessage;
+	ConfirmCallback lastCallback;
+	string lastConfirmMessage;
+	string lastCancelMessage;
+
+	int lastDialog;
+
 	public void showLoginDialog(string message, ConfirmCallback callback,string confirmMessage = "Confirm",string cancelMessage = "Cancel")
 	{
-		#if UNITY_ANDROID //&& !UNITY_EDITOR
+		#if UNITY_ANDROID && !UNITY_EDITOR
 		AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
 		AndroidJavaObject activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
 
@@ -86,9 +94,16 @@ public class AndroidDialog : MonoBehaviour
 
 				alertDialogBuilder.Call<AndroidJavaObject>("setNegativeButton",cancelMessage,new NegativeButtonListener(this));
 
-				AndroidJavaObject dialog = alertDialogBuilder.Call<AndroidJavaObject>("create");
+				dialog = alertDialogBuilder.Call<AndroidJavaObject>("create");
 
 				dialog.Call("show");
+				
+
+		lastMessage = message;
+		lastCallback = callback;
+		lastConfirmMessage = confirmMessage;
+		lastCancelMessage = cancelMessage;
+		lastDialog = 1;
 			}
 		)
 		);
@@ -97,7 +112,7 @@ public class AndroidDialog : MonoBehaviour
 
 	public void showWarningDialog(string message)
 	{
-		#if UNITY_ANDROID
+		#if UNITY_ANDROID && !UNITY_EDITOR
 		AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
 		AndroidJavaObject activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
 
@@ -113,13 +128,41 @@ public class AndroidDialog : MonoBehaviour
 
 				alertDialogBuilder.Call<AndroidJavaObject>("setCancelable",true);
 
-				AndroidJavaObject dialog = alertDialogBuilder.Call<AndroidJavaObject>("create");
+				dialog = alertDialogBuilder.Call<AndroidJavaObject>("create");
 
 				dialog.Call("show");
+
+				lastMessage = message;
+
+				lastDialog = 2;
 			}
 		)
 		);
+
 		#endif
+	}
+
+	private void OnApplicationPause(bool pauseStatus)
+	{
+		if (pauseStatus)
+		{
+			Debug.Log("Application pause.........................................................");
+			if (dialog != null) {
+				dialog.Call("dismiss");
+			}
+		}
+		else
+		{
+			Debug.Log("Application resumed.......................................................");
+			if (lastDialog == 1) {
+				showLoginDialog (lastMessage,lastCallback,lastConfirmMessage,lastCancelMessage);
+			}
+
+			if (lastDialog == 2) {
+				showWarningDialog (lastMessage);
+			}
+		}
+
 	}
 		
 }
