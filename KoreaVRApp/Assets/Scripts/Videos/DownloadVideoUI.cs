@@ -238,13 +238,18 @@ public class DownloadVideoUI : VideoUI
 				GameObject videoDownloaderObj = GameObject.Find ("VideoDownLoader" + "-" + video.videoInfo.id);
 
 				if (videoDownloaderObj != null) {
-					return;
+					videoDownloader = videoDownloaderObj.GetComponent<VideoDownloader>();
+					videoDownloader.DownLoad (getLinkVideoResponse.link,filepath,OnGetDownloadCallback,OnSuccessDownloadCallback,OnFailDownloadCallback);
+
+				}
+				else
+				{
+					// If the file is partially downloaded, but have no downloader, attempt to resume
+					videoDownloader = ((GameObject)Instantiate (videoDownloaderPrefab)).GetComponent<VideoDownloader> ();
+					videoDownloader.name = "VideoDownLoader" + "-" + video.videoInfo.id;
+					videoDownloader.DownLoad (getLinkVideoResponse.link,filepath,OnGetDownloadCallback,OnSuccessDownloadCallback,OnFailDownloadCallback);
 				}
 
-				// If the file is partially downloaded, but have no downloader, attempt to resume
-				videoDownloader = ((GameObject)Instantiate (videoDownloaderPrefab)).GetComponent<VideoDownloader> ();
-				videoDownloader.name = "VideoDownLoader" + "-" + video.videoInfo.id;
-				videoDownloader.DownLoad (getLinkVideoResponse.link,filepath,OnGetDownloadCallback,OnSuccessDownloadCallback,OnFailDownloadCallback);
 
 			}
 
