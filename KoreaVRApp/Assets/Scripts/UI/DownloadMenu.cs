@@ -174,4 +174,15 @@ public class DownloadMenu : BasicMenuNavigation
 
 	#endregion
 
+
+	public void StartDownload(string id)
+	{
+		for (int i = 0; i < listObject.Count; i++) {
+			if (listObject [i].video.videoInfo.id == id) {
+				DownloadVideoUI downloadUI = (listObject [i] as DownloadVideoUI);
+				downloadUI.Download ();
+				return;
+			}
+		}
+	}
 }

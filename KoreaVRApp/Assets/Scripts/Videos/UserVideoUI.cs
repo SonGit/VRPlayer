@@ -85,6 +85,7 @@ public class UserVideoUI : VideoUI
 			if (videoDownloaderObj != null) {
 
 				Debug.Log ("Already in Download Menu!!!");
+				DownloadMenu.instance.StartDownload (video.videoInfo.id);
 				GoToDownloadMenu ();
 
 			} else {
@@ -145,6 +146,8 @@ public class UserVideoUI : VideoUI
 					Debug.Log("CREATE +++++++++++++++++++++++" + video.videoInfo.id);
 					videoDownloader = ((GameObject)Instantiate (videoDownloaderPrefab)).GetComponent<VideoDownloader> ();
 					videoDownloader.name = "VideoDownLoader" + "-" + video.videoInfo.id;
+
+					Custom();
 				}
 
 				GoToDownloadMenu ();
@@ -163,6 +166,11 @@ public class UserVideoUI : VideoUI
 
 		}
 			
+	}
+
+	protected virtual void Custom()
+	{
+
 	}
 
 	/// <summary>

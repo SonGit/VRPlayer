@@ -133,4 +133,8 @@ public class FavoriteVideoUI : UserVideoUI
 		base.SetupFavoriteBtns ();
 	}
 
+	protected override void Custom()
+	{
+		DownloadMenu.instance.StartDownload (video.videoInfo.id);
+	}
 }
