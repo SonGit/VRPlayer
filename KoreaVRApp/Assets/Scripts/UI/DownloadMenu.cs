@@ -30,6 +30,7 @@ public class DownloadMenu : BasicMenuNavigation
 		List<Video> currentUserVideo = new List<Video> ();
 
 		foreach (VideoUI UI in listObject) {
+			if(UI.video != null)
 			currentUserVideo.Add (UI.video);
 		}
 
