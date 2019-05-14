@@ -17,7 +17,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string myvideoString_English = "My Video";
 	private string myvideoTitleString_English = "MY VIDEO";
 	private string videoListString_English = "Video List";
-	private string favoriteString_English = "Favorite";
+	private string favoriteString_English = "Favorites";
 	private string favoriteTitleString_English = "FAVORITES";
 	private string downloadString_English = "Download";
 	private string downloadTitleString_English = "DOWNLOAD";
