@@ -1048,10 +1048,6 @@ public class MainAllController : MonoBehaviour
 		this.video = video;
 		isStreaming = false;
 
-		if (currentScene is Scene2D) {
-			PlayButtonSound ();
-		}
-
 		if (currentScene is SceneVR) {
 			(currentScene as SceneVR).PlayFromURL (video);
 		} else {
@@ -1086,6 +1082,7 @@ public class MainAllController : MonoBehaviour
 		if (currentScene is SceneMediaPlayer) {
 			AccessMenu_OnMyStorage ();
 			accessMenu.SetHandleViewable (true);
+			PlayButtonSound ();
 		}
 
 		if (isStreaming) {
@@ -1127,10 +1124,7 @@ public class MainAllController : MonoBehaviour
 		this.urlStreaming = url;
 		this.videoStreaming = video;
 
-		if (currentScene is Scene2D) {
-			PlayButtonSound ();
-			GoToSceneVR ();
-		}
+		GoToSceneVR ();
 
 		if (currentScene is SceneVR) {
 			(currentScene as SceneVR).Streaming (video,url);
@@ -1143,7 +1137,7 @@ public class MainAllController : MonoBehaviour
 		this.urlStreaming = url;
 		this.videoStreaming = video;
 
-		if (currentScene is Scene2D) {
+		if (currentScene is SceneMediaPlayer) {
 			PlayButtonSound ();
 		}
 
