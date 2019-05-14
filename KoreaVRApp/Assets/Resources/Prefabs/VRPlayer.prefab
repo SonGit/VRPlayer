@@ -290,7 +290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d4bbe43657314a49a5f730e66dafebd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mediaPlayer: {fileID: 8409886292987533668}
+  _mediaPlayer: {fileID: 0}
   _text: {fileID: 768934474}
 --- !u!1 &1193940299
 GameObject:
@@ -384,7 +384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d4bbe43657314a49a5f730e66dafebd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mediaPlayer: {fileID: 8409886292987533668}
+  _mediaPlayer: {fileID: 0}
   _text: {fileID: 1193940302}
 --- !u!1 &1262066316
 GameObject:
@@ -478,7 +478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d4bbe43657314a49a5f730e66dafebd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mediaPlayer: {fileID: 8409886292987533668}
+  _mediaPlayer: {fileID: 0}
   _text: {fileID: 1262066318}
 --- !u!1 &1535105837
 GameObject:
@@ -671,7 +671,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d4bbe43657314a49a5f730e66dafebd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mediaPlayer: {fileID: 8409886292987533668}
+  _mediaPlayer: {fileID: 0}
   _text: {fileID: 1571623760}
 --- !u!1 &1722216248
 GameObject:
@@ -1001,7 +1001,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6d1977a52888584496b1acc7e998011, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _media: {fileID: 8409886292987533668}
+  _media: {fileID: 0}
   _defaultTexture: {fileID: 0}
   _mesh: {fileID: 0}
   _texturePropertyName: _MainTex
@@ -1069,7 +1069,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   root: {fileID: 8978283634313513056}
-  mediaPlayer: {fileID: 8409886292987533668}
+  mediaPlayer: {fileID: 0}
   applyToMesh: {fileID: 0}
 --- !u!1 &8409886292505959568
 GameObject:
@@ -1114,8 +1114,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdb8b60922708534498e2539232f026c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mediaPlayer: {fileID: 8409886292987533668}
-  _mediaPlayerB: {fileID: 8409886292987533668}
+  _mediaPlayer: {fileID: 0}
+  _mediaPlayerB: {fileID: 0}
   _mediaDisplay: {fileID: 0}
   _bufferedSliderRect: {fileID: 0}
   _currentTimeLabel: {fileID: 0}
@@ -1173,7 +1173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   root: {fileID: 8409886292904539659}
-  mediaPlayer: {fileID: 8409886292987533668}
+  mediaPlayer: {fileID: 0}
   applyToMesh: {fileID: 0}
 --- !u!1 &8409886292756530916
 GameObject:
@@ -1346,7 +1346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6d1977a52888584496b1acc7e998011, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _media: {fileID: 8409886292987533668}
+  _media: {fileID: 0}
   _defaultTexture: {fileID: 0}
   _mesh: {fileID: 8409886292906668793}
   _texturePropertyName: _MainTex
@@ -1402,7 +1402,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8409886292987533669
 Transform:
   m_ObjectHideFlags: 0
@@ -1756,7 +1756,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   root: {fileID: 8409886292909617304}
-  mediaPlayer: {fileID: 8409886292987533668}
+  mediaPlayer: {fileID: 0}
   applyToMesh: {fileID: 0}
 --- !u!1 &8409886293909675440
 GameObject:
@@ -2061,7 +2061,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6d1977a52888584496b1acc7e998011, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _media: {fileID: 8409886292987533668}
+  _media: {fileID: 0}
   _defaultTexture: {fileID: 0}
   _mesh: {fileID: 8409886294431713745}
   _texturePropertyName: _MainTex
@@ -2129,7 +2129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   root: {fileID: 2972492543840837009}
-  mediaPlayer: {fileID: 8409886292987533668}
+  mediaPlayer: {fileID: 0}
   applyToMesh: {fileID: 0}
   skyboxCamera: {fileID: 0}
 --- !u!1 &8978283634313513056
@@ -2272,7 +2272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6d1977a52888584496b1acc7e998011, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _media: {fileID: 8409886292987533668}
+  _media: {fileID: 0}
   _defaultTexture: {fileID: 0}
   _mesh: {fileID: 8978283634311384210}
   _texturePropertyName: _MainTex

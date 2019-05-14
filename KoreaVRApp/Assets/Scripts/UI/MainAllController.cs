@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using UnityEngine.SceneManagement;
 using SimpleDiskUtils;
 using EasyMobile.Demo;
+using RenderHeads.Media.AVProVideo;
 
 public class MainAllController : MonoBehaviour
 {
@@ -48,6 +49,22 @@ public class MainAllController : MonoBehaviour
 			_currentMenu = value;
 		}
 	}
+
+	private MediaPlayer _mediaPlayer;
+
+	public MediaPlayer mediaPlayer
+	{
+		get
+		{
+			return _mediaPlayer;
+		}
+
+		set {
+			_mediaPlayer = value;
+		}
+	}
+
+
 	[Header("---- User ----")]
 
 	public User user;
@@ -278,6 +295,7 @@ public class MainAllController : MonoBehaviour
 		mediaPlayerMenu = UnityEngine.Object.FindObjectOfType<MediaPlayerMenu>();
 		alertMenu = UnityEngine.Object.FindObjectOfType<AlertMenu>();
 		scenes = UnityEngine.Object.FindObjectsOfType<AppScene> ();
+		_mediaPlayer = UnityEngine.Object.FindObjectOfType<MediaPlayer> ();
 
 		GoToScene2D ();
 
