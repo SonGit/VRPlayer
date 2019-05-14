@@ -701,7 +701,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  _mediaPlayer: {fileID: 1912574574}
+  _mediaPlayer: {fileID: 0}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -927,7 +927,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1912574570
 Transform:
   m_ObjectHideFlags: 0
@@ -2722,7 +2722,7 @@ MonoBehaviour:
   isNoVideo: 0
   btnOnBack: {fileID: 1961107577777105988}
   btnOnVR: {fileID: 0}
-  mediaPlayer: {fileID: 1912574574}
+  mediaPlayer: {fileID: 0}
   playBnt: {fileID: 1961107579038882598}
   pauseBnt: {fileID: 3773469320961147985}
   allUI: {fileID: 1961107578868223573}
@@ -3207,5 +3207,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d4bbe43657314a49a5f730e66dafebd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mediaPlayer: {fileID: 1912574574}
+  _mediaPlayer: {fileID: 0}
   _text: {fileID: 2214674371519966556}

@@ -4753,7 +4753,7 @@ PrefabInstance:
     - target: {fileID: 4810842472355034876, guid: d1b01d9d6ac3a0a4eb0cfba7a39146cd,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0029296875
+      value: -0.00048828125
       objectReference: {fileID: 0}
     - target: {fileID: 4810842470871812426, guid: d1b01d9d6ac3a0a4eb0cfba7a39146cd,
         type: 3}
@@ -6430,24 +6430,12 @@ PrefabInstance:
       propertyPath: mediaPlayer
       value: 
       objectReference: {fileID: 112687388}
-    - target: {fileID: 1088870127, guid: eefac19eaca87984bb389e55e42e9c9a, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1912574569, guid: eefac19eaca87984bb389e55e42e9c9a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1961107578868223573, guid: eefac19eaca87984bb389e55e42e9c9a,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1912574574, guid: eefac19eaca87984bb389e55e42e9c9a, type: 3}
-      propertyPath: _optionsAndroid.preferSoftwareDecoder
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1088870129, guid: eefac19eaca87984bb389e55e42e9c9a, type: 3}
+      propertyPath: _mediaPlayer
+      value: 
+      objectReference: {fileID: 112687388}
+    - target: {fileID: 8133195249452594178, guid: eefac19eaca87984bb389e55e42e9c9a,
+        type: 3}
       propertyPath: _mediaPlayer
       value: 
       objectReference: {fileID: 112687388}
