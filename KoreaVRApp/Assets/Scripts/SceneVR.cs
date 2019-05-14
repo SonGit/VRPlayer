@@ -13,6 +13,7 @@ public class SceneVR : AppScene
 	private VR_MainMenu vrMainMenu;
 
 	private VR_RecenterPanel vr_RecenterPanel;
+	private VR_NodDetect vr_NodDetect;
 
 	[SerializeField]
 	private VR_ButtonScreenLock buttonScreenLock;
@@ -21,6 +22,7 @@ public class SceneVR : AppScene
     void Start()
     {
 		vr_RecenterPanel = UnityEngine.Object.FindObjectOfType<VR_RecenterPanel>();
+		vr_NodDetect = UnityEngine.Object.FindObjectOfType<VR_NodDetect>();
     }
 
     // Update is called once per frame
@@ -143,6 +145,10 @@ public class SceneVR : AppScene
 
 	public void PlayFromURL(Video video)
 	{
+		if (vr_NodDetect != null){
+			vr_NodDetect.enabled = false;
+		}
+			
 		vrSetting.HideSetting ();
 		vrMainMenu.gameObject.SetActive (false);
 
@@ -173,6 +179,10 @@ public class SceneVR : AppScene
 
 	public void Streaming(Video video, string url)
 	{
+		if (vr_NodDetect != null){
+			vr_NodDetect.enabled = false;
+		}
+
 		vrSetting.HideSetting ();
 		vrMainMenu.gameObject.SetActive (false);
 
@@ -219,6 +229,9 @@ public class SceneVR : AppScene
 			vrPlayer.Play (currentVideo);
 		}
 
+		if (vr_NodDetect != null){
+			vr_NodDetect.enabled = true;
+		}
 	}
 
 	void OnDoneRecenter_Streaming()
@@ -231,6 +244,9 @@ public class SceneVR : AppScene
 			vrPlayer.Stream (currentVideo,currentUrl);
 		}
 
+		if (vr_NodDetect != null){
+			vr_NodDetect.enabled = true;
+		}
 	}
 		
 	void HidePlayer()
