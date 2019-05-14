@@ -252,12 +252,10 @@ public class MainAllController : MonoBehaviour
 		
 		ApplicationExit ();
 
-		CheckOrientation ();
 
 		if(Input.GetKeyDown(KeyCode.Escape)){
 			if(currentScene is SceneVR){
 				GoToScene2D ();
-				SetPortraitRotation ();
 			}
 		}
 	}
@@ -924,7 +922,6 @@ public class MainAllController : MonoBehaviour
 			mediaPlayerMenu.SetActive (true);
 			accessMenu.SetHandleViewable (false);
 			currentMenu = mediaPlayerMenu;
-			SetLandscapeRotation ();
 		}
 	}
 
@@ -1085,9 +1082,8 @@ public class MainAllController : MonoBehaviour
 	public void Play2D_3D()
 	{
 		mediaPlayerMenu.CloseVideo ();
-		SetPortraitRotation ();
 
-		if (currentScene is Scene2D) {
+		if (currentScene is SceneMediaPlayer) {
 			AccessMenu_OnMyStorage ();
 			accessMenu.SetHandleViewable (true);
 		}
@@ -1539,37 +1535,37 @@ public class MainAllController : MonoBehaviour
 
 	#region Orientation
 
-	private bool isLandscape;
-	private bool isPortrait;
-
-	private void CheckOrientation(){
-		if (currentScene is Scene2D){
-			if (currentMenu is MediaPlayerMenu) {
-				if (isLandscape){
-					Screen.orientation = ScreenOrientation.LandscapeLeft;
-					isLandscape = false;
-					Debug.Log ("LandscapeLeft..........................");
-				}
-			} else {
-				if(isPortrait){
-					Screen.orientation = ScreenOrientation.Portrait;
-					isPortrait = false;
-					Debug.Log ("Portrait..............................");
-				}
-
-			}
-		}
-	}
-
-	private void SetLandscapeRotation(){
-		isLandscape = true;
-		isPortrait = false;
-	}
-
-	private void SetPortraitRotation(){
-		isPortrait = true;
-		isLandscape = false;
-	}
+//	private bool isLandscape;
+//	private bool isPortrait;
+//
+//	private void CheckOrientation(){
+//		if (currentScene is Scene2D){
+//			if (currentMenu is MediaPlayerMenu) {
+//				if (isLandscape){
+//					Screen.orientation = ScreenOrientation.LandscapeLeft;
+//					isLandscape = false;
+//					Debug.Log ("LandscapeLeft..........................");
+//				}
+//			} else {
+//				if(isPortrait){
+//					Screen.orientation = ScreenOrientation.Portrait;
+//					isPortrait = false;
+//					Debug.Log ("Portrait..............................");
+//				}
+//
+//			}
+//		}
+//	}
+//
+//	private void SetLandscapeRotation(){
+//		isLandscape = true;
+//		isPortrait = false;
+//	}
+//
+//	private void SetPortraitRotation(){
+//		isPortrait = true;
+//		isLandscape = false;
+//	}
 
 	#endregion
 

@@ -21,7 +21,7 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 	[SerializeField]
 	private Slider videoSeekSlider;
 	[SerializeField]
-	private TextMeshProUGUI _currentTimeLabel;
+	private Text _currentTimeLabel;
 	[SerializeField]
 	private RectTransform _bufferedSliderRect;
 	[SerializeField]
@@ -131,7 +131,7 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 	/// <param name="time">Time.</param>
 	void SetCurrentTimeLabel(float time)
 	{
-		if (_currentTimeLabel) {
+		if (_currentTimeLabel != null) {
 			ts = TimeSpan.FromMilliseconds(time);
 			_currentTimeLabel.text = String.Format("{0:00}", ts.Hours) + ":" + String.Format("{0:00}", ts.Minutes) + ":" + String.Format("{0:00}", ts.Seconds);  ;
 		}

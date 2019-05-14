@@ -454,10 +454,10 @@ public class VR_MainMenu : MonoBehaviour
 	#region CheckNetworkConnection
 
 	public bool CheckNetworkConnection (){
-//		if(Application.internetReachability == NetworkReachability.NotReachable)
-//		{
-//			return false;
-//		}
+		if(Application.internetReachability == NetworkReachability.NotReachable)
+		{
+			return false;
+		}
 
 		return true;
 	}

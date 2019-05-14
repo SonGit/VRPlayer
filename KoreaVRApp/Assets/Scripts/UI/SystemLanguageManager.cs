@@ -11,12 +11,18 @@ public class SystemLanguageManager : MonoBehaviour
 
 	#region 2D
 	private string phoneVideoString_English = "Phone Video";
+	private string phoneVideoTitleString_English = "PHONE VIDEO";
 	private string myStorageString_English = "My Storage";
+	private string myStorageTitleString_English = "MY STORAGE";
 	private string myvideoString_English = "My Video";
+	private string myvideoTitleString_English = "MY VIDEO";
 	private string videoListString_English = "Video List";
 	private string favoriteString_English = "Favorite";
+	private string favoriteTitleString_English = "FAVORITES";
 	private string downloadString_English = "Download";
+	private string downloadTitleString_English = "DOWNLOAD";
 	private string inboxString_English = "Inbox";
+	private string inboxTitleString_English = "INBOX";
 	private string etcString_English = "Etc.";
 	private string preferencesString_English = "Preferences";
 	private string usageInformationString_English = "Usage Information";
@@ -26,6 +32,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string networkString_English = "Unable to connect to network.\nPlease check your network connection and try again.";
 	private string noVideosString_English = "No Videos";
 	private string detailPageString_English = "Detail Page";
+	private string detailPageTitleString_English = "DETAIL PAGE";
 	private string streaming2DString_English = "2D Streaming";
 	private string streaming3DString_English = "3D Streaming";
 	private string watchin2DString_English = "Watch in 2D";
@@ -37,6 +44,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string genreString_English = "Genre";
 	private string Go_to_inbox_after_downloadString_English = "Go to inbox after download";
 	private string settingsString_English = "Settings";
+	private string settingsTitleString_English = "SETTINGS";
 	private string loginString_English = "Login";
 	private string loginInformationString_English = "Login Information";
 	private string keep_logged_inString_English = "Keep logged in";
@@ -63,13 +71,13 @@ public class SystemLanguageManager : MonoBehaviour
 
 	#region VR_MainMenu
 
-	private string vr_PhoneVideoString_English = "Phone Video";
-	private string vr_DownloadString_English = "Download";
-	private string vr_MyVideoString_English = "My Video";
-	private string vr_MyStorageString_English = "My Storage";
-	private string vr_InboxString_English = "Inbox";
-	private string vr_VideoListString_English = "VideoList";
-	private string vr_FavoriteString_English = "Favorite";
+	private string vr_PhoneVideoString_English = "PHONE VIDEO";
+	private string vr_DownloadString_English = "DOWNLOAD";
+	private string vr_MyVideoString_English = "MY VIDEO";
+	private string vr_MyStorageString_English = "MY STORAGE";
+	private string vr_InboxString_English = "INBOX";
+	private string vr_VideoListString_English = "VIDEOLIST";
+	private string vr_FavoriteString_English = "FAVORITES";
 	private string vr_LoginrequiredString_English = "Login required";
 	private string vr_Move_to_loginString_English = "Move to login page?";
 	private string vr_YesString_English = "Yes";
@@ -643,19 +651,19 @@ public class SystemLanguageManager : MonoBehaviour
 	}
 
 	private void SetEnglishLanguage_StorageMenu(){
-		DisplayValueText (storageMenu_Header,myStorageString_English);
+		DisplayValueText (storageMenu_Header,myStorageTitleString_English);
 		DisplayValueText (storageMenu_Novideos,noVideosString_English);
 		DisplayValueText (storageMenu_Network,networkString_English);
 	}
 
 	private void SetEnglishLanguage_MyVideoMenu(){
-		DisplayValueText (myVideoMenu_Header,myvideoString_English);
+		DisplayValueText (myVideoMenu_Header,myvideoTitleString_English);
 		DisplayValueText (myVideoMenu_Novideos,noVideosString_English);
 		DisplayValueText (myVideoMenu_Network,networkString_English);
 	}
 
 	private void SetEnglishLanguage_DetailMenu(){
-		DisplayValueText (detailMenu_Header,detailPageString_English);
+		DisplayValueText (detailMenu_Header,detailPageTitleString_English);
 		DisplayValueText (detailMenu_UnfavoriteBnt,favoriteString_English);
 		DisplayValueText (detailMenu_FavoriteBnt,favoriteString_English);
 		DisplayValueText (detailMenu_HaventDownloadBnt,downloadString_English);
@@ -673,25 +681,25 @@ public class SystemLanguageManager : MonoBehaviour
 
 
 	private void SetEnglishLanguage_FavoriteMenu(){
-		DisplayValueText (favoriteMenu_Header,favoriteString_English);
+		DisplayValueText (favoriteMenu_Header,favoriteTitleString_English);
 		DisplayValueText (favoriteMenu_Novideos,noVideosString_English);
 		DisplayValueText (favoriteMenu_Network,networkString_English);
 	}
 
 	private void SetEnglishLanguage_DownloadMenu(){
-		DisplayValueText (downloadMenu_Header,downloadString_English);
+		DisplayValueText (downloadMenu_Header,downloadTitleString_English);
 		DisplayValueText (downloadMenu_Novideos,Go_to_inbox_after_downloadString_English);
 		DisplayValueText (downloadMenu_Network,networkString_English);
 	}
 
 	private void SetEnglishLanguage_InboxMenu(){
-		DisplayValueText (inboxMenu_Header,inboxString_English);
+		DisplayValueText (inboxMenu_Header,inboxTitleString_English);
 		DisplayValueText (inboxMenu_Novideos,noVideosString_English);
 		DisplayValueText (inboxMenu_Network,networkString_English);
 	}
 
 	private void SetEnglishLanguage_SettingMenu(){
-		DisplayValueText (settingMenu_Header,settingsString_English);
+		DisplayValueText (settingMenu_Header,settingsTitleString_English);
 		DisplayValueText (settingMenu_LoginTitle,loginString_English);
 		DisplayValueText (settingMenu_LoginInformation,loginInformationString_English);
 		DisplayValueText (settingMenu_Keeploggedin,keep_logged_inString_English);
