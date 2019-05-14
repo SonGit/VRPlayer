@@ -150,7 +150,7 @@ public class SceneVR : AppScene
 
 		if (video is LocalVideo) {
 			vrPlayer.InitSubtitle ();
-            MainAllController.instance.IsShowRecenterPanel = false;
+            //MainAllController.instance.IsShowRecenterPanel = false;
 
         } else {
 			if (currentVideo != null && currentVideo.videoInfo.id == video.videoInfo.id) {
@@ -269,8 +269,16 @@ public class SceneVR : AppScene
 				ShowFavoriteVideoMenu ();
 			}
 
+			if (lastMenu is UserDetailMenu) {
+				ShowFavoriteVideoMenu ();
+			}
+
 			if (lastMenu is DownloadMenu) {
-				ShowDownloadMenu ();
+				ShowInboxMenu ();
+			}
+
+			if (lastMenu is InboxMenu) {
+				ShowInboxMenu ();
 			}
 		}
 	}
