@@ -6,10 +6,11 @@ using UnityEngine.EventSystems;
 public class VR_RecenterPanel : MonoBehaviour
 {
 	[SerializeField] private GameObject root;
+	private VR_NodDetect vr_NodDetect;
 
 	void Start()
 	{
-		
+		vr_NodDetect = UnityEngine.Object.FindObjectOfType<VR_NodDetect>();
 	}
 
 	// Update is called once per frame
@@ -52,6 +53,10 @@ public class VR_RecenterPanel : MonoBehaviour
 		}
 
 		Hide ();
+
+		if (vr_NodDetect != null){
+			vr_NodDetect.enabled = true;
+		}
 	}
 
 	void Show()

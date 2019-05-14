@@ -145,10 +145,6 @@ public class SceneVR : AppScene
 
 	public void PlayFromURL(Video video)
 	{
-		if (vr_NodDetect != null){
-			vr_NodDetect.enabled = false;
-		}
-			
 		vrSetting.HideSetting ();
 		vrMainMenu.gameObject.SetActive (false);
 
@@ -179,10 +175,6 @@ public class SceneVR : AppScene
 
 	public void Streaming(Video video, string url)
 	{
-		if (vr_NodDetect != null){
-			vr_NodDetect.enabled = false;
-		}
-
 		vrSetting.HideSetting ();
 		vrMainMenu.gameObject.SetActive (false);
 
@@ -230,7 +222,7 @@ public class SceneVR : AppScene
 		}
 
 		if (vr_NodDetect != null){
-			vr_NodDetect.enabled = true;
+			vr_NodDetect.enabled = false;
 		}
 	}
 
@@ -245,7 +237,7 @@ public class SceneVR : AppScene
 		}
 
 		if (vr_NodDetect != null){
-			vr_NodDetect.enabled = true;
+			vr_NodDetect.enabled = false;
 		}
 	}
 		
