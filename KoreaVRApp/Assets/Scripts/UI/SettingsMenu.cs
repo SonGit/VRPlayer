@@ -128,6 +128,8 @@ public class SettingsMenu : BasicMenuNavigation
 			//Interactable Button
 			OffKeepLogginInteractable(false);
 			//Interactable Button
+
+			Setusername ("");
 		}else{
 			LogoutViewable(true);
 			LoginViewable(false);
@@ -141,6 +143,8 @@ public class SettingsMenu : BasicMenuNavigation
 			} else {
 				KeepLogginViewable (false);
 			}
+
+			Setusername (MainAllController.instance.GetUserNameInput());
 		}
 	}
 

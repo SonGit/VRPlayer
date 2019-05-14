@@ -55,9 +55,6 @@ public class VR_InboxMenu : VR_BasicMenu
 
 		// update infomation from server
 		UpdateUI (videoToShow);
-
-		if(VR_NavMenuManager.instance != null)
-			VR_NavMenuManager.instance.OnClick_DownloadMenu ();
 		
 		Rearrange (false);
 

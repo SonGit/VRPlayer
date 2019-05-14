@@ -128,6 +128,8 @@ public class LoginMenu : BasicMenuNavigation
 		if (ScreenLoading.instance != null) {
 			ScreenLoading.instance.Stop ();
 		}
+
+		ClearAllInfo ();
 	}
 	#endregion
 

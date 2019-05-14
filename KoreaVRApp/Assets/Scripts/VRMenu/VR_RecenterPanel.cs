@@ -23,6 +23,10 @@ public class VR_RecenterPanel : MonoBehaviour
 
 	public void Show(OnRecenterCallback callback = null)
 	{
+		if (vr_NodDetect != null){
+			vr_NodDetect.enabled = false;
+		}
+
 		if (MainAllController.instance != null){
 			MainAllController.instance.IsShowRecenterPanel = true;
 		}
