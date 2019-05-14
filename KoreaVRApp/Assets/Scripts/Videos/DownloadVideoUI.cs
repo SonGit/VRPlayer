@@ -202,7 +202,7 @@ public class DownloadVideoUI : VideoUI
 	{
 		base.Setup (video);
 		video_name.text = video.videoInfo.video_name;
-		video_length.text = (video.videoInfo.length).ToString();
+		this.video_length.text = "00:00:00" + " | " +((video.videoInfo.size / 1024) / 1024) + " MB"; ;
 
 		OnEnable ();
 	}
