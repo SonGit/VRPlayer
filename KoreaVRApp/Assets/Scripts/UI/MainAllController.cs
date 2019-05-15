@@ -1142,8 +1142,10 @@ public class MainAllController : MonoBehaviour
 		this.urlStreaming = url;
 		this.videoStreaming = video;
 
-		GoToSceneVR ();
-
+		if (!(currentScene is SceneVR)){
+			GoToSceneVR ();
+		}
+			
 		if (currentScene is SceneVR) {
 			(currentScene as SceneVR).Streaming (video,url);
 		}
