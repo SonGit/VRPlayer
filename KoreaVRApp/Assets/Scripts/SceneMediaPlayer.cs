@@ -21,11 +21,13 @@ public class SceneMediaPlayer : AppScene
     {
 		if(camera != null)
 			camera.enabled = false;
-		
-        UnityEngine.XR.XRSettings.enabled = false;
-        yield return new WaitForEndOfFrame();
-        UnityEngine.XR.XRSettings.LoadDeviceByName(newDevice);
-        yield return null;
+
+		if (UnityEngine.XR.XRSettings.enabled) {
+			UnityEngine.XR.XRSettings.enabled = false;
+			yield return new WaitForEndOfFrame();
+			UnityEngine.XR.XRSettings.LoadDeviceByName(newDevice);
+			yield return null;
+		}
 
         Screen.orientation = ScreenOrientation.AutoRotation;
 
@@ -34,6 +36,8 @@ public class SceneMediaPlayer : AppScene
 
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 30;
+
+		yield return null;
     }
 
     public void PlayFromURL(Video video)

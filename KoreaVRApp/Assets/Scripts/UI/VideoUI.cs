@@ -222,14 +222,15 @@ public class VideoUI : Cacheable
 		}
 
 		if (video is LocalVideo) {
-			Handheld.PlayFullScreenMovie ((video as LocalVideo).videoURL, Color.black, FullScreenMovieControlMode.Full, FullScreenMovieScalingMode.AspectFill);
-
+			//Handheld.PlayFullScreenMovie ((video as LocalVideo).videoURL, Color.black, FullScreenMovieControlMode.Full, FullScreenMovieScalingMode.AspectFill);
+			MainAllController.instance.Play2D(video);
 			if(MainAllController.instance != null){
 				MainAllController.instance.DisableSubtitleVR ();
 			}
 		} else {
 			string path = MainAllController.instance.user.GetPathToFile (video.videoInfo.id,video.videoInfo.video_name);
-			Handheld.PlayFullScreenMovie (path, Color.black, FullScreenMovieControlMode.Full, FullScreenMovieScalingMode.AspectFill);
+			//Handheld.PlayFullScreenMovie (path, Color.black, FullScreenMovieControlMode.Full, FullScreenMovieScalingMode.AspectFill);
+			MainAllController.instance.Play2D(video);
 		}
 	}
 
