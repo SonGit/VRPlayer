@@ -41,6 +41,10 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 	protected override void Awake ()
 	{
 		base.Awake ();
+
+		if (mediaPlayer == null){
+			mediaPlayer = MainAllController.instance.mediaPlayer;
+		}
 	}
 
 	protected override void Start ()
