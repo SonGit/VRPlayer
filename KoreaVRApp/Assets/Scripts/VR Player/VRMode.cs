@@ -44,6 +44,14 @@ public abstract class VRMode : MonoBehaviour
 			url = MainAllController.instance.user.GetPathToFile (video.videoInfo.id,video.videoInfo.video_name);
 		}
 
+		//Change Platform API
+		#if UNITY_ANDROID
+		if (mediaPlayer.PlatformOptionsAndroid.videoApi == Android.VideoApi.MediaPlayer) {
+			mediaPlayer.PlatformOptionsAndroid.videoApi = Android.VideoApi.ExoPlayer;
+			//mediaPlayer.r
+		}
+		#endif
+
 		if (url != string.Empty) {
 			
 			mediaPlayer.OpenVideoFromFile (MediaPlayer.FileLocation.AbsolutePathOrURL, url, true);
@@ -54,6 +62,7 @@ public abstract class VRMode : MonoBehaviour
 		} else {
 			Debug.LogError ("Empty URL, cannot play video!");
 		}
+
 
 	}
 

@@ -145,6 +145,12 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 
 	public void Play(Video video, VRPlayer vrPlayer, float resumeMs = 0)
 	{
+		#if UNITY_ANDROID
+		if (mediaPlayer.PlatformOptionsAndroid.videoApi == Android.VideoApi.ExoPlayer) {
+			mediaPlayer.PlatformOptionsAndroid.videoApi = Android.VideoApi.MediaPlayer;
+		}
+		#endif
+
 		if (allUI != null && allUI.activeSelf) {
 			allUI.SetActive (false);
 		}
@@ -291,7 +297,7 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 	{
 		if (mediaPlayer && videoSeekSlider && videoSeekSlider.value != _setVideoSeekSliderValue)
 		{
-			mediaPlayer.Control.Seek(videoSeekSlider.value * mediaPlayer.Info.GetDurationMs());
+			mediaPlayer.Control.SeekFast(videoSeekSlider.value * mediaPlayer.Info.GetDurationMs());
 			_delayCount = 0;
 		}
 	}
