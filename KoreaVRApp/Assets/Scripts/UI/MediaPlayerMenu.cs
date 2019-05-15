@@ -75,6 +75,10 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 	{
 		DisableAllUI ();
 
+		if (mediaPlayer == null){
+			mediaPlayer = MainAllController.instance.mediaPlayer;
+		}
+
 		if (mediaPlayer != null && mediaPlayer.Info != null && mediaPlayer.Info.GetDurationMs() > 0f)
 		{
 			float time = mediaPlayer.Control.GetCurrentTimeMs();

@@ -31,10 +31,6 @@ public class VR_DownloadMenu : VR_BasicMenu
 		//		 Add elements that are present in server database, but not on local
 		var Addlist = videoToShow.Where(p => !currentUserVideo.Any(p2 => p2.videoInfo.id == p.videoInfo.id)).ToList();
 		AddUI (Addlist);
-
-		if (VR_NavMenuManager.instance != null) {
-			VR_NavMenuManager.instance.OnClick_DownloadMenu ();
-		}
 	
 	}
 

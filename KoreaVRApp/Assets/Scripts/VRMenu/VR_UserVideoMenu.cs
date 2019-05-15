@@ -49,9 +49,6 @@ public class VR_UserVideoMenu : VR_BasicMenu
 		// update infomation from server
 		UpdateUI (videoToShow);
 
-		if(VR_NavMenuManager.instance != null)
-		VR_NavMenuManager.instance.OnClick_UserVideoMenu ();
-
 		Rearrange (false);
 		SetupPageController ();
 	}

@@ -69,11 +69,16 @@ public class VR_MainMenu : MonoBehaviour
 		HideNoVideoAlert ();
 		HideStreamingAlert ();
 
+
 		//Show
 		foreach (VR_BasicMenu menu in menus) {
 			if (menu is VR_StorageMenu) {
 				currentMenu = menu;
 				menu.Show ();
+
+				if(VR_NavMenuManager.instance != null)
+					VR_NavMenuManager.instance.OnClick_PhoneVideoMenu ();
+				
 			} else {
 				menu.Hide ();
 			}
@@ -112,7 +117,7 @@ public class VR_MainMenu : MonoBehaviour
 		bool isConnect = CheckNetworkConnection ();
 		if (isConnect) {
 			if (MainAllController.instance.HasUserLoggedIn ()) {
-				
+
 				//Show
 				foreach (VR_BasicMenu menu in menus) {
 					if (menu is VR_UserVideoMenu) {
@@ -121,6 +126,9 @@ public class VR_MainMenu : MonoBehaviour
 						if (VR_MyvideoTitleManager.instance != null) {
 							VR_MyvideoTitleManager.instance.VideoListTitle ();
 						}
+
+						if(VR_NavMenuManager.instance != null)
+							VR_NavMenuManager.instance.OnClick_UserVideoMenu ();
 					} else {
 						menu.Hide ();
 					}
@@ -158,6 +166,10 @@ public class VR_MainMenu : MonoBehaviour
 					if (menu is VR_DownloadMenu) {
 						currentMenu = menu;
 						menu.Show ();
+
+						if (VR_NavMenuManager.instance != null) {
+							VR_NavMenuManager.instance.OnClick_DownloadMenu ();
+						}
 					} else {
 						menu.Hide ();
 					}
@@ -187,6 +199,9 @@ public class VR_MainMenu : MonoBehaviour
 					if (menu is VR_InboxMenu) {
 						currentMenu = menu;
 						menu.Show ();
+
+						if(VR_NavMenuManager.instance != null)
+							VR_NavMenuManager.instance.OnClick_DownloadMenu ();
 					} else {
 						menu.Hide ();
 					}
@@ -227,6 +242,10 @@ public class VR_MainMenu : MonoBehaviour
 						menu.Show ();
 						if (VR_MyvideoTitleManager.instance != null) {
 							VR_MyvideoTitleManager.instance.FavoriteTitle ();
+						}
+
+						if (VR_NavMenuManager.instance != null) {
+							VR_NavMenuManager.instance.OnClick_FavoriteVideoMenu ();
 						}
 					} else {
 						menu.Hide ();

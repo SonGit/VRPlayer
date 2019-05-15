@@ -50,9 +50,7 @@ public class VR_FavoriteMenu : VR_BasicMenu
 		// update infomation from server
 		UpdateUI (videoToShow);
 
-		if (VR_NavMenuManager.instance != null) {
-			VR_NavMenuManager.instance.OnClick_FavoriteVideoMenu ();
-		}
+
 		Debug.LogError ("Init FavoriteVideo completed!!!!!!!!      " + listObject.Count);
 
 		Rearrange (false);

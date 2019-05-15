@@ -64,9 +64,6 @@ public class VR_StorageMenu : VR_BasicMenu
 
 		currentPage = 0;
 
-		if(VR_NavMenuManager.instance != null)
-		VR_NavMenuManager.instance.OnClick_PhoneVideoMenu ();
-
 		Rearrange (false);
 
 		SetupPageController ();

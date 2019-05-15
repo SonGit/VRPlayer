@@ -4753,7 +4753,7 @@ PrefabInstance:
     - target: {fileID: 4810842472355034876, guid: d1b01d9d6ac3a0a4eb0cfba7a39146cd,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00048828125
+      value: 0.0012207031
       objectReference: {fileID: 0}
     - target: {fileID: 4810842470871812426, guid: d1b01d9d6ac3a0a4eb0cfba7a39146cd,
         type: 3}
@@ -13281,6 +13281,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8409886292505959569, guid: 408e8a97c27bb554d9eb9566d3e03c77,
         type: 3}
+      propertyPath: _mediaPlayer
+      value: 
+      objectReference: {fileID: 112687388}
+    - target: {fileID: 8409886292505959569, guid: 408e8a97c27bb554d9eb9566d3e03c77,
+        type: 3}
+      propertyPath: _mediaPlayerB
+      value: 
+      objectReference: {fileID: 112687388}
+    - target: {fileID: 8409886292505959569, guid: 408e8a97c27bb554d9eb9566d3e03c77,
+        type: 3}
       propertyPath: _bufferedSliderRect
       value: 
       objectReference: {fileID: 8464112950988683303}
@@ -13374,11 +13384,6 @@ PrefabInstance:
       propertyPath: videoNameLabel
       value: 
       objectReference: {fileID: 654622962}
-    - target: {fileID: 8409886294346191367, guid: 408e8a97c27bb554d9eb9566d3e03c77,
-        type: 3}
-      propertyPath: screenSize
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 231507815, guid: 408e8a97c27bb554d9eb9566d3e03c77, type: 3}
       propertyPath: m_Camera
       value: 
@@ -13387,10 +13392,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 353690206}
-    - target: {fileID: 462860773, guid: 408e8a97c27bb554d9eb9566d3e03c77, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1535105841, guid: 408e8a97c27bb554d9eb9566d3e03c77, type: 3}
       propertyPath: m_Camera
       value: 
@@ -13399,55 +13400,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 353690206}
-    - target: {fileID: 231507811, guid: 408e8a97c27bb554d9eb9566d3e03c77, type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 462860769, guid: 408e8a97c27bb554d9eb9566d3e03c77, type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 768934472, guid: 408e8a97c27bb554d9eb9566d3e03c77, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 398
-      objectReference: {fileID: 0}
-    - target: {fileID: 1535105837, guid: 408e8a97c27bb554d9eb9566d3e03c77, type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1722216248, guid: 408e8a97c27bb554d9eb9566d3e03c77, type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1193940300, guid: 408e8a97c27bb554d9eb9566d3e03c77, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 398
-      objectReference: {fileID: 0}
-    - target: {fileID: 768934471, guid: 408e8a97c27bb554d9eb9566d3e03c77, type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1193940299, guid: 408e8a97c27bb554d9eb9566d3e03c77, type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1262066316, guid: 408e8a97c27bb554d9eb9566d3e03c77, type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1571623757, guid: 408e8a97c27bb554d9eb9566d3e03c77, type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 768934474, guid: 408e8a97c27bb554d9eb9566d3e03c77, type: 3}
-      propertyPath: m_Text
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8409886292987533665, guid: 408e8a97c27bb554d9eb9566d3e03c77,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8409886292338836639, guid: 408e8a97c27bb554d9eb9566d3e03c77,
         type: 3}
       propertyPath: mediaPlayer
@@ -13458,16 +13410,6 @@ PrefabInstance:
       propertyPath: mediaPlayer
       value: 
       objectReference: {fileID: 112687388}
-    - target: {fileID: 8409886292987533668, guid: 408e8a97c27bb554d9eb9566d3e03c77,
-        type: 3}
-      propertyPath: _optionsAndroid.useFastOesPath
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8409886292987533668, guid: 408e8a97c27bb554d9eb9566d3e03c77,
-        type: 3}
-      propertyPath: _optionsAndroid.showPosterFrame
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8409886293814187593, guid: 408e8a97c27bb554d9eb9566d3e03c77,
         type: 3}
       propertyPath: mediaPlayer
@@ -13496,6 +13438,22 @@ PrefabInstance:
     - target: {fileID: 8978283634303299440, guid: 408e8a97c27bb554d9eb9566d3e03c77,
         type: 3}
       propertyPath: _media
+      value: 
+      objectReference: {fileID: 112687388}
+    - target: {fileID: 768934473, guid: 408e8a97c27bb554d9eb9566d3e03c77, type: 3}
+      propertyPath: _mediaPlayer
+      value: 
+      objectReference: {fileID: 112687388}
+    - target: {fileID: 1193940301, guid: 408e8a97c27bb554d9eb9566d3e03c77, type: 3}
+      propertyPath: _mediaPlayer
+      value: 
+      objectReference: {fileID: 112687388}
+    - target: {fileID: 1262066320, guid: 408e8a97c27bb554d9eb9566d3e03c77, type: 3}
+      propertyPath: _mediaPlayer
+      value: 
+      objectReference: {fileID: 112687388}
+    - target: {fileID: 1571623759, guid: 408e8a97c27bb554d9eb9566d3e03c77, type: 3}
+      propertyPath: _mediaPlayer
       value: 
       objectReference: {fileID: 112687388}
     m_RemovedComponents: []
