@@ -1076,6 +1076,14 @@ public class MainAllController : MonoBehaviour
 		}
 	}
 
+	public void Play2D(Video video)
+	{
+		this.video = video;
+		isStreaming = false;
+
+		Play3D_2D ();
+	}
+
 	Video video;
 	Video videoStreaming;
 	VRPlayer vrPlayer;
