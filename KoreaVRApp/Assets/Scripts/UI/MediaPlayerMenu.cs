@@ -145,6 +145,11 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 
 	public void Play(Video video, VRPlayer vrPlayer, float resumeMs = 0)
 	{
+		
+		if (mediaPlayer == null){
+			mediaPlayer = MainAllController.instance.mediaPlayer;
+		}
+
 		#if UNITY_ANDROID
 		if (mediaPlayer.PlatformOptionsAndroid.videoApi == Android.VideoApi.ExoPlayer) {
 			mediaPlayer.PlatformOptionsAndroid.videoApi = Android.VideoApi.MediaPlayer;

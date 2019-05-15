@@ -4753,7 +4753,7 @@ PrefabInstance:
     - target: {fileID: 4810842472355034876, guid: d1b01d9d6ac3a0a4eb0cfba7a39146cd,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.00024414062
+      value: 0.0024414062
       objectReference: {fileID: 0}
     - target: {fileID: 4810842470871812426, guid: d1b01d9d6ac3a0a4eb0cfba7a39146cd,
         type: 3}
@@ -6390,6 +6390,14 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 996, guid: eefac19eaca87984bb389e55e42e9c9a, type: 3}
+      propertyPath: canvas
+      value: 
+      objectReference: {fileID: 1425847013}
+    - target: {fileID: 838, guid: eefac19eaca87984bb389e55e42e9c9a, type: 3}
+      propertyPath: _mediaPlayer
+      value: 
+      objectReference: {fileID: 112687388}
     - target: {fileID: 662, guid: eefac19eaca87984bb389e55e42e9c9a, type: 3}
       propertyPath: m_AnchorMin.x
       value: 0.5
