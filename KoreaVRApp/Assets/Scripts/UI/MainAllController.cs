@@ -923,7 +923,9 @@ public class MainAllController : MonoBehaviour
 
 	private void VRPlayerMenu_OnRunVRPlayer(){
 		vrPlayerMenu.SetActive (false);
-		GoToSceneVR ();
+		if (!(currentScene is SceneVR)){
+			GoToSceneVR ();
+		}
 	}
 
 	#endregion

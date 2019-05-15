@@ -37,9 +37,9 @@ public class SystemLanguageManager : MonoBehaviour
 	private string streaming3DString_English = "3D Streaming";
 	private string watchin2DString_English = "Watch in 2D";
 	private string watchin3DString_English = "Watch in 3D";
-	private string informationString_English = "Information";
-	private string contentIDString_English = "ContentID";
-	private string releaseString_English = "Release";
+	private string informationString_English = "Basic Information";
+	private string registration_dateString_English = "Registration date";
+	private string modelString_English = "Model";
 	private string playtimeString_English = "Play time";
 	private string genreString_English = "Genre";
 	private string Go_to_inbox_after_downloadString_English = "Go to inbox after download";
@@ -118,7 +118,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string myStorageString_Korean = "내 저장 공간";
 	private string myvideoString_Korean = "내 비디오";
 	private string videoListString_Korean = "동영상 목록";
-	private string favoriteString_Korean = "즐겨 찾기";
+	private string favoriteString_Korean = "즐겨찾기";
 	private string downloadString_Korean = "다운로드";
 	private string inboxString_Korean = "받은 편지함";
 	private string etcString_Korean = "기타.";
@@ -134,11 +134,11 @@ public class SystemLanguageManager : MonoBehaviour
 	private string streaming3DString_Korean = "3D 스트리밍";
 	private string watchin2DString_Korean = "2D로보기";
 	private string watchin3DString_Korean = "3D로보기";
-	private string informationString_Korean = "정보";
-	private string contentIDString_Korean = "콘텐츠 ID";
-	private string releaseString_Korean = "해제";
-	private string playtimeString_Korean = "플레이 시간";
-	private string genreString_Korean = "유형";
+	private string informationString_Korean = "기본정보";
+	private string registration_dateString_Korean = "등록일";
+	private string modelString_Korean = "모델";
+	private string playtimeString_Korean = "재생시간";
+	private string genreString_Korean = "장르";
 	private string Go_to_inbox_after_downloadString_Korean = "다운로드 후받은 편지함으로 이동";
 	private string settingsString_Korean = "설정";
 	private string loginString_Korean = "로그인";
@@ -167,17 +167,17 @@ public class SystemLanguageManager : MonoBehaviour
 
 	#region VR_MainMenu
 
-	private string vr_Left_PhoneVideoString_Korean = "전화 비디오";
+	private string vr_Left_PhoneVideoString_Korean = "폰비디오";
 	private string vr_Left_DownloadString_Korean = "다운로드";
 	private string vr_Left_MyVideoString_Korean = "내 비디오";
 	private string vr_Mid_MyStorageString_Korean = "내 저장 공간";
 	private string vr_Mid_InboxString_Korean = "받은 편지함";
 	private string vr_Mid_VideoListString_Korean = "동영상 목록";
-	private string vr_Mid_FavoriteString_Korean = "인기 있는 말";
+	private string vr_Mid_FavoriteString_Korean = "즐겨찾기";
 	private string vr_LoginrequiredString_Korean = "로그인 필요";
 	private string vr_Move_to_loginString_Korean = "로그인 페이지로 이동 하시겠습니까?";
 	private string vr_YesString_Korean = "예";
-	private string vr_NoString_Korean = "아니";
+	private string vr_NoString_Korean = "아니오";
 	private string vr_DeleterequiredString_Korean = "삭제 필요";
 	private string vr_DeleteString_Korean = "지우다?";
 	private string vr_Please_check_the_network_connectionString_Korean = "네트워크 연결을 확인하십시오.";
@@ -192,7 +192,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string vr_VideoString_Korean = "비디오";
 	private string vr_ScreenString_Korean = "화면";
 	private string vr_2DString_Korean = "2D";
-	private string vr_ListString_Korean = "명부";
+	private string vr_ListString_Korean = "목록";
 	private string vr_CloseString_Korean = "닫기";
 	private string vr_SettingsString_Korean = "설정";
 	private string vr_ScreenLockString_Korean = "화면 잠금";
@@ -230,9 +230,9 @@ public class SystemLanguageManager : MonoBehaviour
 	private string streaming3DString_Japanese = "3Dストリーミング";
 	private string watchin2DString_Japanese = "2Dで見る";
 	private string watchin3DString_Japanese = "3Dで見る";
-	private string informationString_Japanese = "情報";
-	private string contentIDString_Japanese = "コンテンツID";
-	private string releaseString_Japanese = "リリース";
+	private string informationString_Japanese = "基本情報";
+	private string registration_dateString_Japanese = "登録日";
+	private string modelString_Japanese = "モデル";
 	private string playtimeString_Japanese = "プレイタイム";
 	private string genreString_Japanese = "ジャンル";
 	private string Go_to_inbox_after_downloadString_Japanese = "ダウンロード後に受信トレイに移動する";
@@ -326,9 +326,9 @@ public class SystemLanguageManager : MonoBehaviour
 	private string streaming3DString_Chinese = "3D流媒體";
 	private string watchin2DString_Chinese = "觀看2D";
 	private string watchin3DString_Chinese = "觀看3D";
-	private string informationString_Chinese = "信息";
-	private string contentIDString_Chinese = "內容ID";
-	private string releaseString_Chinese = "發布";
+	private string informationString_Chinese = "基本信息";
+	private string registration_dateString_Chinese = "登記日期";
+	private string modelString_Chinese = "模型";
 	private string playtimeString_Chinese = "上場時間";
 	private string genreString_Chinese = "類型";
 	private string Go_to_inbox_after_downloadString_Chinese = "下載後轉到收件箱";
@@ -442,8 +442,8 @@ public class SystemLanguageManager : MonoBehaviour
 	[SerializeField] private Text detailMenu_Downloaded2DBnt = null;
 	[SerializeField] private Text detailMenu_Downloaded3DBnt = null;
 	[SerializeField] private Text detailMenu_InformationTitle = null;
-	[SerializeField] private Text detailMenu_ID = null;
-	[SerializeField] private Text detailMenu_Release = null;
+	[SerializeField] private Text detailMenu_RegistrationdateTitle = null;
+	[SerializeField] private Text detailMenu_ModelTitle = null;
 	[SerializeField] private Text detailMenu_Playtime = null;
 	[SerializeField] private Text detailMenu_Genre = null;
 	[SerializeField] private Text detailMenu_Network = null;
@@ -672,8 +672,8 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (detailMenu_Downloaded2DBnt,watchin2DString_English);
 		DisplayValueText (detailMenu_Downloaded3DBnt,watchin3DString_English);
 		DisplayValueText (detailMenu_InformationTitle,informationString_English);
-		DisplayValueText (detailMenu_ID,contentIDString_English);
-		DisplayValueText (detailMenu_Release,releaseString_English);
+		DisplayValueText (detailMenu_RegistrationdateTitle,registration_dateString_English);
+		DisplayValueText (detailMenu_ModelTitle,modelString_English);
 		DisplayValueText (detailMenu_Playtime,playtimeString_English);
 		DisplayValueText (detailMenu_Genre,genreString_English);
 		DisplayValueText (detailMenu_Network,networkString_English);
@@ -848,8 +848,8 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (detailMenu_Downloaded2DBnt,watchin2DString_Korean);
 		DisplayValueText (detailMenu_Downloaded3DBnt,watchin3DString_Korean);
 		DisplayValueText (detailMenu_InformationTitle,informationString_Korean);
-		DisplayValueText (detailMenu_ID,contentIDString_Korean);
-		DisplayValueText (detailMenu_Release,releaseString_Korean);
+		DisplayValueText (detailMenu_RegistrationdateTitle,registration_dateString_Korean);
+		DisplayValueText (detailMenu_ModelTitle,modelString_Korean);
 		DisplayValueText (detailMenu_Playtime,playtimeString_Korean);
 		DisplayValueText (detailMenu_Genre,genreString_Korean);
 		DisplayValueText (detailMenu_Network,networkString_Korean);
@@ -1023,8 +1023,8 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (detailMenu_Downloaded2DBnt,watchin2DString_Japanese);
 		DisplayValueText (detailMenu_Downloaded3DBnt,watchin3DString_Japanese);
 		DisplayValueText (detailMenu_InformationTitle,informationString_Japanese);
-		DisplayValueText (detailMenu_ID,contentIDString_Japanese);
-		DisplayValueText (detailMenu_Release,releaseString_Japanese);
+		DisplayValueText (detailMenu_RegistrationdateTitle,registration_dateString_Japanese);
+		DisplayValueText (detailMenu_ModelTitle,modelString_Japanese);
 		DisplayValueText (detailMenu_Playtime,playtimeString_Japanese);
 		DisplayValueText (detailMenu_Genre,genreString_Japanese);
 		DisplayValueText (detailMenu_Network,networkString_Japanese);
@@ -1199,8 +1199,8 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (detailMenu_Downloaded2DBnt,watchin2DString_Chinese);
 		DisplayValueText (detailMenu_Downloaded3DBnt,watchin3DString_Chinese);
 		DisplayValueText (detailMenu_InformationTitle,informationString_Chinese);
-		DisplayValueText (detailMenu_ID,contentIDString_Chinese);
-		DisplayValueText (detailMenu_Release,releaseString_Chinese);
+		DisplayValueText (detailMenu_RegistrationdateTitle,registration_dateString_Chinese);
+		DisplayValueText (detailMenu_ModelTitle,modelString_Chinese);
 		DisplayValueText (detailMenu_Playtime,playtimeString_Chinese);
 		DisplayValueText (detailMenu_Genre,genreString_Chinese);
 		DisplayValueText (detailMenu_Network,networkString_Chinese);

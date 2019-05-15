@@ -360,6 +360,8 @@ public class VR_MainMenu : MonoBehaviour
 		if (MainAllController.instance != null){
 			MainAllController.instance.OpenLoginMenuFromVR ();
 		}
+
+		HideLoginAlert ();
 	}
 	#endregion
 
@@ -463,9 +465,11 @@ public class VR_MainMenu : MonoBehaviour
 	}
 
 	public void ClickYesButton_StreamingAlert(){
-		if (vr_UserVideoUI != null){
-			vr_UserVideoUI.OnClickStreaming3D ();
+		if (this.vr_UserVideoUI != null){
+			this.vr_UserVideoUI.OnClickStreaming3D ();
 		}
+
+		HideStreamingAlert ();
 	}
 	#endregion
 
