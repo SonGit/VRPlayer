@@ -61,6 +61,24 @@ public class AndroidDialog : MonoBehaviour
 			AndroidDialog.instance.dialog = null;
 		}
 	}
+
+	private class DismissListener: AndroidJavaProxy
+	{
+		private AndroidDialog mDialog;
+
+		public DismissListener(AndroidDialog d) : base("android.content.DialogInterface$OnClickListener")
+		{
+			mDialog = d;
+		}
+
+		public void onClick(AndroidJavaObject obj, int value)
+		{
+			mDialog.mYesPressed = false;
+			mDialog.mNoPressed = true;
+
+			AndroidDialog.instance.dialog = null;
+		}
+	}
 	#endif
 
 	public delegate void ConfirmCallback();
@@ -92,7 +110,7 @@ public class AndroidDialog : MonoBehaviour
 
 				alertDialogBuilder.Call<AndroidJavaObject>("setMessage",message);
 
-				alertDialogBuilder.Call<AndroidJavaObject>("setCancelable",true);
+				alertDialogBuilder.Call<AndroidJavaObject>("setCancelable",false);
 
 				alertDialogBuilder.Call<AndroidJavaObject>("setPositiveButton",confirmMessage,new PositiveButtonListener(this, callback));
 
@@ -136,9 +154,13 @@ public class AndroidDialog : MonoBehaviour
 			{
 				AndroidJavaObject alertDialogBuilder = new AndroidJavaObject("android/app/AlertDialog$Builder",paramObject);
 
+				alertDialogBuilder.Call<AndroidJavaObject>("setTitle","Notification");
+
 				alertDialogBuilder.Call<AndroidJavaObject>("setMessage",message);
 
-				alertDialogBuilder.Call<AndroidJavaObject>("setCancelable",true);
+				alertDialogBuilder.Call<AndroidJavaObject>("setCancelable",false);
+
+				alertDialogBuilder.Call<AndroidJavaObject>("setNegativeButton","OK",new NegativeButtonListener(this));
 
 				dialog = alertDialogBuilder.Call<AndroidJavaObject>("create");
 

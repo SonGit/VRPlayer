@@ -164,7 +164,9 @@ public class Networking : MonoBehaviour
 
 		if (failed) {
 			
-			NativeUI.Alert("Server Returned Error ",errorMsg);
+			//NativeUI.Alert("Server Returned Error ",errorMsg);
+
+			AndroidDialog.instance.showWarningDialog(errorMsg);
 
 			if (errorCallback != null)
 				errorCallback ();
@@ -220,7 +222,9 @@ public class Networking : MonoBehaviour
 
 		if (failed) {
 			
-			NativeUI.Alert("Server Returned Error",errorMsg);
+			//NativeUI.Alert("Server Returned Error",errorMsg);
+
+			AndroidDialog.instance.showWarningDialog(errorMsg);
 
 			if (errorCallback != null)
 				errorCallback ();
@@ -275,7 +279,9 @@ public class Networking : MonoBehaviour
 
 		if (failed) {
 			
-			NativeUI.Alert("Server Returned Error",errorMsg);
+			//NativeUI.Alert("Server Returned Error",errorMsg);
+
+			AndroidDialog.instance.showWarningDialog(errorMsg);
 
 			if (errorCallback != null)
 				errorCallback ();
@@ -331,7 +337,9 @@ public class Networking : MonoBehaviour
 
 		if (failed) {
 			
-			NativeUI.Alert("Server Returned Error",errorMsg);
+			//NativeUI.Alert("Server Returned Error",errorMsg);
+
+			AndroidDialog.instance.showWarningDialog(errorMsg);
 
 			if (errorCallback != null)
 				errorCallback ();
@@ -388,7 +396,9 @@ public class Networking : MonoBehaviour
 
 		if (failed) {
 			
-			NativeUI.Alert("Server Returned Error",errorMsg);
+			//NativeUI.Alert("Server Returned Error",errorMsg);
+
+			AndroidDialog.instance.showWarningDialog(errorMsg);
 
 			if (errorCallback != null)
 				errorCallback ();
@@ -441,7 +451,9 @@ public class Networking : MonoBehaviour
 
 		if (failed) {
 			
-			NativeUI.Alert("Server Returned Error",errorMsg);
+			//NativeUI.Alert("Server Returned Error",errorMsg);
+
+			AndroidDialog.instance.showWarningDialog(errorMsg);
 
 			if (errorCallback != null)
 				errorCallback ();
@@ -494,7 +506,9 @@ public class Networking : MonoBehaviour
 
 		if (failed) {
 			
-			NativeUI.Alert("Server Returned Error",errorMsg);
+			//NativeUI.Alert("Server Returned Error",errorMsg);
+
+			AndroidDialog.instance.showWarningDialog(errorMsg);
 
 			if (errorCallback != null)
 				errorCallback ();
@@ -546,7 +560,9 @@ public class Networking : MonoBehaviour
 
 		if (failed) {
 			
-			NativeUI.Alert("Server Returned Error",errorMsg);
+		//	NativeUI.Alert("Server Returned Error",errorMsg);
+
+			AndroidDialog.instance.showWarningDialog(errorMsg);
 
 			if (errorCallback != null)
 				errorCallback ();

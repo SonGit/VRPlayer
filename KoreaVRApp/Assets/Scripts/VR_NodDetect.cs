@@ -17,9 +17,13 @@ public class VR_NodDetect : MonoBehaviour
 	bool recentering;
 	float timeCount = 0;
 
+	public Transform camera;
+
 	void FixedUpdate()
 	{
-		itemRotation = Camera.main.transform.rotation;
+		//Debug.Log ("FixedUpdate");
+		//#if UNITY_EDITOR
+		itemRotation = camera.rotation;
 
 		Quaternion deltaRotation = itemRotation * Quaternion.Inverse(previousRotation);
 
@@ -40,7 +44,7 @@ public class VR_NodDetect : MonoBehaviour
 			print ("angularVelocity  " + angularVelocity.magnitude);
 			recentering = true;
 		}
-
+		//#endif
 	}
 
 	void Update()
@@ -65,6 +69,16 @@ public class VR_NodDetect : MonoBehaviour
 				timeCount = 0;
 			}
 		}
+	}
+
+	void OnEnable()
+	{
+		itemRotation = camera.rotation;
+		previousRotation= itemRotation;
+		angularVelocity = Vector3.zero;
+		recentering = false;
+		timeCount = 0;
+		Debug.Log ("Reset nod detect");
 	}
 
 }
