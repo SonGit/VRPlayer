@@ -24,7 +24,7 @@ public class FavoriteVideoUI : UserVideoUI
 		//video_length.text = (video.videoInfo.length).ToString();
 		//this.video_length.text = "00:00:00";
 
-		video_size.text = "00:00:00"+ "  |  " + ((video.videoInfo.size / 1024) / 1024) + " MB";
+		video_size.text = video.videoInfo.date + "  |  " + ((video.videoInfo.size / 1024) / 1024) + " MB";
 		//video_desc.text = video.videoInfo.description;
 
 		SetupFavoriteBtns ();

@@ -923,7 +923,9 @@ public class MainAllController : MonoBehaviour
 
 	private void VRPlayerMenu_OnRunVRPlayer(){
 		vrPlayerMenu.SetActive (false);
-		GoToSceneVR ();
+		if (!(currentScene is SceneVR)){
+			GoToSceneVR ();
+		}
 	}
 
 	#endregion
@@ -1151,8 +1153,10 @@ public class MainAllController : MonoBehaviour
 		this.urlStreaming = url;
 		this.videoStreaming = video;
 
-		GoToSceneVR ();
-
+		if (!(currentScene is SceneVR)){
+			GoToSceneVR ();
+		}
+			
 		if (currentScene is SceneVR) {
 			(currentScene as SceneVR).Streaming (video,url);
 		}
