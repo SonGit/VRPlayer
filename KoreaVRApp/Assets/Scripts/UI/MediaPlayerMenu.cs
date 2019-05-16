@@ -27,6 +27,12 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 	[SerializeField]
 	private SubTitle2D subTitle2D;
 
+	[SerializeField]
+	private GameObject _subtitleLandscape;
+	[SerializeField]
+	private GameObject _subtitlePortrait;
+	[SerializeField]
+	private GameObject _buttonContainer;
 
 	private Image _bufferedSliderImage;
 	private float _setVideoSeekSliderValue;
@@ -154,14 +160,15 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 			mediaPlayer = MainAllController.instance.mediaPlayer;
 		}
 
-		#if UNITY_ANDROID
-		if (mediaPlayer.PlatformOptionsAndroid.videoApi == Android.VideoApi.ExoPlayer) {
-			mediaPlayer.PlatformOptionsAndroid.videoApi = Android.VideoApi.MediaPlayer;
-		}
-		#endif
+//		#if UNITY_ANDROID
+//		if (mediaPlayer.PlatformOptionsAndroid.videoApi == Android.VideoApi.ExoPlayer) {
+//			mediaPlayer.PlatformOptionsAndroid.videoApi = Android.VideoApi.MediaPlayer;
+//		}
+//		#endif
 
 		if (allUI != null && allUI.activeSelf) {
 			allUI.SetActive (false);
+			_buttonContainer.SetActive (false);
 		}
 
 		if (pauseBnt != null && playBnt != null){
@@ -216,6 +223,8 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 		}
 
 		currentVideo = video;
+
+		OnRectTransformDimensionsChange ();
 	}
 
 	public void Streaming(Video video, string urlStreaming){
@@ -256,6 +265,8 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 		}
 
 		currentVideo = video;
+
+		OnRectTransformDimensionsChange ();
 	}
 
 
@@ -296,8 +307,10 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
         if (allUI != null ) {
 			if (allUI.activeSelf) {
 				allUI.SetActive (false);
+				_buttonContainer.SetActive (false);
 			} else {
 				allUI.SetActive (true);
+				_buttonContainer.SetActive (true);
 			}
 		} 
 	}
@@ -321,9 +334,9 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 
 	public void CloseVideo()
 	{
-		if (mediaPlayer != null){
-			mediaPlayer.CloseVideo ();
-		}
+//		if (mediaPlayer != null){
+//			mediaPlayer.CloseVideo ();
+//		}
 	}
 
 	public void Play2D_3D()
@@ -339,6 +352,7 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 			_delayCount += Time.deltaTime;
 			if (_delayCount >= _delayTime) {
 				allUI.SetActive (false);
+				_buttonContainer.SetActive (false);
 				_delayCount = 0;
 			}
 
@@ -386,6 +400,37 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 			subTitle2D.RemoveAllSubtitleUI ();
 		}
 	}
+		
 	#endregion
+
+	protected void OnRectTransformDimensionsChange()
+	{
+		Debug.Log("RectTransformDimensionsChange firing on " + Screen.orientation + " width ." + Screen.width + " heighty ." + Screen.height);
+
+		if (Screen.width < Screen.height) {
+			_subtitleLandscape.SetActive (false);
+			_subtitlePortrait.SetActive (true);
+		} else {
+			_subtitleLandscape.SetActive (true);
+			_subtitlePortrait.SetActive (false);
+		}
+
+//		if (_subtitleLandscape != null && _subtitlePortrait != null) {
+//			switch (Screen.orientation) {
+//
+//			case ScreenOrientation.Portrait:
+//				_subtitleLandscape.SetActive (true);
+//				_subtitlePortrait.SetActive (false);
+//				break;
+//			case ScreenOrientation.Landscape:
+//				_subtitleLandscape.SetActive (false);
+//				_subtitlePortrait.SetActive (true);
+//				break;
+//			}
+//		} else {
+//			Debug.Log ("_subtitleLandscape/_subtitlePortrait not assigned!");
+//		}
+	}
+		
 
 }

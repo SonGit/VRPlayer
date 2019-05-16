@@ -35,7 +35,7 @@ public class MainAllController : MonoBehaviour
 
 	private BasicMenu lastMenu = null;
 
-	private BasicMenu _currentMenu = null;
+	public BasicMenu _currentMenu = null;
 
 	public BasicMenu currentMenu
 	{
@@ -1078,6 +1078,7 @@ public class MainAllController : MonoBehaviour
 
 	public void Play2D(Video video)
 	{
+		mediaPlayerMenu.SetActive (true);
 		this.video = video;
 		isStreaming = false;
 
