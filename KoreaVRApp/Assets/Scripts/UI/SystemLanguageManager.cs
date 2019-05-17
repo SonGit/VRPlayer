@@ -60,6 +60,8 @@ public class SystemLanguageManager : MonoBehaviour
 	private string sign_in_completedString_English = "Sign-in completed";
 	private string logged_outString_English = "Logged out";
 	private string press_the_previous_button_again_to_exitString_English = "Press the previous button again to exit.";
+	private string calibrate_SensorString_English = "Calibrate Sensor for 5 seconds for optimization\nPlace the device on a flat surface and press the Start button\nDo not move the device until calibration completes\nSensor calibration is excuted when the application starts for the first time";
+
 	#endregion
 
 	#region VR_ScreenCursor
@@ -88,6 +90,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string vr_NovideosString_English = "No Videos";
 	private string vr_StreamingrequiredString_English = "Streaming required";
 	private string vr_StreamingString_English = "Streaming?";
+	private string vr_Application_will_beString_English = "Application will be teminated when you move to sensor calibrating page. Continue?";
 
 	#endregion
 
@@ -109,7 +112,6 @@ public class SystemLanguageManager : MonoBehaviour
 	private string vr_Are_you_sure_you_deviceString_English = "Are you sure you want to disconnect your phone from your VR device?";
 
 	#endregion
-
 
 	[Header("---- KoreanLanguage ----")]
 
@@ -156,6 +158,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string sign_in_completedString_Korean = "로그인이 완료되었습니다";
 	private string logged_outString_Korean = "로그 아웃 됨";
 	private string press_the_previous_button_again_to_exitString_Korean = "이전 버튼을 다시 누르면 종료됩니다.";
+	private string calibrate_SensorString_Korean = "최적화를 위해 센서를 5 초 동안 교정하십시오\n장치를 평평한 바닥에 놓고 시작 단추를 누릅니다\n보정이 완료 될 때까지 장치를 움직이지 마십시오\n센서 보정은 어플리케이션이 처음 시작할 때 실행됩니다";
 	#endregion
 
 	#region VR_ScreenCursor
@@ -184,6 +187,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string vr_NovideosString_Korean = "동영상 없음";
 	private string vr_StreamingrequiredString_Korean = "스트리밍 요구됨";
 	private string vr_StreamingString_Korean = "스트리밍?";
+	private string vr_Application_will_beString_Korean= "센서 교정 페이지로 이동할 때 응용 프로그램이 종료됩니다. 잇다?";
 
 	#endregion
 
@@ -252,6 +256,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string sign_in_completedString_Japanese = "サインイン完了";
 	private string logged_outString_Japanese = "ログアウトしました";
 	private string press_the_previous_button_again_to_exitString_Japanese = "前のボタンをもう一度押して終了します。";
+	private string calibrate_SensorString_Japanese = "最適化のために5秒間センサーを校正\n平らな場所にデバイスを置き、スタートボタンを押します\n校正が完了するまで装置を動かさないでください\nアプリケーションの初回起動時にセンサーキャリブレーションが実行されます";
 	#endregion
 
 	#region VR_ScreenCursor
@@ -280,6 +285,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string vr_NovideosString_Japanese = "動画なし";
 	private string vr_StreamingrequiredString_Japanese = "ストリーミングが必要";
 	private string vr_StreamingString_Japanese = "ストリーミング?";
+	private string vr_Application_will_beString_Japanese = "センサー校正ページに移動するとアプリケーションは終了します。 持続する？";
 
 	#endregion
 
@@ -348,6 +354,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string sign_in_completedString_Chinese = "登錄完成";
 	private string logged_outString_Chinese = "登出";
 	private string press_the_previous_button_again_to_exitString_Chinese = "再次按上一個按鈕退出。";
+	private string calibrate_SensorString_Chinese = "校準傳感器5秒鐘以進行優化\n將設備放在平坦的表面上，然後按開始按鈕\n在校準完成之前，請勿移動設備\n第一次啟動應用程序時執行傳感器校準";
 	#endregion
 
 	#region VR_ScreenCursor
@@ -376,6 +383,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string vr_NovideosString_Chinese = "沒有視頻";
 	private string vr_StreamingrequiredString_Chinese = "需要流媒體";
 	private string vr_StreamingString_Chinese = "流?";
+	private string vr_Application_will_beString_Chinese = "移動到傳感器校準頁面時，應用程序將終止。 繼續？";
 
 	#endregion
 
@@ -487,6 +495,9 @@ public class SystemLanguageManager : MonoBehaviour
 	[SerializeField] private Text alertMenu_Logout = null;
 	[SerializeField] private Text alertMenu_Exit = null;
 
+	[Header("---- SensorMenu ----")]
+	[SerializeField] private Text sensorMenu_SensorContent = null;
+
 	[Header("---- VR_ScreenCursor ----")]
 	[SerializeField] private Text vr_ScreenCursor_3second = null;
 	[SerializeField] private Text vr_ScreenCursor_Precautions = null;
@@ -518,6 +529,10 @@ public class SystemLanguageManager : MonoBehaviour
 	[SerializeField] private Text vr_MainMenu_VR_StreamingContent = null;
 	[SerializeField] private Text vr_MainMenu_VR_StreamingYesButton = null;
 	[SerializeField] private Text vr_MainMenu_VR_StreamingNoButton = null;
+
+	[SerializeField] private Text vr_MainMenu_VR_SensorContent = null;
+	[SerializeField] private Text vr_MainMenu_VR_SensorYesButton = null;
+	[SerializeField] private Text vr_MainMenu_VR_SensorNoButton = null;
 
 	[Header("---- VR_Settings ----")]
 
@@ -725,6 +740,10 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (alertMenu_Exit,press_the_previous_button_again_to_exitString_English);
 	}
 
+	private void SetEnglishLanguage_SensorMenu(){
+		DisplayValueText (sensorMenu_SensorContent,calibrate_SensorString_English);
+	}
+
 	private void SetEnglishLanguage_VR_ScreenCursor(){
 		DisplayValueText (vr_ScreenCursor_3second,Hover_the_on_screenString_English);
 		DisplayValueText (vr_ScreenCursor_Precautions,Precautions_AvoidString_English);
@@ -758,6 +777,10 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (vr_MainMenu_VR_StreamingContent,vr_StreamingString_English);
 		DisplayValueText (vr_MainMenu_VR_StreamingYesButton,vr_YesString_English);
 		DisplayValueText (vr_MainMenu_VR_StreamingNoButton,vr_NoString_English);
+
+		DisplayValueText (vr_MainMenu_VR_SensorContent,vr_Application_will_beString_English);
+		DisplayValueText (vr_MainMenu_VR_SensorYesButton,vr_YesString_English);
+		DisplayValueText (vr_MainMenu_VR_SensorNoButton,vr_NoString_English);
 	}
 
 	private void SetEnglishLanguage_VR_Settings(){
@@ -794,6 +817,7 @@ public class SystemLanguageManager : MonoBehaviour
 		SetEnglishLanguage_SettingMenu ();
 		SetEnglishLanguage_VRPlayerMenu ();
 		SetEnglishLanguage_AlertMenu ();
+		SetEnglishLanguage_SensorMenu ();
 		SetEnglishLanguage_VR_ScreenCursor ();
 		SetEnglishLanguage_VR_MainMenu ();
 		SetEnglishLanguage_VR_Settings ();
@@ -901,6 +925,10 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (alertMenu_Exit,press_the_previous_button_again_to_exitString_Korean);
 	}
 
+	private void SetKoreanLanguage_SensorMenu(){
+		DisplayValueText (sensorMenu_SensorContent,calibrate_SensorString_Korean);
+	}
+
 	private void SetKoreanLanguage_VR_ScreenCursor(){
 		DisplayValueText (vr_ScreenCursor_3second,Hover_the_on_screenString_Korean);
 		DisplayValueText (vr_ScreenCursor_Precautions,Precautions_AvoidString_Korean);
@@ -934,6 +962,11 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (vr_MainMenu_VR_StreamingContent,vr_StreamingString_Korean);
 		DisplayValueText (vr_MainMenu_VR_StreamingYesButton,vr_YesString_Korean);
 		DisplayValueText (vr_MainMenu_VR_StreamingNoButton,vr_NoString_Korean);
+
+		DisplayValueText (vr_MainMenu_VR_SensorContent,vr_Application_will_beString_Korean);
+		DisplayValueText (vr_MainMenu_VR_SensorYesButton,vr_YesString_Korean);
+		DisplayValueText (vr_MainMenu_VR_SensorNoButton,vr_NoString_Korean);
+
 	}
 
 	private void SetKoreanLanguage_VR_Settings(){
@@ -969,6 +1002,7 @@ public class SystemLanguageManager : MonoBehaviour
 		SetKoreanLanguage_SettingMenu ();
 		SetKoreanLanguage_VRPlayerMenu ();
 		SetKoreanLanguage_AlertMenu ();
+		SetKoreanLanguage_SensorMenu ();
 		SetKoreanLanguage_VR_ScreenCursor ();
 		SetKoreanLanguage_VR_MainMenu ();
 		SetKoreanLanguage_VR_Settings ();
@@ -1076,6 +1110,11 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (alertMenu_Exit,press_the_previous_button_again_to_exitString_Japanese);
 	}
 
+	private void SetJapaneseLanguage_SensorMenu(){
+		DisplayValueText (sensorMenu_SensorContent,calibrate_SensorString_Japanese);
+	}
+
+
 	private void SetJapaneseLanguage_VR_ScreenCursor(){
 		DisplayValueText (vr_ScreenCursor_3second,Hover_the_on_screenString_Japanese);
 		DisplayValueText (vr_ScreenCursor_Precautions,Precautions_AvoidString_Japanese);
@@ -1109,6 +1148,10 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (vr_MainMenu_VR_StreamingContent,vr_StreamingString_Japanese);
 		DisplayValueText (vr_MainMenu_VR_StreamingYesButton,vr_YesString_Japanese);
 		DisplayValueText (vr_MainMenu_VR_StreamingNoButton,vr_NoString_Japanese);
+
+		DisplayValueText (vr_MainMenu_VR_SensorContent,vr_Application_will_beString_Japanese);
+		DisplayValueText (vr_MainMenu_VR_SensorYesButton,vr_YesString_Japanese);
+		DisplayValueText (vr_MainMenu_VR_SensorNoButton,vr_NoString_Japanese);
 	}
 
 	private void SetJapaneseLanguage_VR_Settings(){
@@ -1145,6 +1188,7 @@ public class SystemLanguageManager : MonoBehaviour
 		SetJapaneseLanguage_SettingMenu ();
 		SetJapaneseLanguage_VRPlayerMenu ();
 		SetJapaneseLanguage_AlertMenu ();
+		SetJapaneseLanguage_SensorMenu ();
 		SetJapaneseLanguage_VR_ScreenCursor ();
 		SetJapaneseLanguage_VR_MainMenu ();
 		SetJapaneseLanguage_VR_Settings ();
@@ -1252,6 +1296,10 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (alertMenu_Exit,press_the_previous_button_again_to_exitString_Chinese);
 	}
 
+	private void SetChineseLanguage_SensorMenu(){
+		DisplayValueText (sensorMenu_SensorContent,calibrate_SensorString_Chinese);
+	}
+
 	private void SetChineseLanguage_VR_ScreenCursor(){
 		DisplayValueText (vr_ScreenCursor_3second,Hover_the_on_screenString_Chinese);
 		DisplayValueText (vr_ScreenCursor_Precautions,Precautions_AvoidString_Chinese);
@@ -1285,6 +1333,10 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (vr_MainMenu_VR_StreamingContent,vr_StreamingString_Chinese);
 		DisplayValueText (vr_MainMenu_VR_StreamingYesButton,vr_YesString_Chinese);
 		DisplayValueText (vr_MainMenu_VR_StreamingNoButton,vr_NoString_Chinese);
+
+		DisplayValueText (vr_MainMenu_VR_SensorContent,vr_Application_will_beString_Chinese);
+		DisplayValueText (vr_MainMenu_VR_SensorYesButton,vr_YesString_Chinese);
+		DisplayValueText (vr_MainMenu_VR_SensorNoButton,vr_NoString_Chinese);
 	}
 
 	private void SetChineseLanguage_VR_Settings(){
@@ -1320,6 +1372,7 @@ public class SystemLanguageManager : MonoBehaviour
 		SetChineseLanguage_SettingMenu ();
 		SetChineseLanguage_VRPlayerMenu ();
 		SetChineseLanguage_AlertMenu ();
+		SetChineseLanguage_SensorMenu ();
 		SetChineseLanguage_VR_ScreenCursor ();
 		SetChineseLanguage_VR_MainMenu ();
 		SetChineseLanguage_VR_Settings ();

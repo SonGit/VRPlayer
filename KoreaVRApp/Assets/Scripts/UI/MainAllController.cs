@@ -32,10 +32,11 @@ public class MainAllController : MonoBehaviour
 	private VRPlayerMenu vrPlayerMenu = null;
 	private MediaPlayerMenu mediaPlayerMenu = null;
 	private AlertMenu alertMenu = null;
+	private SensorMenu sensorMenu = null;
 
 	private BasicMenu lastMenu = null;
 
-	public BasicMenu _currentMenu = null;
+	private BasicMenu _currentMenu = null;
 
 	public BasicMenu currentMenu
 	{
@@ -235,6 +236,13 @@ public class MainAllController : MonoBehaviour
 		}else {
 			Debug.LogError ("mediaPlayerMenu Null");
 		}
+
+		if (sensorMenu != null) {
+			sensorMenu.OnBack += SensorMenu_OnClose;
+			sensorMenu.OnVR += SensorMenuMenu_OnSkip;
+		}else {
+			Debug.LogError ("sensorMenu Null");
+		}
 		// Event open,close Menu
 
 		// Event click Button
@@ -296,6 +304,7 @@ public class MainAllController : MonoBehaviour
 		alertMenu = UnityEngine.Object.FindObjectOfType<AlertMenu>();
 		scenes = UnityEngine.Object.FindObjectsOfType<AppScene> ();
 		_mediaPlayer = UnityEngine.Object.FindObjectOfType<MediaPlayer> ();
+		sensorMenu = UnityEngine.Object.FindObjectOfType<SensorMenu> ();
 
 		GoToScene2D ();
 
@@ -923,8 +932,12 @@ public class MainAllController : MonoBehaviour
 
 	private void VRPlayerMenu_OnRunVRPlayer(){
 		vrPlayerMenu.SetActive (false);
-		if (!(currentScene is SceneVR)){
-			GoToSceneVR ();
+		if (isSensorNotComplete) {
+			GoToSensorMenu ();
+		} else {
+			if (!(currentScene is SceneVR)){
+				GoToSceneVR ();
+			}	
 		}
 	}
 
@@ -952,6 +965,41 @@ public class MainAllController : MonoBehaviour
 		mediaPlayerMenu.CloseVideo ();
 	}
 
+	#endregion
+
+	#region SensorMenu
+	public bool isSensorNotComplete;
+	public void GoToSensorMenu()
+	{
+		if (!(currentScene is SceneSensor)){
+			GoTo2DSceneSensor ();
+		}
+
+		accessMenu.Close ();
+
+		if (!(currentMenu is SensorMenu)) {
+			sensorMenu.SetActive (true);
+		}
+	}
+
+	private void SensorMenu_OnClose(){
+		if (!(currentScene is Scene2D)){
+			GoToScene2D();
+		}
+
+		isSensorNotComplete = true;
+	}
+
+	public void SensorMenuMenu_OnSkip(){
+
+		if (!(currentScene is SceneVR)){
+			GoToSceneVR ();
+		}
+
+		isSensorNotComplete = false;
+		sensorMenu.Init ();
+	}
+		
 	#endregion
 
 
@@ -1235,6 +1283,29 @@ public class MainAllController : MonoBehaviour
         }
     }
 
+	void GoTo2DSceneSensor()
+	{
+		IsShowRecenterPanel = false;
+
+		foreach (AppScene scene in scenes)
+		{
+			if (scene is SceneSensor)
+			{
+
+				scene.Show(currentMenu);
+
+				currentScene = scene;
+
+				if (currentMenu != null)
+					currentMenu.Init();
+			}
+			else
+			{
+				scene.Hide();
+			}
+		}
+	}
+
     #endregion
 
 
@@ -1471,13 +1542,17 @@ public class MainAllController : MonoBehaviour
 	private void ApplicationExit (){
 		if (currentScene is Scene2D) {
 			if (Input.GetKeyDown (KeyCode.Escape)) {
-				if (currentMenu is StorageMenu) {
-					if (alertMenu != null) {
-						alertMenu.ExitAlert ();
-					}
+				if (accessMenu.PanelLayer.gameObject.activeSelf) {
+					accessMenu.Close ();
 				} else {
-					if (!(currentMenu is MediaPlayerMenu)) {
-						AccessMenu_OnMyStorage ();
+					if (currentMenu is StorageMenu) {
+						if (alertMenu != null) {
+							alertMenu.ExitAlert ();
+						}
+					} else {
+						if (!(currentMenu is MediaPlayerMenu)) {
+							AccessMenu_OnMyStorage ();
+						}
 					}
 				}
 			}

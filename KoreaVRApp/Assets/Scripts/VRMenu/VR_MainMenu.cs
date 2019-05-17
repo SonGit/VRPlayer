@@ -27,6 +27,8 @@ public class VR_MainMenu : MonoBehaviour
 	private GameObject noVideoAlert;
 	[SerializeField]
 	private GameObject streamingAlert;
+	[SerializeField]
+	private GameObject sensorAlert;
 
 	private float _delayCount = 0;
 	private float _delayTime = 2.5f;
@@ -54,6 +56,7 @@ public class VR_MainMenu : MonoBehaviour
 		HideDeleteAlert ();
 		HideNetworkAlert ();
 		HideStreamingAlert ();
+		HideSensorAlert ();
 	}
 
 	void Update()
@@ -68,6 +71,7 @@ public class VR_MainMenu : MonoBehaviour
 		HideNetworkAlert ();
 		HideNoVideoAlert ();
 		HideStreamingAlert ();
+		HideSensorAlert ();
 
 
 		//Show
@@ -113,6 +117,7 @@ public class VR_MainMenu : MonoBehaviour
 		HideDeleteAlert ();
 		HideNoVideoAlert ();
 		HideStreamingAlert ();
+		HideSensorAlert ();
 
 		bool isConnect = CheckNetworkConnection ();
 		if (isConnect) {
@@ -156,6 +161,7 @@ public class VR_MainMenu : MonoBehaviour
 		HideDeleteAlert ();
 		HideNoVideoAlert ();
 		HideStreamingAlert ();
+		HideSensorAlert ();
 
 		bool isConnect = CheckNetworkConnection ();
 		if (isConnect) {
@@ -189,6 +195,7 @@ public class VR_MainMenu : MonoBehaviour
 		HideDeleteAlert ();
 		HideNoVideoAlert ();
 		HideStreamingAlert ();
+		HideSensorAlert ();
 
 		bool isConnect = CheckNetworkConnection ();
 		if (isConnect) {
@@ -230,6 +237,7 @@ public class VR_MainMenu : MonoBehaviour
 		HideDeleteAlert ();
 		HideNoVideoAlert ();
 		HideStreamingAlert ();
+		HideSensorAlert ();
 
 		bool isConnect = CheckNetworkConnection ();
 		if (isConnect) {
@@ -272,35 +280,9 @@ public class VR_MainMenu : MonoBehaviour
 
 	public void GoToPage(int pageNo)
 	{
-//		Debug.Log ("asfssssss");
 		if(currentMenu != null)
 		currentMenu.ShowPage (pageNo);
 	}
-
-
-
-//	#region AutoLogin for Testing 
-//	public void Login()
-//	{
-//		if (ScreenLoading.instance != null) {
-//			ScreenLoading.instance.Play ();
-//		}
-//
-//		if (Networking.instance != null) {
-//			Networking.instance.LoginRequest ("mint1002", "minttest", OnGetLogin, ErrorGetLoginCallback);
-//		}
-//	}
-//
-//	private void OnGetLogin(LoginRespone response){
-//		if (response.event_code == "201") {
-//			MainAllController.instance.LoginUser("mint1002", response.auth_token);
-//		}
-//	}
-//
-//	public void ErrorGetLoginCallback(){
-//
-//	}
-//	#endregion
 
 
 	/// <summary>
@@ -470,6 +452,32 @@ public class VR_MainMenu : MonoBehaviour
 		}
 
 		HideStreamingAlert ();
+	}
+	#endregion
+
+	#region SensorAlert
+	public void ShowSensorAlert(){
+		if (sensorAlert != null ) {
+			sensorAlert.SetActive (true);
+		}else{
+			Debug.LogError ("Null................");
+		}
+	}
+
+	public void HideSensorAlert(){
+		if (sensorAlert != null) {
+			sensorAlert.SetActive (false);
+		}else{
+			Debug.LogError ("Null................");
+		}
+	}
+
+	public void ClickYesButton_SensorAlert(){
+		if (MainAllController.instance != null){
+			MainAllController.instance.GoToSensorMenu ();
+		}
+
+		HideSensorAlert ();
 	}
 	#endregion
 
