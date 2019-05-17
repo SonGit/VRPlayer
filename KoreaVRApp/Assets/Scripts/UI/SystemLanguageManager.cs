@@ -116,7 +116,7 @@ public class SystemLanguageManager : MonoBehaviour
 	[Header("---- KoreanLanguage ----")]
 
 	#region 2D
-	private string phoneVideoString_Korean = "전화 비디오";
+	private string phoneVideoString_Korean = "폰비디오";
 	private string myStorageString_Korean = "내 저장 공간";
 	private string myvideoString_Korean = "내 비디오";
 	private string videoListString_Korean = "동영상 목록";
@@ -131,7 +131,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string autoLoginString_Korean = "자동 로그인";
 	private string networkString_Korean = "네트워크에 연결할 수 없습니다.\n네트워크 연결을 확인하고 다시 시도하십시오.";
 	private string noVideosString_Korean = "동영상 없음";
-	private string detailPageString_Korean = "세부 정보 페이지";
+	private string detailPageString_Korean = "상세페이지";
 	private string streaming2DString_Korean = "2D 스트리밍";
 	private string streaming3DString_Korean = "3D 스트리밍";
 	private string watchin2DString_Korean = "2D로보기";
