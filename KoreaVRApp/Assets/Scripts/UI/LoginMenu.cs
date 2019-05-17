@@ -108,10 +108,12 @@ public class LoginMenu : BasicMenuNavigation
 				Networking.instance.LoginRequest (GetUsernameInput (), GetPasswordInput (), OnGetLogin, ErrorGetLoginCallback);
 			} 
 			else if (login_UsernameField.text == "" || (login_UsernameField.text == "" && login_PasswordField.text == "")) {
-				NativeUI.AlertPopup alert = NativeUI.Alert ("Notification!", "Enter your email");
+				//NativeUI.AlertPopup alert = NativeUI.Alert ("Notification!", "Enter your email");
+				AndroidDialog.instance.showWarningDialog("Enter your email");
 			} 
 			else if (login_PasswordField.text == "") {
-				NativeUI.AlertPopup alert = NativeUI.Alert ("Notification!", "Enter your password");
+				//NativeUI.AlertPopup alert = NativeUI.Alert ("Notification!", "Enter your password");
+				AndroidDialog.instance.showWarningDialog("Enter your password");
 			}
 		}
 	}

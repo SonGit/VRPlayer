@@ -8,14 +8,24 @@ public class VR_RecenterPanel : MonoBehaviour
 	[SerializeField] private GameObject root;
 	private VR_NodDetect vr_NodDetect;
 
+	[SerializeField] private EventSystem evtSystem;
+
 	void Start()
 	{
 		vr_NodDetect = UnityEngine.Object.FindObjectOfType<VR_NodDetect>();
 	}
 
 	// Update is called once per frame
-	void Update()
+	void FixedUpdate()
 	{
+		#if !UNITY_EDITOR
+		if (evtSystem != null) {
+			if (!evtSystem.IsPointerOverGameObject())
+			{
+				VR_Recenterer.instance.Recenter ();
+			}
+		}
+		#endif
 	}
 		
 	public delegate void OnRecenterCallback();
@@ -23,6 +33,8 @@ public class VR_RecenterPanel : MonoBehaviour
 
 	public void Show(OnRecenterCallback callback = null)
 	{
+		VR_Recenterer.instance.Recenter ();
+
 		if (vr_NodDetect != null){
 			vr_NodDetect.enabled = false;
 		}
@@ -65,6 +77,8 @@ public class VR_RecenterPanel : MonoBehaviour
 
 	void Show()
 	{
+		VR_Recenterer.instance.Recenter ();
+
 		if (root != null){
 			root.SetActive(true);
 			this.enabled = true;

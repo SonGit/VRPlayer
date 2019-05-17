@@ -279,6 +279,8 @@ public class SceneVR : AppScene
 				ShowInboxMenu ();
 			}
 		}
+
+		VR_Recenterer.instance.Recenter ();
 	}
 
 	IEnumerator LoadDevice(string newDevice)

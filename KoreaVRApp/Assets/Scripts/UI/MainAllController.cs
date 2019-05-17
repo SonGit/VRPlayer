@@ -991,6 +991,8 @@ public class MainAllController : MonoBehaviour
 	}
 
 	public void SensorMenuMenu_OnSkip(){
+		
+		VR_Recenterer.instance.Recenter ();
 
 		if (!(currentScene is SceneVR)){
 			GoToSceneVR ();
