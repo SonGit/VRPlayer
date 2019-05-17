@@ -381,4 +381,12 @@ public class VideoUI : Cacheable
 		}
 	}
 
+	protected String MakeRegistrationDateString()
+	{
+		if (video != null && video.videoInfo != null) {
+			return video.videoInfo.dateTime.Date.Day + "-" + video.videoInfo.dateTime.Date.Month + "-" + video.videoInfo.dateTime.Date.Year;
+		}
+		return String.Empty;
+	}
+
 }
