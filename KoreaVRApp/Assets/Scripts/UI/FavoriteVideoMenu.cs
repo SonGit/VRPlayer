@@ -72,8 +72,9 @@ public class FavoriteVideoMenu : BasicMenuNavigation
 			GameObject videoDownloaderObj = GameObject.Find ("VideoDownLoader" + "-" + video.videoInfo.id);
 
 			if (videoDownloaderObj != null) {
-				return true;
+				return false;
 			}
+				
 			return false;
 		}
 
