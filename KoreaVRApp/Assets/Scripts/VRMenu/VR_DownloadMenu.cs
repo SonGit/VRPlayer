@@ -8,8 +8,8 @@ public class VR_DownloadMenu : VR_BasicMenu
 	protected override void Start ()
 	{
 		base.Start ();
-		MainAllController.instance.OnGetUserVideo += Init;
-		MainAllController.instance.OnLoggedOut += Reset;
+		//MainAllController.instance.OnGetUserVideo += Init;
+		//MainAllController.instance.OnLoggedOut += Reset;
 	}
 
 	public override void Init()

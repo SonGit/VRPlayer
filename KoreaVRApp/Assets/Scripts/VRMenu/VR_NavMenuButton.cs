@@ -35,17 +35,25 @@ public class VR_NavMenuButton : VR_BasicButton
 		if (VR_MainMenu.instance != null){
 			bool isConnect = VR_MainMenu.instance.CheckNetworkConnection ();
 			if (isConnect) {
-				if (MainAllController.instance.HasUserLoggedIn ()) {
-					if (VR_NavMenuManager.instance != null && VR_NavMenuManager.instance.currentBtn != null) {
-						base.OnClickBtn ();
 
-						if (VR_NavMenuManager.instance.currentBtn != this) {
-							VR_NavMenuManager.instance.currentBtn.OnInactive ();
-							VR_NavMenuManager.instance.currentBtn = this;
-							this.OnActive ();
-						}
-					}
-				}
+                if (MainAllController.instance != null)
+                {
+                    if (MainAllController.instance.HasUserLoggedIn())
+                    {
+                        if (VR_NavMenuManager.instance != null && VR_NavMenuManager.instance.currentBtn != null)
+                        {
+                            base.OnClickBtn();
+
+                            if (VR_NavMenuManager.instance.currentBtn != this)
+                            {
+                                VR_NavMenuManager.instance.currentBtn.OnInactive();
+                                VR_NavMenuManager.instance.currentBtn = this;
+                                this.OnActive();
+                            }
+                        }
+                    }
+                }
+
 			}
 		}
 	}

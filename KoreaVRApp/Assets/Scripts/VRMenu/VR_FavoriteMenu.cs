@@ -17,8 +17,8 @@ public class VR_FavoriteMenu : VR_BasicMenu
 	protected override void Start ()
 	{
 		base.Start ();
-		MainAllController.instance.OnGetFavoriteVideo += Init;
-		MainAllController.instance.OnLoggedOut += Reset;
+		//MainAllController.instance.OnGetFavoriteVideo += Init;
+		//MainAllController.instance.OnLoggedOut += Reset;
 	}
 
 	void Update()

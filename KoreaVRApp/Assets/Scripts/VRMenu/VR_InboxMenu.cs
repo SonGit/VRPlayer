@@ -28,8 +28,8 @@ public class VR_InboxMenu : VR_BasicMenu
 	protected override void Start ()
 	{
 		base.Start ();
-		MainAllController.instance.OnGetUserVideo += Init;
-		MainAllController.instance.OnLoggedOut += Reset;
+		//MainAllController.instance.OnGetUserVideo += Init;
+		//MainAllController.instance.OnLoggedOut += Reset;
 
 	}
 

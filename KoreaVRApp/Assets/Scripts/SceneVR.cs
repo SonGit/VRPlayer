@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 using UnityEditor;
+using UnityEngine.SceneManagement;
 
 public class SceneVR : AppScene
 {
@@ -21,7 +22,10 @@ public class SceneVR : AppScene
     void Start()
     {
 		vr_RecenterPanel = UnityEngine.Object.FindObjectOfType<VR_RecenterPanel>();
+
+        Show();
     }
+
 
     // Update is called once per frame
     void Update()
@@ -34,9 +38,9 @@ public class SceneVR : AppScene
 		vrSetting.HideSetting ();
 		vrMainMenu.gameObject.SetActive (true);
 
-		if (vr_RecenterPanel != null && !MainAllController.instance.IsShowRecenterPanel){
-			vr_RecenterPanel.Show ();
-		}
+		//if (vr_RecenterPanel != null && !MainAllController.instance.IsShowRecenterPanel){
+		//	vr_RecenterPanel.Show ();
+		//}
 			
 		buttonScreenLock.OnClickLockBtn (true);
 		vrPlayer.gameObject.SetActive (false);
@@ -164,12 +168,14 @@ public class SceneVR : AppScene
 
 		currentVideo = video;
 
-		if (vr_RecenterPanel != null && !MainAllController.instance.IsShowRecenterPanel) {
-			vr_RecenterPanel.Show (OnDoneRecenter);
-		} else {
-			OnDoneRecenter ();
-		}
-	}
+        vr_RecenterPanel.Show(OnDoneRecenter);
+
+        //if (vr_RecenterPanel != null && !MainAllController.instance.IsShowRecenterPanel) {
+        //	vr_RecenterPanel.Show (OnDoneRecenter);
+        //} else {
+        //	OnDoneRecenter ();
+        //}
+    }
 
 	public void Streaming(Video video, string url)
 	{
@@ -243,10 +249,6 @@ public class SceneVR : AppScene
 
 	public override void Show(BasicMenu lastMenu = null)
 	{
-		foreach(Resolution resolution in Screen.resolutions)
-		{
-			Debug.Log ("VR          "+resolution.width + "      " + resolution.height);
-		}
 
 		Screen.fullScreen = true;
 
@@ -278,15 +280,18 @@ public class SceneVR : AppScene
 			if (lastMenu is InboxMenu) {
 				ShowInboxMenu ();
 			}
-		}
+		}else
+        {
+            ShowStorageMenu();
+        }
 
 		VR_Recenterer.instance.Recenter ();
 	}
 
 	IEnumerator LoadDevice(string newDevice)
 	{
-		int targetWidth = MainAllController.instance.maxWidth;
-		int targetHeight = MainAllController.instance.maxHeight;
+		//int targetWidth = MainAllController.instance.maxWidth;
+		//int targetHeight = MainAllController.instance.maxHeight;
 
 		yield return new WaitForEndOfFrame();
 		UnityEngine.XR.XRSettings.LoadDeviceByName(newDevice);
@@ -296,7 +301,7 @@ public class SceneVR : AppScene
 		Debug.Log ("++++ VR last " + Screen.currentResolution.width + "  " + Screen.currentResolution.height);
 		Screen.orientation = ScreenOrientation.LandscapeLeft;
 		yield return new WaitForSeconds (.25f);
-		Screen.SetResolution (targetHeight,targetWidth,true);
+		//Screen.SetResolution (targetHeight,targetWidth,true);
 		yield return new WaitForSeconds (.25f);
 		Debug.Log ("++++ VR current " + Screen.currentResolution.width + "  " + Screen.currentResolution.height);
 

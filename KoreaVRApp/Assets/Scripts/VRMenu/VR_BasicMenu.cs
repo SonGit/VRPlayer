@@ -20,7 +20,9 @@ public class VR_BasicMenu : BasicMenu
 
 	protected bool menuActive;
 
-	protected override void Awake()
+    protected bool firstTime;
+
+    protected override void Awake()
 	{
 		//tiles = tilesHolder.GetComponentsInChildren<VR_VideoTiles> ();
 		pageController = Object.FindObjectOfType<VR_PageController> ();

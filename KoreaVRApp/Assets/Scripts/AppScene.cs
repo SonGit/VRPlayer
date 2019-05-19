@@ -18,6 +18,6 @@ public abstract class AppScene : MonoBehaviour
 
 	public virtual void Hide ()
 	{
-		root.gameObject.SetActive (false);
+		//root.gameObject.SetActive (false);
 	}
 }

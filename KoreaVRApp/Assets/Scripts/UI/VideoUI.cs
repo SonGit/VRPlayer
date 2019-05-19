@@ -234,7 +234,7 @@ public class VideoUI : Cacheable
 		}
 	}
 
-	public void PlayIn3D()
+	public virtual void PlayIn3D()
 	{
 		if (MainAllController.instance != null){
 			MainAllController.instance.Play3D (video);

@@ -102,8 +102,8 @@ public class MainAllController : MonoBehaviour
 		if (maxHeight > 1000) {
 			Screen.SetResolution (maxWidth/2,maxHeight/2,false);
 		}
-
-	}
+        DontDestroyOnLoad(this.gameObject);
+    }
 
 	private void Start()
 	{
@@ -931,20 +931,45 @@ public class MainAllController : MonoBehaviour
 	}
 
 	private void VRPlayerMenu_OnRunVRPlayer(){
-		vrPlayerMenu.SetActive (false);
-		if (isSensorNotComplete) {
-			GoToSensorMenu ();
-		} else {
-			if (!(currentScene is SceneVR)){
-				GoToSceneVR ();
-			}	
-		}
-	}
+        //vrPlayerMenu.SetActive (false);
+        //if (isSensorNotComplete) {
+        //	GoToSensorMenu ();
+        //} else {
+        //	if (!(currentScene is SceneVR)){
+        //		GoToSceneVR ();
+        //	}	
+        //}
 
-	#endregion
+        StartCoroutine(LoadYourAsyncScene());
+    }
 
-	#region MediaPlayerMenu
-	public void ModeVR_OnMediaPlayerMenu()
+    IEnumerator LoadYourAsyncScene()
+    {
+        // The Application loads the Scene in the background as the current Scene runs.
+        // This is particularly good for creating loading screens.
+        // You could also load the Scene by using sceneBuildIndex. In this case Scene2 has
+        // a sceneBuildIndex of 1 as shown in Build Settings.
+
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("VRScene");
+
+        // Wait until the asynchronous scene fully loads
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+
+        SceneVR sceneVR = UnityEngine.Object.FindObjectOfType<SceneVR>();
+
+        if(sceneVR != null)
+        {
+            sceneVR.Show(currentMenu);
+        }
+    }
+
+    #endregion
+
+    #region MediaPlayerMenu
+    public void ModeVR_OnMediaPlayerMenu()
 	{
 		Play3D_2D ();
 
@@ -1115,17 +1140,17 @@ public class MainAllController : MonoBehaviour
 
 	public void Play3D(Video video)
 	{
-		this.video = video;
-		isStreaming = false;
+		//this.video = video;
+		//isStreaming = false;
 
-		if (currentScene is SceneVR) {
-			(currentScene as SceneVR).PlayFromURL (video);
-		} else {
-			GoToSceneVR ();
-			if (currentScene is SceneVR) {
-				(currentScene as SceneVR).PlayFromURL (video);
-			}
-		}
+		//if (currentScene is SceneVR) {
+		//	(currentScene as SceneVR).PlayFromURL (video);
+		//} else {
+		//	GoToSceneVR ();
+		//	if (currentScene is SceneVR) {
+		//		(currentScene as SceneVR).PlayFromURL (video);
+		//	}
+		//}
 	}
 
 	public void Play2D(Video video)

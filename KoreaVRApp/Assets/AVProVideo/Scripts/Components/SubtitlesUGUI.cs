@@ -33,9 +33,9 @@ namespace RenderHeads.Media.AVProVideo
 
 		void Update()
 		{
-			if (_mediaPlayer == null){
-				_mediaPlayer = MainAllController.instance.mediaPlayer;
-			}
+			//if (_mediaPlayer == null){
+				//_mediaPlayer = MainAllController.instance.mediaPlayer;
+			//}
 		}
 
 		void OnDestroy()

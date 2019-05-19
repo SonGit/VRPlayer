@@ -34,13 +34,15 @@ public class VR_StorageMenu : VR_BasicMenu
 
 	public override void FastRefresh()
 	{
-		//MAX_ITEM_PER_PAGE = tiles.Length;
-//
-//		foreach (VR_NarrowTile narrowTile in narrowTiles) {
-//			narrowTile.gameObject.SetActive (false);
-//		}
-
-		OnGetLocalVideo ();
+        // Only fast refresh if local have been init
+		if(firstTime)
+        {
+            OnGetLocalVideo();
+        }else
+        {
+            Refresh();
+            firstTime = false;
+        }
 	}
 	#endregion
 

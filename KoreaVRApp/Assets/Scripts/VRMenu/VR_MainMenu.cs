@@ -121,36 +121,52 @@ public class VR_MainMenu : MonoBehaviour
 
 		bool isConnect = CheckNetworkConnection ();
 		if (isConnect) {
-			if (MainAllController.instance.HasUserLoggedIn ()) {
+            if (MainAllController.instance != null)
+            {
+                if (MainAllController.instance.HasUserLoggedIn())
+                {
 
-				//Show
-				foreach (VR_BasicMenu menu in menus) {
-					if (menu is VR_UserVideoMenu) {
-						currentMenu = menu;
-						menu.Show ();
-						if (VR_MyvideoTitleManager.instance != null) {
-							VR_MyvideoTitleManager.instance.VideoListTitle ();
-						}
+                    //Show
+                    foreach (VR_BasicMenu menu in menus)
+                    {
+                        if (menu is VR_UserVideoMenu)
+                        {
+                            currentMenu = menu;
+                            menu.Show();
+                            if (VR_MyvideoTitleManager.instance != null)
+                            {
+                                VR_MyvideoTitleManager.instance.VideoListTitle();
+                            }
 
-						if(VR_NavMenuManager.instance != null)
-							VR_NavMenuManager.instance.OnClick_UserVideoMenu ();
-					} else {
-						menu.Hide ();
-					}
-				}
-				//Show
+                            if (VR_NavMenuManager.instance != null)
+                                VR_NavMenuManager.instance.OnClick_UserVideoMenu();
+                        }
+                        else
+                        {
+                            menu.Hide();
+                        }
+                    }
+                    //Show
 
-				if (MainAllController.instance != null){
-					bool isNoVideo = MainAllController.instance.CheckNovideos_UserVideo ();
-					if (!isNoVideo) {
-						HideNoVideoAlert ();
-					} else {
-						ShowNoVideoAlert ();
-					}
-				}
-			} else {
-				ShowLoginAlert ();
-			}
+                    if (MainAllController.instance != null)
+                    {
+                        bool isNoVideo = MainAllController.instance.CheckNovideos_UserVideo();
+                        if (!isNoVideo)
+                        {
+                            HideNoVideoAlert();
+                        }
+                        else
+                        {
+                            ShowNoVideoAlert();
+                        }
+                    }
+                }
+                else
+                {
+                    ShowLoginAlert();
+                }
+            }
+ 
 		} else {
 			ShowNetworkAlert ();
 		}
@@ -199,34 +215,51 @@ public class VR_MainMenu : MonoBehaviour
 
 		bool isConnect = CheckNetworkConnection ();
 		if (isConnect) {
-			if (MainAllController.instance.HasUserLoggedIn ()) {
 
-				//Show
-				foreach (VR_BasicMenu menu in menus) {
-					if (menu is VR_InboxMenu) {
-						currentMenu = menu;
-						menu.Show ();
+            if(MainAllController.instance != null)
+            {
+                if (MainAllController.instance.HasUserLoggedIn())
+                {
 
-						if(VR_NavMenuManager.instance != null)
-							VR_NavMenuManager.instance.OnClick_DownloadMenu ();
-					} else {
-						menu.Hide ();
-					}
-				}
-				//Show
+                    //Show
+                    foreach (VR_BasicMenu menu in menus)
+                    {
+                        if (menu is VR_InboxMenu)
+                        {
+                            currentMenu = menu;
+                            menu.Show();
 
-				if (MainAllController.instance != null){
-					bool isNoVideo = MainAllController.instance.CheckNovideos_InboxVideo ();
-					if (!isNoVideo) {
-						HideNoVideoAlert ();
-					} else {
-						ShowNoVideoAlert ();
-					}
-				}
+                            if (VR_NavMenuManager.instance != null)
+                                VR_NavMenuManager.instance.OnClick_DownloadMenu();
+                        }
+                        else
+                        {
+                            menu.Hide();
+                        }
+                    }
+                    //Show
 
-			}else {
-				ShowLoginAlert ();
-			}
+                    if (MainAllController.instance != null)
+                    {
+                        bool isNoVideo = MainAllController.instance.CheckNovideos_InboxVideo();
+                        if (!isNoVideo)
+                        {
+                            HideNoVideoAlert();
+                        }
+                        else
+                        {
+                            ShowNoVideoAlert();
+                        }
+                    }
+
+                }
+                else
+                {
+                    ShowLoginAlert();
+                }
+            }
+
+
 		}else {
 			ShowNetworkAlert ();
 		}

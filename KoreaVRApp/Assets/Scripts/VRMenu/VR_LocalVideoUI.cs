@@ -25,7 +25,11 @@ public class VR_LocalVideoUI : LocalVideoUI
 
 	public void PlayVideo()
 	{
-
+        SceneVR sceneVR = transform.root.GetComponentInParent<SceneVR>();
+        if(sceneVR != null)
+        {
+            sceneVR.PlayFromURL(video);
+        }
 	}
 
 
@@ -37,7 +41,7 @@ public class VR_LocalVideoUI : LocalVideoUI
 
 	void SetupThumbnail()
 	{
-		videoImage.texture = StorageMenu.instance.GetVideoThumbnail (video);
+		//videoImage.texture = StorageMenu.instance.GetVideoThumbnail (video);
 	}
 
 	void OnEnable()

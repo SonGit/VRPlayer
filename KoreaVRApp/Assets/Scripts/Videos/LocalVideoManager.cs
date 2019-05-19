@@ -11,7 +11,26 @@ public class LocalVideoManager : MonoBehaviour
 {
     public List<Video> localVideos = new List<Video>();
 
-    public static LocalVideoManager instance;
+    private static LocalVideoManager _instance;
+
+    public static LocalVideoManager instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = GameObject.FindObjectOfType<LocalVideoManager>();
+
+                if (_instance == null)
+                {
+                    GameObject container = new GameObject("LocalVideoManager");
+                    _instance = container.AddComponent<LocalVideoManager>();
+                }
+            }
+
+            return _instance;
+        }
+    }
 
     private bool m_IsDisplayLocalVideo;
 
@@ -19,7 +38,7 @@ public class LocalVideoManager : MonoBehaviour
 
     void Awake()
     {
-        instance = this;
+        _instance = this;
     }
 
     // Start is called before the first frame update
