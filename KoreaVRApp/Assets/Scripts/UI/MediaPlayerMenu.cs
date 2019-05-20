@@ -334,9 +334,9 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 
 	public void CloseVideo()
 	{
-//		if (mediaPlayer != null){
-//			mediaPlayer.CloseVideo ();
-//		}
+		if (mediaPlayer != null){
+			mediaPlayer.CloseVideo ();
+		}
 	}
 
 	public void Play2D_3D()
