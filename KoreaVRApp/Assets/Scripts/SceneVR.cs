@@ -19,11 +19,11 @@ public class SceneVR : AppScene
 	private VR_ButtonScreenLock buttonScreenLock;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
 		vr_RecenterPanel = UnityEngine.Object.FindObjectOfType<VR_RecenterPanel>();
 
-        Show();
+       // Show();
     }
 
 
@@ -75,9 +75,9 @@ public class SceneVR : AppScene
 		vrMainMenu.LoginViewable_VR (true);
 		vrMainMenu.LogoutViewable_VR (false);
 
-		if (MainAllController.instance != null) {
-			vrMainMenu.UserNameViewable_VR (MainAllController.instance.GetUserNameInput());
-		}
+//		if (MainAllController.instance != null) {
+//			vrMainMenu.UserNameViewable_VR (MainAllController.instance.GetUserNameInput());
+//		}
 	}
 
 	public void ShowUserVideoMenu()
@@ -168,7 +168,7 @@ public class SceneVR : AppScene
 
 		currentVideo = video;
 
-        vr_RecenterPanel.Show(OnDoneRecenter);
+		OnDoneRecenter ();
 
         //if (vr_RecenterPanel != null && !MainAllController.instance.IsShowRecenterPanel) {
         //	vr_RecenterPanel.Show (OnDoneRecenter);
@@ -288,29 +288,39 @@ public class SceneVR : AppScene
 		VR_Recenterer.instance.Recenter ();
 	}
 
+	public Camera camera;
+
 	IEnumerator LoadDevice(string newDevice)
 	{
 		//int targetWidth = MainAllController.instance.maxWidth;
 		//int targetHeight = MainAllController.instance.maxHeight;
 
+		if(camera != null)
+			camera.enabled = false;
+		
+		UnityEngine.XR.XRSettings.enabled = true;
 		yield return new WaitForEndOfFrame();
 		UnityEngine.XR.XRSettings.LoadDeviceByName(newDevice);
-		yield return null;
+		yield return new WaitForEndOfFrame();
 		UnityEngine.XR.XRSettings.enabled = true;
-
-		Debug.Log ("++++ VR last " + Screen.currentResolution.width + "  " + Screen.currentResolution.height);
 		Screen.orientation = ScreenOrientation.LandscapeLeft;
-		yield return new WaitForSeconds (.25f);
-		//Screen.SetResolution (targetHeight,targetWidth,true);
-		yield return new WaitForSeconds (.25f);
-		Debug.Log ("++++ VR current " + Screen.currentResolution.width + "  " + Screen.currentResolution.height);
 
-		Debug.Log ("++++ VR RES " + Screen.resolutions[0].width + "  " + Screen.resolutions[0].height);
-
+//		Debug.Log ("++++ VR last " + Screen.currentResolution.width + "  " + Screen.currentResolution.height);
+//		//Screen.orientation = ScreenOrientation.LandscapeLeft;
+//		yield return new WaitForSeconds (.25f);
+//		//Screen.SetResolution (targetHeight,targetWidth,true);
+//		yield return new WaitForSeconds (.25f);
+//		Debug.Log ("++++ VR current " + Screen.currentResolution.width + "  " + Screen.currentResolution.height);
+//
+//		Debug.Log ("++++ VR RES " + Screen.resolutions[0].width + "  " + Screen.resolutions[0].height);
+//
 		VR_Recenterer.instance.Recenter ();
 
-		QualitySettings.vSyncCount = 0;
-		Application.targetFrameRate = 60;
+		if(camera != null)
+			camera.enabled = true;
+//
+//		QualitySettings.vSyncCount = 0;
+//		Application.targetFrameRate = 60;
 	}
 
 	public override void Hide()

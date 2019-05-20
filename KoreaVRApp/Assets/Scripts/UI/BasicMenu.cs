@@ -273,7 +273,7 @@ public class BasicMenu : MonoBehaviour
 
 	protected virtual List<Video> GetUserVideo()
 	{
-		User userReference = MainAllController.instance.user;
+		User userReference = SceneComtor.instance.GetUser();
 
 		if (userReference == null) {
 			Debug.Log ("User has not logged in!");

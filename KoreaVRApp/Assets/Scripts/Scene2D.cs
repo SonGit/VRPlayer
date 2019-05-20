@@ -34,9 +34,9 @@ public class Scene2D : AppScene
 		yield return new WaitForEndOfFrame();
 		UnityEngine.XR.XRSettings.LoadDeviceByName(newDevice);
 		yield return null;
-		UnityEngine.XR.XRSettings.enabled = true;
+		UnityEngine.XR.XRSettings.enabled = false;
 
-		Screen.orientation = ScreenOrientation.Portrait;
+		//Screen.orientation = ScreenOrientation.Portrait;
 
 //		int targetWidth = MainAllController.instance.maxWidth / 2;
 //		int targetHeight = MainAllController.instance.maxHeight / 2;

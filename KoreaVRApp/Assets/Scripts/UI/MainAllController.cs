@@ -16,8 +16,8 @@ using RenderHeads.Media.AVProVideo;
 
 public class MainAllController : MonoBehaviour
 {
-	public static MainAllController instance;
 
+	public static MainAllController instance;
 	[Header("---- Menus ----")]
 
 	private AccessMenu accessMenu = null;
@@ -94,19 +94,22 @@ public class MainAllController : MonoBehaviour
 
 	void Awake()
 	{
-		instance = this;
-
 		maxWidth = Screen.currentResolution.width;
 		maxHeight = Screen.currentResolution.height;
 
-		if (maxHeight > 1000) {
-			Screen.SetResolution (maxWidth/2,maxHeight/2,false);
-		}
-        DontDestroyOnLoad(this.gameObject);
+//		if (maxHeight > 1000) {
+//			Screen.SetResolution (maxWidth/2,maxHeight/2,false);
+//		}
+//        DontDestroyOnLoad(this.gameObject);
+
+		instance = this;
     }
 
 	private void Start()
 	{
+		
+		SceneComtor.instance.Start ();
+
 		Init ();
 
 		// Event open,close Menu
@@ -278,11 +281,7 @@ public class MainAllController : MonoBehaviour
 		ApplicationExit ();
 
 
-		if(Input.GetKeyDown(KeyCode.Escape)){
-			if(currentScene is SceneVR){
-				GoToScene2D ();
-			}
-		}
+
 	}
 
 	private void Init()
@@ -471,6 +470,8 @@ public class MainAllController : MonoBehaviour
 			if (ScreenLoading.instance != null) {
 				ScreenLoading.instance.Stop ();
 			}
+			// Remember this user
+			SceneComtor.instance.SetUser (user);
 		}
 	}
 
@@ -614,7 +615,7 @@ public class MainAllController : MonoBehaviour
 	#endregion
 
 	#region AccessMenu	
-	private void AccessMenu_OnMyStorage()
+	public void AccessMenu_OnMyStorage()
 	{
 		accessMenu.Close ();
 
@@ -682,7 +683,7 @@ public class MainAllController : MonoBehaviour
 		loginMenu.Logout ();
 	}
 
-	private void AccessMenu_OnMyVideo()
+	public void AccessMenu_OnMyVideo()
 	{
 		accessMenu.Close ();
 
@@ -704,7 +705,7 @@ public class MainAllController : MonoBehaviour
 		}
 	}
 
-	private void AccessMenu_OnFavoriteMenu()
+	public void AccessMenu_OnFavoriteMenu()
 	{
 		accessMenu.Close ();
 	
@@ -940,31 +941,11 @@ public class MainAllController : MonoBehaviour
         //	}	
         //}
 
-        StartCoroutine(LoadYourAsyncScene());
+       // StartCoroutine(LoadYourAsyncScene());
+
+		SceneComtor.instance.GoTo3D (currentMenu);
     }
-
-    IEnumerator LoadYourAsyncScene()
-    {
-        // The Application loads the Scene in the background as the current Scene runs.
-        // This is particularly good for creating loading screens.
-        // You could also load the Scene by using sceneBuildIndex. In this case Scene2 has
-        // a sceneBuildIndex of 1 as shown in Build Settings.
-
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("VRScene");
-
-        // Wait until the asynchronous scene fully loads
-        while (!asyncLoad.isDone)
-        {
-            yield return null;
-        }
-
-        SceneVR sceneVR = UnityEngine.Object.FindObjectOfType<SceneVR>();
-
-        if(sceneVR != null)
-        {
-            sceneVR.Show(currentMenu);
-        }
-    }
+		
 
     #endregion
 
@@ -1151,6 +1132,7 @@ public class MainAllController : MonoBehaviour
 		//		(currentScene as SceneVR).PlayFromURL (video);
 		//	}
 		//}
+		SceneComtor.instance.Play3DFromURL(video);
 	}
 
 	public void Play2D(Video video)
@@ -1224,17 +1206,19 @@ public class MainAllController : MonoBehaviour
 
 	public void Streaming3D(Video video,string url)
 	{
-		isStreaming = true;
-		this.urlStreaming = url;
-		this.videoStreaming = video;
+//		isStreaming = true;
+//		this.urlStreaming = url;
+//		this.videoStreaming = video;
+//
+//		if (!(currentScene is SceneVR)){
+//			GoToSceneVR ();
+//		}
+//			
+//		if (currentScene is SceneVR) {
+//			(currentScene as SceneVR).Streaming (video,url);
+//		}
 
-		if (!(currentScene is SceneVR)){
-			GoToSceneVR ();
-		}
-			
-		if (currentScene is SceneVR) {
-			(currentScene as SceneVR).Streaming (video,url);
-		}
+		SceneComtor.instance.Streaming3D (video,url);
 	}
 
 	public void Streaming2D(Video video,string url)
@@ -1524,10 +1508,10 @@ public class MainAllController : MonoBehaviour
 	#region SubmitAllData
 
 	private void SubmitAllData(){
-		SubmitNewUserName (loginMenu.GetUsernameInput());
-		SubmitNewPassword (loginMenu.GetPasswordInput());
-		SubmitKeepLogin(settingsMenu.GetKeepLoginText());
-		SubmitNotification(settingsMenu.GetNotificationText());
+//		SubmitNewUserName (loginMenu.GetUsernameInput());
+//		SubmitNewPassword (loginMenu.GetPasswordInput());
+//		SubmitKeepLogin(settingsMenu.GetKeepLoginText());
+//		SubmitNotification(settingsMenu.GetNotificationText());
 	}
 
 	#endregion
@@ -1719,4 +1703,5 @@ public class MainAllController : MonoBehaviour
 		string username = loginMenu.GetUsernameInput ();
 		return username;
 	}
+		
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 using System;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class VR_MainMenu : MonoBehaviour
 {
@@ -373,11 +374,15 @@ public class VR_MainMenu : MonoBehaviour
 
 	public void ClickYesButton_LoginAlert(){
 		if (MainAllController.instance != null){
-			MainAllController.instance.OpenLoginMenuFromVR ();
+			SceneComtor.instance.GoTo2D (currentMenu);
 		}
 
 		HideLoginAlert ();
+
+		//StartCoroutine (BackTo2DScene());
 	}
+
+
 	#endregion
 
 	#region DeleteAlert

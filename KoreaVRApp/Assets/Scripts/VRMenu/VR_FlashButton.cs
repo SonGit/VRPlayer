@@ -66,7 +66,6 @@ public class VR_FlashButton : Button,IPointerEnterHandler
 
 	public void OnExit()
 	{
-		print ("exit!");
 		StopAllCoroutines ();
 		_PointerEnter = false;
         Reset();
