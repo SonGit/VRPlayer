@@ -654,7 +654,9 @@ public class MainAllController : MonoBehaviour
 
 	public void OpenLoginMenuFromVR()
 	{
-		GoToScene2D ();
+		if (!(currentScene is Scene2D)){
+			GoToScene2D();
+		}
 		AccessMenu_OnLogin ();
 		isGoVR = true;
 	}
@@ -959,7 +961,9 @@ public class MainAllController : MonoBehaviour
 	}
 
 	private void MediaPlayerMenu_OnBack(){
-        GoToScene2D();
+		if (!(currentScene is Scene2D)){
+			GoToScene2D();
+		}
 		AccessMenu_OnMyStorage ();
 		accessMenu.SetHandleViewable (true);
 		mediaPlayerMenu.CloseVideo ();
@@ -1097,7 +1101,9 @@ public class MainAllController : MonoBehaviour
 
 	public void Open2D()
 	{
-		GoToScene2D ();
+		if (!(currentScene is Scene2D)){
+			GoToScene2D();
+		}
 	}
 
 	public void OpenStorageMenuVR()
