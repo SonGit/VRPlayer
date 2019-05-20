@@ -119,16 +119,16 @@ public class SceneComtor : MonoBehaviour
 
 	public void GoTo3D(BasicMenu lastMenu = null)
 	{
-		cacheMenu = lastMenu;
-		StartCoroutine (GoTo3D_async(lastMenu));
+		// Remember this scene
+		lastMenuName = lastMenu.name;
+		StartCoroutine (GoTo3D_async());
 	}
 
-	BasicMenu cacheMenu;
+	public string lastMenuName = string.Empty;
 
-	IEnumerator GoTo3D_async(BasicMenu lastMenu= null)
+	IEnumerator GoTo3D_async()
 	{
 		Camera.main.enabled = false;
-
 
 		// The Application loads the Scene in the background as the current Scene runs.
 		// This is particularly good for creating loading screens.
@@ -145,42 +145,22 @@ public class SceneComtor : MonoBehaviour
 
 		yield return new WaitForEndOfFrame ();
 
-		Debug.Log ("User " + user);
+		Debug.Log ("lastMenuName " + lastMenuName);
 
-		lastMenu = cacheMenu;
+		//lastMenu = cacheMenu;
 
 		SceneVR sceneVR = UnityEngine.Object.FindObjectOfType<SceneVR> ();
 
 		if (sceneVR != null) {
 
-			// Return to user to the equivalent menu vased on last menu
-			if (lastMenu != null) {
-				if (lastMenu is StorageMenu) {
-					sceneVR.ShowStorageMenu ();
-				}
+			switch (lastMenuName) {
 
-				if (lastMenu is UserVideoMenu) {
-					sceneVR.ShowUserVideoMenu ();
-				}
-
-				if (lastMenu is FavoriteVideoMenu) {
-					sceneVR.ShowFavoriteVideoMenu ();
-				}
-
-				if (lastMenu is UserDetailMenu) {
-					sceneVR.ShowFavoriteVideoMenu ();
-				}
-
-				if (lastMenu is DownloadMenu) {
-					sceneVR.ShowInboxMenu ();
-				}
-
-				if (lastMenu is InboxMenu) {
-					sceneVR.ShowInboxMenu ();
-				}
-
-			} else {
+			case "StorageMenu":
 				sceneVR.ShowStorageMenu ();
+				break;
+			case "VideoListMenu":
+				sceneVR.ShowUserVideoMenu ();
+				break;
 			}
 
 		} else {
