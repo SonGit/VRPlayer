@@ -1334,7 +1334,7 @@ public class MainAllController : MonoBehaviour
 	{
 		if (PlayerPrefs.HasKey ("Username")) {
 			if (loginMenu != null) {
-				string username = loginMenu.GetUsernameInput ();
+				string username = GetCurrentUserName ();
 				username = PlayerPrefs.GetString ("Username");
 				loginMenu.SetUsernameInput (username);
 			}
@@ -1372,7 +1372,7 @@ public class MainAllController : MonoBehaviour
 	public void LoadPasswordProgress ()
 	{
 		if (PlayerPrefs.HasKey ("Password")) {
-			string password = loginMenu.GetPasswordInput ();
+			string password = GetCurrentPassword ();
 			password = PlayerPrefs.GetString ("Password");
 			loginMenu.SetPasswordInput (password);
 		}
@@ -1409,7 +1409,7 @@ public class MainAllController : MonoBehaviour
 	{
 		if (PlayerPrefs.HasKey ("KeepLogin")) {
 			if (settingsMenu != null) {
-				string keepLoginText = settingsMenu.GetKeepLoginText ();
+				string keepLoginText = GetCurrentKeepLogin ();
 				keepLoginText = PlayerPrefs.GetString ("KeepLogin");
 				settingsMenu.SetKeepLoginText (keepLoginText);
 			}
@@ -1449,7 +1449,7 @@ public class MainAllController : MonoBehaviour
 	{
 		if (PlayerPrefs.HasKey ("Notification")) {
 			if (settingsMenu != null) {
-				string notificationText = settingsMenu.GetNotificationText ();
+				string notificationText = GetCurrentNotification ();
 				notificationText = PlayerPrefs.GetString ("Notification");
 				settingsMenu.SetNotificationText (notificationText);
 			}
@@ -1460,6 +1460,45 @@ public class MainAllController : MonoBehaviour
 	{
 		if (settingsMenu != null) {
 			PlayerPrefs.SetString ("Notification", settingsMenu.GetNotificationText ());
+		}
+	}
+
+	#endregion
+
+	#region MobieNetwork Data
+
+	public void SubmitMobieNetwork(string visible)
+	{
+		if (settingsMenu != null) {
+			settingsMenu.SetMobieNetworkText (visible);
+		}
+		SaveMobieNetworkProgress ();
+	}
+
+	public string GetCurrentMobieNetwork ()
+	{
+		if (settingsMenu != null){
+			return settingsMenu.GetMobieNetworkText();
+		}
+
+		return null;
+	}
+
+	public void LoadMobieNetworkProgress ()
+	{
+		if (PlayerPrefs.HasKey ("MobieNetwork")) {
+			if (settingsMenu != null) {
+				string mobieNetworkText = GetCurrentMobieNetwork ();
+				mobieNetworkText = PlayerPrefs.GetString ("MobieNetwork");
+				settingsMenu.SetMobieNetworkText (mobieNetworkText);
+			}
+		}
+	}
+
+	private void SaveMobieNetworkProgress ()
+	{
+		if (settingsMenu != null) {
+			PlayerPrefs.SetString ("MobieNetwork", settingsMenu.GetMobieNetworkText ());
 		}
 	}
 
@@ -1503,6 +1542,7 @@ public class MainAllController : MonoBehaviour
 		SubmitNewPassword (loginMenu.GetPasswordInput());
 		SubmitKeepLogin(settingsMenu.GetKeepLoginText());
 		SubmitNotification(settingsMenu.GetNotificationText());
+		SubmitMobieNetwork (settingsMenu.GetMobieNetworkText());
 	}
 
 	#endregion
@@ -1515,6 +1555,7 @@ public class MainAllController : MonoBehaviour
 		LoadUserNameProgress ();
 		LoadPasswordProgress ();
 		LoadNotificationProgress ();
+		LoadMobieNetworkProgress ();
 
 		if (GetCurrentKeepLogin () == settingsMenu.GetkeyTrueKeepLogin()) {
 			loginMenu.Login ();

@@ -30,6 +30,13 @@ public class SettingsMenu : BasicMenuNavigation
 	private string keyTrueNotification = "t";
 	private string keyFalseNotification = "f";
 
+	[Header("Mobie Network")]
+	[SerializeField] private Button btnOffMobieNetwork;
+	[SerializeField] private Button btnOnMobieNetwork;
+	private string isOnMobieNetwork = "t";
+	private string keyTrueMobieNetwork = "t";
+	private string keyFalseMobieNetwork = "f";
+
 	protected override void Start ()
 	{
 		base.Start ();
@@ -98,6 +105,24 @@ public class SettingsMenu : BasicMenuNavigation
 					}
 				});
 		}
+
+		if (btnOffMobieNetwork != null){
+			btnOffMobieNetwork.onClick.AddListener(() =>
+				{
+					if(MainAllController.instance != null){
+						MainAllController.instance.PlayButtonSound ();
+					}
+				});
+		}
+
+		if (btnOnMobieNetwork != null){
+			btnOnMobieNetwork.onClick.AddListener(() =>
+				{
+					if(MainAllController.instance != null){
+						MainAllController.instance.PlayButtonSound ();
+					}
+				});
+		}
 		// Event click Button
 		OnLogout +=Reset;
 	}
@@ -110,12 +135,20 @@ public class SettingsMenu : BasicMenuNavigation
 	public void InitViewable(){
 
 		//Notification
-		if (isOnNotification == keyTrueKeepLogin) {
+		if (isOnNotification == keyTrueNotification) {
 			NotificationViewable (true);
 		} else {
 			NotificationViewable (false);
 		}
 		//Notification
+
+		//Mobie network
+		if (isOnMobieNetwork == keyTrueMobieNetwork) {
+			EnableMobieNetwork (true);
+		} else {
+			DisableMobieNetwork (false);
+		}
+		//Mobie network
 		
 		// HasUserLoggedIn ???
 		if (MainAllController.instance != null && !MainAllController.instance.HasUserLoggedIn ()) {
@@ -214,6 +247,49 @@ public class SettingsMenu : BasicMenuNavigation
 		}
 	}
 
+	bool mobieNetworkvisible;
+
+	public void MobieNetworkViewable(bool visible)
+	{
+		mobieNetworkvisible = visible;
+		if (mobieNetworkvisible) {
+			EnableMobieNetwork (mobieNetworkvisible);
+		} else {
+			#if !UNITY_EDITOR
+			AndroidDialog.instance.showLoginDialog ("Allow data network access Using your 3G / LTE connection may incur additional data charges", OnAlertMobieNetworkComplete);
+			#endif
+
+			#if UNITY_EDITOR
+			DisableMobieNetwork (mobieNetworkvisible);
+			#endif
+		}
+	}
+	 
+	private void OnAlertMobieNetworkComplete(){
+		DisableMobieNetwork (mobieNetworkvisible);
+	}
+
+	private void DisableMobieNetwork(bool visible){
+		if (btnOnMobieNetwork != null && btnOffMobieNetwork != null) {
+			btnOnMobieNetwork.gameObject.SetActive (visible);
+			btnOffMobieNetwork.gameObject.SetActive (!visible);
+			isOnMobieNetwork = keyFalseMobieNetwork;
+		}
+		else {
+			Debug.LogError ("btnMobieNetwork null!");
+		}
+	}
+
+	private void EnableMobieNetwork(bool visible){
+		if (btnOnMobieNetwork != null && btnOffMobieNetwork != null) {
+			btnOnMobieNetwork.gameObject.SetActive (visible);
+			btnOffMobieNetwork.gameObject.SetActive (!visible);
+			isOnMobieNetwork = keyTrueMobieNetwork;
+		} else {
+			Debug.LogError ("btnMobieNetwork null!");
+		}
+	}
+
 	#endregion
 
 
@@ -274,6 +350,29 @@ public class SettingsMenu : BasicMenuNavigation
 	public string GetkeyFalseNotification()
 	{
 		return keyFalseNotification;
+	}
+
+	#endregion
+
+	#region MobieNetwork
+	public void SetMobieNetworkText(string visible)
+	{
+		isOnMobieNetwork = visible;
+	}
+
+	public string GetMobieNetworkText()
+	{
+		return isOnMobieNetwork;
+	}
+
+	public string GetkeyTrueMobieNetwork()
+	{
+		return keyTrueMobieNetwork;
+	}
+
+	public string GetkeyFalseMobieNetwork()
+	{
+		return keyFalseMobieNetwork;
 	}
 
 	#endregion
