@@ -38,10 +38,6 @@ public class VR_RecenterPanel : MonoBehaviour
 		if (vr_NodDetect != null){
 			vr_NodDetect.enabled = false;
 		}
-
-		if (MainAllController.instance != null){
-			MainAllController.instance.IsShowRecenterPanel = true;
-		}
 			
 		Show ();
 
@@ -49,7 +45,6 @@ public class VR_RecenterPanel : MonoBehaviour
 			this.callback = callback;
 			StartCoroutine (RecenterDelay(.5f));
 		}
-
 	}
 
 	IEnumerator RecenterDelay(float delay)
@@ -72,6 +67,10 @@ public class VR_RecenterPanel : MonoBehaviour
 
 		if (vr_NodDetect != null){
 			vr_NodDetect.enabled = true;
+		}
+
+		if (MainAllController.instance != null){
+			MainAllController.instance.IsShowRecenterPanel = true;
 		}
 	}
 
