@@ -1747,6 +1747,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 950fa3fe06122a54bad09841d5c7d6f6, type: 3}
+--- !u!114 &299730848 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 299730848, guid: 95e67ebe51cfc9c4fb63951cd18a03ca,
+    type: 3}
+  m_PrefabInstance: {fileID: 1750899556}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &327457400 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6538709706244891763, guid: 95e67ebe51cfc9c4fb63951cd18a03ca,
@@ -4989,7 +5001,7 @@ PrefabInstance:
     - target: {fileID: 4810842472355034876, guid: d1b01d9d6ac3a0a4eb0cfba7a39146cd,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0009765625
+      value: 0.00048828125
       objectReference: {fileID: 0}
     - target: {fileID: 4810842470871812426, guid: d1b01d9d6ac3a0a4eb0cfba7a39146cd,
         type: 3}
@@ -6753,11 +6765,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: VR_MainMenu
       objectReference: {fileID: 0}
-    - target: {fileID: 3087345533632621897, guid: 95e67ebe51cfc9c4fb63951cd18a03ca,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3087345533632621896, guid: 95e67ebe51cfc9c4fb63951cd18a03ca,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7864,31 +7871,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1030006518273818780, guid: 95e67ebe51cfc9c4fb63951cd18a03ca,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5157670271565500511, guid: 95e67ebe51cfc9c4fb63951cd18a03ca,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1055620532109994799, guid: 95e67ebe51cfc9c4fb63951cd18a03ca,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8970802239943571258, guid: 95e67ebe51cfc9c4fb63951cd18a03ca,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5738171379149952224, guid: 95e67ebe51cfc9c4fb63951cd18a03ca,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2829985169869953210, guid: 95e67ebe51cfc9c4fb63951cd18a03ca,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -7898,10 +7880,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 99537798, guid: 95e67ebe51cfc9c4fb63951cd18a03ca, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 299730846, guid: 95e67ebe51cfc9c4fb63951cd18a03ca, type: 3}
       propertyPath: m_AnchorMin.y
@@ -7926,22 +7904,6 @@ PrefabInstance:
     - target: {fileID: 299730846, guid: 95e67ebe51cfc9c4fb63951cd18a03ca, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1997876054, guid: 95e67ebe51cfc9c4fb63951cd18a03ca, type: 3}
-      propertyPath: m_Color.r
-      value: 0.9764706
-      objectReference: {fileID: 0}
-    - target: {fileID: 1997876054, guid: 95e67ebe51cfc9c4fb63951cd18a03ca, type: 3}
-      propertyPath: m_Color.g
-      value: 0.15686275
-      objectReference: {fileID: 0}
-    - target: {fileID: 1997876054, guid: 95e67ebe51cfc9c4fb63951cd18a03ca, type: 3}
-      propertyPath: m_Color.b
-      value: 0.48235294
-      objectReference: {fileID: 0}
-    - target: {fileID: 1997876054, guid: 95e67ebe51cfc9c4fb63951cd18a03ca, type: 3}
-      propertyPath: m_Color.a
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95e67ebe51cfc9c4fb63951cd18a03ca, type: 3}
@@ -13436,6 +13398,7 @@ MonoBehaviour:
   vr_MainMenu_VR_StreamingContent: {fileID: 178297213}
   vr_MainMenu_VR_StreamingYesButton: {fileID: 808091257}
   vr_MainMenu_VR_StreamingNoButton: {fileID: 1870768322}
+  vr_MainMenu_VR_SensorTitle: {fileID: 299730848}
   vr_MainMenu_VR_SensorContent: {fileID: 859071560}
   vr_MainMenu_VR_SensorYesButton: {fileID: 1308806576}
   vr_MainMenu_VR_SensorNoButton: {fileID: 1855746597}

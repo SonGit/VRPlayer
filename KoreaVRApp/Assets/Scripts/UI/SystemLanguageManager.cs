@@ -91,6 +91,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string vr_StreamingrequiredString_English = "Streaming required";
 	private string vr_StreamingString_English = "Streaming?";
 	private string vr_Application_will_beString_English = "Application will be teminated when you move to sensor calibrating page. Continue?";
+	private string vr_Sensor_calibrationString_English = "Sensor calibration";
 
 	#endregion
 
@@ -122,7 +123,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string videoListString_Korean = "동영상 목록";
 	private string favoriteString_Korean = "즐겨찾기";
 	private string downloadString_Korean = "다운로드";
-	private string inboxString_Korean = "받은 편지함";
+	private string inboxString_Korean = "받은 파일함";
 	private string etcString_Korean = "기타.";
 	private string preferencesString_Korean = "환경 설정";
 	private string usageInformationString_Korean = "사용 정보";
@@ -141,7 +142,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string modelString_Korean = "모델";
 	private string playtimeString_Korean = "재생시간";
 	private string genreString_Korean = "장르";
-	private string Go_to_inbox_after_downloadString_Korean = "다운로드 후받은 편지함으로 이동";
+	private string Go_to_inbox_after_downloadString_Korean = "다운로드 받은 파일은 받은 파일함으로 이동";
 	private string settingsString_Korean = "설정";
 	private string loginString_Korean = "로그인";
 	private string loginInformationString_Korean = "로그인 정보";
@@ -174,7 +175,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string vr_Left_DownloadString_Korean = "다운로드";
 	private string vr_Left_MyVideoString_Korean = "내 비디오";
 	private string vr_Mid_MyStorageString_Korean = "내 저장 공간";
-	private string vr_Mid_InboxString_Korean = "받은 편지함";
+	private string vr_Mid_InboxString_Korean = "받은 파일함";
 	private string vr_Mid_VideoListString_Korean = "동영상 목록";
 	private string vr_Mid_FavoriteString_Korean = "즐겨찾기";
 	private string vr_LoginrequiredString_Korean = "로그인 필요";
@@ -187,7 +188,8 @@ public class SystemLanguageManager : MonoBehaviour
 	private string vr_NovideosString_Korean = "동영상 없음";
 	private string vr_StreamingrequiredString_Korean = "스트리밍 요구됨";
 	private string vr_StreamingString_Korean = "스트리밍?";
-	private string vr_Application_will_beString_Korean= "센서 교정 페이지로 이동할 때 응용 프로그램이 종료됩니다. 잇다?";
+	private string vr_Application_will_beString_Korean = "센서보정 페이지로 이동하게 되면 영상이 종료됩니다. 계속 하시겠습니까?";
+	private string vr_Sensor_calibrationString_Korean = "센서 보정";
 
 	#endregion
 
@@ -286,6 +288,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string vr_StreamingrequiredString_Japanese = "ストリーミングが必要";
 	private string vr_StreamingString_Japanese = "ストリーミング?";
 	private string vr_Application_will_beString_Japanese = "センサー校正ページに移動するとアプリケーションは終了します。 持続する？";
+	private string vr_Sensor_calibrationString_Japanese = "センサー校正";
 
 	#endregion
 
@@ -384,6 +387,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string vr_StreamingrequiredString_Chinese = "需要流媒體";
 	private string vr_StreamingString_Chinese = "流?";
 	private string vr_Application_will_beString_Chinese = "移動到傳感器校準頁面時，應用程序將終止。 繼續？";
+	private string vr_Sensor_calibrationString_Chinese = "傳感器校準";
 
 	#endregion
 
@@ -530,6 +534,7 @@ public class SystemLanguageManager : MonoBehaviour
 	[SerializeField] private Text vr_MainMenu_VR_StreamingYesButton = null;
 	[SerializeField] private Text vr_MainMenu_VR_StreamingNoButton = null;
 
+	[SerializeField] private Text vr_MainMenu_VR_SensorTitle = null;
 	[SerializeField] private Text vr_MainMenu_VR_SensorContent = null;
 	[SerializeField] private Text vr_MainMenu_VR_SensorYesButton = null;
 	[SerializeField] private Text vr_MainMenu_VR_SensorNoButton = null;
@@ -778,6 +783,7 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (vr_MainMenu_VR_StreamingYesButton,vr_YesString_English);
 		DisplayValueText (vr_MainMenu_VR_StreamingNoButton,vr_NoString_English);
 
+		DisplayValueText (vr_MainMenu_VR_SensorTitle,vr_Sensor_calibrationString_English);
 		DisplayValueText (vr_MainMenu_VR_SensorContent,vr_Application_will_beString_English);
 		DisplayValueText (vr_MainMenu_VR_SensorYesButton,vr_YesString_English);
 		DisplayValueText (vr_MainMenu_VR_SensorNoButton,vr_NoString_English);
@@ -963,6 +969,7 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (vr_MainMenu_VR_StreamingYesButton,vr_YesString_Korean);
 		DisplayValueText (vr_MainMenu_VR_StreamingNoButton,vr_NoString_Korean);
 
+		DisplayValueText (vr_MainMenu_VR_SensorTitle,vr_Sensor_calibrationString_Korean);
 		DisplayValueText (vr_MainMenu_VR_SensorContent,vr_Application_will_beString_Korean);
 		DisplayValueText (vr_MainMenu_VR_SensorYesButton,vr_YesString_Korean);
 		DisplayValueText (vr_MainMenu_VR_SensorNoButton,vr_NoString_Korean);
@@ -1149,6 +1156,7 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (vr_MainMenu_VR_StreamingYesButton,vr_YesString_Japanese);
 		DisplayValueText (vr_MainMenu_VR_StreamingNoButton,vr_NoString_Japanese);
 
+		DisplayValueText (vr_MainMenu_VR_SensorTitle,vr_Sensor_calibrationString_Japanese);
 		DisplayValueText (vr_MainMenu_VR_SensorContent,vr_Application_will_beString_Japanese);
 		DisplayValueText (vr_MainMenu_VR_SensorYesButton,vr_YesString_Japanese);
 		DisplayValueText (vr_MainMenu_VR_SensorNoButton,vr_NoString_Japanese);
@@ -1334,6 +1342,7 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (vr_MainMenu_VR_StreamingYesButton,vr_YesString_Chinese);
 		DisplayValueText (vr_MainMenu_VR_StreamingNoButton,vr_NoString_Chinese);
 
+		DisplayValueText (vr_MainMenu_VR_SensorTitle,vr_Sensor_calibrationString_Chinese);
 		DisplayValueText (vr_MainMenu_VR_SensorContent,vr_Application_will_beString_Chinese);
 		DisplayValueText (vr_MainMenu_VR_SensorYesButton,vr_YesString_Chinese);
 		DisplayValueText (vr_MainMenu_VR_SensorNoButton,vr_NoString_Chinese);
