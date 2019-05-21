@@ -16,6 +16,8 @@ public class VideoUI : Cacheable
 
 	public Texture2D thumbnailTexture;
 
+	private UserDetailMenu userDetailMenu;
+
 	public Video video
 	{
 		get {
@@ -49,6 +51,30 @@ public class VideoUI : Cacheable
 	{
 		this.video = video;
 	}
+
+	#region Go Detail page
+	public void GoDetailVideo(){
+		if(MainAllController.instance != null){
+			MainAllController.instance.PlayButtonSound ();
+		}
+
+		if (MainAllController.instance != null){
+			MainAllController.instance.UserVideo_OnUserVideoDetail ();
+		}
+
+		SetDetailVideoInfo ();
+	}
+
+	public void SetDetailVideoInfo(){
+		if (userDetailMenu == null){
+			userDetailMenu = UnityEngine.Object.FindObjectOfType<UserDetailMenu> ();
+		}
+
+		if (userDetailMenu != null){
+			userDetailMenu.Setup(video,this);
+		}
+	}
+	#endregion
 
 	protected long GetDownloadProgress()
 	{
