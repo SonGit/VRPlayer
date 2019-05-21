@@ -21,11 +21,6 @@ public class VR_FavoriteMenu : VR_BasicMenu
 		MainAllController.instance.OnLoggedOut += Reset;
 	}
 
-	void Update()
-	{
-
-	}
-
 	public override void Init()
 	{
 
@@ -69,5 +64,24 @@ public class VR_FavoriteMenu : VR_BasicMenu
 	{
 		base.FastRefresh ();
 		Init ();
+	}
+
+	protected override bool CanBeAdded(Video video)
+	{
+		FavoriteVideo userVideo = video as FavoriteVideo;
+
+		if (!userVideo.isPartial () || userVideo.isDownloaded ()) {
+			return true;
+		} else {
+
+			GameObject videoDownloaderObj = GameObject.Find ("VideoDownLoader" + "-" + video.videoInfo.id);
+
+			if (videoDownloaderObj != null) {
+				return false;
+			}
+
+			return false;
+		}
+
 	}
 }
