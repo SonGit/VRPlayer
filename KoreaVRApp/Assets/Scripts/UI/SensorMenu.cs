@@ -25,7 +25,16 @@ public class SensorMenu : BasicMenuNavigation
 	{
 		base.Start ();
 
-		Init ();
+		if (sensorBnt != null){
+			sensorBnt.onClick.AddListener(() =>
+				{
+					if(MainAllController.instance != null){
+						MainAllController.instance.PlayButtonSound ();
+					}
+				});
+		}
+
+		SensorMenuInit ();
 	}
 
 	void Update()
@@ -33,7 +42,8 @@ public class SensorMenu : BasicMenuNavigation
 		PlayCountdown ();
 	}
 
-	public void Init(){
+
+	public void SensorMenuInit(){
 		ReSetCountdownInfo ();
 
 		SetActive (pointImg.gameObject,true);
@@ -42,10 +52,6 @@ public class SensorMenu : BasicMenuNavigation
 	}
 
 	public void ClickSensorBnt(){
-		if(MainAllController.instance != null){
-			MainAllController.instance.PlayButtonSound ();
-		}
-
 		SetActive (pointImg.gameObject,false);
 		SetActive (countdownImg.gameObject,true);
 		SetActive (sensorBnt.gameObject,false);
