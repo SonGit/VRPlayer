@@ -34,9 +34,9 @@ public class MainAllController : MonoBehaviour
 	private AlertMenu alertMenu = null;
 	private SensorMenu sensorMenu = null;
 
-	private BasicMenu lastMenu = null;
+	public BasicMenu lastMenu = null;
 
-	private BasicMenu _currentMenu = null;
+	public BasicMenu _currentMenu = null;
 
 	public BasicMenu currentMenu
 	{
@@ -275,7 +275,7 @@ public class MainAllController : MonoBehaviour
 
 //		print ("RUNNINGGGGG");
 		
-		ApplicationExit ();
+		Application_BackButton ();
 
 
 		if(Input.GetKeyDown(KeyCode.Escape)){
@@ -916,24 +916,28 @@ public class MainAllController : MonoBehaviour
 	private void VRPlayerMenu_OnVRPlayer()
 	{
 		vrPlayerMenu.SetActive (false);
+		vrPlayerMenu.IsShowVRPlayer = false;
 	}
 
 	private void VRPlayerMenu_OnBack()
 	{
 		vrPlayerMenu.SetActive (false);
+		vrPlayerMenu.IsShowVRPlayer = false;
 		currentMenu.SetActive (true);
 	}
 
 	private void GoVRPplayerMenu(){
 		if (!(currentMenu is VRPlayerMenu)) {
             //currentMenu.SetActive (false);
-           vrPlayerMenu.SetActive (true);
-
+        	vrPlayerMenu.SetActive (true);
+			vrPlayerMenu.IsShowVRPlayer = true;
         }
 	}
 
 	private void VRPlayerMenu_OnRunVRPlayer(){
 		vrPlayerMenu.SetActive (false);
+		vrPlayerMenu.IsShowVRPlayer = false;
+
 		if (isSensorNotComplete) {
 			GoToSensorMenu ();
 		} else {
@@ -1003,7 +1007,7 @@ public class MainAllController : MonoBehaviour
 		}
 
 		isSensorNotComplete = false;
-		sensorMenu.Init ();
+		sensorMenu.SensorMenuInit ();
 	}
 		
 	#endregion
@@ -1588,21 +1592,35 @@ public class MainAllController : MonoBehaviour
 		Debug.Log("Application ending.........................................................");
 	}
 
-	private void ApplicationExit (){
+	private void Application_BackButton (){
 		if (currentScene is Scene2D) {
 			if (Input.GetKeyDown (KeyCode.Escape)) {
 				if (accessMenu.PanelLayer.gameObject.activeSelf) {
 					accessMenu.Close ();
 				} else {
-					if (currentMenu is StorageMenu) {
+					if (vrPlayerMenu.IsShowVRPlayer){
+						VRPlayerMenu_OnBack ();
+						return;
+					}
+						
+					if (currentMenu is UserDetailMenu){
+						userDetailMenu_OnUserVideoMenu ();
+						return;
+					}
+
+					if (currentMenu is StorageMenu) 
+					{
 						if (alertMenu != null) {
 							alertMenu.ExitAlert ();
 						}
-					} else {
-						if (!(currentMenu is MediaPlayerMenu)) {
-							AccessMenu_OnMyStorage ();
-						}
+						return;
+					} 
+
+					if (currentMenu is MediaPlayerMenu) {
+						return;
 					}
+
+					AccessMenu_OnMyStorage ();
 				}
 			}
 		}

@@ -11,6 +11,8 @@ public class VRPlayerMenu : BasicMenuNavigation
 
 	public event Action OnRunVRPlayer;
 
+	private bool isShowVRPlayer;
+
 	protected override void Start ()
 	{
 		base.Start ();
@@ -33,5 +35,11 @@ public class VRPlayerMenu : BasicMenuNavigation
 
 	public void RunVRPlayer(){
 		
+	}
+
+	public bool IsShowVRPlayer
+	{
+		get { return isShowVRPlayer; }
+		set { isShowVRPlayer = value; }
 	}
 }
