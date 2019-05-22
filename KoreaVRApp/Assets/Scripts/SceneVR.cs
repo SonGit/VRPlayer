@@ -267,9 +267,9 @@ public class SceneVR : AppScene
 				ShowFavoriteVideoMenu ();
 			}
 
-			if (lastMenu is UserDetailMenu) {
-				ShowFavoriteVideoMenu ();
-			}
+//			if (lastMenu is UserDetailMenu) {
+//				ShowFavoriteVideoMenu ();
+//			}
 
 			if (lastMenu is DownloadMenu) {
 				ShowInboxMenu ();
