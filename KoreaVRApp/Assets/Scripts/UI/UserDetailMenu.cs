@@ -134,7 +134,14 @@ public class UserDetailMenu : BasicMenuNavigation
 		GetVideoName().text = video.videoInfo.video_name;
 		GetVideoID ().text = video.videoInfo.id;
 		GetVideoDescription ().text = video.videoInfo.description;
-		GetVideoImage ().texture = (currentShowUI as UserVideoUI).GetVideoImage().texture;
+		if (currentShowUI is UserVideoUI){
+			GetVideoImage ().texture = (currentShowUI as UserVideoUI).GetVideoImage().texture;
+		}
+
+		if (currentShowUI is DownloadVideoUI){
+			GetVideoImage ().texture = (currentShowUI as DownloadVideoUI).GetVideoImage().texture;
+		}
+
 		GetVideoLength().text = (video.videoInfo.length).ToString();
 		GetVideoDate().text = video.videoInfo.date;
 
@@ -150,7 +157,7 @@ public class UserDetailMenu : BasicMenuNavigation
 
 		SetupFavoriteBtns ();
 
-		UiSwitch ();
+		UiSwitch (currentShowUI);
 
         ResetScrollView();
     }
@@ -411,18 +418,45 @@ public class UserDetailMenu : BasicMenuNavigation
 	#endregion
 
 	#region UI switch when user is downloaded/not downloaded
-	void UiSwitch()
+	void UiSwitch( VideoUI currentShowUI)
 	{
-		if (video != null) {
+		if (currentShowUI == null) {
+			Debug.Log ("currentShowUI not assigned!");
+			return;
+		}
 
-			if (video.isDownloaded ()) {
-				ShowDownloadedUI ();
-			} else {
-				ShowHavenotDownloadedUI ();
+		// Case: User comes from UserVideoMenu
+		if (currentShowUI is UserVideoUI) {
+			
+			if (video != null) {
+
+				if (video.isDownloaded ()) {
+					ShowDownloadedUI ();
+				} else {
+					ShowHavenotDownloadedUI ();
+				}
+
+				// Show download button
+				BtnDownload.gameObject.SetActive (true);
 			}
 
-		} else {
-			Debug.Log ("VIDEO IS NULL!");
+		}
+
+		// Case: User comes from DownloadMenu
+		if (currentShowUI is DownloadVideoUI) {
+
+			if (video != null) {
+
+				if (video.isDownloaded ()) {
+					ShowDownloadedUI ();
+				} else {
+					ShowHavenotDownloadedUI ();
+				}
+
+				// Hide download button
+				BtnDownload.gameObject.SetActive (false);
+			}
+
 		}
 	}
 
@@ -445,7 +479,7 @@ public class UserDetailMenu : BasicMenuNavigation
 	{
 		if (video != null && anotherVideo != null) {
 			if (video.videoInfo.id == anotherVideo.videoInfo.id) {
-				UiSwitch ();
+				UiSwitch (currentShowUI);
 			}
 		} else {
 			Debug.Log ("OnDownloadedVideo Null references!!!");

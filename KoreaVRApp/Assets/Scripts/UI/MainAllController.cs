@@ -818,6 +818,11 @@ public class MainAllController : MonoBehaviour
 			return;
 		}
 
+		if (lastMenu is DownloadMenu) {
+			AccessMenu_OnDownloadMenu ();
+			return;
+		}
+
 		//If not, at least return to to something, better than getting stuck
 		AccessMenu_OnMyVideo ();
 	}

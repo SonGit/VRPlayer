@@ -21,7 +21,6 @@ public class UserVideoUI : VideoUI
 
 	public GameObject videoDownloaderPrefab = null;
 	private VideoDownloader videoDownloader;
-	private UserDetailMenu userDetailMenu;
 
 	[Header("Favorite")]
 	[SerializeField] protected GameObject favoriteBtn;
@@ -34,7 +33,6 @@ public class UserVideoUI : VideoUI
 	// Use this for initialization
 	void Start () 
 	{
-		userDetailMenu = Object.FindObjectOfType<UserDetailMenu> ();
 		if (thumbnailTexture == null) {
 			thumbnailTexture = new Texture2D(4, 4, TextureFormat.DXT1, false);
 		}
@@ -47,26 +45,6 @@ public class UserVideoUI : VideoUI
 		}
 		return null;
 	}
-
-	#region Go Detail page
-	public void GoDetailVideo(){
-		if(MainAllController.instance != null){
-			MainAllController.instance.PlayButtonSound ();
-		}
-
-		if (MainAllController.instance != null){
-			MainAllController.instance.UserVideo_OnUserVideoDetail ();
-		}
-
-		SetDetailVideoInfo ();
-	}
-
-	public void SetDetailVideoInfo(){
-		if (userDetailMenu != null){
-			userDetailMenu.Setup(video,this);
-		}
-	}
-	#endregion
 
 
 	public void Download ()
