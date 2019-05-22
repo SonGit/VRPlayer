@@ -66,7 +66,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 8fa6e9356ac45e647ae82a6f93f8d9a6, type: 2}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.7058824}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1302,7 +1302,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.0014648438}
+  m_AnchoredPosition: {x: 0, y: -0.0017089844}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &5289436401445132523
@@ -1629,6 +1629,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 8fa6e9356ac45e647ae82a6f93f8d9a6, type: 2}
     - target: {fileID: 7554584321546396379, guid: 7666ed6daca9d61498defb10b35fb17e,
         type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7554584321546396379, guid: 7666ed6daca9d61498defb10b35fb17e,
+        type: 3}
       propertyPath: m_TargetGraphic
       value: 
       objectReference: {fileID: 105362334794315938}
@@ -1647,6 +1652,11 @@ PrefabInstance:
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 6330772967242811956}
+    - target: {fileID: 6352652459780852649, guid: 7666ed6daca9d61498defb10b35fb17e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6352652459780852649, guid: 7666ed6daca9d61498defb10b35fb17e,
         type: 3}
       propertyPath: m_Material
@@ -1739,6 +1749,11 @@ PrefabInstance:
       propertyPath: m_Text
       value: DOWNLOAD
       objectReference: {fileID: 0}
+    - target: {fileID: 3212511303366852997, guid: 7666ed6daca9d61498defb10b35fb17e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 580876924880950159, guid: 7666ed6daca9d61498defb10b35fb17e,
         type: 3}
       propertyPath: m_Material
@@ -1754,6 +1769,11 @@ PrefabInstance:
       propertyPath: graphic
       value: 
       objectReference: {fileID: 2347086828060274179}
+    - target: {fileID: 1613469221324886740, guid: 7666ed6daca9d61498defb10b35fb17e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1613469221324886740, guid: 7666ed6daca9d61498defb10b35fb17e,
         type: 3}
       propertyPath: m_Material
@@ -1808,7 +1828,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 6439995447386911499}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
