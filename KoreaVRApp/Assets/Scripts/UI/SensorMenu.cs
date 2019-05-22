@@ -16,6 +16,17 @@ public class SensorMenu : BasicMenuNavigation
 	[SerializeField] private Button sensorBnt;
 	private float countdownTime;
 
+	float accelerometerUpdateInterval = 1.0f / 60.0f;
+	// The greater the value of LowPassKernelWidthInSeconds, the slower the
+	// filtered value will converge towards current input sample (and vice versa).
+	float lowPassKernelWidthInSeconds = 1.0f;
+	// This next parameter is initialized to 2.0 per Apple's recommendation,
+	// or at least according to Brady! ;)
+	float shakeDetectionThreshold = 0f;
+
+	float lowPassFilterFactor;
+	Vector3 lowPassValue;
+
 	protected override void Awake ()
 	{
 		base.Awake ();
@@ -33,6 +44,9 @@ public class SensorMenu : BasicMenuNavigation
 					}
 				});
 		}
+
+		lowPassFilterFactor = accelerometerUpdateInterval / lowPassKernelWidthInSeconds;
+		lowPassValue = Input.acceleration;
 
 		SensorMenuInit ();
 	}
@@ -72,28 +86,25 @@ public class SensorMenu : BasicMenuNavigation
 		}
 	}
 
-	bool isCountdown;
-	bool isWaitTime;
-
 	private void CheckAccelerometerInput(){
-		Vector3 dir = Vector3.zero;
-		dir.x = -Input.acceleration.y;
-		dir.z = Input.acceleration.x;
+//		Vector3 dir = Vector3.zero;
+//		dir.x = -Input.acceleration.y;
+//		dir.z = Input.acceleration.x;
 
-		if (dir.sqrMagnitude < 0.001f) {
-			if (isWaitTime){
-				isWaitTime = false;
-				StartCoroutine (WaitTime());
-			}
+		Vector3 acceleration = Input.acceleration;
+		lowPassValue = Vector3.Lerp(lowPassValue, acceleration, lowPassFilterFactor);
+		Vector3 deltaAcceleration = acceleration - lowPassValue;
+		float magnitude = Mathf.Round (deltaAcceleration.magnitude * 10f) / 10f;
 
-			if (isCountdown){
+		Debug.Log("deltaAcceleration" + magnitude);
 
-				countdownTime -= Time.deltaTime;
+		if (magnitude == shakeDetectionThreshold) {
 
-				if (countdownTime <= 0) {
-					if (MainAllController.instance != null) {
-						MainAllController.instance.SensorMenuMenu_OnSkip ();
-					}
+			countdownTime -= Time.deltaTime;
+
+			if (countdownTime <= 0) {
+				if (MainAllController.instance != null) {
+					MainAllController.instance.SensorMenuMenu_OnSkip ();
 				}
 			}
 		}else {
@@ -105,25 +116,9 @@ public class SensorMenu : BasicMenuNavigation
 
 	}
 
-	private IEnumerator WaitTime (){
-		yield return new WaitForSeconds(0.5f);
-		isCountdown = true;
-	}
-
 	private void ReSetCountdownInfo(){
 		countdownTime = 5;
-		isWaitTime = true;
-		isCountdown = false;
 	}
 
-//		if (-Input.acceleration.z > 0.99f ) {
-//			countdownTime -= Time.deltaTime;
-//			if (countdownTime <= 0) {
-//				if (MainAllController.instance != null) {
-//					MainAllController.instance.SensorMenuMenu_OnSkip ();
-//				}
-//			}
-//		} else {
-//			countdownTime = 5;
-//		}
+
 }
