@@ -30,6 +30,8 @@ public class Scene2D : AppScene
 		if(camera != null)
 		camera.enabled = false;
 
+		Screen.fullScreen = false;
+
 
 		yield return new WaitForEndOfFrame();
 		UnityEngine.XR.XRSettings.LoadDeviceByName(newDevice);

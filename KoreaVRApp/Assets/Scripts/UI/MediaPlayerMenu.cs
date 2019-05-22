@@ -160,6 +160,8 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 			mediaPlayer = MainAllController.instance.mediaPlayer;
 		}
 
+		//mediaPlayer.m_StereoPacking =  StereoPacking.None;
+
 //		#if UNITY_ANDROID
 //		if (mediaPlayer.PlatformOptionsAndroid.videoApi == Android.VideoApi.ExoPlayer) {
 //			mediaPlayer.PlatformOptionsAndroid.videoApi = Android.VideoApi.MediaPlayer;
@@ -225,6 +227,9 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 		currentVideo = video;
 
 		OnRectTransformDimensionsChange ();
+
+		allUI.SetActive (false);
+		_buttonContainer.SetActive (false);
 	}
 
 	public void Streaming(Video video, string urlStreaming){
@@ -267,6 +272,9 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 		currentVideo = video;
 
 		OnRectTransformDimensionsChange ();
+
+		allUI.SetActive (false);
+		_buttonContainer.SetActive (false);
 	}
 
 
