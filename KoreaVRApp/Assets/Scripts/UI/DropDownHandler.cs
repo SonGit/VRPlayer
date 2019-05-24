@@ -26,6 +26,10 @@ public class DropDownHandler : MonoBehaviour
 				}
 				basicMenu.SortByDate ();
 			}
+
+			if(MainAllController.instance != null){
+				MainAllController.instance.PlayButtonSound ();
+			}
 		}
 		if (input == 1) {
 			if (basicMenu != null) {
@@ -34,6 +38,10 @@ public class DropDownHandler : MonoBehaviour
 				}
 				basicMenu.SortByName ();
 			}
+
+			if(MainAllController.instance != null){
+				MainAllController.instance.PlayButtonSound ();
+			}
 		}
 		if (input == 2) {
 			if (basicMenu != null) {
@@ -41,6 +49,10 @@ public class DropDownHandler : MonoBehaviour
 					(basicMenu as StorageMenu).SortBySize_Local ();
 				}
 				basicMenu.SortBySize ();
+			}
+
+			if(MainAllController.instance != null){
+				MainAllController.instance.PlayButtonSound ();
 			}
 		}
 	

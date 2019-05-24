@@ -170,6 +170,10 @@ public class UserDetailMenu : BasicMenuNavigation
 	public void OnClickStreaming3D()
 	{
 		Streaming3D (video.videoInfo.id);
+
+		if(MainAllController.instance != null){
+			MainAllController.instance.PlayButtonSound ();
+		}
 	}
 
 	void Streaming3D(string id)
@@ -206,6 +210,10 @@ public class UserDetailMenu : BasicMenuNavigation
 	public void OnClickStreaming2D()
 	{
 		Streaming2D (video.videoInfo.id);
+
+		if(MainAllController.instance != null){
+			MainAllController.instance.PlayButtonSound ();
+		}
 	}
 
 	void Streaming2D(string id)
@@ -413,6 +421,10 @@ public class UserDetailMenu : BasicMenuNavigation
 	{
 		if (MainAllController.instance != null){
 			MainAllController.instance.Play3D (video);
+		}
+
+		if(MainAllController.instance != null){
+			MainAllController.instance.PlayButtonSound ();
 		}
 	}
 	#endregion
