@@ -18,6 +18,7 @@ public class VR_SettingMenu : MonoBehaviour
 	[SerializeField] private RawImage BG;
 
 	private EventSystem eventSystem;
+	private SceneVR sceneVR;
 
     public Camera cameraSubtitle;
 
@@ -27,6 +28,7 @@ public class VR_SettingMenu : MonoBehaviour
 	void Start()
     {
 		eventSystem = Object.FindObjectOfType<EventSystem> ();
+		sceneVR = Object.FindObjectOfType<SceneVR> ();
 		vcr = Object.FindObjectOfType<VCR> ();
     }
 
@@ -37,6 +39,20 @@ public class VR_SettingMenu : MonoBehaviour
 		CheckOOB ();
 		#endif 
     }
+
+	public void CloseButton_OnClick(){
+		HideSetting ();
+		if (sceneVR != null){
+			sceneVR.HideProgressBar ();
+		}
+	}
+
+	public void PlayButton_OnClick(){
+		HideSetting ();
+		if (sceneVR != null){
+			sceneVR.HideProgressBar ();
+		}
+	}
 
 	public void ShowSetting(){
 		if (!Root.activeSelf){
