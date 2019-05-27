@@ -166,7 +166,7 @@ public class StorageMenu : BasicMenuNavigation
 		
 	#endregion
 
-	public virtual void SortByName()
+	public override void SortByName()
 	{
 		videos = videos.OrderBy(obj => (obj as LocalVideo).videoName).ToList();
 
@@ -175,7 +175,7 @@ public class StorageMenu : BasicMenuNavigation
 		currentSortStyle = SortStyle.SORT_BY_NAME;
 	}
 
-	public virtual void SortByDate()
+	public override void SortByDate()
 	{
 		videos = videos.OrderBy(obj => (obj as LocalVideo).videoDate).ToList();
 
@@ -184,7 +184,7 @@ public class StorageMenu : BasicMenuNavigation
 		currentSortStyle = SortStyle.SORT_BY_DATE;
 	}
 
-	public virtual void SortBySize()
+	public override void SortBySize()
 	{
 		videos = videos.OrderBy(obj => (obj as LocalVideo).videoSize).ToList();
 
