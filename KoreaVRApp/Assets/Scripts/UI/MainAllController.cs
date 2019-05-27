@@ -973,7 +973,9 @@ public class MainAllController : MonoBehaviour
 		if (!(currentScene is Scene2D)){
 			GoToScene2D();
 		}
-		AccessMenu_OnMyStorage ();
+		currentMenu.SetActive (false);
+		lastMenu.SetActive (true);
+		currentMenu = lastMenu;
 		accessMenu.SetHandleViewable (true);
 		mediaPlayerMenu.CloseVideo ();
 	}
@@ -1145,11 +1147,10 @@ public class MainAllController : MonoBehaviour
 
 	public void Play2D(Video video)
 	{
-		mediaPlayerMenu.SetActive (true);
 		this.video = video;
 		isStreaming = false;
 
-		Play3D_2D ();
+		ModeVR_OnMediaPlayerMenu ();
 	}
 
 	Video video;
@@ -1174,7 +1175,9 @@ public class MainAllController : MonoBehaviour
 		mediaPlayerMenu.CloseVideo ();
 
 		if (currentScene is SceneMediaPlayer) {
-			AccessMenu_OnMyStorage ();
+			currentMenu.SetActive (false);
+			lastMenu.SetActive (true);
+			currentMenu = lastMenu;
 			accessMenu.SetHandleViewable (true);
 			PlayButtonSound ();
 		}
@@ -1232,10 +1235,6 @@ public class MainAllController : MonoBehaviour
 		isStreaming = true;
 		this.urlStreaming = url;
 		this.videoStreaming = video;
-
-		if (currentScene is SceneMediaPlayer) {
-			PlayButtonSound ();
-		}
 
 		ModeVR_OnMediaPlayerMenu ();
 	}

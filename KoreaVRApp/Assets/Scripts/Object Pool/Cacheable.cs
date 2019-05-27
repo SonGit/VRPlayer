@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using EnhancedUI.EnhancedScroller;
 
-public abstract class Cacheable : MonoBehaviour {
+public abstract class Cacheable : EnhancedScrollerCellView {
 
 	private bool living;
 	public bool _living

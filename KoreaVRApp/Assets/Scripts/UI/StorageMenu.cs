@@ -5,10 +5,15 @@ using UnityEngine.UI;
 using System.IO;
 using System.Linq;
 using System;
+using EnhancedUI;
+using EnhancedUI.EnhancedScroller;
 
 public class StorageMenu : BasicMenuNavigation
 {
 	public static StorageMenu instance;
+
+	private List<Video> localVideos = new List<Video>();
+	private VideoUI videoUI;
 
 	void Awake()
 	{
@@ -45,23 +50,30 @@ public class StorageMenu : BasicMenuNavigation
 
 	public void OnGetLocalVideo()
 	{
-		List<Video> videoToShows = LocalVideoManager.instance.GetAllLocalVideos ();
+		localVideos = LocalVideoManager.instance.GetAllLocalVideos ();
 
-		Debug.LogError ("videoToShows " +  videoToShows.Count);
-
-		List<Video> currentLocalVideos = new List<Video> ();
-
-		foreach (VideoUI localVideoUI in listObject) {
-			currentLocalVideos.Add (localVideoUI.video as Video);
+		if (scroller != null){
+			scroller.ReloadData ();
 		}
+			
 
-		// Case: Current LocalVideos contain more elements than videoToShows
-		var TrimList = currentLocalVideos.Where(p => !videoToShows.Any(p2 => (p2 as LocalVideo).videoURL == (p as LocalVideo).videoURL)).ToList();
-		TrimUI (TrimList);
-
-		// Case: Current LocalVideos contain less elements than videoToShows
-		var Addlist = videoToShows.Where(p => !currentLocalVideos.Any(p2 => (p2 as LocalVideo).videoURL == (p as LocalVideo).videoURL)).ToList();
-		AddUI (Addlist);
+//		List<Video> videoToShows = LocalVideoManager.instance.GetAllLocalVideos ();
+//
+//		Debug.LogError ("videoToShows " +  videoToShows.Count);
+//
+//		List<Video> currentLocalVideos = new List<Video> ();
+//
+//		foreach (VideoUI localVideoUI in listObject) {
+//			currentLocalVideos.Add (localVideoUI.video as Video);
+//		}
+//
+//		// Case: Current LocalVideos contain more elements than videoToShows
+//		var TrimList = currentLocalVideos.Where(p => !videoToShows.Any(p2 => (p2 as LocalVideo).videoURL == (p as LocalVideo).videoURL)).ToList();
+//		TrimUI (TrimList);
+//
+//		// Case: Current LocalVideos contain less elements than videoToShows
+//		var Addlist = videoToShows.Where(p => !currentLocalVideos.Any(p2 => (p2 as LocalVideo).videoURL == (p as LocalVideo).videoURL)).ToList();
+//		AddUI (Addlist);
 
 		SortByCurrentStyle ();
 
@@ -152,5 +164,50 @@ public class StorageMenu : BasicMenuNavigation
 			break;
 		}
 	}
+
+	#region EnhancedScroller Handlers
+
+	public override int GetNumberOfCells (EnhancedScroller scroller)
+	{
+		if (localVideos != null){
+			return localVideos.Count;
+		}
+		return 0;
+	}
+
+	public override float GetCellViewSize (EnhancedScroller scroller, int dataIndex)
+	{
+		if (localVideos[dataIndex] is LocalVideo)
+		{
+			// header views
+			return 500f;
+		}
+
+		return 0f;
+	}
+
+	public override EnhancedScrollerCellView GetCellView (EnhancedScroller scroller, int dataIndex, int cellIndex)
+	{
+		if (localVideos[dataIndex] is LocalVideo)
+		{
+			// first, we get a cell from the scroller by passing a prefab.
+			// if the scroller finds one it can recycle it will do so, otherwise
+			// it will create a new cell.
+			videoUI = scroller.GetCellView(videoUIPrefab) as LocalVideoUI;
+
+			// set the name of the game object to the cell's data index.
+			// this is optional, but it helps up debug the objects in 
+			// the scene hierarchy.
+			videoUI.name = "LocalVideo " + dataIndex.ToString();
+		}
+
+		// we just pass the data to our cell's view which will update its UI
+		videoUI.Setup(localVideos[dataIndex]);
+
+		// return the cell to the scroller
+		return videoUI;
+	}
+		
+	#endregion
 
 }

@@ -2,6 +2,8 @@
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
+using EnhancedUI;
+using EnhancedUI.EnhancedScroller;
 
 public enum SortStyle
 {
@@ -10,7 +12,7 @@ public enum SortStyle
 	SORT_BY_SIZE,
 }
 
-public class BasicMenu : MonoBehaviour
+public class BasicMenu : MonoBehaviour, IEnhancedScrollerDelegate
 {
 	[SerializeField] private GameObject Root;
 
@@ -18,7 +20,8 @@ public class BasicMenu : MonoBehaviour
 
 	[SerializeField] private GameObject noVideoObj;
 
-	[SerializeField] protected GameObject videoUIPrefab;
+	[SerializeField] protected EnhancedScroller scroller;
+	[SerializeField] protected EnhancedScrollerCellView videoUIPrefab;
 
 	[SerializeField] protected VerticalLayoutGroup verticalGrid;
 
@@ -34,12 +37,14 @@ public class BasicMenu : MonoBehaviour
 
 	protected virtual void Awake()
 	{
-
+		
 	}
 
 	protected virtual void Start()
 	{
-		
+		if (scroller != null){
+			scroller.Delegate = this;
+		}
 	}
 
 	public virtual void Init()
@@ -115,18 +120,16 @@ public class BasicMenu : MonoBehaviour
 
 	public bool CheckNoVideos(){
 
-		if (verticalGrid.transform.childCount > 0){
-			VideoUI[] videoUIs = verticalGrid.GetComponentsInChildren<VideoUI>();
+		if(scroller != null){
+			VideoUI[] videoUIs = scroller.GetComponentsInChildren<VideoUI>();
 
 			foreach (var videoUI in videoUIs) {
 				if (videoUI.gameObject.activeSelf){
-					Debug.Log (videoUI.gameObject.name);
 					return false;
 					break;
 				}
 			}
 		}
-
 		return true;
 	}
 
@@ -397,4 +400,48 @@ public class BasicMenu : MonoBehaviour
 		}
 		return null;
 	}
+
+
+	#region EnhancedScroller Handlers
+
+	/// <summary>
+	/// This tells the scroller the number of cells that should have room allocated. This should be the length of your data array.
+	/// </summary>
+	/// <param name="scroller">The scroller that is requesting the data size</param>
+	/// <returns>The number of cells</returns>
+	public virtual int GetNumberOfCells(EnhancedScroller scroller)
+	{
+		// in this example, we just pass the number of our data elements
+		return 0;
+	}
+
+	/// <summary>
+	/// This tells the scroller what the size of a given cell will be. Cells can be any size and do not have
+	/// to be uniform. For vertical scrollers the cell size will be the height. For horizontal scrollers the
+	/// cell size will be the width.
+	/// </summary>
+	/// <param name="scroller">The scroller requesting the cell size</param>
+	/// <param name="dataIndex">The index of the data that the scroller is requesting</param>
+	/// <returns>The size of the cell</returns>
+	public virtual float GetCellViewSize(EnhancedScroller scroller, int dataIndex)
+	{
+		// in this example, even numbered cells are 30 pixels tall, odd numbered cells are 100 pixels tall
+		return 0f;
+	}
+
+	/// <summary>
+	/// Gets the cell to be displayed. You can have numerous cell types, allowing variety in your list.
+	/// Some examples of this would be headers, footers, and other grouping cells.
+	/// </summary>
+	/// <param name="scroller">The scroller requesting the cell</param>
+	/// <param name="dataIndex">The index of the data that the scroller is requesting</param>
+	/// <param name="cellIndex">The index of the list. This will likely be different from the dataIndex if the scroller is looping</param>
+	/// <returns>The cell for the scroller to use</returns>
+	public virtual EnhancedScrollerCellView GetCellView(EnhancedScroller scroller, int dataIndex, int cellIndex)
+	{
+		// return the cell to the scroller
+		return null;
+	}
+
+	#endregion
 }

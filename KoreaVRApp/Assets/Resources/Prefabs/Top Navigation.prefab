@@ -1757,8 +1757,8 @@ GameObject:
   - component: {fileID: 5972598152231577434}
   - component: {fileID: 2565557021365324768}
   - component: {fileID: 6352652459780852649}
-  - component: {fileID: 7554584321546396379}
   - component: {fileID: 1045989351357839679}
+  - component: {fileID: 4602300031374899377}
   m_Layer: 5
   m_Name: Button Sort
   m_TagString: Untagged
@@ -1824,7 +1824,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
---- !u!114 &7554584321546396379
+--- !u!114 &1045989351357839679
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1833,7 +1833,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 8897203512336203297}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 853051423, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: ea6402f25f8b7554bbf4532b7a41ce0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  basicMenu: {fileID: 0}
+--- !u!114 &4602300031374899377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8897203512336203297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b1e1f60222ebc840bf08c4dadb4d46b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -1891,19 +1904,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Dropdown+DropdownEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &1045989351357839679
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8897203512336203297}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea6402f25f8b7554bbf4532b7a41ce0a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  basicMenu: {fileID: 0}
 --- !u!1 &9105412441251248604
 GameObject:
   m_ObjectHideFlags: 0
