@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.VR;
 using System;
 using System.Net;
+using System.Text.RegularExpressions;
 
 public class UserDetailMenu : BasicMenuNavigation
 {
@@ -133,7 +134,8 @@ public class UserDetailMenu : BasicMenuNavigation
 	{
 		GetVideoName().text = video.videoInfo.video_name;
 		GetVideoID ().text = video.videoInfo.id;
-		GetVideoDescription ().text = video.videoInfo.description;
+		GetVideoDescription ().text = Regex.Unescape (video.videoInfo.description);
+	
 		if (currentShowUI is UserVideoUI){
 			GetVideoImage ().texture = (currentShowUI as UserVideoUI).GetVideoImage().texture;
 		}

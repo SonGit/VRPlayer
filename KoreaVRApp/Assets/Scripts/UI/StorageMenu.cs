@@ -210,7 +210,7 @@ public class StorageMenu : BasicMenuNavigation
 		
 	#endregion
 
-	public Video getVideoAtIndex(int index)
+	public override Video getVideoAtIndex(int index)
 	{
 		Video video = null;
 		try

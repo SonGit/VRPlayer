@@ -443,5 +443,11 @@ public class BasicMenu : MonoBehaviour, IEnhancedScrollerDelegate
 		return null;
 	}
 
+	public virtual Video getVideoAtIndex(int index)
+	{
+		// return the video at index
+		return null;
+	}
+
 	#endregion
 }

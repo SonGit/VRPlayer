@@ -8,6 +8,7 @@ using EasyMobile;
 using System.Net;
 using UnityEngine.Networking;
 using System;
+using System.Text.RegularExpressions;
 
 
 public class FavoriteVideoUI : UserVideoUI
@@ -25,7 +26,7 @@ public class FavoriteVideoUI : UserVideoUI
 		//this.video_length.text = "00:00:00";
 
 		video_size.text = MakeRegistrationDateString() + "  |  " + ((video.videoInfo.size / 1024) / 1024) + " MB";
-		video_desc.text = video.videoInfo.description;
+		video_desc.text = Regex.Unescape (video.videoInfo.description);
 
 		SetupFavoriteBtns ();
 
