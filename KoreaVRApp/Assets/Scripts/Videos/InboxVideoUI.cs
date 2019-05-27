@@ -162,4 +162,9 @@ public class InboxVideoUI : VideoUI
 	}
 
 	#endregion
+
+	public override void RefreshCellView()
+	{
+		Setup(InboxMenu.instance.getVideoAtIndex(dataIndex));
+	}
 }

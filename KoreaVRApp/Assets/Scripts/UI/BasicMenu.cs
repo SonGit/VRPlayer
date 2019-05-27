@@ -21,6 +21,7 @@ public class BasicMenu : MonoBehaviour, IEnhancedScrollerDelegate
 	[SerializeField] private GameObject noVideoObj;
 
 	[SerializeField] protected EnhancedScroller scroller;
+
 	[SerializeField] protected EnhancedScrollerCellView videoUIPrefab;
 
 	[SerializeField] protected VerticalLayoutGroup verticalGrid;
@@ -34,6 +35,8 @@ public class BasicMenu : MonoBehaviour, IEnhancedScrollerDelegate
 	private CanvasGroup _canvasGroup;
 
 	protected List<VideoUI> listObject = new List<VideoUI>();
+
+	protected List<Video> videos = new List<Video>();
 
 	protected virtual void Awake()
 	{
@@ -340,33 +343,30 @@ public class BasicMenu : MonoBehaviour, IEnhancedScrollerDelegate
 		}
 	}
 
-	public void SortByName()
+	public virtual void SortByName()
 	{
-		listObject = listObject.OrderBy (obj => obj.video.videoInfo.video_name).ToList();
-		for (int i = 0; i < listObject.Count; i++)
-		{
-			listObject[i].transform.SetSiblingIndex(i);
-		}
+		videos = videos.OrderBy(obj => obj.videoInfo.video_name).ToList();
+
+		scroller.RefreshActiveCellViews();
+
 		currentSortStyle = SortStyle.SORT_BY_NAME;
 	}
 
-	public void SortByDate()
+	public virtual void SortByDate()
 	{
-		listObject = listObject.OrderByDescending (obj => obj.video.videoInfo.dateTime).ToList();
-		for (int i = 0; i < listObject.Count; i++)
-		{
-			listObject[i].transform.SetSiblingIndex(i);
-		}
+		videos = videos.OrderBy(obj => obj.videoInfo.dateTime).ToList();
+
+		scroller.RefreshActiveCellViews();
+
 		currentSortStyle = SortStyle.SORT_BY_DATE;
 	}
 
-	public void SortBySize()
+	public virtual void SortBySize()
 	{
-		listObject = listObject.OrderBy(obj => obj.video.videoInfo.size).ToList();
-		for (int i = 0; i < listObject.Count; i++)
-		{
-			listObject[i].transform.SetSiblingIndex(i);
-		}
+		videos = videos.OrderBy(obj => obj.videoInfo.size).ToList();
+
+		scroller.RefreshActiveCellViews();
+
 		currentSortStyle = SortStyle.SORT_BY_SIZE;
 	}
 
@@ -445,8 +445,15 @@ public class BasicMenu : MonoBehaviour, IEnhancedScrollerDelegate
 
 	public virtual Video getVideoAtIndex(int index)
 	{
-		// return the video at index
-		return null;
+		Video video = null;
+		try
+		{
+			video = videos[index];
+			return video;
+		}catch(System.Exception e) {
+			Debug.Log ("getVideoAtIndex Exception!");
+			return null;
+		}
 	}
 
 	#endregion

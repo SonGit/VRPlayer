@@ -343,4 +343,9 @@ public class UserVideoUI : VideoUI
 			}
 		}
 	}
+
+	public override void RefreshCellView()
+	{
+		Setup(UserVideoMenu.instance.getVideoAtIndex(dataIndex));
+	}
 }

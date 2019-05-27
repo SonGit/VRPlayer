@@ -15,7 +15,6 @@ public class UserVideoMenu : BasicMenuNavigation
 
 	public delegate void UserVideoDownloadCallback(UserVideoUI UI);
 
-	private List<Video> userVideos = new List<Video>();
 	private VideoUI videoUI;
 
 	void Awake()
@@ -37,7 +36,7 @@ public class UserVideoMenu : BasicMenuNavigation
 
 	public override void Init()
 	{
-		userVideos = GetUserVideo ();
+		videos = GetUserVideo ();
 
 		if (scroller != null){
 			scroller.ReloadData ();
@@ -97,15 +96,15 @@ public class UserVideoMenu : BasicMenuNavigation
 
 	public override int GetNumberOfCells (EnhancedScroller scroller)
 	{
-		if (userVideos != null){
-			return userVideos.Count;
+		if (videos != null){
+			return videos.Count;
 		}
 		return 0;
 	}
 
 	public override float GetCellViewSize (EnhancedScroller scroller, int dataIndex)
 	{
-		if (userVideos[dataIndex] is UserVideo)
+		if (videos[dataIndex] is UserVideo)
 		{
 			// header views
 			return 500f;
@@ -116,7 +115,7 @@ public class UserVideoMenu : BasicMenuNavigation
 
 	public override EnhancedScrollerCellView GetCellView (EnhancedScroller scroller, int dataIndex, int cellIndex)
 	{
-		if (userVideos[dataIndex] is UserVideo)
+		if (videos[dataIndex] is UserVideo)
 		{
 			// first, we get a cell from the scroller by passing a prefab.
 			// if the scroller finds one it can recycle it will do so, otherwise
@@ -130,7 +129,7 @@ public class UserVideoMenu : BasicMenuNavigation
 		}
 
 		// we just pass the data to our cell's view which will update its UI
-		videoUI.Setup(userVideos[dataIndex]);
+		videoUI.Setup(videos[dataIndex]);
 
 		// return the cell to the scroller
 		return videoUI;

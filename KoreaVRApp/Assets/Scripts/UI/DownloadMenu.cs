@@ -12,7 +12,6 @@ public class DownloadMenu : BasicMenuNavigation
 
 	public static DownloadMenu instance;
 
-	private List<Video> downloadVideos = new List<Video>();
 	private VideoUI videoUI;
 
 	void Awake()
@@ -30,7 +29,7 @@ public class DownloadMenu : BasicMenuNavigation
 
 	public override void Init()
 	{
-		downloadVideos = GetUserVideo ();
+		videos = GetUserVideo ();
 
 		if (scroller != null){
 			scroller.ReloadData ();
@@ -203,8 +202,8 @@ public class DownloadMenu : BasicMenuNavigation
 
 	public override int GetNumberOfCells (EnhancedScroller scroller)
 	{
-		if (downloadVideos != null){
-			return downloadVideos.Count;
+		if (videos != null){
+			return videos.Count;
 		}
 		return 0;
 	}
@@ -229,11 +228,13 @@ public class DownloadMenu : BasicMenuNavigation
 	
 
 		// we just pass the data to our cell's view which will update its UI
-		videoUI.Setup(downloadVideos[dataIndex]);
+		videoUI.Setup(videos[dataIndex]);
 
 		// return the cell to the scroller
 		return videoUI;
 	}
 
 	#endregion
+
+
 }

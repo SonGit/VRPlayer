@@ -21,10 +21,9 @@ public class DropDownHandler : MonoBehaviour
 	public void DropDownInput (int input){
 		if (input == 0) {
 			if (basicMenu != null) {
-				if (basicMenu is StorageMenu) {
-					(basicMenu as StorageMenu).SortByDate_Local ();
-				}
+				
 				basicMenu.SortByDate ();
+
 			}
 
 			if(MainAllController.instance != null){
@@ -33,10 +32,9 @@ public class DropDownHandler : MonoBehaviour
 		}
 		if (input == 1) {
 			if (basicMenu != null) {
-				if (basicMenu is StorageMenu) {
-					(basicMenu as StorageMenu).SortByName_Local ();
-				}
+				
 				basicMenu.SortByName ();
+
 			}
 
 			if(MainAllController.instance != null){
@@ -45,10 +43,9 @@ public class DropDownHandler : MonoBehaviour
 		}
 		if (input == 2) {
 			if (basicMenu != null) {
-				if (basicMenu is StorageMenu) {
-					(basicMenu as StorageMenu).SortBySize_Local ();
-				}
+				
 				basicMenu.SortBySize ();
+
 			}
 
 			if(MainAllController.instance != null){

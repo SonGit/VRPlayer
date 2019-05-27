@@ -137,4 +137,9 @@ public class FavoriteVideoUI : UserVideoUI
 	{
 		DownloadMenu.instance.StartDownload (video.videoInfo.id);
 	}
+
+	public override void RefreshCellView()
+	{
+		Setup(FavoriteVideoMenu.instance.getVideoAtIndex(dataIndex));
+	}
 }

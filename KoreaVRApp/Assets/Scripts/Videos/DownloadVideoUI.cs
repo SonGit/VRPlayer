@@ -568,4 +568,9 @@ public class DownloadVideoUI : VideoUI
 	}
 
 	#endregion
+
+	public override void RefreshCellView()
+	{
+		Setup(DownloadMenu.instance.getVideoAtIndex(dataIndex));
+	}
 }

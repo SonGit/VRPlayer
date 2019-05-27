@@ -12,7 +12,6 @@ public class FavoriteVideoMenu : BasicMenuNavigation
 	public static FavoriteVideoMenu instance;
 
 	private VideoUI videoUI;
-	private List<Video> favoriteVideos = new List<Video>();
 
 	protected override void Awake ()
 	{
@@ -33,7 +32,7 @@ public class FavoriteVideoMenu : BasicMenuNavigation
 
 	public override void Init ()
 	{
-		favoriteVideos = GetFavoriteVideo ();
+		videos = GetFavoriteVideo ();
 
 		if (scroller != null){
 			scroller.ReloadData ();
@@ -93,15 +92,15 @@ public class FavoriteVideoMenu : BasicMenuNavigation
 
 	public override int GetNumberOfCells (EnhancedScroller scroller)
 	{
-		if (favoriteVideos != null){
-			return favoriteVideos.Count;
+		if (videos != null){
+			return videos.Count;
 		}
 		return 0;
 	}
 
 	public override float GetCellViewSize (EnhancedScroller scroller, int dataIndex)
 	{
-		if (favoriteVideos[dataIndex] is FavoriteVideo)
+		if (videos[dataIndex] is FavoriteVideo)
 		{
 			// header views
 			return 500f;
@@ -112,7 +111,7 @@ public class FavoriteVideoMenu : BasicMenuNavigation
 
 	public override EnhancedScrollerCellView GetCellView (EnhancedScroller scroller, int dataIndex, int cellIndex)
 	{
-		if (favoriteVideos[dataIndex] is FavoriteVideo)
+		if (videos[dataIndex] is FavoriteVideo)
 		{
 			// first, we get a cell from the scroller by passing a prefab.
 			// if the scroller finds one it can recycle it will do so, otherwise
@@ -126,7 +125,7 @@ public class FavoriteVideoMenu : BasicMenuNavigation
 		}
 
 		// we just pass the data to our cell's view which will update its UI
-		videoUI.Setup(favoriteVideos[dataIndex]);
+		videoUI.Setup(videos[dataIndex]);
 
 		// return the cell to the scroller
 		return videoUI;

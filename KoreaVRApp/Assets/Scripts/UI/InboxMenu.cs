@@ -13,7 +13,6 @@ public class InboxMenu : BasicMenuNavigation
 {
 	public static InboxMenu instance;
 
-	private List<Video> inboxVideos = new List<Video>();
 	private VideoUI videoUI;
 
 	public delegate void UserVideoDownloadCallback(UserVideoUI UI);
@@ -38,7 +37,7 @@ public class InboxMenu : BasicMenuNavigation
 
 	public override void Init()
 	{
-		inboxVideos = GetUserVideo ();
+		videos = GetUserVideo ();
 
 		if (scroller != null){
 			scroller.ReloadData ();
@@ -94,8 +93,8 @@ public class InboxMenu : BasicMenuNavigation
 
 	public override int GetNumberOfCells (EnhancedScroller scroller)
 	{
-		if (inboxVideos != null){
-			return inboxVideos.Count;
+		if (videos != null){
+			return videos.Count;
 		}
 		return 0;
 	}
@@ -119,7 +118,7 @@ public class InboxMenu : BasicMenuNavigation
 		videoUI.name = "InboxVideo " + dataIndex.ToString();
 
 		// we just pass the data to our cell's view which will update its UI
-		videoUI.Setup(inboxVideos[dataIndex]);
+		videoUI.Setup(videos[dataIndex]);
 
 		// return the cell to the scroller
 		return videoUI;
