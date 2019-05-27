@@ -499,7 +499,7 @@ namespace EnhancedUI.EnhancedScroller
             // if we have a delegate handling our data, then
             // call the resize
             if (_delegate != null)
-                _Resize(false);
+                _Resize(true);
         }
 
         /// <summary>

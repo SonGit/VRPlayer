@@ -72,13 +72,12 @@ public class FavoriteVideoUI : UserVideoUI
 	void UiSwitch()
 	{
 		if (video != null) {
-			if (video.isPartial ()) {
-				ShowHavenotDownloadedUI ();
-			} 
-
 			if (video.isDownloaded ()) {
 				ShowDownloadedUI ();
-			} 
+			} else {
+				ShowHavenotDownloadedUI ();
+			}
+
 		} else {
 			Debug.Log ("VIDEO IS NULL!");
 		}
