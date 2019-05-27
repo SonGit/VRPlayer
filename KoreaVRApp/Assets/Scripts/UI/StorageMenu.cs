@@ -13,6 +13,7 @@ public class StorageMenu : BasicMenuNavigation
 	public static StorageMenu instance;
 
 	private List<Video> localVideos = new List<Video>();
+
 	private VideoUI videoUI;
 
 	void Awake()
@@ -122,31 +123,28 @@ public class StorageMenu : BasicMenuNavigation
 
 	public void SortByName_Local()
 	{
-		listObject = listObject.OrderBy (obj => (obj.video as LocalVideo).videoName).ToList();
-		for (int i = 0; i < listObject.Count; i++)
-		{
-			listObject[i].transform.SetSiblingIndex(i);
-		}
+		localVideos = localVideos.OrderBy(obj => (obj as LocalVideo).videoName).ToList();
+
+		scroller.RefreshActiveCellViews();
+
 		currentSortStyle = SortStyle.SORT_BY_NAME;
 	}
 
 	public void SortByDate_Local()
 	{
-		listObject = listObject.OrderByDescending (obj => (obj.video as LocalVideo).videoDate).ToList();
-		for (int i = 0; i < listObject.Count; i++)
-		{
-			listObject[i].transform.SetSiblingIndex(i);
-		}
+		localVideos = localVideos.OrderBy(obj => (obj as LocalVideo).videoDate).ToList();
+
+		scroller.RefreshActiveCellViews();
+
 		currentSortStyle = SortStyle.SORT_BY_DATE;
 	}
 
 	public void SortBySize_Local()
 	{
-		listObject = listObject.OrderBy(obj => (obj.video as LocalVideo).videoSize).ToList();
-		for (int i = 0; i < listObject.Count; i++)
-		{
-			listObject[i].transform.SetSiblingIndex(i);
-		}
+		localVideos = localVideos.OrderBy(obj => (obj as LocalVideo).videoSize).ToList();
+
+		scroller.RefreshActiveCellViews();
+
 		currentSortStyle = SortStyle.SORT_BY_SIZE;
 	}
 
@@ -201,6 +199,8 @@ public class StorageMenu : BasicMenuNavigation
 			videoUI.name = "LocalVideo " + dataIndex.ToString();
 		}
 
+//		print ("dataIndex" +  dataIndex + "  cellIndex " + cellIndex);
+
 		// we just pass the data to our cell's view which will update its UI
 		videoUI.Setup(localVideos[dataIndex]);
 
@@ -209,5 +209,18 @@ public class StorageMenu : BasicMenuNavigation
 	}
 		
 	#endregion
+
+	public Video getVideoAtIndex(int index)
+	{
+		Video video = null;
+		try
+		{
+			video = localVideos[index];
+			return video;
+		}catch(Exception e) {
+			Debug.Log ("getVideoAtIndex Exception!");
+			return null;
+		}
+	}
 
 }

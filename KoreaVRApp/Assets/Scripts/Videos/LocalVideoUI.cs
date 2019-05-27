@@ -191,4 +191,8 @@ public class LocalVideoUI: VideoUI
         Debug.Log("------------------DONE");
     }
 
+	public override void RefreshCellView()
+	{
+		Setup(StorageMenu.instance.getVideoAtIndex(dataIndex));
+	}
 }
