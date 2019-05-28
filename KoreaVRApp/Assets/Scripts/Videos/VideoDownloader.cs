@@ -441,7 +441,8 @@ public class VideoDownloader : MonoBehaviour
 
 				// Destroy the this object too
 				video = null;
-				//                Destroy();
+
+			DownloadMenu.instance.Refresh ();
 		}
 
 	}
