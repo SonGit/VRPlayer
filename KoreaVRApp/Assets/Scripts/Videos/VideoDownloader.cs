@@ -433,14 +433,13 @@ public class VideoDownloader : MonoBehaviour
 	private void CheckDownloadComplete()
 	{
 		if (downloadState == DownloadState.Complete || downloadProgress == 100) {
-//				DeleteDownloader ();
-//				SetDownloadStateUI (DownloadState.Complete);
+			
+			// Kick event that this video has been downlaoded
+			MainAllController.instance.Downloaded (video);
 
-				// Kick event that this video has been downlaoded
-				MainAllController.instance.Downloaded (video);
-
-				// Destroy the this object too
-				video = null;
+			// Destroy the this object too
+			video = null;
+			Destroy (this.gameObject);
 
 			DownloadMenu.instance.Refresh ();
 		}
