@@ -68,26 +68,6 @@ public class InboxVideoUI : VideoUI
 	}
 	#endregion
 
-	public void Delete()
-	{
-		#if UNITY_ANDROID || UNITY_IOS
-		GetAlertDelete ();
-		#endif
-
-		#if UNITY_EDITOR
-		string path = Path.Combine (MainAllController.instance.user.GetPath(), video.videoInfo.id) ;
-
-		if (Directory.Exists (path)) {
-			Directory.Delete (path,true);
-		}
-
-		InboxMenu menu = Object.FindObjectOfType<InboxMenu> ();
-		if (menu != null) {
-			menu.RemoveUI (this);
-		}
-		#endif 
-	}
-
 	public override void OnLoadedThumbnail()
 	{
 		base.OnLoadedThumbnail ();
@@ -123,42 +103,6 @@ public class InboxVideoUI : VideoUI
 	public override void OnAlertDeleteComplete ()
 	{
         base.OnAlertDeleteComplete();
-        string path = Path.Combine(MainAllController.instance.user.GetPath(), video.videoInfo.id);
-
-        if (Directory.Exists(path))
-        {
-            Directory.Delete(path, true);
-
-            InboxMenu menu = Object.FindObjectOfType<InboxMenu>();
-            if (menu != null)
-            {
-                menu.RemoveUI(this);
-            }
-        }
-
-  //      bool isFistButtonClicked = buttonIndex == 0;
-		//bool isSecondButtonClicked = buttonIndex == 1;
-
-		//if (isFistButtonClicked) {
-
-		//} else {
-
-		//}
-
-		//if (isSecondButtonClicked) {
-		//	string path = Path.Combine (MainAllController.instance.user.GetPath(), video.videoInfo.id) ;
-
-		//	if (Directory.Exists (path)) {
-		//		Directory.Delete (path,true);
-
-		//		InboxMenu menu = Object.FindObjectOfType<InboxMenu> ();
-		//		if (menu != null) {
-		//			menu.RemoveUI (this);
-		//		}
-		//	}
-		//} else {
-
-		//}
 	}
 
 	#endregion

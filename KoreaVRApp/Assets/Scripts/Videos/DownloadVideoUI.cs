@@ -412,18 +412,6 @@ public class DownloadVideoUI : VideoUI
 	{
         base.OnAlertDeleteComplete();
         Pause ();
-
-        string path = Path.Combine (MainAllController.instance.user.GetPath(), video.videoInfo.id) ;
-
-        if (Directory.Exists (path)) {
-        	Directory.Delete (path,true);
-        }
-
-        	DownloadMenu menu = Object.FindObjectOfType<DownloadMenu> ();
-        	if (menu != null) {
-        		menu.RemoveUI (this);
-        	}
-			
     }
 
     #endregion

@@ -27,7 +27,10 @@ public class StorageMenu : BasicMenuNavigation
 	}
 
 	private void Update(){
-		
+		if (Input.GetKeyDown (KeyCode.A)) {
+			videos = new List<Video> ();
+			scroller.ReloadData ();
+		}
 	}
 
 	#region RefreshVideo
@@ -47,11 +50,13 @@ public class StorageMenu : BasicMenuNavigation
 	}
 	#endregion
 
+	bool first = true;
+
 	public void OnGetLocalVideo()
 	{
 		videos = LocalVideoManager.instance.GetAllLocalVideos ();
 
-		if (scroller != null){
+		if (scroller != null) {
 			scroller.ReloadData ();
 		}
 
@@ -66,6 +71,17 @@ public class StorageMenu : BasicMenuNavigation
 			
 		DisableNetworkAlert ();
 		UpdateNoVideoUI ();
+
+	}
+
+	public void Test()
+	{
+		//videos.RemoveAt (videos.Count - 1);
+		//videos.Add (new LocalVideo( "videoName ","videoName ","videoName ","videoName ", "videoName "));
+
+		if (scroller != null) {
+			scroller.ReloadData ();
+		}
 	}
 		
 

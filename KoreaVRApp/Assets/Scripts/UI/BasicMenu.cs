@@ -451,7 +451,7 @@ public class BasicMenu : MonoBehaviour, IEnhancedScrollerDelegate
 			video = videos[index];
 			return video;
 		}catch(System.Exception e) {
-			Debug.Log ("getVideoAtIndex Exception!");
+			Debug.Log ("getVideoAtIndex Exception!  at " + index + "            " + e.Message);
 			return null;
 		}
 	}

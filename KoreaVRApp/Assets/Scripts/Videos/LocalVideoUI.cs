@@ -28,11 +28,20 @@ public class LocalVideoUI: VideoUI
 
 		videoLength.text = MakeLengthString ();
 
-		#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
-		StartCoroutine(LoadThumbnail ());
-		#endif
-
+//		#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
+//		StopAllCoroutines();
+//		StartCoroutine(LoadThumbnail ());
+//		#endif
+//		StopAllCoroutines();
+//		StartCoroutine(Test ());
+//
+//		print (gameObject.activeInHierarchy);
     }
+
+	IEnumerator Test()
+	{
+		yield return new WaitForSeconds (.5f);
+	}
 
     IEnumerator LoadThumbnail()
     {
@@ -71,60 +80,6 @@ public class LocalVideoUI: VideoUI
 
        
     }
-		
-	/// <summary>
-	/// Call Android plugin to retrieve media list
-	/// Syntax: {Media_name}@{Media_length_in_ms} , {Media_name2}@{Media_length_in_ms2}
-	/// </summary>
-	/// 
-	private void LoadThumbnail_Threaded(string path)
-	{
-		plugin = new AndroidJavaClass ("com.example.unityplugin.PluginClass");
-
-		this.StartCoroutine (LoadThumbnail_async(path));
-	}
-
-	AndroidJavaClass plugin;
-	AndroidJavaClass unityClass;
-	AndroidJavaObject unityActivity;
-	AndroidJavaObject unityContext;
-
-	IEnumerator LoadThumbnail_async(string path)
-	{
-		//AndroidJNI.AttachCurrentThread();
-
-		byte[] pixelData;
-
-//		using (var thumbnail = plugin.CallStatic<AndroidJavaObject> ("getThumbnail", path)) {
-//
-//			if (!thumbnail.Call<bool>("isLoaded")) {
-//				Debug.LogError("NatShare Error: Failed to get thumbnail for video at path: "+path);
-//				yield break;
-//			}
-//			var width = thumbnail.Get<int>("width");
-//			var height = thumbnail.Get<int>("height");
-//
-//			using (var pixelBuffer = thumbnail.Get<AndroidJavaObject> ("pixelBuffer")) {
-//				using (var array = pixelBuffer.Call<AndroidJavaObject>("array")) {
-//					pixelData = AndroidJNI.FromByteArray(array.GetRawObject());
-//				}
-//			}
-//
-//			AndroidJNI.DetachCurrentThread ();
-//
-//			yield return Ninja.JumpToUnity;
-//
-//			thumbnailTexture = new Texture2D(width, height, TextureFormat.RGB565, false); // Weird texture format IMO
-//			thumbnailTexture.LoadRawTextureData(pixelData);
-//			thumbnailTexture.Apply ();
-//			videoImage.texture = thumbnailTexture;
-//			Debug.Log ("------------------DONE");
-//		}
-
-
-		yield return new WaitForEndOfFrame ();
-	}
-
 
 	#region NativeUI AlertPopup	
 	/// <summary>
@@ -138,8 +93,6 @@ public class LocalVideoUI: VideoUI
 	public override void OnAlertDeleteComplete ()
 	{
         base.OnAlertDeleteComplete();
-
-		Delete ();
 	}
 
     #endregion
@@ -153,6 +106,7 @@ public class LocalVideoUI: VideoUI
 
 	public override void RefreshCellView()
 	{
-		Setup(StorageMenu.instance.getVideoAtIndex(dataIndex));
+		print ("dataIndex " + dataIndex + " cellIndex " + cellIndex);
+		//Setup(StorageMenu.instance.getVideoAtIndex(dataIndex));
 	}
 }
