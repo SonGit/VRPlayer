@@ -138,8 +138,6 @@ public class LocalVideoUI: VideoUI
 	public override void OnAlertDeleteComplete ()
 	{
         base.OnAlertDeleteComplete();
-
-		Delete ();
 	}
 
     #endregion

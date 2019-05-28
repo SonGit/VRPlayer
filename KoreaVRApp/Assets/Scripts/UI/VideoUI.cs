@@ -45,7 +45,11 @@ public class VideoUI : EnhancedScrollerCellView
     // Update is called once per frame
     void Update()
     {
-
+        if(pendingDelete)
+        {
+            DeleteProcess();
+            pendingDelete = false;
+        }
     }
 
 	public virtual void Setup(Video video)
@@ -362,13 +366,15 @@ public class VideoUI : EnhancedScrollerCellView
 			//alert.OnComplete += OnAlertDeleteComplete;
 	}
 
-	//public virtual void OnAlertDeleteComplete(int buttonIndex){
-		
-	//}
+    //public virtual void OnAlertDeleteComplete(int buttonIndex){
+
+    //}
+
+    bool pendingDelete;
 
     public virtual void OnAlertDeleteComplete()
     {
-
+        pendingDelete = true;
     }
     #endregion
 
@@ -412,49 +418,60 @@ public class VideoUI : EnhancedScrollerCellView
 			MainAllController.instance.PlayButtonSound ();
 		}
 
-		#if !UNITY_EDITOR && (UNITY_ANDROID || UNITY_IOS)
+        #if !UNITY_EDITOR && (UNITY_ANDROID || UNITY_IOS)
 		GetAlertDelete ();
-		#endif
+        #endif
 
-		#if UNITY_EDITOR
-		if(this is LocalVideoUI)
-		{
-			try
-			{
-				File.Delete (video.videoInfo.id);
-			} catch (Exception e) {
-				Debug.Log ("DeleteVideo exception " + e.Message);
-			}
-				
-			StorageMenu menu = UnityEngine.Object.FindObjectOfType<StorageMenu> ();
-			if (menu != null) {
-				menu.Refresh();
-			}
-		}
+        #if UNITY_EDITOR
+        DeleteProcess();
+        #endif
+    }
 
-		if(this is DownloadVideoUI)
-		{
-			string path = String.Empty;
-			try
-			{
-				
-				path = Path.Combine (MainAllController.instance.user.GetPath(), video.videoInfo.id) ;
-				if (Directory.Exists (path)) {
-					Directory.Delete (path,true);
-				}
+    void DeleteProcess()
+    {
+        if (this is LocalVideoUI)
+        {
+            try
+            {
+                File.Delete(video.videoInfo.id);
+            }
+            catch (Exception e)
+            {
+                Debug.Log("DeleteVideo exception " + e.Message);
+            }
 
-			} catch (Exception e) {
-				Debug.Log ("DeleteVideo exception " + e.Message);
-			}
+            StorageMenu menu = UnityEngine.Object.FindObjectOfType<StorageMenu>();
+            if (menu != null)
+            {
+                menu.Refresh();
+            }
+        }
 
-			print(Directory.Exists (path));
-			DownloadMenu menu = UnityEngine.Object.FindObjectOfType<DownloadMenu> ();
-			if (menu != null) {
-				menu.Refresh();
-			}
-		}
+        if (this is DownloadVideoUI)
+        {
+            string path = String.Empty;
+            try
+            {
 
-		#endif 
-	}
+                path = Path.Combine(MainAllController.instance.user.GetPath(), video.videoInfo.id);
+                if (Directory.Exists(path))
+                {
+                    Directory.Delete(path, true);
+                }
+
+            }
+            catch (Exception e)
+            {
+                Debug.Log("DeleteVideo exception " + e.Message);
+            }
+
+            print(Directory.Exists(path));
+            DownloadMenu menu = UnityEngine.Object.FindObjectOfType<DownloadMenu>();
+            if (menu != null)
+            {
+                menu.Refresh();
+            }
+        }
+    }
 
 }

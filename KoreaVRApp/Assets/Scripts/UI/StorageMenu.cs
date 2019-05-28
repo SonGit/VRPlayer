@@ -87,14 +87,8 @@ public class StorageMenu : BasicMenuNavigation
 
 	public override float GetCellViewSize (EnhancedScroller scroller, int dataIndex)
 	{
-		if (videos[dataIndex] is LocalVideo)
-		{
-			// header views
-			return 500f;
-		}
-
-		return 0f;
-	}
+        return 500f;
+    }
 
 	public override EnhancedScrollerCellView GetCellView (EnhancedScroller scroller, int dataIndex, int cellIndex)
 	{
