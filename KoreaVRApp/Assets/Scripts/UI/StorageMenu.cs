@@ -60,23 +60,23 @@ public class StorageMenu : BasicMenuNavigation
 			scroller.ReloadData ();
 		}
 
-		SortByCurrentStyle ();
+		//SortByCurrentStyle ();
 
-		//ALso refresh the VR counterpart too
-		if (VR_MainMenu.instance != null) {
-			VR_MainMenu.instance.InitStorageMenu ();
-		} else {
-			Debug.LogError ("Exception! " + "  VR_MainMenu.instance null! ");
-		}
+		////ALso refresh the VR counterpart too
+		//if (VR_MainMenu.instance != null) {
+		//	VR_MainMenu.instance.InitStorageMenu ();
+		//} else {
+		//	Debug.LogError ("Exception! " + "  VR_MainMenu.instance null! ");
+		//}
 			
-		DisableNetworkAlert ();
-		UpdateNoVideoUI ();
+		//DisableNetworkAlert ();
+		//UpdateNoVideoUI ();
 
 	}
 
 	public void Test()
 	{
-		//videos.RemoveAt (videos.Count - 1);
+		videos.RemoveAt (videos.Count - 1);
 		//videos.Add (new LocalVideo( "videoName ","videoName ","videoName ","videoName ", "videoName "));
 
 		if (scroller != null) {
@@ -95,46 +95,33 @@ public class StorageMenu : BasicMenuNavigation
 
 	public override int GetNumberOfCells (EnhancedScroller scroller)
 	{
-		if (videos != null){
-			return videos.Count;
-		}
-		return 0;
-	}
+        return videos.Count;
+    }
 
 	public override float GetCellViewSize (EnhancedScroller scroller, int dataIndex)
 	{
-		if (videos[dataIndex] is LocalVideo)
-		{
-			// header views
-			return 500f;
-		}
+        return 500f;
 
-		return 0f;
-	}
+    }
 
 	public override EnhancedScrollerCellView GetCellView (EnhancedScroller scroller, int dataIndex, int cellIndex)
 	{
-		if (videos[dataIndex] is LocalVideo)
-		{
-			// first, we get a cell from the scroller by passing a prefab.
-			// if the scroller finds one it can recycle it will do so, otherwise
-			// it will create a new cell.
-			videoUI = scroller.GetCellView(videoUIPrefab) as LocalVideoUI;
+        // first, we get a cell from the scroller by passing a prefab.
+        // if the scroller finds one it can recycle it will do so, otherwise
+        // it will create a new cell.
+        LocalVideoUI cellView = scroller.GetCellView(videoUIPrefab) as LocalVideoUI;
 
-			// set the name of the game object to the cell's data index.
-			// this is optional, but it helps up debug the objects in 
-			// the scene hierarchy.
-			videoUI.name = "LocalVideo " + dataIndex.ToString();
-		}
+        // set the name of the game object to the cell's data index.
+        // this is optional, but it helps up debug the objects in 
+        // the scene hierarchy.
+        cellView.name = "Cell " + dataIndex.ToString();
 
-//		print ("dataIndex" +  dataIndex + "  cellIndex " + cellIndex);
-
-		// we just pass the data to our cell's view which will update its UI
-		videoUI.Setup(videos[dataIndex]);
-
-		// return the cell to the scroller
-		return videoUI;
-	}
+        // in this example, we just pass the data to our cell's view which will update its UI
+        // cellView.SetData(_data[dataIndex]);
+        cellView.Setup(videos[dataIndex]);
+        // return the cell to the scroller
+        return cellView;
+    }
 		
 	#endregion
 

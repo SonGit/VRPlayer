@@ -45,7 +45,11 @@ public class VideoUI : EnhancedScrollerCellView
     // Update is called once per frame
     void Update()
     {
-
+        if (deletePending)
+        {
+            DeleteProcess();
+            deletePending = false;
+        }
     }
 
 	public virtual void Setup(Video video)
@@ -361,8 +365,10 @@ public class VideoUI : EnhancedScrollerCellView
 		
     public virtual void OnAlertDeleteComplete()
     {
-		DeleteProcess();
+        deletePending = true;
     }
+
+    bool deletePending;
 
     #endregion
 
@@ -406,73 +412,16 @@ public class VideoUI : EnhancedScrollerCellView
 			MainAllController.instance.PlayButtonSound ();
 		}
 
-		#if !UNITY_EDITOR && (UNITY_ANDROID || UNITY_IOS)
-		GetAlertDelete ();
-		#endif
-
-		#if UNITY_EDITOR
-		DeleteProcess();
-		#endif 
-	}
+        GetAlertDelete();
+    }
 
 	void DeleteProcess()
 	{
-		if(this is LocalVideoUI)
-		{
-//			try
-//			{
-//				File.Delete (video.videoInfo.id);
-//			} catch (Exception e) {
-//				Debug.Log ("DeleteVideo exception " + e.Message);
-//			}
-//
-			StorageMenu menu = UnityEngine.Object.FindObjectOfType<StorageMenu> ();
-			if (menu != null) {
-				menu.Test ();
-			}
-		}
-
-		if(this is DownloadVideoUI)
-		{
-			string path = String.Empty;
-			try
-			{
-
-				path = Path.Combine (MainAllController.instance.user.GetPath(), video.videoInfo.id) ;
-				if (Directory.Exists (path)) {
-					Directory.Delete (path,true);
-				}
-
-			} catch (Exception e) {
-				Debug.Log ("DeleteVideo exception " + e.Message);
-			}
-				
-			DownloadMenu menu = UnityEngine.Object.FindObjectOfType<DownloadMenu> ();
-			if (menu != null) {
-				menu.Refresh();
-			}
-		}
-
-		if(this is InboxVideoUI)
-		{
-			string path = String.Empty;
-			try
-			{
-
-				path = Path.Combine (MainAllController.instance.user.GetPath(), video.videoInfo.id) ;
-				if (Directory.Exists (path)) {
-					Directory.Delete (path,true);
-				}
-
-			} catch (Exception e) {
-				Debug.Log ("DeleteVideo exception " + e.Message);
-			}
-
-			InboxMenu menu = UnityEngine.Object.FindObjectOfType<InboxMenu> ();
-			if (menu != null) {
-				menu.Refresh();
-			}
-		}
-	}
+        StorageMenu menu = UnityEngine.Object.FindObjectOfType<StorageMenu>();
+        if (menu != null)
+        {
+            menu.Refresh();
+        }
+    }
 
 }

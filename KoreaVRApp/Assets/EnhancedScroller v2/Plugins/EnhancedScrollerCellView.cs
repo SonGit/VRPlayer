@@ -7,7 +7,7 @@ namespace EnhancedUI.EnhancedScroller
     /// <summary>
     /// This is the base class that all cell views should derive from
     /// </summary>
-	public class EnhancedScrollerCellView : MonoBehaviour
+    public class EnhancedScrollerCellView : MonoBehaviour
     {
         /// <summary>
         /// The cellIdentifier is a unique string that allows the scroller

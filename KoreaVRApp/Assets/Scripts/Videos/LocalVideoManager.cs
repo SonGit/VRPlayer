@@ -6,6 +6,7 @@ using System.Linq;
 using UnityEngine.UI;
 using CielaSpike;
 using UnityEngine.Android;
+using EnhancedUI;
 
 public class LocalVideoManager : MonoBehaviour
 {
@@ -199,6 +200,16 @@ public class LocalVideoManager : MonoBehaviour
     public List<Video> GetAllLocalVideos()
     {
         return localVideos;
+    }
+
+    public SmallList<Video> GetAllLocalVideosSmall()
+    {
+        SmallList<Video> list = new SmallList<Video>();
+        foreach(Video video in localVideos)
+        {
+            list.Add(video);
+        }
+        return list;
     }
 
     public static IEnumerable<string> GetFileList(string fileSearchPattern, string rootFolderPath)
