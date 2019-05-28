@@ -34,27 +34,7 @@ public class DownloadMenu : BasicMenuNavigation
 		if (scroller != null){
 			scroller.ReloadData ();
 		}
-
-
-//		List<Video> videoToShow = GetUserVideo ();
-//
-//		List<Video> currentUserVideo = new List<Video> ();
-//
-//		foreach (VideoUI UI in listObject) {
-//			if(UI.video != null)
-//			currentUserVideo.Add (UI.video);
-//		}
-//
-////		 Case: Current UserVideo contain more elements than server
-////		 Trim elements that was deleted in server database
-//		var TrimList = currentUserVideo.Where(p => !videoToShow.Any(p2 => p2.videoInfo.id == p.videoInfo.id)).ToList();
-//		TrimUI (TrimList);
-//
-////		 Case: Current UserVideo contain less elements than server
-////		 Add elements that are present in server database, but not on local
-//		var Addlist = videoToShow.Where(p => !currentUserVideo.Any(p2 => p2.videoInfo.id == p.videoInfo.id)).ToList();
-//		AddUI (Addlist);
-
+			
 		CheckThumbnail ();
 
 		UpdateNetworkConnectionUI ();
@@ -74,11 +54,11 @@ public class DownloadMenu : BasicMenuNavigation
 			return true;
 		} else {
 			
-			GameObject videoDownloaderObj = GameObject.Find ("VideoDownLoader" + "-" + video.videoInfo.id);
-
-			if (videoDownloaderObj != null) {
-				return true;
-			}
+//			GameObject videoDownloaderObj = GameObject.Find ("VideoDownLoader" + "-" + video.videoInfo.id);
+//
+//			if (videoDownloaderObj != null) {
+//				return true;
+//			}
 			return false;
 		}
 
@@ -86,23 +66,23 @@ public class DownloadMenu : BasicMenuNavigation
 
 	protected override void AddVideoUI(Video video)
 	{
-		VideoUI downloadVideoUI = ObjectPool.instance.GetDownloadVideoUI ();
-
-		if (downloadVideoUI != null) {
-
-			downloadVideoUI.Setup (video);
-
-			if (verticalGrid == null) {
-				verticalGrid = this.GetComponentInChildren<VerticalLayoutGroup> ();
-			}
-
-			downloadVideoUI.transform.SetParent (verticalGrid.transform,false);
-
-			listObject.Add (downloadVideoUI);
-
-		} else {
-			Debug.LogError ("Wrong Prefab!");
-		}
+//		VideoUI downloadVideoUI = ObjectPool.instance.GetDownloadVideoUI ();
+//
+//		if (downloadVideoUI != null) {
+//
+//			downloadVideoUI.Setup (video);
+//
+//			if (verticalGrid == null) {
+//				verticalGrid = this.GetComponentInChildren<VerticalLayoutGroup> ();
+//			}
+//
+//			downloadVideoUI.transform.SetParent (verticalGrid.transform,false);
+//
+//			listObject.Add (downloadVideoUI);
+//
+//		} else {
+//			Debug.LogError ("Wrong Prefab!");
+//		}
 
 	}
 
@@ -186,13 +166,15 @@ public class DownloadMenu : BasicMenuNavigation
 	#endregion
 
 
-	public void StartDownload(string id)
+	public void StartDownload(Video video)
 	{
-		for (int i = 0; i < listObject.Count; i++) {
-			if (listObject [i].video.videoInfo.id == id) {
-				DownloadVideoUI downloadUI = (listObject [i] as DownloadVideoUI);
-				downloadUI.Download ();
-				return;
+		
+		GameObject videoDownloaderObj = GameObject.Find ("VideoDownLoader" + "-" + video.videoInfo.id);
+
+		if (videoDownloaderObj != null) {
+			VideoDownloader downloader = videoDownloaderObj.GetComponent<VideoDownloader> ();
+			if (downloader != null) {
+				downloader.Download (video);
 			}
 		}
 	}

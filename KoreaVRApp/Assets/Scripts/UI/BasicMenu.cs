@@ -167,20 +167,20 @@ public class BasicMenu : MonoBehaviour, IEnhancedScrollerDelegate
 
 	protected virtual void TrimUI(List<Video> destroyThese)
 	{
-		List<VideoUI> videoUIToDestroy = new List<VideoUI> ();
-
-		for (int i = 0; i < destroyThese.Count; i++) {
-			for (int y = 0; y < listObject.Count; y++) {
-				if (listObject [y].video.videoInfo.id == destroyThese [i].videoInfo.id) {
-					videoUIToDestroy.Add (listObject [y]);
-				}
-			}
-		}
-
-		foreach (VideoUI ui in videoUIToDestroy) {
-			listObject.Remove (ui);
-			ui.Destroy ();
-		}
+//		List<VideoUI> videoUIToDestroy = new List<VideoUI> ();
+//
+//		for (int i = 0; i < destroyThese.Count; i++) {
+//			for (int y = 0; y < listObject.Count; y++) {
+//				if (listObject [y].video.videoInfo.id == destroyThese [i].videoInfo.id) {
+//					videoUIToDestroy.Add (listObject [y]);
+//				}
+//			}
+//		}
+//
+//		foreach (VideoUI ui in videoUIToDestroy) {
+//			listObject.Remove (ui);
+//			ui.Destroy ();
+//		}
 	}
 		
 	protected virtual void AddUI(List<Video> addThese)
@@ -228,26 +228,26 @@ public class BasicMenu : MonoBehaviour, IEnhancedScrollerDelegate
 
 	protected virtual VideoUI CreateUserVideoUI()
 	{
-		if (this is StorageMenu) {
-			return ObjectPool.instance.GetLocalVideoUI ();
-		}
-
-		if (this is UserVideoMenu) {
-			return ObjectPool.instance.GetUserVideoUI ();
-		}
-
-		if (this is DownloadMenu) {
-			return ObjectPool.instance.GetDownloadVideoUI ();
-		}
-
-		if (this is InboxMenu) {
-			return ObjectPool.instance.GetInboxVideoUI ();
-		}
-
-		if (this is FavoriteVideoMenu) {
-			return ObjectPool.instance.GetFavoriteVideoUI ();
-		}
-
+//		if (this is StorageMenu) {
+//			return ObjectPool.instance.GetLocalVideoUI ();
+//		}
+//
+//		if (this is UserVideoMenu) {
+//			return ObjectPool.instance.GetUserVideoUI ();
+//		}
+//
+//		if (this is DownloadMenu) {
+//			return ObjectPool.instance.GetDownloadVideoUI ();
+//		}
+//
+//		if (this is InboxMenu) {
+//			return ObjectPool.instance.GetInboxVideoUI ();
+//		}
+//
+//		if (this is FavoriteVideoMenu) {
+//			return ObjectPool.instance.GetFavoriteVideoUI ();
+//		}
+//
 		return null;
 	}
 
@@ -271,10 +271,10 @@ public class BasicMenu : MonoBehaviour, IEnhancedScrollerDelegate
 
 	public virtual void Reset()
 	{
-		for (int i = 0; i < listObject.Count; i++) {
-			listObject [i].Destroy ();
-		}
-		listObject = new List<VideoUI>();
+//		for (int i = 0; i < listObject.Count; i++) {
+//			listObject [i].Destroy ();
+//		}
+//		listObject = new List<VideoUI>();
 	}
 
 	protected virtual List<Video> GetUserVideo()
@@ -316,8 +316,8 @@ public class BasicMenu : MonoBehaviour, IEnhancedScrollerDelegate
 
 	public void RemoveUI(VideoUI videoUI)
 	{
-		listObject.Remove (videoUI);
-		videoUI.Destroy ();
+//		listObject.Remove (videoUI);
+//		videoUI.Destroy ();
 	}
 
 	public void RemoveUIPerma(VideoUI videoUI)

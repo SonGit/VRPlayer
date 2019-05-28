@@ -17,6 +17,13 @@ public class FavoriteVideoUI : UserVideoUI
 	[SerializeField] private Transform downloadedUI;
 	[SerializeField] private Transform havenotDownloadedUI;
 
+	void Start()
+	{
+		if (MainAllController.instance != null) {
+			MainAllController.instance.OnDownloadedVideo += OnDownloadedVideo;
+		}
+	}
+
 	#region setup info video
 	public override void Setup(Video video)
 	{
@@ -34,27 +41,28 @@ public class FavoriteVideoUI : UserVideoUI
 
 		UiSwitch ();
 	}
+
 	#endregion	
 		
 
 	#region Object Pool implementation
 
-	public override void OnDestroy ()
-	{
-		gameObject.SetActive (false);
-		if (MainAllController.instance != null) {
-			MainAllController.instance.OnDownloadedVideo -= OnDownloadedVideo;
-		}
-	}
-
-	public override void OnLive ()
-	{
-		gameObject.SetActive (true);
-		if (MainAllController.instance != null) {
-			MainAllController.instance.OnDownloadedVideo += OnDownloadedVideo;
-		}
-	}
-
+//	public override void OnDestroy ()
+//	{
+//		gameObject.SetActive (false);
+//		if (MainAllController.instance != null) {
+//			MainAllController.instance.OnDownloadedVideo -= OnDownloadedVideo;
+//		}
+//	}
+//
+//	public override void OnLive ()
+//	{
+//		gameObject.SetActive (true);
+//		if (MainAllController.instance != null) {
+//			MainAllController.instance.OnDownloadedVideo += OnDownloadedVideo;
+//		}
+//	}
+//
 	#endregion
 	// This event is called when a video has been downloaded
 	// If the downloaded video is this video, make sure to change UI accordingly
@@ -135,7 +143,7 @@ public class FavoriteVideoUI : UserVideoUI
 
 	protected override void Custom()
 	{
-		DownloadMenu.instance.StartDownload (video.videoInfo.id);
+		DownloadMenu.instance.StartDownload (video);
 	}
 
 	public override void RefreshCellView()

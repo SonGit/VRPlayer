@@ -64,7 +64,7 @@ public class UserVideoUI : VideoUI
 			if (videoDownloaderObj != null) {
 
 				Debug.Log ("Already in Download Menu!!!");
-				DownloadMenu.instance.StartDownload (video.videoInfo.id);
+				DownloadMenu.instance.StartDownload (video);
 				GoToDownloadMenu ();
 
 			} else {
@@ -122,17 +122,17 @@ public class UserVideoUI : VideoUI
 				// If not, create a downloader
 				// downlaoder only get kickstart via DownloadVideoUI
 				if (videoDownloader == null) {
-					Debug.Log("CREATE +++++++++++++++++++++++" + video.videoInfo.id);
+//					Debug.Log("CREATE +++++++++++++++++++++++" + video.videoInfo.id);
 					videoDownloader = ((GameObject)Instantiate (videoDownloaderPrefab)).GetComponent<VideoDownloader> ();
 					videoDownloader.name = "VideoDownLoader" + "-" + video.videoInfo.id;
-
+//
 					Custom();
 				}
 
 				GoToDownloadMenu ();
 
 				// Remove self from menu
-				DestroySelf ();
+				//DestroySelf ();
 			}
 
 		} catch (System.Exception e)
@@ -149,7 +149,7 @@ public class UserVideoUI : VideoUI
 
 	protected virtual void Custom()
 	{
-
+		DownloadMenu.instance.StartDownload (video);
 	}
 
 	/// <summary>
@@ -222,21 +222,6 @@ public class UserVideoUI : VideoUI
 			Debug.LogError ("video is not UserVideo");
 		}
 	}
-
-	#region Object Pool implementation
-
-	public override void OnDestroy ()
-	{
-		video_image.texture = null;
-		gameObject.SetActive (false);
-	}
-
-	public override void OnLive ()
-	{
-		gameObject.SetActive (true);
-	}
-
-	#endregion
 
 	public override void OnLoadedThumbnail()
 	{
