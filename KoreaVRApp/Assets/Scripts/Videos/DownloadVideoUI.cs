@@ -85,18 +85,41 @@ public class DownloadVideoUI : VideoUI
 
 	void Update (){
 		SetDownloadProgressUI ();
+		SetUI ();
+	}
+
+	public RawImage GetVideoImage()
+	{
+		if (video_image != null){
+			return video_image;
+		}
+		return null;
 	}
 		
 	public void Download ()
 	{
-		ScreenLoading.instance.Play ();
+		//Find downlaoder object
+		// if found, kick start the download
+		GameObject videoDownloaderObj = GameObject.Find ("VideoDownLoader" + "-" + video.videoInfo.id);
 
-		if (MainAllController.instance != null) {
-			string authToken = MainAllController.instance.user.token;
-			if (authToken != null){
-				Networking.instance.GetVideoLinkRequest (video.videoInfo.id, authToken, OnGetLink,OnFailedGetStreamingLink);
-			}
+		if (videoDownloaderObj != null) {
+			
+			videoDownloader = videoDownloaderObj.GetComponent<VideoDownloader>();
+			videoDownloader.Download (video);
+		
 		}
+
+		//If not, create a downlaoder object and start downloading 
+		else
+		{
+
+			videoDownloader = ((GameObject)Instantiate (videoDownloaderPrefab)).GetComponent<VideoDownloader> ();
+			videoDownloader.name = "VideoDownLoader" + "-" + video.videoInfo.id;
+			videoDownloader.Download (video);
+
+		}
+
+		SetDownloadStateUI (DownloadState.Downloading);
 	}
 
 	void OnFailedGetStreamingLink()
@@ -119,45 +142,24 @@ public class DownloadVideoUI : VideoUI
 
 	public void Resume()
 	{
-		ScreenLoading.instance.Play ();
-		Debug.LogError (" ++++Resume()!");
-
-		if (MainAllController.instance != null && Networking.instance != null) {
-			string authToken = MainAllController.instance.user.token;
-			if (authToken != null){
-				Networking.instance.GetVideoLinkRequest (video.videoInfo.id, authToken, OnGetLink,OnFailedGetStreamingLink);
-			}
-		}
-
+		Download ();
 	}
 
 	public void Cancel()
 	{
-		#if UNITY_ANDROID || UNITY_IOS
-		GetAlertDelete ();
-		#endif
-
-		#if UNITY_EDITOR
 		Pause ();
 
-		string path = Path.Combine (MainAllController.instance.user.GetPath(), video.videoInfo.id) ;
+		Delete();
 
-		if (Directory.Exists (path)) {
-			Directory.Delete (path,true);
-		}
+		DeleteDownloader ();
 
-		DownloadMenu menu = Object.FindObjectOfType<DownloadMenu> ();
-		if (menu != null) {
-			menu.RemoveUI (this);
-		}
-		#endif 
 	}
-
 
 	private void SetDownloadProgressUI (){
 		if (video_DownloadProgressSlider != null && video_DownloadProgressText != null) {
 
 			if (videoDownloader != null && videoDownloader.downloadState == DownloadState.Downloading) {
+				
 				float progress = (float)videoDownloader.downloadProgress;;
 				video_DownloadProgressSlider.value = progress;
 				video_DownloadProgressText.text = progress.ToString("0.0") + " %";
@@ -167,6 +169,8 @@ public class DownloadVideoUI : VideoUI
 				} else {
 					video_DownloadSpeedText.text = videoDownloader.downloadSpeed.ToString ("0.0") + "  KB/s";
 				}
+
+				//SetDownloadStateUI (DownloadState.Downloading);
 
 			}
 
@@ -185,7 +189,7 @@ public class DownloadVideoUI : VideoUI
 
                 // Destroy the this object too
                 video = null;
-                Destroy();
+//                Destroy();
 			}
 		}
 	}
@@ -206,88 +210,7 @@ public class DownloadVideoUI : VideoUI
 
 		OnEnable ();
 	}
-
-	public void OnGetLink(GetLinkVideoResponse getLinkVideoResponse){
-
-		try
-		{
-			if(!CheckIfEnoughSpace())
-			{
-				return;
-			}
-
-			if (MainAllController.instance != null) {
-				path = MainAllController.instance.user.GetPath ();
-			}
-
-			string filepath = MainAllController.instance.user.GetPathToFile (video.videoInfo.id,video.videoInfo.video_name);
-
-			// Create a directory that houses the video file
-			if (!File.Exists (filepath)) {
-				Directory.CreateDirectory(Path.Combine(path,video.videoInfo.id));
-			}
-
-			if (videoDownloader != null && videoDownloader.downloadState != DownloadState.Downloading) {
-
-				// If download state is not downloading, kick start download sequence
-				videoDownloader.DownLoad (getLinkVideoResponse.link,filepath,OnGetDownloadCallback,OnSuccessDownloadCallback,OnFailDownloadCallback);
-
-			} else {
-				
-				// THis is to doubly sure that there will be no 2 videoDownloader for a download
-				GameObject videoDownloaderObj = GameObject.Find ("VideoDownLoader" + "-" + video.videoInfo.id);
-
-				if (videoDownloaderObj != null) {
-					videoDownloader = videoDownloaderObj.GetComponent<VideoDownloader>();
-					videoDownloader.DownLoad (getLinkVideoResponse.link,filepath,OnGetDownloadCallback,OnSuccessDownloadCallback,OnFailDownloadCallback);
-
-				}
-				else
-				{
-					// If the file is partially downloaded, but have no downloader, attempt to resume
-					videoDownloader = ((GameObject)Instantiate (videoDownloaderPrefab)).GetComponent<VideoDownloader> ();
-					videoDownloader.name = "VideoDownLoader" + "-" + video.videoInfo.id;
-					videoDownloader.DownLoad (getLinkVideoResponse.link,filepath,OnGetDownloadCallback,OnSuccessDownloadCallback,OnFailDownloadCallback);
-				}
-
-
-			}
-
-			// Set UI state to downloading
-			SetDownloadStateUI (DownloadState.Downloading);
-		} catch (System.Exception e)
-		{
-
-		}
-		finally {
-			ScreenLoading.instance.Stop ();
-		}
-
-
-	}
-
-	#region API DownloadVideo
-	public void OnGetDownloadCallback(float progress, float downloadSpeed){
-
-	}
-
-	public void OnSuccessDownloadCallback()
-	{
-		Notifications_DownloadCompleted();
-		CheckDownloadComplete ();
-	}
-
-	public void OnFailDownloadCallback()
-	{
 		
-	}
-
-	public void ErrorGetDownloadCallback(){
-		NativeUI.AlertPopup alert = NativeUI.Alert("Check your Connection!", "");
-	}
-	#endregion
-
-
 	/// <summary>
 	/// If total size is retrieved, calculate progress and set state to Pause
 	/// </summary>
@@ -307,10 +230,8 @@ public class DownloadVideoUI : VideoUI
 		
 			} else {
 				
-				if (videoDownloader == null)
-					Pause ();
-
 				SetDownloadStateUI (DownloadState.Pause);
+
 			}
 
 
@@ -323,6 +244,20 @@ public class DownloadVideoUI : VideoUI
 	void ErrorResumeProgress()
 	{
 		StopLoadingScreen ();
+	}
+
+	void SetUI()
+	{
+		//Find downlaoder object
+		if (videoDownloader != null) {
+
+			SetDownloadStateUI (videoDownloader.downloadState);
+
+		} else {
+			
+			SetDownloadStateUI (DownloadState.Pause);
+
+		}
 	}
 
 	#region DownloadStateUI
@@ -446,7 +381,6 @@ public class DownloadVideoUI : VideoUI
 
 				if (videoDownloaderObj != null) {
 					videoDownloader = videoDownloaderObj.GetComponent<VideoDownloader> ();
-					Download ();
 				}
 
 				ResumeProgress(video.videoInfo.size);
@@ -464,32 +398,6 @@ public class DownloadVideoUI : VideoUI
 	{
 		DownloadMenu.instance.Streaming2D (video);
 	}
-
-	#region Object Pool implementation
-
-	public override void OnDestroy ()
-	{
-		base.OnDestroy ();
-
-		if (video != null) {
-			// This is to doubly sure that there will be no leftover videoDownloader for a download
-			GameObject videoDownloaderObj = GameObject.Find ("VideoDownLoader" + "-" + video.videoInfo.id);
-
-			if (videoDownloaderObj != null) {
-				Destroy (videoDownloaderObj.gameObject);
-			}
-
-			// Set downloader to null
-			videoDownloader = null;
-		}
-	}
-
-	public override void OnLive ()
-	{
-		base.OnLive ();
-	}
-
-	#endregion
 
 	#region NativeUI AlertPopup	
 	/// <summary>
@@ -515,32 +423,7 @@ public class DownloadVideoUI : VideoUI
         	if (menu != null) {
         		menu.RemoveUI (this);
         	}
-
-        // bool isFistButtonClicked = buttonIndex == 0;
-        //bool isSecondButtonClicked = buttonIndex == 1;
-
-        //if (isFistButtonClicked) {
-
-        //} else {
-
-        //}
-
-        //if (isSecondButtonClicked) {
-        //	Pause ();
-
-        //	string path = Path.Combine (MainAllController.instance.user.GetPath(), video.videoInfo.id) ;
-
-        //	if (Directory.Exists (path)) {
-        //		Directory.Delete (path,true);
-        //	}
-
-        //	DownloadMenu menu = Object.FindObjectOfType<DownloadMenu> ();
-        //	if (menu != null) {
-        //		menu.RemoveUI (this);
-        //	}
-        //} else {
-
-        //}
+			
     }
 
     #endregion
@@ -560,4 +443,9 @@ public class DownloadVideoUI : VideoUI
 	}
 
 	#endregion
+
+	public override void RefreshCellView()
+	{
+		Setup(DownloadMenu.instance.getVideoAtIndex(dataIndex));
+	}
 }

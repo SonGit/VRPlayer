@@ -34,9 +34,9 @@ public class MainAllController : MonoBehaviour
 	private AlertMenu alertMenu = null;
 	private SensorMenu sensorMenu = null;
 
-	private BasicMenu lastMenu = null;
+	public BasicMenu lastMenu = null;
 
-	private BasicMenu _currentMenu = null;
+	public BasicMenu _currentMenu = null;
 
 	public BasicMenu currentMenu
 	{
@@ -102,8 +102,8 @@ public class MainAllController : MonoBehaviour
 		if (maxHeight > 1000) {
 			Screen.SetResolution (maxWidth/2,maxHeight/2,false);
 		}
-        DontDestroyOnLoad(this.gameObject);
-    }
+
+	}
 
 	private void Start()
 	{
@@ -275,7 +275,7 @@ public class MainAllController : MonoBehaviour
 
 //		print ("RUNNINGGGGG");
 		
-		ApplicationExit ();
+		Application_BackButton ();
 
 
 		if(Input.GetKeyDown(KeyCode.Escape)){
@@ -654,7 +654,9 @@ public class MainAllController : MonoBehaviour
 
 	public void OpenLoginMenuFromVR()
 	{
-		GoToScene2D ();
+		if (!(currentScene is Scene2D)){
+			GoToScene2D();
+		}
 		AccessMenu_OnLogin ();
 		isGoVR = true;
 	}
@@ -816,6 +818,11 @@ public class MainAllController : MonoBehaviour
 			return;
 		}
 
+		if (lastMenu is DownloadMenu) {
+			AccessMenu_OnDownloadMenu ();
+			return;
+		}
+
 		//If not, at least return to to something, better than getting stuck
 		AccessMenu_OnMyVideo ();
 	}
@@ -914,62 +921,41 @@ public class MainAllController : MonoBehaviour
 	private void VRPlayerMenu_OnVRPlayer()
 	{
 		vrPlayerMenu.SetActive (false);
+		vrPlayerMenu.IsShowVRPlayer = false;
 	}
 
 	private void VRPlayerMenu_OnBack()
 	{
 		vrPlayerMenu.SetActive (false);
+		vrPlayerMenu.IsShowVRPlayer = false;
 		currentMenu.SetActive (true);
 	}
 
 	private void GoVRPplayerMenu(){
 		if (!(currentMenu is VRPlayerMenu)) {
             //currentMenu.SetActive (false);
-           vrPlayerMenu.SetActive (true);
-
+        	vrPlayerMenu.SetActive (true);
+			vrPlayerMenu.IsShowVRPlayer = true;
         }
 	}
 
 	private void VRPlayerMenu_OnRunVRPlayer(){
-        //vrPlayerMenu.SetActive (false);
-        //if (isSensorNotComplete) {
-        //	GoToSensorMenu ();
-        //} else {
-        //	if (!(currentScene is SceneVR)){
-        //		GoToSceneVR ();
-        //	}	
-        //}
+		vrPlayerMenu.SetActive (false);
+		vrPlayerMenu.IsShowVRPlayer = false;
 
-        StartCoroutine(LoadYourAsyncScene());
-    }
+		if (isSensorNotComplete) {
+			GoToSensorMenu ();
+		} else {
+			if (!(currentScene is SceneVR)){
+				GoToSceneVR ();
+			}	
+		}
+	}
 
-    IEnumerator LoadYourAsyncScene()
-    {
-        // The Application loads the Scene in the background as the current Scene runs.
-        // This is particularly good for creating loading screens.
-        // You could also load the Scene by using sceneBuildIndex. In this case Scene2 has
-        // a sceneBuildIndex of 1 as shown in Build Settings.
+	#endregion
 
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("VRScene");
-
-        // Wait until the asynchronous scene fully loads
-        while (!asyncLoad.isDone)
-        {
-            yield return null;
-        }
-
-        SceneVR sceneVR = UnityEngine.Object.FindObjectOfType<SceneVR>();
-
-        if(sceneVR != null)
-        {
-            sceneVR.Show(currentMenu);
-        }
-    }
-
-    #endregion
-
-    #region MediaPlayerMenu
-    public void ModeVR_OnMediaPlayerMenu()
+	#region MediaPlayerMenu
+	public void ModeVR_OnMediaPlayerMenu()
 	{
 		Play3D_2D ();
 
@@ -984,8 +970,12 @@ public class MainAllController : MonoBehaviour
 	}
 
 	private void MediaPlayerMenu_OnBack(){
-        GoToScene2D();
-		AccessMenu_OnMyStorage ();
+		if (!(currentScene is Scene2D)){
+			GoToScene2D();
+		}
+		currentMenu.SetActive (false);
+		lastMenu.SetActive (true);
+		currentMenu = lastMenu;
 		accessMenu.SetHandleViewable (true);
 		mediaPlayerMenu.CloseVideo ();
 	}
@@ -1024,7 +1014,7 @@ public class MainAllController : MonoBehaviour
 		}
 
 		isSensorNotComplete = false;
-		sensorMenu.Init ();
+		sensorMenu.SensorMenuInit ();
 	}
 		
 	#endregion
@@ -1122,7 +1112,9 @@ public class MainAllController : MonoBehaviour
 
 	public void Open2D()
 	{
-		GoToScene2D ();
+		if (!(currentScene is Scene2D)){
+			GoToScene2D();
+		}
 	}
 
 	public void OpenStorageMenuVR()
@@ -1140,26 +1132,25 @@ public class MainAllController : MonoBehaviour
 
 	public void Play3D(Video video)
 	{
-		//this.video = video;
-		//isStreaming = false;
+		this.video = video;
+		isStreaming = false;
 
-		//if (currentScene is SceneVR) {
-		//	(currentScene as SceneVR).PlayFromURL (video);
-		//} else {
-		//	GoToSceneVR ();
-		//	if (currentScene is SceneVR) {
-		//		(currentScene as SceneVR).PlayFromURL (video);
-		//	}
-		//}
+		if (currentScene is SceneVR) {
+			(currentScene as SceneVR).PlayFromURL (video);
+		} else {
+			GoToSceneVR ();
+			if (currentScene is SceneVR) {
+				(currentScene as SceneVR).PlayFromURL (video);
+			}
+		}
 	}
 
 	public void Play2D(Video video)
 	{
-		mediaPlayerMenu.SetActive (true);
 		this.video = video;
 		isStreaming = false;
 
-		Play3D_2D ();
+		ModeVR_OnMediaPlayerMenu ();
 	}
 
 	Video video;
@@ -1184,7 +1175,9 @@ public class MainAllController : MonoBehaviour
 		mediaPlayerMenu.CloseVideo ();
 
 		if (currentScene is SceneMediaPlayer) {
-			AccessMenu_OnMyStorage ();
+			currentMenu.SetActive (false);
+			lastMenu.SetActive (true);
+			currentMenu = lastMenu;
 			accessMenu.SetHandleViewable (true);
 			PlayButtonSound ();
 		}
@@ -1242,10 +1235,6 @@ public class MainAllController : MonoBehaviour
 		isStreaming = true;
 		this.urlStreaming = url;
 		this.videoStreaming = video;
-
-		if (currentScene is SceneMediaPlayer) {
-			PlayButtonSound ();
-		}
 
 		ModeVR_OnMediaPlayerMenu ();
 	}
@@ -1359,7 +1348,7 @@ public class MainAllController : MonoBehaviour
 	{
 		if (PlayerPrefs.HasKey ("Username")) {
 			if (loginMenu != null) {
-				string username = loginMenu.GetUsernameInput ();
+				string username = GetCurrentUserName ();
 				username = PlayerPrefs.GetString ("Username");
 				loginMenu.SetUsernameInput (username);
 			}
@@ -1397,7 +1386,7 @@ public class MainAllController : MonoBehaviour
 	public void LoadPasswordProgress ()
 	{
 		if (PlayerPrefs.HasKey ("Password")) {
-			string password = loginMenu.GetPasswordInput ();
+			string password = GetCurrentPassword ();
 			password = PlayerPrefs.GetString ("Password");
 			loginMenu.SetPasswordInput (password);
 		}
@@ -1434,7 +1423,7 @@ public class MainAllController : MonoBehaviour
 	{
 		if (PlayerPrefs.HasKey ("KeepLogin")) {
 			if (settingsMenu != null) {
-				string keepLoginText = settingsMenu.GetKeepLoginText ();
+				string keepLoginText = GetCurrentKeepLogin ();
 				keepLoginText = PlayerPrefs.GetString ("KeepLogin");
 				settingsMenu.SetKeepLoginText (keepLoginText);
 			}
@@ -1474,7 +1463,7 @@ public class MainAllController : MonoBehaviour
 	{
 		if (PlayerPrefs.HasKey ("Notification")) {
 			if (settingsMenu != null) {
-				string notificationText = settingsMenu.GetNotificationText ();
+				string notificationText = GetCurrentNotification ();
 				notificationText = PlayerPrefs.GetString ("Notification");
 				settingsMenu.SetNotificationText (notificationText);
 			}
@@ -1485,6 +1474,45 @@ public class MainAllController : MonoBehaviour
 	{
 		if (settingsMenu != null) {
 			PlayerPrefs.SetString ("Notification", settingsMenu.GetNotificationText ());
+		}
+	}
+
+	#endregion
+
+	#region MobieNetwork Data
+
+	public void SubmitMobieNetwork(string visible)
+	{
+		if (settingsMenu != null) {
+			settingsMenu.SetMobieNetworkText (visible);
+		}
+		SaveMobieNetworkProgress ();
+	}
+
+	public string GetCurrentMobieNetwork ()
+	{
+		if (settingsMenu != null){
+			return settingsMenu.GetMobieNetworkText();
+		}
+
+		return null;
+	}
+
+	public void LoadMobieNetworkProgress ()
+	{
+		if (PlayerPrefs.HasKey ("MobieNetwork")) {
+			if (settingsMenu != null) {
+				string mobieNetworkText = GetCurrentMobieNetwork ();
+				mobieNetworkText = PlayerPrefs.GetString ("MobieNetwork");
+				settingsMenu.SetMobieNetworkText (mobieNetworkText);
+			}
+		}
+	}
+
+	private void SaveMobieNetworkProgress ()
+	{
+		if (settingsMenu != null) {
+			PlayerPrefs.SetString ("MobieNetwork", settingsMenu.GetMobieNetworkText ());
 		}
 	}
 
@@ -1528,6 +1556,7 @@ public class MainAllController : MonoBehaviour
 		SubmitNewPassword (loginMenu.GetPasswordInput());
 		SubmitKeepLogin(settingsMenu.GetKeepLoginText());
 		SubmitNotification(settingsMenu.GetNotificationText());
+		SubmitMobieNetwork (settingsMenu.GetMobieNetworkText());
 	}
 
 	#endregion
@@ -1540,6 +1569,7 @@ public class MainAllController : MonoBehaviour
 		LoadUserNameProgress ();
 		LoadPasswordProgress ();
 		LoadNotificationProgress ();
+		LoadMobieNetworkProgress ();
 
 		if (GetCurrentKeepLogin () == settingsMenu.GetkeyTrueKeepLogin()) {
 			loginMenu.Login ();
@@ -1566,21 +1596,35 @@ public class MainAllController : MonoBehaviour
 		Debug.Log("Application ending.........................................................");
 	}
 
-	private void ApplicationExit (){
+	private void Application_BackButton (){
 		if (currentScene is Scene2D) {
 			if (Input.GetKeyDown (KeyCode.Escape)) {
 				if (accessMenu.PanelLayer.gameObject.activeSelf) {
 					accessMenu.Close ();
 				} else {
-					if (currentMenu is StorageMenu) {
+					if (vrPlayerMenu.IsShowVRPlayer){
+						VRPlayerMenu_OnBack ();
+						return;
+					}
+						
+					if (currentMenu is UserDetailMenu){
+						userDetailMenu_OnUserVideoMenu ();
+						return;
+					}
+
+					if (currentMenu is StorageMenu) 
+					{
 						if (alertMenu != null) {
 							alertMenu.ExitAlert ();
 						}
-					} else {
-						if (!(currentMenu is MediaPlayerMenu)) {
-							AccessMenu_OnMyStorage ();
-						}
+						return;
+					} 
+
+					if (currentMenu is MediaPlayerMenu) {
+						return;
 					}
+
+					AccessMenu_OnMyStorage ();
 				}
 			}
 		}

@@ -12,6 +12,8 @@ public class SceneVR : AppScene
 	private VR_SettingMenu vrSetting;
 	[SerializeField]
 	private VR_MainMenu vrMainMenu;
+	[SerializeField]
+	private Canvas vrProgressBarCanvas;
 
 	private VR_RecenterPanel vr_RecenterPanel;
 
@@ -44,6 +46,7 @@ public class SceneVR : AppScene
 			
 		buttonScreenLock.OnClickLockBtn (true);
 		vrPlayer.gameObject.SetActive (false);
+		ShowProgressBar ();
 
 		// HasUserLoggedIn ???
 		if (MainAllController.instance != null && MainAllController.instance.HasUserLoggedIn ()) {
@@ -87,6 +90,7 @@ public class SceneVR : AppScene
 			ShowMainMenu ();
 			VR_MainMenu.instance.OpenUserVideoMenu ();
 			vrPlayer.gameObject.SetActive (false);
+			ShowProgressBar ();
 			vrSetting.HideSetting ();
 		} else {
 			ShowStorageMenu ();
@@ -100,6 +104,7 @@ public class SceneVR : AppScene
 			ShowMainMenu ();
 			VR_MainMenu.instance.OpenDownloadMenu ();
 			vrPlayer.gameObject.SetActive (false);
+			ShowProgressBar ();
 			vrSetting.HideSetting ();
 		}else {
 			ShowStorageMenu ();
@@ -113,6 +118,7 @@ public class SceneVR : AppScene
 			ShowMainMenu ();
 			VR_MainMenu.instance.OpenInboxMenu ();
 			vrPlayer.gameObject.SetActive (false);
+			ShowProgressBar ();
 			vrSetting.HideSetting ();
 		}else {
 			ShowStorageMenu ();
@@ -126,6 +132,7 @@ public class SceneVR : AppScene
 			ShowMainMenu ();
 			VR_MainMenu.instance.OpenFavoriteMenu ();
 			vrPlayer.gameObject.SetActive (false);
+			ShowProgressBar ();
 			vrSetting.HideSetting ();
 		}else {
 			ShowStorageMenu ();
@@ -138,7 +145,7 @@ public class SceneVR : AppScene
 			vrSetting.ShowSetting ();
 		}
 
-		//vrMainMenu.gameObject.SetActive (false);
+		ShowProgressBar ();
 	}
 
 
@@ -221,6 +228,8 @@ public class SceneVR : AppScene
 
 		ShowPlayer ();
 
+		HideProgressBar ();
+
 		if (currentVideo != null) {
 			vrPlayer.Play (currentVideo);
 		}
@@ -231,6 +240,8 @@ public class SceneVR : AppScene
 		vrSetting.HideSetting ();
 
 		ShowPlayer ();
+
+		HideProgressBar ();
 
 		if (currentVideo != null) {
 			vrPlayer.Stream (currentVideo,currentUrl);
@@ -245,6 +256,24 @@ public class SceneVR : AppScene
 	void ShowPlayer()
 	{
 		vrPlayer.gameObject.SetActive (true);
+	}
+
+	public void HideProgressBar()
+	{
+		if (vrProgressBarCanvas != null) {
+			vrProgressBarCanvas.enabled = false;
+		} else {
+			Debug.LogError ("NULL...............");
+		}
+	}
+
+	public void ShowProgressBar()
+	{
+		if (vrProgressBarCanvas != null) {
+			vrProgressBarCanvas.enabled = true;
+		}else {
+			Debug.LogError ("NULL...............");
+		}
 	}
 
 	public override void Show(BasicMenu lastMenu = null)
@@ -269,9 +298,9 @@ public class SceneVR : AppScene
 				ShowFavoriteVideoMenu ();
 			}
 
-			if (lastMenu is UserDetailMenu) {
-				ShowFavoriteVideoMenu ();
-			}
+//			if (lastMenu is UserDetailMenu) {
+//				ShowFavoriteVideoMenu ();
+//			}
 
 			if (lastMenu is DownloadMenu) {
 				ShowInboxMenu ();

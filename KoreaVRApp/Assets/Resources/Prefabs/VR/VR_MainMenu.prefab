@@ -308,7 +308,7 @@ GameObject:
   - component: {fileID: 299730848}
   - component: {fileID: 299730847}
   m_Layer: 5
-  m_Name: Text
+  m_Name: VR_SensorcalibrationTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -363,11 +363,11 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: f49af5510249cb84c8c6680f3ec74035, type: 3}
-    m_FontSize: 55
+    m_FontSize: 57
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 4
-    m_MaxSize: 55
+    m_MaxSize: 57
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -390,9 +390,9 @@ MonoBehaviour:
   DoNotTesselate: 0
   savedPos: {x: 866.1804, y: 455.49585, z: -0.0073242188}
   savedUp: {x: 0, y: 1, z: 0}
-  savedRectSize: {x: 438, y: 66}
+  savedRectSize: {x: 455, y: 68}
   savedColor: {r: 1, g: 1, b: 1, a: 1}
-  savedTextUV0: {x: 0.3642578, y: 0.09277344}
+  savedTextUV0: {x: 0.099609375, y: 0.3046875}
   savedFill: 1
 --- !u!1 &470698733
 GameObject:
@@ -586,7 +586,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 1400, y: 250}
   savedColor: {r: 0, g: 0, b: 0, a: 1}
-  savedTextUV0: {x: 0.7402344, y: 0.31054688}
+  savedTextUV0: {x: 0.7529297, y: 0.055664062}
   savedFill: 0
 --- !u!1 &660646206
 GameObject:
@@ -1219,7 +1219,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 500, y: 110}
   savedColor: {r: 1, g: 1, b: 1, a: 1}
-  savedTextUV0: {x: 0.3935547, y: 0.5}
+  savedTextUV0: {x: 0.9482422, y: 0.19433594}
   savedFill: 1
 --- !u!1 &1453239333
 GameObject:
@@ -1318,7 +1318,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 500, y: 110}
   savedColor: {r: 0.9764706, g: 0.15686275, b: 0.48235294, a: 1}
-  savedTextUV0: {x: 0.44140625, y: 0.5}
+  savedTextUV0: {x: 0.77441406, y: 0.25683594}
   savedFill: 1
 --- !u!1 &1458737577
 GameObject:
@@ -1887,7 +1887,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 167.61905, y: 50}
   savedColor: {r: 1, g: 1, b: 1, a: 1}
-  savedTextUV0: {x: 0.3564453, y: 0.6748047}
+  savedTextUV0: {x: 0.92285156, y: 0.34570312}
   savedFill: 1
 --- !u!1 &1997876050
 GameObject:
@@ -1950,14 +1950,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.09803922}
+  m_Color: {r: 0.9764706, g: 0.15686275, b: 0.48235294, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1982,7 +1982,7 @@ MonoBehaviour:
   savedPos: {x: 866.1804, y: 455.49585, z: -0.0073242188}
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 167.61905, y: 50}
-  savedColor: {r: 1, g: 1, b: 1, a: 0.09803922}
+  savedColor: {r: 0.9764706, g: 0.15686275, b: 0.48235294, a: 1}
   savedTextUV0: {x: 0, y: 0}
   savedFill: 1
 --- !u!114 &7826015358820163014
@@ -2005,9 +2005,9 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 0.09803922}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0.09803922}
-    m_PressedColor: {r: 1, g: 1, b: 1, a: 0.09803922}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -2288,7 +2288,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 1400, y: 110}
   savedColor: {r: 1, g: 1, b: 1, a: 1}
-  savedTextUV0: {x: 0.24511719, y: 0.7519531}
+  savedTextUV0: {x: 0.70996094, y: 0.16113281}
   savedFill: 0
 --- !u!1 &197510346959752338
 GameObject:
@@ -2570,7 +2570,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 612.38, y: 83.26885}
   savedColor: {r: 1, g: 1, b: 1, a: 1}
-  savedTextUV0: {x: 0.44726562, y: 0.5595703}
+  savedTextUV0: {x: 0.8173828, y: 0.2861328}
   savedFill: 0
 --- !u!114 &4689563277924873804
 MonoBehaviour:
@@ -3341,7 +3341,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 53.428577, y: 64.76466}
   savedColor: {r: 0.91372555, g: 0.91372555, b: 0.91372555, a: 1}
-  savedTextUV0: {x: 0.4658203, y: 0.19140625}
+  savedTextUV0: {x: 0.46875, y: 0.19433594}
   savedFill: 0
 --- !u!1 &1017839707073073748
 GameObject:
@@ -4068,7 +4068,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 53.428577, y: 64.76466}
   savedColor: {r: 0.91372555, g: 0.91372555, b: 0.91372555, a: 1}
-  savedTextUV0: {x: 0.4658203, y: 0.19140625}
+  savedTextUV0: {x: 0.46875, y: 0.19433594}
   savedFill: 0
 --- !u!1 &1282584387998665649
 GameObject:
@@ -4290,7 +4290,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 500, y: 110}
   savedColor: {r: 1, g: 1, b: 1, a: 1}
-  savedTextUV0: {x: 0.3935547, y: 0.5}
+  savedTextUV0: {x: 0.9482422, y: 0.19433594}
   savedFill: 1
 --- !u!1 &1474517907708196728
 GameObject:
@@ -4389,7 +4389,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 167.61905, y: 182.20018}
   savedColor: {r: 1, g: 1, b: 1, a: 1}
-  savedTextUV0: {x: 0.46875, y: 0.5595703}
+  savedTextUV0: {x: 0.85546875, y: 0.28515625}
   savedFill: 1
 --- !u!1 &1489290430268462974
 GameObject:
@@ -4488,7 +4488,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 500, y: 110}
   savedColor: {r: 0.9764706, g: 0.15686275, b: 0.48235294, a: 1}
-  savedTextUV0: {x: 0.44140625, y: 0.5}
+  savedTextUV0: {x: 0.77441406, y: 0.25683594}
   savedFill: 1
 --- !u!1 &1503314601537597887
 GameObject:
@@ -4803,7 +4803,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 167.61905, y: 182.20018}
   savedColor: {r: 1, g: 1, b: 1, a: 1}
-  savedTextUV0: {x: 0.33789062, y: 0.6748047}
+  savedTextUV0: {x: 0.8105469, y: 0.4609375}
   savedFill: 1
 --- !u!1 &1592016279427262762
 GameObject:
@@ -4986,7 +4986,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 1400, y: 100}
   savedColor: {r: 0.9764706, g: 0.15686275, b: 0.48235294, a: 1}
-  savedTextUV0: {x: 0.07324219, y: 0.35351562}
+  savedTextUV0: {x: 0.1171875, y: 0.19921875}
   savedFill: 0
 --- !u!1 &1796031816768206302
 GameObject:
@@ -5293,7 +5293,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 500, y: 110}
   savedColor: {r: 1, g: 1, b: 1, a: 1}
-  savedTextUV0: {x: 0.3935547, y: 0.5}
+  savedTextUV0: {x: 0.9482422, y: 0.19433594}
   savedFill: 1
 --- !u!1 &2166330756007450346
 GameObject:
@@ -5358,7 +5358,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 612.38, y: 83.26885}
   savedColor: {r: 1, g: 1, b: 1, a: 1}
-  savedTextUV0: {x: 0.44726562, y: 0.58496094}
+  savedTextUV0: {x: 0.8339844, y: 0.2861328}
   savedFill: 0
 --- !u!114 &1337908583773803156
 MonoBehaviour:
@@ -5744,7 +5744,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 1324.7, y: 83.26885}
   savedColor: {r: 0.97647065, g: 0.15686275, b: 0.48235297, a: 1}
-  savedTextUV0: {x: 0.21191406, y: 0.7910156}
+  savedTextUV0: {x: 0.23046875, y: 0.3828125}
   savedFill: 0
 --- !u!114 &2685857053765657761
 MonoBehaviour:
@@ -6236,7 +6236,8 @@ MonoBehaviour:
   Root: {fileID: 0}
   networkConnectionObj: {fileID: 0}
   noVideoObj: {fileID: 0}
-  videoUIPrefab: {fileID: 5442314705113566731, guid: 0910d0444ebdcd140a3b6b80bf77dc89,
+  scroller: {fileID: 0}
+  videoUIPrefab: {fileID: 6758822764148880195, guid: 0910d0444ebdcd140a3b6b80bf77dc89,
     type: 3}
   verticalGrid: {fileID: 0}
   currentSortStyle: 0
@@ -6260,7 +6261,8 @@ MonoBehaviour:
   Root: {fileID: 0}
   networkConnectionObj: {fileID: 0}
   noVideoObj: {fileID: 0}
-  videoUIPrefab: {fileID: 1311857900383878690, guid: d3c1eeb3d9210294b9e740b8a9369b3b,
+  scroller: {fileID: 0}
+  videoUIPrefab: {fileID: 1291247699510390025, guid: 5a034d14781119640bbb76ecc35901ea,
     type: 3}
   verticalGrid: {fileID: 0}
   currentSortStyle: 0
@@ -6284,7 +6286,8 @@ MonoBehaviour:
   Root: {fileID: 0}
   networkConnectionObj: {fileID: 0}
   noVideoObj: {fileID: 0}
-  videoUIPrefab: {fileID: 1311857900383878690, guid: d3c1eeb3d9210294b9e740b8a9369b3b,
+  scroller: {fileID: 0}
+  videoUIPrefab: {fileID: 933043942042305228, guid: d3c1eeb3d9210294b9e740b8a9369b3b,
     type: 3}
   verticalGrid: {fileID: 0}
   currentSortStyle: 0
@@ -6308,7 +6311,8 @@ MonoBehaviour:
   Root: {fileID: 0}
   networkConnectionObj: {fileID: 0}
   noVideoObj: {fileID: 0}
-  videoUIPrefab: {fileID: 2861150949118348269, guid: 5a034d14781119640bbb76ecc35901ea,
+  scroller: {fileID: 0}
+  videoUIPrefab: {fileID: 1291247699510390025, guid: 5a034d14781119640bbb76ecc35901ea,
     type: 3}
   verticalGrid: {fileID: 0}
   currentSortStyle: 0
@@ -6332,7 +6336,8 @@ MonoBehaviour:
   Root: {fileID: 0}
   networkConnectionObj: {fileID: 0}
   noVideoObj: {fileID: 0}
-  videoUIPrefab: {fileID: 361, guid: 03cc040f5e220084696fb14397de16e7, type: 3}
+  scroller: {fileID: 0}
+  videoUIPrefab: {fileID: 774, guid: 03cc040f5e220084696fb14397de16e7, type: 3}
   verticalGrid: {fileID: 0}
   currentSortStyle: 0
   canvas: {fileID: 0}
@@ -6589,7 +6594,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 1400, y: 100}
   savedColor: {r: 0, g: 0, b: 0, a: 1}
-  savedTextUV0: {x: 0.33203125, y: 0.6357422}
+  savedTextUV0: {x: 0.5, y: 0.15429688}
   savedFill: 0
 --- !u!1 &3249012354841236576
 GameObject:
@@ -6881,7 +6886,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 500, y: 110}
   savedColor: {r: 0.9764706, g: 0.15686275, b: 0.48235294, a: 1}
-  savedTextUV0: {x: 0.44140625, y: 0.5}
+  savedTextUV0: {x: 0.77441406, y: 0.25683594}
   savedFill: 1
 --- !u!1 &3628789688244281202
 GameObject:
@@ -7390,7 +7395,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 53.428577, y: 64.76466}
   savedColor: {r: 0.91372555, g: 0.91372555, b: 0.91372555, a: 1}
-  savedTextUV0: {x: 0.4658203, y: 0.19140625}
+  savedTextUV0: {x: 0.46875, y: 0.19433594}
   savedFill: 0
 --- !u!1 &4506267115149559802
 GameObject:
@@ -8486,7 +8491,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 1400, y: 100}
   savedColor: {r: 0, g: 0, b: 0, a: 1}
-  savedTextUV0: {x: 0.30566406, y: 0.86816406}
+  savedTextUV0: {x: 0.9501953, y: 0}
   savedFill: 0
 --- !u!1 &5738171379149952224
 GameObject:
@@ -8680,7 +8685,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 500, y: 110}
   savedColor: {r: 1, g: 1, b: 1, a: 1}
-  savedTextUV0: {x: 0.3935547, y: 0.5}
+  savedTextUV0: {x: 0.9482422, y: 0.19433594}
   savedFill: 1
 --- !u!1 &5817267004414801581
 GameObject:
@@ -8873,7 +8878,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 1400, y: 100}
   savedColor: {r: 0.9764706, g: 0.15686275, b: 0.48235294, a: 1}
-  savedTextUV0: {x: 0.14550781, y: 0.2841797}
+  savedTextUV0: {x: 0.14941406, y: 0.18359375}
   savedFill: 0
 --- !u!1 &6159938271406980232
 GameObject:
@@ -9066,7 +9071,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 500, y: 110}
   savedColor: {r: 0.9764706, g: 0.15686275, b: 0.48235294, a: 1}
-  savedTextUV0: {x: 0.44140625, y: 0.5}
+  savedTextUV0: {x: 0.77441406, y: 0.25683594}
   savedFill: 1
 --- !u!1 &6637330846031639056
 GameObject:
@@ -9794,7 +9799,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 1324.8, y: 83.26885}
   savedColor: {r: 0.97647065, g: 0.15686275, b: 0.48235297, a: 1}
-  savedTextUV0: {x: 0.41308594, y: 0.6298828}
+  savedTextUV0: {x: 0.6699219, y: 0.43652344}
   savedFill: 0
 --- !u!114 &6979976903334855390
 MonoBehaviour:
@@ -11750,7 +11755,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 751, y: 113.20105}
   savedColor: {r: 1, g: 1, b: 1, a: 1}
-  savedTextUV0: {x: 0.2841797, y: 0.1484375}
+  savedTextUV0: {x: 0.05859375, y: 0.2998047}
   savedFill: 0
 --- !u!1 &7110756472490224568
 GameObject:
@@ -12068,7 +12073,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 53.428577, y: 64.76466}
   savedColor: {r: 0.91372555, g: 0.91372555, b: 0.91372555, a: 1}
-  savedTextUV0: {x: 0.4658203, y: 0.19140625}
+  savedTextUV0: {x: 0.46875, y: 0.19433594}
   savedFill: 0
 --- !u!1 &7525507574911419499
 GameObject:
@@ -12369,7 +12374,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 53.428577, y: 64.76466}
   savedColor: {r: 0.91372555, g: 0.91372555, b: 0.91372555, a: 1}
-  savedTextUV0: {x: 0.4658203, y: 0.19140625}
+  savedTextUV0: {x: 0.46875, y: 0.19433594}
   savedFill: 0
 --- !u!1 &7748222903506380482
 GameObject:
@@ -13092,7 +13097,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 167.61905, y: 182.20018}
   savedColor: {r: 1, g: 1, b: 1, a: 1}
-  savedTextUV0: {x: 0.2607422, y: 0.78808594}
+  savedTextUV0: {x: 0.6699219, y: 0.46191406}
   savedFill: 1
 --- !u!1 &8751825077766485389
 GameObject:
@@ -13191,7 +13196,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 1400, y: 100}
   savedColor: {r: 0.9764706, g: 0.15686275, b: 0.48235294, a: 1}
-  savedTextUV0: {x: 0.203125, y: 0.9345703}
+  savedTextUV0: {x: 0.8261719, y: 0.36621094}
   savedFill: 0
 --- !u!1 &8970802239943571258
 GameObject:
@@ -13335,7 +13340,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 1400, y: 100}
   savedColor: {r: 0, g: 0, b: 0, a: 1}
-  savedTextUV0: {x: 0.25195312, y: 0.91503906}
+  savedTextUV0: {x: 0.5253906, y: 0.11035156}
   savedFill: 0
 --- !u!1 &9201856185699490569
 GameObject:

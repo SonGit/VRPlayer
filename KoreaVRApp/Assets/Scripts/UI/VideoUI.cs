@@ -9,12 +9,15 @@ using System;
 using CielaSpike;
 using EasyMobile;
 using SimpleDiskUtils;
+using EnhancedUI.EnhancedScroller;
 
-public class VideoUI : Cacheable
+public class VideoUI : EnhancedScrollerCellView
 {
 	public GameObject rootLoading = null;
 
 	public Texture2D thumbnailTexture;
+
+	private UserDetailMenu userDetailMenu;
 
 	public Video video
 	{
@@ -49,6 +52,30 @@ public class VideoUI : Cacheable
 	{
 		this.video = video;
 	}
+
+	#region Go Detail page
+	public void GoDetailVideo(){
+		if(MainAllController.instance != null){
+			MainAllController.instance.PlayButtonSound ();
+		}
+
+		if (MainAllController.instance != null){
+			MainAllController.instance.UserVideo_OnUserVideoDetail ();
+		}
+
+		SetDetailVideoInfo ();
+	}
+
+	public void SetDetailVideoInfo(){
+		if (userDetailMenu == null){
+			userDetailMenu = UnityEngine.Object.FindObjectOfType<UserDetailMenu> ();
+		}
+
+		if (userDetailMenu != null){
+			userDetailMenu.Setup(video,this);
+		}
+	}
+	#endregion
 
 	protected long GetDownloadProgress()
 	{
@@ -236,6 +263,10 @@ public class VideoUI : Cacheable
 
 	public virtual void PlayIn3D()
 	{
+		if(MainAllController.instance != null){
+			MainAllController.instance.PlayButtonSound ();
+		}
+
 		if (MainAllController.instance != null){
 			MainAllController.instance.Play3D (video);
 		}
@@ -318,20 +349,6 @@ public class VideoUI : Cacheable
 
 	#endregion
 
-	#region Object Pool implementation
-
-	public override void OnDestroy ()
-	{
-		gameObject.SetActive (false);
-	}
-
-	public override void OnLive ()
-	{
-		gameObject.SetActive (true);
-	}
-
-	#endregion
-
 	#region NativeUI AlertPopup	
 	/// <summary>
 	/// Gets the alert when not loggin.
@@ -384,9 +401,60 @@ public class VideoUI : Cacheable
 	protected String MakeRegistrationDateString()
 	{
 		if (video != null && video.videoInfo != null) {
-			return video.videoInfo.dateTime.Date.Day + "-" + video.videoInfo.dateTime.Date.Month + "-" + video.videoInfo.dateTime.Date.Year;
+			return video.videoInfo.dateTime.Date.Year + "-" + video.videoInfo.dateTime.Date.Month + "-" + video.videoInfo.dateTime.Date.Day;
 		}
 		return String.Empty;
+	}
+
+	protected void Delete()
+	{
+		if(MainAllController.instance != null){
+			MainAllController.instance.PlayButtonSound ();
+		}
+
+		#if !UNITY_EDITOR && (UNITY_ANDROID || UNITY_IOS)
+		GetAlertDelete ();
+		#endif
+
+		#if UNITY_EDITOR
+		if(this is LocalVideoUI)
+		{
+			try
+			{
+				File.Delete (video.videoInfo.id);
+			} catch (Exception e) {
+				Debug.Log ("DeleteVideo exception " + e.Message);
+			}
+				
+			StorageMenu menu = UnityEngine.Object.FindObjectOfType<StorageMenu> ();
+			if (menu != null) {
+				menu.Refresh();
+			}
+		}
+
+		if(this is DownloadVideoUI)
+		{
+			string path = String.Empty;
+			try
+			{
+				
+				path = Path.Combine (MainAllController.instance.user.GetPath(), video.videoInfo.id) ;
+				if (Directory.Exists (path)) {
+					Directory.Delete (path,true);
+				}
+
+			} catch (Exception e) {
+				Debug.Log ("DeleteVideo exception " + e.Message);
+			}
+
+			print(Directory.Exists (path));
+			DownloadMenu menu = UnityEngine.Object.FindObjectOfType<DownloadMenu> ();
+			if (menu != null) {
+				menu.Refresh();
+			}
+		}
+
+		#endif 
 	}
 
 }

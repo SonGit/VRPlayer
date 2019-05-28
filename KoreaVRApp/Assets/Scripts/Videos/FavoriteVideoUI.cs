@@ -8,6 +8,7 @@ using EasyMobile;
 using System.Net;
 using UnityEngine.Networking;
 using System;
+using System.Text.RegularExpressions;
 
 
 public class FavoriteVideoUI : UserVideoUI
@@ -15,6 +16,13 @@ public class FavoriteVideoUI : UserVideoUI
 	[Header("Components")]
 	[SerializeField] private Transform downloadedUI;
 	[SerializeField] private Transform havenotDownloadedUI;
+
+	void Start()
+	{
+		if (MainAllController.instance != null) {
+			MainAllController.instance.OnDownloadedVideo += OnDownloadedVideo;
+		}
+	}
 
 	#region setup info video
 	public override void Setup(Video video)
@@ -25,7 +33,7 @@ public class FavoriteVideoUI : UserVideoUI
 		//this.video_length.text = "00:00:00";
 
 		video_size.text = MakeRegistrationDateString() + "  |  " + ((video.videoInfo.size / 1024) / 1024) + " MB";
-		video_desc.text = video.videoInfo.description;
+		video_desc.text = Regex.Unescape (video.videoInfo.description);
 
 		SetupFavoriteBtns ();
 
@@ -33,27 +41,28 @@ public class FavoriteVideoUI : UserVideoUI
 
 		UiSwitch ();
 	}
+
 	#endregion	
 		
 
 	#region Object Pool implementation
 
-	public override void OnDestroy ()
-	{
-		gameObject.SetActive (false);
-		if (MainAllController.instance != null) {
-			MainAllController.instance.OnDownloadedVideo -= OnDownloadedVideo;
-		}
-	}
-
-	public override void OnLive ()
-	{
-		gameObject.SetActive (true);
-		if (MainAllController.instance != null) {
-			MainAllController.instance.OnDownloadedVideo += OnDownloadedVideo;
-		}
-	}
-
+//	public override void OnDestroy ()
+//	{
+//		gameObject.SetActive (false);
+//		if (MainAllController.instance != null) {
+//			MainAllController.instance.OnDownloadedVideo -= OnDownloadedVideo;
+//		}
+//	}
+//
+//	public override void OnLive ()
+//	{
+//		gameObject.SetActive (true);
+//		if (MainAllController.instance != null) {
+//			MainAllController.instance.OnDownloadedVideo += OnDownloadedVideo;
+//		}
+//	}
+//
 	#endregion
 	// This event is called when a video has been downloaded
 	// If the downloaded video is this video, make sure to change UI accordingly
@@ -72,13 +81,12 @@ public class FavoriteVideoUI : UserVideoUI
 	void UiSwitch()
 	{
 		if (video != null) {
-			if (video.isPartial ()) {
-				ShowHavenotDownloadedUI ();
-			} 
-
 			if (video.isDownloaded ()) {
 				ShowDownloadedUI ();
-			} 
+			} else {
+				ShowHavenotDownloadedUI ();
+			}
+
 		} else {
 			Debug.Log ("VIDEO IS NULL!");
 		}
@@ -135,6 +143,11 @@ public class FavoriteVideoUI : UserVideoUI
 
 	protected override void Custom()
 	{
-		DownloadMenu.instance.StartDownload (video.videoInfo.id);
+		DownloadMenu.instance.StartDownload (video);
+	}
+
+	public override void RefreshCellView()
+	{
+		Setup(FavoriteVideoMenu.instance.getVideoAtIndex(dataIndex));
 	}
 }

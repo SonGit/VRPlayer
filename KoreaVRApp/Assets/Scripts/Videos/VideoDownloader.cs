@@ -7,6 +7,7 @@ using System.Threading;
 using System;
 using System.Net;
 using UnityEngine.Networking;
+using EasyMobile.Demo;
 
 
 public class VideoDownloader : MonoBehaviour
@@ -22,8 +23,6 @@ public class VideoDownloader : MonoBehaviour
 	#endregion 
 
 	#region Networking variables
-//	private System.Net.HttpWebRequest hwRq;
-//	private System.Net.HttpWebResponse hwRes;
 	private Stream smRespStream;
 	private int iBufferSize;
 	private FileStream saveFileStream;
@@ -40,6 +39,11 @@ public class VideoDownloader : MonoBehaviour
 	public double downloadProgress = 0;
 	public float tmp_down, nextUpdate, downloadSpeed;
 	float time;
+	#endregion  
+
+	#region cache
+	private string path;
+	public Video video;
 	#endregion  
 
 	public DownloadState downloadState;
@@ -291,12 +295,6 @@ public class VideoDownloader : MonoBehaviour
 		return result;
 	}
 
-	void OnDisable()
-	{
-//		Pause ();
-//		DisposeStreams ();
-	}
-
 	void OnDestroy()
 	{
 		Pause ();
@@ -321,6 +319,131 @@ public class VideoDownloader : MonoBehaviour
 			downloadSpeed = ((float)iExistLen - tmp_down)/1024f;
 			tmp_down = (float)iExistLen;
 		}
+	}
+
+	#region newly added
+
+	public void Download (Video video)
+	{
+		ScreenLoading.instance.Play ();
+
+		if (MainAllController.instance != null) {
+			
+			string authToken = MainAllController.instance.user.token;
+
+			if (authToken != null){
+
+				this.video = video;
+
+				Networking.instance.GetVideoLinkRequest (video.videoInfo.id, authToken, OnGetLink,OnFailedGetStreamingLink);
+
+			}
+		}
+	}
+
+	public void Resume()
+	{
+		Debug.LogError (" ++++Resume()!");
+		
+		if (MainAllController.instance != null && Networking.instance != null) {
+			string authToken = MainAllController.instance.user.token;
+
+			if (authToken != null && video != null) {
+				Networking.instance.GetVideoLinkRequest (video.videoInfo.id, authToken, OnGetLink, OnFailedGetStreamingLink);
+			} else {
+				Debug.LogError (" Resume() Exception ! ");
+			}
+
+		}
+	}
+
+	public void OnGetLink(GetLinkVideoResponse getLinkVideoResponse){
+		try
+		{
+			if (MainAllController.instance != null) {
+				path = MainAllController.instance.user.GetPath ();
+			}
+
+			string filepath = MainAllController.instance.user.GetPathToFile (video.videoInfo.id,video.videoInfo.video_name);
+
+			// Create a directory that houses the video file
+			if (!File.Exists (filepath)) {
+				Directory.CreateDirectory(Path.Combine(path,video.videoInfo.id));
+			}
+
+			if (downloadState != DownloadState.Downloading) {
+
+				// If download state is not downloading, kick start download sequence
+				DownLoad (getLinkVideoResponse.link,filepath,OnGetDownloadCallback,OnSuccessDownloadCallback,OnFailDownloadCallback);
+
+			} else {
+
+			}
+
+			// Set UI state to downloading
+			//SetDownloadStateUI (DownloadState.Downloading);
+
+		} catch (System.Exception e)
+		{
+
+		}
+		finally {
+			ScreenLoading.instance.Stop ();
+		}
+	}
+
+	void OnFailedGetStreamingLink()
+	{
+		ScreenLoading.instance.Stop ();
+	}
+
+	public void OnGetDownloadCallback(float progress, float downloadSpeed){
+
+	}
+
+	public void OnSuccessDownloadCallback()
+	{
+		Notifications_DownloadCompleted();
+		CheckDownloadComplete ();
+	}
+
+	public void OnFailDownloadCallback()
+	{
+
+	}
+
+	#endregion
+
+	#region Notifications 
+
+	/// <summary>
+	/// Notificationses the downloaded.
+	/// </summary>
+	private void Notifications_DownloadCompleted(){
+		NotificationsDemo notificationsDemo = UnityEngine.Object.FindObjectOfType<NotificationsDemo>();
+		SettingsMenu settingsMenu = UnityEngine.Object.FindObjectOfType<SettingsMenu>();
+
+		if (notificationsDemo != null && settingsMenu.GetNotificationText() == settingsMenu.GetkeyTrueNotification()){
+			notificationsDemo.ScheduleLocalNotification ("" + video.videoInfo.video_name, "Download Completed!" );
+		}
+	}
+
+	#endregion
+
+	private void CheckDownloadComplete()
+	{
+		if (downloadState == DownloadState.Complete || downloadProgress == 100) {
+			
+			// Kick event that this video has been downlaoded
+			MainAllController.instance.Downloaded (video);
+
+			// Destroy the this object too
+			video = null;
+			Destroy (this.gameObject);
+
+			DownloadMenu.instance.Refresh ();
+		}
+
 	}
 
 }

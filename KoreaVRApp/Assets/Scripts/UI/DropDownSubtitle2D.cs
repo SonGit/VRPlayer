@@ -22,6 +22,19 @@ public class DropDownSubtitle2D : Dropdown, IPointerEnterHandler
 			mediaPlayerMenu.isShowDropDown = true;
 			mediaPlayerMenu._delayCount = 0;
 		}
+
+		if(MainAllController.instance != null){
+			MainAllController.instance.PlayButtonSound ();
+		}
+	}
+
+	protected override void DestroyBlocker (GameObject blocker)
+	{
+		base.DestroyBlocker (blocker);
+
+		if(MainAllController.instance != null){
+			MainAllController.instance.PlayButtonSound ();
+		}
 	}
 
 	public override void OnSelect (BaseEventData eventData)
@@ -32,7 +45,6 @@ public class DropDownSubtitle2D : Dropdown, IPointerEnterHandler
 			mediaPlayerMenu.isShowDropDown = false;
 			mediaPlayerMenu._delayCount = 0;
 		}
-
 	}
 
 	void Update(){

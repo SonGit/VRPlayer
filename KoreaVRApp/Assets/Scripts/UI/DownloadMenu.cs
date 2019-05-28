@@ -4,11 +4,15 @@ using UnityEngine;
 using EasyMobile;
 using UnityEngine.UI;
 using System.Linq;
+using EnhancedUI;
+using EnhancedUI.EnhancedScroller;
 
 public class DownloadMenu : BasicMenuNavigation
 {
 
 	public static DownloadMenu instance;
+
+	private VideoUI videoUI;
 
 	void Awake()
 	{
@@ -25,25 +29,12 @@ public class DownloadMenu : BasicMenuNavigation
 
 	public override void Init()
 	{
-		List<Video> videoToShow = GetUserVideo ();
+		videos = GetUserVideo ();
 
-		List<Video> currentUserVideo = new List<Video> ();
-
-		foreach (VideoUI UI in listObject) {
-			if(UI.video != null)
-			currentUserVideo.Add (UI.video);
+		if (scroller != null){
+			scroller.ReloadData ();
 		}
-
-//		 Case: Current UserVideo contain more elements than server
-//		 Trim elements that was deleted in server database
-		var TrimList = currentUserVideo.Where(p => !videoToShow.Any(p2 => p2.videoInfo.id == p.videoInfo.id)).ToList();
-		TrimUI (TrimList);
-
-//		 Case: Current UserVideo contain less elements than server
-//		 Add elements that are present in server database, but not on local
-		var Addlist = videoToShow.Where(p => !currentUserVideo.Any(p2 => p2.videoInfo.id == p.videoInfo.id)).ToList();
-		AddUI (Addlist);
-
+			
 		CheckThumbnail ();
 
 		UpdateNetworkConnectionUI ();
@@ -63,11 +54,11 @@ public class DownloadMenu : BasicMenuNavigation
 			return true;
 		} else {
 			
-			GameObject videoDownloaderObj = GameObject.Find ("VideoDownLoader" + "-" + video.videoInfo.id);
-
-			if (videoDownloaderObj != null) {
-				return true;
-			}
+//			GameObject videoDownloaderObj = GameObject.Find ("VideoDownLoader" + "-" + video.videoInfo.id);
+//
+//			if (videoDownloaderObj != null) {
+//				return true;
+//			}
 			return false;
 		}
 
@@ -75,23 +66,23 @@ public class DownloadMenu : BasicMenuNavigation
 
 	protected override void AddVideoUI(Video video)
 	{
-		VideoUI downloadVideoUI = ObjectPool.instance.GetDownloadVideoUI ();
-
-		if (downloadVideoUI != null) {
-
-			downloadVideoUI.Setup (video);
-
-			if (verticalGrid == null) {
-				verticalGrid = this.GetComponentInChildren<VerticalLayoutGroup> ();
-			}
-
-			downloadVideoUI.transform.SetParent (verticalGrid.transform,false);
-
-			listObject.Add (downloadVideoUI);
-
-		} else {
-			Debug.LogError ("Wrong Prefab!");
-		}
+//		VideoUI downloadVideoUI = ObjectPool.instance.GetDownloadVideoUI ();
+//
+//		if (downloadVideoUI != null) {
+//
+//			downloadVideoUI.Setup (video);
+//
+//			if (verticalGrid == null) {
+//				verticalGrid = this.GetComponentInChildren<VerticalLayoutGroup> ();
+//			}
+//
+//			downloadVideoUI.transform.SetParent (verticalGrid.transform,false);
+//
+//			listObject.Add (downloadVideoUI);
+//
+//		} else {
+//			Debug.LogError ("Wrong Prefab!");
+//		}
 
 	}
 
@@ -175,14 +166,57 @@ public class DownloadMenu : BasicMenuNavigation
 	#endregion
 
 
-	public void StartDownload(string id)
+	public void StartDownload(Video video)
 	{
-		for (int i = 0; i < listObject.Count; i++) {
-			if (listObject [i].video.videoInfo.id == id) {
-				DownloadVideoUI downloadUI = (listObject [i] as DownloadVideoUI);
-				downloadUI.Download ();
-				return;
+		
+		GameObject videoDownloaderObj = GameObject.Find ("VideoDownLoader" + "-" + video.videoInfo.id);
+
+		if (videoDownloaderObj != null) {
+			VideoDownloader downloader = videoDownloaderObj.GetComponent<VideoDownloader> ();
+			if (downloader != null) {
+				downloader.Download (video);
 			}
 		}
 	}
+
+
+	#region EnhancedScroller Handlers
+
+	public override int GetNumberOfCells (EnhancedScroller scroller)
+	{
+		if (videos != null){
+			return videos.Count;
+		}
+		return 0;
+	}
+
+	public override float GetCellViewSize (EnhancedScroller scroller, int dataIndex)
+	{
+		// header views
+		return 500f;
+	}
+
+	public override EnhancedScrollerCellView GetCellView (EnhancedScroller scroller, int dataIndex, int cellIndex)
+	{
+		// first, we get a cell from the scroller by passing a prefab.
+		// if the scroller finds one it can recycle it will do so, otherwise
+		// it will create a new cell.
+		videoUI = scroller.GetCellView(videoUIPrefab) as DownloadVideoUI;
+
+		// set the name of the game object to the cell's data index.
+		// this is optional, but it helps up debug the objects in 
+		// the scene hierarchy.
+		videoUI.name = "DownloadVideo " + dataIndex.ToString();
+	
+
+		// we just pass the data to our cell's view which will update its UI
+		videoUI.Setup(videos[dataIndex]);
+
+		// return the cell to the scroller
+		return videoUI;
+	}
+
+	#endregion
+
+
 }

@@ -86,7 +86,7 @@ public class VR_BasicMenu : BasicMenu
 
 	protected override void AddVideoUI(Video video)
 	{
-		GameObject obj = (GameObject)Instantiate (videoUIPrefab);
+		GameObject obj = (GameObject)Instantiate (videoUIPrefab.gameObject);
 		VideoUI userVideoUI = obj.GetComponent<VideoUI> ();
 
 		if (userVideoUI != null) {

@@ -122,7 +122,7 @@ namespace PullToRefresh
 
 			var distance = m_InitialPosition - GetContentAnchoredPosition();
 
-            if (distance < 0f)
+            if (distance < 0.4f)
             {
                 return;
             }

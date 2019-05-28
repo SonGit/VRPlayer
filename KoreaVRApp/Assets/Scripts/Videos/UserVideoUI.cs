@@ -8,6 +8,7 @@ using System.Net;
 using UnityEngine.Networking;
 using System.IO;
 using TMPro;
+using System.Text.RegularExpressions;
 
 
 public class UserVideoUI : VideoUI
@@ -21,7 +22,6 @@ public class UserVideoUI : VideoUI
 
 	public GameObject videoDownloaderPrefab = null;
 	private VideoDownloader videoDownloader;
-	private UserDetailMenu userDetailMenu;
 
 	[Header("Favorite")]
 	[SerializeField] protected GameObject favoriteBtn;
@@ -34,7 +34,6 @@ public class UserVideoUI : VideoUI
 	// Use this for initialization
 	void Start () 
 	{
-		userDetailMenu = Object.FindObjectOfType<UserDetailMenu> ();
 		if (thumbnailTexture == null) {
 			thumbnailTexture = new Texture2D(4, 4, TextureFormat.DXT1, false);
 		}
@@ -47,26 +46,6 @@ public class UserVideoUI : VideoUI
 		}
 		return null;
 	}
-
-	#region Go Detail page
-	public void GoDetailVideo(){
-		if(MainAllController.instance != null){
-			MainAllController.instance.PlayButtonSound ();
-		}
-
-		if (MainAllController.instance != null){
-			MainAllController.instance.UserVideo_OnUserVideoDetail ();
-		}
-
-		SetDetailVideoInfo ();
-	}
-
-	public void SetDetailVideoInfo(){
-		if (userDetailMenu != null){
-			userDetailMenu.Setup(video,this);
-		}
-	}
-	#endregion
 
 
 	public void Download ()
@@ -85,7 +64,7 @@ public class UserVideoUI : VideoUI
 			if (videoDownloaderObj != null) {
 
 				Debug.Log ("Already in Download Menu!!!");
-				DownloadMenu.instance.StartDownload (video.videoInfo.id);
+				DownloadMenu.instance.StartDownload (video);
 				GoToDownloadMenu ();
 
 			} else {
@@ -143,17 +122,17 @@ public class UserVideoUI : VideoUI
 				// If not, create a downloader
 				// downlaoder only get kickstart via DownloadVideoUI
 				if (videoDownloader == null) {
-					Debug.Log("CREATE +++++++++++++++++++++++" + video.videoInfo.id);
+//					Debug.Log("CREATE +++++++++++++++++++++++" + video.videoInfo.id);
 					videoDownloader = ((GameObject)Instantiate (videoDownloaderPrefab)).GetComponent<VideoDownloader> ();
 					videoDownloader.name = "VideoDownLoader" + "-" + video.videoInfo.id;
-
+//
 					Custom();
 				}
 
 				GoToDownloadMenu ();
 
 				// Remove self from menu
-				DestroySelf ();
+				//DestroySelf ();
 			}
 
 		} catch (System.Exception e)
@@ -170,7 +149,7 @@ public class UserVideoUI : VideoUI
 
 	protected virtual void Custom()
 	{
-
+		DownloadMenu.instance.StartDownload (video);
 	}
 
 	/// <summary>
@@ -190,7 +169,7 @@ public class UserVideoUI : VideoUI
 
 		this.video_length.text = MakeRegistrationDateString() + " | " +((video.videoInfo.size / 1024) / 1024) + " MB"; ;
 		video_size.text = ((video.videoInfo.size / 1024) / 1024) + " MB";
-		video_desc.text = video.videoInfo.description;
+		video_desc.text = Regex.Unescape (video.videoInfo.description);
 
 		OnEnable ();
 
@@ -243,21 +222,6 @@ public class UserVideoUI : VideoUI
 			Debug.LogError ("video is not UserVideo");
 		}
 	}
-
-	#region Object Pool implementation
-
-	public override void OnDestroy ()
-	{
-		video_image.texture = null;
-		gameObject.SetActive (false);
-	}
-
-	public override void OnLive ()
-	{
-		gameObject.SetActive (true);
-	}
-
-	#endregion
 
 	public override void OnLoadedThumbnail()
 	{
@@ -363,5 +327,10 @@ public class UserVideoUI : VideoUI
 				unfavoriteBtn.SetActive (false);
 			}
 		}
+	}
+
+	public override void RefreshCellView()
+	{
+		Setup(UserVideoMenu.instance.getVideoAtIndex(dataIndex));
 	}
 }

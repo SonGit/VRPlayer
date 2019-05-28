@@ -2,6 +2,8 @@
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
+using EnhancedUI;
+using EnhancedUI.EnhancedScroller;
 
 public enum SortStyle
 {
@@ -10,7 +12,7 @@ public enum SortStyle
 	SORT_BY_SIZE,
 }
 
-public class BasicMenu : MonoBehaviour
+public class BasicMenu : MonoBehaviour, IEnhancedScrollerDelegate
 {
 	[SerializeField] private GameObject Root;
 
@@ -18,7 +20,9 @@ public class BasicMenu : MonoBehaviour
 
 	[SerializeField] private GameObject noVideoObj;
 
-	[SerializeField] protected GameObject videoUIPrefab;
+	[SerializeField] protected EnhancedScroller scroller;
+
+	[SerializeField] protected EnhancedScrollerCellView videoUIPrefab;
 
 	[SerializeField] protected VerticalLayoutGroup verticalGrid;
 
@@ -32,14 +36,18 @@ public class BasicMenu : MonoBehaviour
 
 	protected List<VideoUI> listObject = new List<VideoUI>();
 
+	protected List<Video> videos = new List<Video>();
+
 	protected virtual void Awake()
 	{
-
+		
 	}
 
 	protected virtual void Start()
 	{
-		
+		if (scroller != null){
+			scroller.Delegate = this;
+		}
 	}
 
 	public virtual void Init()
@@ -115,18 +123,16 @@ public class BasicMenu : MonoBehaviour
 
 	public bool CheckNoVideos(){
 
-		if (verticalGrid.transform.childCount > 0){
-			VideoUI[] videoUIs = verticalGrid.GetComponentsInChildren<VideoUI>();
+		if(scroller != null){
+			VideoUI[] videoUIs = scroller.GetComponentsInChildren<VideoUI>();
 
 			foreach (var videoUI in videoUIs) {
 				if (videoUI.gameObject.activeSelf){
-					Debug.Log (videoUI.gameObject.name);
 					return false;
 					break;
 				}
 			}
 		}
-
 		return true;
 	}
 
@@ -161,20 +167,20 @@ public class BasicMenu : MonoBehaviour
 
 	protected virtual void TrimUI(List<Video> destroyThese)
 	{
-		List<VideoUI> videoUIToDestroy = new List<VideoUI> ();
-
-		for (int i = 0; i < destroyThese.Count; i++) {
-			for (int y = 0; y < listObject.Count; y++) {
-				if (listObject [y].video.videoInfo.id == destroyThese [i].videoInfo.id) {
-					videoUIToDestroy.Add (listObject [y]);
-				}
-			}
-		}
-
-		foreach (VideoUI ui in videoUIToDestroy) {
-			listObject.Remove (ui);
-			ui.Destroy ();
-		}
+//		List<VideoUI> videoUIToDestroy = new List<VideoUI> ();
+//
+//		for (int i = 0; i < destroyThese.Count; i++) {
+//			for (int y = 0; y < listObject.Count; y++) {
+//				if (listObject [y].video.videoInfo.id == destroyThese [i].videoInfo.id) {
+//					videoUIToDestroy.Add (listObject [y]);
+//				}
+//			}
+//		}
+//
+//		foreach (VideoUI ui in videoUIToDestroy) {
+//			listObject.Remove (ui);
+//			ui.Destroy ();
+//		}
 	}
 		
 	protected virtual void AddUI(List<Video> addThese)
@@ -222,26 +228,26 @@ public class BasicMenu : MonoBehaviour
 
 	protected virtual VideoUI CreateUserVideoUI()
 	{
-		if (this is StorageMenu) {
-			return ObjectPool.instance.GetLocalVideoUI ();
-		}
-
-		if (this is UserVideoMenu) {
-			return ObjectPool.instance.GetUserVideoUI ();
-		}
-
-		if (this is DownloadMenu) {
-			return ObjectPool.instance.GetDownloadVideoUI ();
-		}
-
-		if (this is InboxMenu) {
-			return ObjectPool.instance.GetInboxVideoUI ();
-		}
-
-		if (this is FavoriteVideoMenu) {
-			return ObjectPool.instance.GetFavoriteVideoUI ();
-		}
-
+//		if (this is StorageMenu) {
+//			return ObjectPool.instance.GetLocalVideoUI ();
+//		}
+//
+//		if (this is UserVideoMenu) {
+//			return ObjectPool.instance.GetUserVideoUI ();
+//		}
+//
+//		if (this is DownloadMenu) {
+//			return ObjectPool.instance.GetDownloadVideoUI ();
+//		}
+//
+//		if (this is InboxMenu) {
+//			return ObjectPool.instance.GetInboxVideoUI ();
+//		}
+//
+//		if (this is FavoriteVideoMenu) {
+//			return ObjectPool.instance.GetFavoriteVideoUI ();
+//		}
+//
 		return null;
 	}
 
@@ -265,10 +271,10 @@ public class BasicMenu : MonoBehaviour
 
 	public virtual void Reset()
 	{
-		for (int i = 0; i < listObject.Count; i++) {
-			listObject [i].Destroy ();
-		}
-		listObject = new List<VideoUI>();
+//		for (int i = 0; i < listObject.Count; i++) {
+//			listObject [i].Destroy ();
+//		}
+//		listObject = new List<VideoUI>();
 	}
 
 	protected virtual List<Video> GetUserVideo()
@@ -310,8 +316,8 @@ public class BasicMenu : MonoBehaviour
 
 	public void RemoveUI(VideoUI videoUI)
 	{
-		listObject.Remove (videoUI);
-		videoUI.Destroy ();
+//		listObject.Remove (videoUI);
+//		videoUI.Destroy ();
 	}
 
 	public void RemoveUIPerma(VideoUI videoUI)
@@ -337,33 +343,30 @@ public class BasicMenu : MonoBehaviour
 		}
 	}
 
-	public void SortByName()
+	public virtual void SortByName()
 	{
-		listObject = listObject.OrderBy (obj => obj.video.videoInfo.video_name).ToList();
-		for (int i = 0; i < listObject.Count; i++)
-		{
-			listObject[i].transform.SetSiblingIndex(i);
-		}
+		videos = videos.OrderBy(obj => obj.videoInfo.video_name).ToList();
+
+		scroller.RefreshActiveCellViews();
+
 		currentSortStyle = SortStyle.SORT_BY_NAME;
 	}
 
-	public void SortByDate()
+	public virtual void SortByDate()
 	{
-		listObject = listObject.OrderByDescending (obj => obj.video.videoInfo.dateTime).ToList();
-		for (int i = 0; i < listObject.Count; i++)
-		{
-			listObject[i].transform.SetSiblingIndex(i);
-		}
+		videos = videos.OrderBy(obj => obj.videoInfo.dateTime).ToList();
+
+		scroller.RefreshActiveCellViews();
+
 		currentSortStyle = SortStyle.SORT_BY_DATE;
 	}
 
-	public void SortBySize()
+	public virtual void SortBySize()
 	{
-		listObject = listObject.OrderBy(obj => obj.video.videoInfo.size).ToList();
-		for (int i = 0; i < listObject.Count; i++)
-		{
-			listObject[i].transform.SetSiblingIndex(i);
-		}
+		videos = videos.OrderBy(obj => obj.videoInfo.size).ToList();
+
+		scroller.RefreshActiveCellViews();
+
 		currentSortStyle = SortStyle.SORT_BY_SIZE;
 	}
 
@@ -397,4 +400,61 @@ public class BasicMenu : MonoBehaviour
 		}
 		return null;
 	}
+
+
+	#region EnhancedScroller Handlers
+
+	/// <summary>
+	/// This tells the scroller the number of cells that should have room allocated. This should be the length of your data array.
+	/// </summary>
+	/// <param name="scroller">The scroller that is requesting the data size</param>
+	/// <returns>The number of cells</returns>
+	public virtual int GetNumberOfCells(EnhancedScroller scroller)
+	{
+		// in this example, we just pass the number of our data elements
+		return 0;
+	}
+
+	/// <summary>
+	/// This tells the scroller what the size of a given cell will be. Cells can be any size and do not have
+	/// to be uniform. For vertical scrollers the cell size will be the height. For horizontal scrollers the
+	/// cell size will be the width.
+	/// </summary>
+	/// <param name="scroller">The scroller requesting the cell size</param>
+	/// <param name="dataIndex">The index of the data that the scroller is requesting</param>
+	/// <returns>The size of the cell</returns>
+	public virtual float GetCellViewSize(EnhancedScroller scroller, int dataIndex)
+	{
+		// in this example, even numbered cells are 30 pixels tall, odd numbered cells are 100 pixels tall
+		return 0f;
+	}
+
+	/// <summary>
+	/// Gets the cell to be displayed. You can have numerous cell types, allowing variety in your list.
+	/// Some examples of this would be headers, footers, and other grouping cells.
+	/// </summary>
+	/// <param name="scroller">The scroller requesting the cell</param>
+	/// <param name="dataIndex">The index of the data that the scroller is requesting</param>
+	/// <param name="cellIndex">The index of the list. This will likely be different from the dataIndex if the scroller is looping</param>
+	/// <returns>The cell for the scroller to use</returns>
+	public virtual EnhancedScrollerCellView GetCellView(EnhancedScroller scroller, int dataIndex, int cellIndex)
+	{
+		// return the cell to the scroller
+		return null;
+	}
+
+	public virtual Video getVideoAtIndex(int index)
+	{
+		Video video = null;
+		try
+		{
+			video = videos[index];
+			return video;
+		}catch(System.Exception e) {
+			Debug.Log ("getVideoAtIndex Exception!");
+			return null;
+		}
+	}
+
+	#endregion
 }

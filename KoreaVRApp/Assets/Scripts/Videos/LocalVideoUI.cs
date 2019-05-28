@@ -71,27 +71,7 @@ public class LocalVideoUI: VideoUI
 
        
     }
-
-
-    public void Delete()
-	{
-		if(MainAllController.instance != null){
-			MainAllController.instance.PlayButtonSound ();
-		}
-
-		#if UNITY_ANDROID || UNITY_IOS
-		GetAlertDelete ();
-		#endif
-
-		#if UNITY_EDITOR
-		StorageMenu menu = Object.FindObjectOfType<StorageMenu> ();
-		if (menu != null) {
-			menu.DeleteVideo ((video as LocalVideo).videoURL,this);
-		}
-		#endif 
-
-	}
-
+		
 	/// <summary>
 	/// Call Android plugin to retrieve media list
 	/// Syntax: {Media_name}@{Media_length_in_ms} , {Media_name2}@{Media_length_in_ms2}
@@ -158,28 +138,8 @@ public class LocalVideoUI: VideoUI
 	public override void OnAlertDeleteComplete ()
 	{
         base.OnAlertDeleteComplete();
-        StorageMenu menu = Object.FindObjectOfType<StorageMenu>();
-        if (menu != null)
-        {
-            menu.DeleteVideo((video as LocalVideo).videoURL, this);
-        }
-  //      bool isFistButtonClicked = buttonIndex == 0;
-		//bool isSecondButtonClicked = buttonIndex == 1;
 
-		//if (isFistButtonClicked) {
-
-		//} else {
-
-		//}
-
-		//if (isSecondButtonClicked) {
-		//	StorageMenu menu = Object.FindObjectOfType<StorageMenu> ();
-		//	if (menu != null) {
-		//		menu.DeleteVideo ((video as LocalVideo).videoURL,this);
-		//	}
-		//} else {
-
-		//}
+		Delete ();
 	}
 
     #endregion
@@ -191,4 +151,8 @@ public class LocalVideoUI: VideoUI
         Debug.Log("------------------DONE");
     }
 
+	public override void RefreshCellView()
+	{
+		Setup(StorageMenu.instance.getVideoAtIndex(dataIndex));
+	}
 }
