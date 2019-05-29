@@ -127,7 +127,7 @@ public class SettingsMenu : BasicMenuNavigation
 		OnLogout +=Reset;
 	}
 
-	void Reset()
+	public override void Reset ()
 	{
 		usernameText.text = "";
 	}
