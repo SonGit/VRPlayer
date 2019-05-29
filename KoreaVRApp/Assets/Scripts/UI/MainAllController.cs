@@ -473,7 +473,10 @@ public class MainAllController : MonoBehaviour
 	{
 		StreamReader streamReader;
 
+
 		bool success = false;
+
+		string exceptionMessage = string.Empty;
 
 		foreach (Video_Info videoInfo in videoList) {
 			try
@@ -511,7 +514,8 @@ public class MainAllController : MonoBehaviour
 			} catch (Exception e)
 			{
 				success = false;
-				Debug.LogError ("GetVideoSize call exception!  " + e.Message );
+				exceptionMessage = e.Message;
+				Debug.LogError ("GetVideoSize call exception!  " + exceptionMessage );
 				break;
 
 			}
@@ -525,6 +529,8 @@ public class MainAllController : MonoBehaviour
 		yield return Ninja.JumpToUnity;
 
 		if (!success) {
+			
+			AndroidDialog.instance.showWarningDialog(exceptionMessage);
 
 			if(error != null)
 				error();
