@@ -84,6 +84,13 @@ public class DownloadVideoUI : VideoUI
 	}
 
 	void Update (){
+		
+		if(pendingDelete)
+		{
+			DeleteProcess();
+			pendingDelete = false;
+		}
+
 		SetDownloadProgressUI ();
 		SetUI ();
 	}

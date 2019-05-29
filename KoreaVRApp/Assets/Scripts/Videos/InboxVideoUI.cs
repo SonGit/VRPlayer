@@ -35,7 +35,11 @@ public class InboxVideoUI : VideoUI
 	}
 
 	void Update (){
-		
+		if(pendingDelete)
+		{
+			DeleteProcess();
+			pendingDelete = false;
+		}
 	}
 
 	#region setup info video

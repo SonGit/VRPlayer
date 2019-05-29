@@ -370,7 +370,7 @@ public class VideoUI : EnhancedScrollerCellView
 
     //}
 
-    bool pendingDelete;
+    protected bool pendingDelete;
 
     public virtual void OnAlertDeleteComplete()
     {
@@ -427,7 +427,7 @@ public class VideoUI : EnhancedScrollerCellView
         #endif
     }
 
-    void DeleteProcess()
+	protected void DeleteProcess()
     {
         if (this is LocalVideoUI)
         {
