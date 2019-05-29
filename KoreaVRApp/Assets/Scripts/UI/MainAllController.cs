@@ -1668,38 +1668,50 @@ public class MainAllController : MonoBehaviour
 
 	public bool CheckNovideos_LocalVideo()
 	{
-		if (storageMenu.isNoVideo) {
-			return true;
-		} else {
-			return false;
+		if (storageMenu != null){
+			storageMenu.Refresh ();
+			if (storageMenu.isNoVideo) {
+				return true;
+			}
 		}
+
+		return false;
 	}
 
 	public bool CheckNovideos_UserVideo()
 	{
-		if (userVideoMenu.isNoVideo) {
-			return true;
-		} else {
-			return false;
+		if (userVideoMenu != null){
+			userVideoMenu.Refresh ();
+			if (userVideoMenu.isNoVideo) {
+				return true;
+			}
 		}
+
+		return false;
 	}
 
 	public bool CheckNovideos_FavoriteVideo()
 	{
-		if (favoriteMenu.isNoVideo) {
-			return true;
-		} else {
-			return false;
+		if (favoriteMenu != null) {
+			favoriteMenu.Refresh ();
+			if (favoriteMenu.isNoVideo) {
+				return true;
+			}
 		}
+
+		return false;
 	}
 
 	public bool CheckNovideos_InboxVideo()
 	{
-		if (inboxMenu.isNoVideo) {
-			return true;
-		} else {
-			return false;
+		if (inboxMenu != null){
+			inboxMenu.Refresh ();
+			if (inboxMenu.isNoVideo) {
+				return true;
+			}
 		}
+
+		return false;
 	}
 
 	#endregion
@@ -1760,7 +1772,13 @@ public class MainAllController : MonoBehaviour
 	}
 
 	public string GetUserNameInput(){
-		string username = loginMenu.GetUsernameInput ();
-		return username;
+		string username;
+
+		if (loginMenu != null){
+			username = loginMenu.GetUsernameInput ();
+			return username;
+		}
+
+		return string.Empty;
 	}
 }

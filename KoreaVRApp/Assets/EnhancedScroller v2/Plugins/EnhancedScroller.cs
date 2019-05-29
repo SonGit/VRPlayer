@@ -578,23 +578,23 @@ namespace EnhancedUI.EnhancedScroller
             if (_delegate != null)
                 _Resize(false);
 
-            if (_scrollRect == null || _scrollRectTransform == null || _container == null)
-            {
-                _scrollPosition = 0f;
-                return;
-            }
-
-            _scrollPosition = Mathf.Clamp(scrollPositionFactor * ScrollSize, 0, GetScrollPositionForCellViewIndex(_cellViewSizeArray.Count - 1, CellViewPositionEnum.Before));
-            if (scrollDirection == ScrollDirectionEnum.Vertical)
-            {
-                // set the vertical position
-                _scrollRect.verticalNormalizedPosition = 1f - scrollPositionFactor;
-            }
-            else
-            {
-                // set the horizontal position
-                _scrollRect.horizontalNormalizedPosition = scrollPositionFactor;
-            }
+//            if (_scrollRect == null || _scrollRectTransform == null || _container == null)
+//            {
+//                _scrollPosition = 0f;
+//                return;
+//            }
+//
+//            _scrollPosition = Mathf.Clamp(scrollPositionFactor * ScrollSize, 0, GetScrollPositionForCellViewIndex(_cellViewSizeArray.Count - 1, CellViewPositionEnum.Before));
+//            if (scrollDirection == ScrollDirectionEnum.Vertical)
+//            {
+//                // set the vertical position
+//                _scrollRect.verticalNormalizedPosition = 1f - scrollPositionFactor;
+//            }
+//            else
+//            {
+//                // set the horizontal position
+//                _scrollRect.horizontalNormalizedPosition = scrollPositionFactor;
+//            }
         }
 
         /// <summary>
@@ -1571,6 +1571,7 @@ namespace EnhancedUI.EnhancedScroller
             // Create a new active cell view container with a layout group
             go = new GameObject("Container", typeof(RectTransform));
             go.transform.SetParent(_scrollRectTransform);
+			go.transform.SetSiblingIndex(0);
             if (scrollDirection == ScrollDirectionEnum.Vertical)
                 go.AddComponent<VerticalLayoutGroup>();
             else

@@ -40,9 +40,9 @@ public class SceneVR : AppScene
 		vrSetting.HideSetting ();
 		vrMainMenu.gameObject.SetActive (true);
 
-		//if (vr_RecenterPanel != null && !MainAllController.instance.IsShowRecenterPanel){
-		//	vr_RecenterPanel.Show ();
-		//}
+		if (vr_RecenterPanel != null && !MainAllController.instance.IsShowRecenterPanel){
+			vr_RecenterPanel.Show ();
+		}
 			
 		buttonScreenLock.OnClickLockBtn (true);
 		vrPlayer.gameObject.SetActive (false);
@@ -175,13 +175,13 @@ public class SceneVR : AppScene
 
 		currentVideo = video;
 
-        vr_RecenterPanel.Show(OnDoneRecenter);
+        //vr_RecenterPanel.Show(OnDoneRecenter);
 
-        //if (vr_RecenterPanel != null && !MainAllController.instance.IsShowRecenterPanel) {
-        //	vr_RecenterPanel.Show (OnDoneRecenter);
-        //} else {
-        //	OnDoneRecenter ();
-        //}
+        if (vr_RecenterPanel != null && !MainAllController.instance.IsShowRecenterPanel) {
+        	vr_RecenterPanel.Show (OnDoneRecenter);
+        } else {
+        	OnDoneRecenter ();
+        }
     }
 
 	public void Streaming(Video video, string url)
