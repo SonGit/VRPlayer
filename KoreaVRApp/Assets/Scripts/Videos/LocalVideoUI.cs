@@ -19,6 +19,22 @@ public class LocalVideoUI: VideoUI
        
 	}
 
+	bool loadThumbnail;
+
+	void Update()
+	{
+		if (loadThumbnail) {
+			StartCoroutine(LoadThumbnail ());
+			loadThumbnail = false;
+		}
+		if(pendingDelete)
+		{
+			DeleteProcess();
+			pendingDelete = false;
+		}
+
+	}
+
 	public override void Setup(Video currentlocalVideo)
 	{
 		base.Setup (currentlocalVideo);
@@ -32,8 +48,14 @@ public class LocalVideoUI: VideoUI
 		StartCoroutine(LoadThumbnail ());
 		#endif
 
+		loadThumbnail = true;
     }
-
+	
+//	IEnumerator LoadThumbnail2()
+//	{
+//		print ("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+//		yield return new WaitForSeconds (.5f);
+//	}
     IEnumerator LoadThumbnail()
     {
         bool gotThumbnail = false;
@@ -49,9 +71,9 @@ public class LocalVideoUI: VideoUI
 		#endif
 
 		//Texture2D texture = LocalVideoManager.instance.GetThumbnailFromCache (path);
-		Texture2D texture = null;
+		thumbnailTexture =  new Texture2D(4, 4, TextureFormat.RGB565, false);
 
-		if (texture == null) {
+	//	if (texture == null) {
 			Debug.Log ("Looking at path: " + path);
 			while (!gotThumbnail) {
 
@@ -65,67 +87,13 @@ public class LocalVideoUI: VideoUI
 
 				yield return new WaitForSeconds (.5f);
 			}
-		} else {
-			Debug.Log ("Texture found in cache, loading.....");
-		}
+//		} else {
+//			Debug.Log ("Texture found in cache, loading.....");
+//		}
 
        
     }
 		
-	/// <summary>
-	/// Call Android plugin to retrieve media list
-	/// Syntax: {Media_name}@{Media_length_in_ms} , {Media_name2}@{Media_length_in_ms2}
-	/// </summary>
-	/// 
-	private void LoadThumbnail_Threaded(string path)
-	{
-		plugin = new AndroidJavaClass ("com.example.unityplugin.PluginClass");
-
-		this.StartCoroutine (LoadThumbnail_async(path));
-	}
-
-	AndroidJavaClass plugin;
-	AndroidJavaClass unityClass;
-	AndroidJavaObject unityActivity;
-	AndroidJavaObject unityContext;
-
-	IEnumerator LoadThumbnail_async(string path)
-	{
-		//AndroidJNI.AttachCurrentThread();
-
-		byte[] pixelData;
-
-//		using (var thumbnail = plugin.CallStatic<AndroidJavaObject> ("getThumbnail", path)) {
-//
-//			if (!thumbnail.Call<bool>("isLoaded")) {
-//				Debug.LogError("NatShare Error: Failed to get thumbnail for video at path: "+path);
-//				yield break;
-//			}
-//			var width = thumbnail.Get<int>("width");
-//			var height = thumbnail.Get<int>("height");
-//
-//			using (var pixelBuffer = thumbnail.Get<AndroidJavaObject> ("pixelBuffer")) {
-//				using (var array = pixelBuffer.Call<AndroidJavaObject>("array")) {
-//					pixelData = AndroidJNI.FromByteArray(array.GetRawObject());
-//				}
-//			}
-//
-//			AndroidJNI.DetachCurrentThread ();
-//
-//			yield return Ninja.JumpToUnity;
-//
-//			thumbnailTexture = new Texture2D(width, height, TextureFormat.RGB565, false); // Weird texture format IMO
-//			thumbnailTexture.LoadRawTextureData(pixelData);
-//			thumbnailTexture.Apply ();
-//			videoImage.texture = thumbnailTexture;
-//			Debug.Log ("------------------DONE");
-//		}
-
-
-		yield return new WaitForEndOfFrame ();
-	}
-
-
 	#region NativeUI AlertPopup	
 	/// <summary>
 	/// Gets the alert when not loggin.
