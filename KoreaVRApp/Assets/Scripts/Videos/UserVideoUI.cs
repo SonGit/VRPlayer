@@ -9,6 +9,7 @@ using UnityEngine.Networking;
 using System.IO;
 using TMPro;
 using System.Text.RegularExpressions;
+using SimpleDiskUtils;
 
 
 public class UserVideoUI : VideoUI
@@ -50,34 +51,48 @@ public class UserVideoUI : VideoUI
 
 	public void Download ()
 	{
-		if (MainAllController.instance != null) {
+		float space = DiskUtils.CheckAvailableSpace ();
+
+		float viseoSize  = video.videoInfo.size / 1024;
+
+		// compare KB With KB
+		if ((space * 1024) > viseoSize) {
 			
-			MainAllController.instance.PlayButtonSound ();
+			if (MainAllController.instance != null) {
 
-			if (video.isDownloaded ()) {
-				NativeUI.Alert("","You have downloaded this video!");
-				return;
-			}
+				MainAllController.instance.PlayButtonSound ();
 
-			GameObject videoDownloaderObj = GameObject.Find ("VideoDownLoader" + "-" + video.videoInfo.id);
+				if (video.isDownloaded ()) {
+					NativeUI.Alert ("", "You have downloaded this video!");
+					return;
+				}
 
-			if (videoDownloaderObj != null) {
+				GameObject videoDownloaderObj = GameObject.Find ("VideoDownLoader" + "-" + video.videoInfo.id);
 
-				Debug.Log ("Already in Download Menu!!!");
-				DownloadMenu.instance.StartDownload (video);
-				GoToDownloadMenu ();
+				if (videoDownloaderObj != null) {
 
-			} else {
-				string authToken = MainAllController.instance.user.token;
-				if (authToken != null){
+					Debug.Log ("Already in Download Menu!!!");
+					DownloadMenu.instance.StartDownload (video);
+					GoToDownloadMenu ();
 
-					ScreenLoading.instance.Play ();
+				} else {
+					string authToken = MainAllController.instance.user.token;
+					if (authToken != null) {
 
-					Networking.instance.GetVideoLinkRequest (video.videoInfo.id, authToken, OnGetLink,OnFailedGetStreamingLink);
+						ScreenLoading.instance.Play ();
+
+						Networking.instance.GetVideoLinkRequest (video.videoInfo.id, authToken, OnGetLink, OnFailedGetStreamingLink);
+					}
 				}
 			}
+		} else {
+			AndroidDialog.instance.showLoginDialog ("Usable capacity not available!", OnAlertDownloadComplete);
 		}
 
+	}
+
+	private void OnAlertDownloadComplete(){
+	
 	}
 
 	void OnFailedGetStreamingLink()
