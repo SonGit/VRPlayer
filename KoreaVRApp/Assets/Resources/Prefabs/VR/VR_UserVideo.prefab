@@ -590,6 +590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d6b20b69a1fe3c42b4519e5bc0bb8d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cellIdentifier: 
   rootLoading: {fileID: 8736561925288114700}
   thumbnailTexture: {fileID: 0}
   root: {fileID: 2231974832330906352}
@@ -832,7 +833,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 933043942042305228}
-        m_MethodName: Download
+        m_MethodName: VR_DownloadBnt_OnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

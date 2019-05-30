@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SimpleDiskUtils;
 
 public class VR_UserVideoUI : UserVideoUI
 {
@@ -50,6 +51,53 @@ public class VR_UserVideoUI : UserVideoUI
 			StopLoadingScreen ();
 		}
 	}
+
+	public void VR_DownloadBnt_OnClick ()
+	{
+		if (VR_MainMenu.instance != null){
+			
+			bool isConnect = VR_MainMenu.instance.CheckNetworkConnection ();
+
+			if (isConnect) {
+
+				float space = DiskUtils.CheckAvailableSpace ();
+
+				float viseoSize = video.videoInfo.size / 1024;
+
+				// compare KB With KB
+				if ((space * 1024) > viseoSize) {
+					if (MainAllController.instance != null) {
+
+						if (video.isDownloaded ()) {
+							return;
+						}
+
+						VR_UserVideoMenu menu = UnityEngine.Object.FindObjectOfType<VR_UserVideoMenu> ();
+						if (menu != null) {
+							menu.RemoveUIPerma (this);
+						}
+
+						GameObject videoDownloaderObj = GameObject.Find ("VideoDownLoader" + "-" + video.videoInfo.id);
+
+						if (videoDownloaderObj != null) {
+
+							Debug.Log ("Already in Download Menu!!!");
+							DownloadMenu.instance.StartDownload (video);
+						} else {
+							string authToken = MainAllController.instance.user.token;
+							if (authToken != null) {
+								Networking.instance.GetVideoLinkRequest (video.videoInfo.id, authToken, OnGetLink, OnFailedGetStreamingLink);
+							}
+						}
+					}
+				} else {
+					VR_MainMenu.instance.ShowUsablecapacityAlert ();
+				}
+			} else {
+				VR_MainMenu.instance.ShowNetworkAlert ();
+			}
+		}
+	}
 		
 
 	/// <summary>
@@ -57,10 +105,19 @@ public class VR_UserVideoUI : UserVideoUI
 	/// </summary>
 	public override void OnClickFavoriteButton ()
 	{
-		if (video != null) {
-			Networking.instance.FavoriteVideoRequest (video.videoInfo.id,MainAllController.instance.user.token,OnCompleteFavorite,OnFailedFavorite);
-		} else {
-			Debug.LogError ("Video is null!");
+		if (VR_MainMenu.instance != null) {
+
+			bool isConnect = VR_MainMenu.instance.CheckNetworkConnection ();
+
+			if (isConnect) {
+				if (video != null) {
+					Networking.instance.FavoriteVideoRequest (video.videoInfo.id, MainAllController.instance.user.token, OnCompleteFavorite, OnFailedFavorite);
+				} else {
+					Debug.LogError ("Video is null!");
+				}
+			} else {
+				VR_MainMenu.instance.ShowNetworkAlert ();
+			}
 		}
 	}
 
@@ -87,10 +144,19 @@ public class VR_UserVideoUI : UserVideoUI
 	/// </summary>
 	public override void OnClickUnfavoriteButton ()
 	{
-		if (video != null) {
-			Networking.instance.UnfavoriteVideoRequest (video.videoInfo.id,MainAllController.instance.user.token,OnCompleteUnfavorite,OnFailedFavorite);
-		} else {
-			Debug.LogError ("Video is null!");
+		if (VR_MainMenu.instance != null) {
+
+			bool isConnect = VR_MainMenu.instance.CheckNetworkConnection ();
+
+			if (isConnect) {
+				if (video != null) {
+					Networking.instance.UnfavoriteVideoRequest (video.videoInfo.id, MainAllController.instance.user.token, OnCompleteUnfavorite, OnFailedFavorite);
+				} else {
+					Debug.LogError ("Video is null!");
+				}
+			}else {
+				VR_MainMenu.instance.ShowNetworkAlert ();
+			}
 		}
 	}
 

@@ -4922,7 +4922,7 @@ PrefabInstance:
     - target: {fileID: 4810842472355034876, guid: d1b01d9d6ac3a0a4eb0cfba7a39146cd,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00048828125
+      value: 0.0009765625
       objectReference: {fileID: 0}
     - target: {fileID: 4810842470871812426, guid: d1b01d9d6ac3a0a4eb0cfba7a39146cd,
         type: 3}
@@ -6660,6 +6660,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1949178985, guid: eefac19eaca87984bb389e55e42e9c9a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.00036621094
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eefac19eaca87984bb389e55e42e9c9a, type: 3}
 --- !u!224 &1717872780 stripped
@@ -7829,6 +7833,36 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 299730846, guid: 95e67ebe51cfc9c4fb63951cd18a03ca, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3692342141511019028, guid: 95e67ebe51cfc9c4fb63951cd18a03ca,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5669180010223284545, guid: 95e67ebe51cfc9c4fb63951cd18a03ca,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5669180010223284545, guid: 95e67ebe51cfc9c4fb63951cd18a03ca,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5669180010223284545, guid: 95e67ebe51cfc9c4fb63951cd18a03ca,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5669180010223284545, guid: 95e67ebe51cfc9c4fb63951cd18a03ca,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5669180010223284545, guid: 95e67ebe51cfc9c4fb63951cd18a03ca,
+        type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
@@ -11708,6 +11742,18 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4800103771916817753 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4800103771916817753, guid: 95e67ebe51cfc9c4fb63951cd18a03ca,
+    type: 3}
+  m_PrefabInstance: {fileID: 1750899556}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4851056153895393827 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4851056153895393827, guid: 8ddabc0d988cf304da6c08be6dcf08e9,
@@ -13284,6 +13330,7 @@ MonoBehaviour:
   vr_MainMenu_VR_SensorContent: {fileID: 859071560}
   vr_MainMenu_VR_SensorYesButton: {fileID: 1308806576}
   vr_MainMenu_VR_SensorNoButton: {fileID: 1855746597}
+  vr_MainMenu_VR_UsablecapacityAlert: {fileID: 4800103771916817753}
   vr_Settings_Top_VR_VideoTitle: {fileID: 584099683}
   vr_Settings_Top_VR_ScreenTitle: {fileID: 279553689}
   vr_Settings_Top_VR_2DTitle: {fileID: 837350521}

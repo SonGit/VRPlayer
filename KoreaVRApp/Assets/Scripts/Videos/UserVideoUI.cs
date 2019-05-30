@@ -86,7 +86,7 @@ public class UserVideoUI : VideoUI
 				}
 			}
 		} else {
-			AndroidDialog.instance.showLoginDialog ("Usable capacity not available!", OnAlertDownloadComplete);
+			AndroidDialog.instance.showLoginDialog ("Usable capacity is not available!", OnAlertDownloadComplete);
 		}
 
 	}

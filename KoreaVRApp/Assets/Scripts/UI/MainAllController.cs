@@ -912,8 +912,10 @@ public class MainAllController : MonoBehaviour
 		GoVRPplayerMenu ();
 	}
 
-	public void RefeshInboxVideo2D(){
-		inboxMenu.Refresh ();
+	public void InitInboxVideoMenu2D(){
+		if (inboxMenu != null){
+			inboxMenu.Init ();
+		}
 	}
 
 	#endregion
@@ -1271,8 +1273,11 @@ public class MainAllController : MonoBehaviour
 
 				currentScene = scene;
 
-				if(currentMenu != null)
-				currentMenu.Init ();
+				if (currentMenu != null) {
+					currentMenu.SetActive (true);
+					currentMenu.Init ();
+				}
+
 			} else {
 				scene.Hide ();
 			}
@@ -1670,7 +1675,7 @@ public class MainAllController : MonoBehaviour
 	public bool CheckNovideos_LocalVideo()
 	{
 		if (storageMenu != null){
-			storageMenu.Refresh ();
+			storageMenu.FastRefresh ();
 			if (storageMenu.isNoVideo) {
 				return true;
 			}
@@ -1682,7 +1687,7 @@ public class MainAllController : MonoBehaviour
 	public bool CheckNovideos_UserVideo()
 	{
 		if (userVideoMenu != null){
-			userVideoMenu.Refresh ();
+			userVideoMenu.Init ();
 			if (userVideoMenu.isNoVideo) {
 				return true;
 			}
@@ -1694,7 +1699,7 @@ public class MainAllController : MonoBehaviour
 	public bool CheckNovideos_FavoriteVideo()
 	{
 		if (favoriteMenu != null) {
-			favoriteMenu.Refresh ();
+			favoriteMenu.Init ();
 			if (favoriteMenu.isNoVideo) {
 				return true;
 			}
@@ -1706,7 +1711,7 @@ public class MainAllController : MonoBehaviour
 	public bool CheckNovideos_InboxVideo()
 	{
 		if (inboxMenu != null){
-			inboxMenu.Refresh ();
+			inboxMenu.Init ();
 			if (inboxMenu.isNoVideo) {
 				return true;
 			}

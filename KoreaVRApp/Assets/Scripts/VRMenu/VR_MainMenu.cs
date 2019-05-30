@@ -29,6 +29,8 @@ public class VR_MainMenu : MonoBehaviour
 	private GameObject streamingAlert;
 	[SerializeField]
 	private GameObject sensorAlert;
+	[SerializeField]
+	private GameObject UsablecapacityAlert;
 
 	private float _delayCount = 0;
 	private float _delayTime = 2.5f;
@@ -57,11 +59,13 @@ public class VR_MainMenu : MonoBehaviour
 		HideNetworkAlert ();
 		HideStreamingAlert ();
 		HideSensorAlert ();
+		HideUsablecapacityAlert ();
 	}
 
 	void Update()
 	{
 		CheckDisableNetworkAlert ();
+		CheckDisableUsablecapacityAlert ();
 	}
 
 	public void OpenStorageMenu()
@@ -72,6 +76,7 @@ public class VR_MainMenu : MonoBehaviour
 		HideNoVideoAlert ();
 		HideStreamingAlert ();
 		HideSensorAlert ();
+		HideUsablecapacityAlert ();
 
 
 		//Show
@@ -420,7 +425,7 @@ public class VR_MainMenu : MonoBehaviour
 
 			OpenInboxMenu ();
 
-			MainAllController.instance.RefeshInboxVideo2D ();
+			MainAllController.instance.InitInboxVideoMenu2D ();
 		}
 	}
 	#endregion
@@ -437,6 +442,24 @@ public class VR_MainMenu : MonoBehaviour
 	public void HideNetworkAlert(){
 		if (networkAlert != null) {
 			networkAlert.SetActive (false);
+		}else{
+			Debug.LogError ("Null................");
+		}
+	}
+	#endregion
+
+	#region UsablecapacityAlert
+	public void ShowUsablecapacityAlert(){
+		if (UsablecapacityAlert != null ) {
+			UsablecapacityAlert.SetActive (true);
+		}else{
+			Debug.LogError ("Null................");
+		}
+	}
+
+	public void HideUsablecapacityAlert(){
+		if (UsablecapacityAlert != null) {
+			UsablecapacityAlert.SetActive (false);
 		}else{
 			Debug.LogError ("Null................");
 		}
@@ -533,6 +556,17 @@ public class VR_MainMenu : MonoBehaviour
 			if (_delayCount >= _delayTime) {
 				_delayCount = 0;
 				HideNetworkAlert ();
+			}
+		}
+	}
+
+	private void CheckDisableUsablecapacityAlert(){
+
+		if (UsablecapacityAlert.activeSelf && UsablecapacityAlert != null) {
+			_delayCount += Time.deltaTime;
+			if (_delayCount >= _delayTime) {
+				_delayCount = 0;
+				HideUsablecapacityAlert ();
 			}
 		}
 	}
