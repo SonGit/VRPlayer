@@ -44,7 +44,7 @@ public class LocalVideoManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-		//LoadLocal_ios ("IMG_0188.MOV@file:///var/mobile/Media/DCIM/100APPLE/IMG_0188.MOV@159.67666666666668@208430086@2018-03-27 07:22:32 +0000");
+		//LoadLocal_ios ("img_0001.mov@file:///var/mobile/media/dcim/100apple/img_0001.mov@0.3016666666666667@561028@2017-01-08 04:44:10 +0000,img_0002.mov@file:///var/mobile/media/dcim/100apple/img_0002.mov@0.4583333333333333@951262@2017-01-11 18:23:55 +0000,img_0018.mov@file:///var/mobile/media/dcim/100apple/img_0018.mov@16.496666666666666@32978471@2017-04-05 06:46:43 +0000,img_0023.mov@file:///var/mobile/media/dcim/100apple/img_0023.mov@31.695@68015837@2017-04-05 06:52:41 +0000,img_0090.mov@file:///var/mobile/media/dcim/100apple/img_0090.mov@72.73166666666667@147768648@2017-09-22 08:44:11 +0000,img_0026.mov@file:///var/mobile/media/dcim/100apple/img_0026.mov@0.5666666666666667@924888@2017-04-15 04:12:58 +0000,img_0151.mov@file:///var/mobile/media/dcim/100apple/img_0151.mov@9.875@21881348@2018-02-27 09:47:27 +0000,img_0084.mov@file:///var/mobile/media/dcim/100apple/img_0084.mov@14.655@26282721@2017-09-01 04:33:58 +0000,img_0031.mov@file:///var/mobile/media/dcim/100apple/img_0031.mov@44.03666666666667@94189995@2017-04-22 18:40:22 +0000,img_0085.mov@file:///var/mobile/media/dcim/100apple/img_0085.mov@90.86333333333333@186561703@2017-09-01 04:34:14 +0000,img_0082.mov@file:///var/mobile/media/dcim/100apple/img_0082.mov@8.14@15296428@2017-09-01 04:30:58 +0000,img_0032.mov@file:///var/mobile/media/dcim/100apple/img_0032.mov@50.77@108844182@2017-04-22 18:42:52 +0000,img_0152.mov@file:///var/mobile/media/dcim/100apple/img_0152.mov@2.735@6308300@2018-02-27 09:47:44 +0000,img_0188.mov@file:///var/mobile/media/dcim/100apple/img_0188.mov@159.67666666666668@208430086@2018-03-27 07:22:32 +0000,img_0083.mov@file:///var/mobile/media/dcim/100apple/img_0083.mov@147.39833333333334@300194546@2017-09-01 04:31:13 +0000,img_0020.mov@file:///var/mobile/media/dcim/100apple/img_0020.mov@16.331666666666667@35592350@2017-04-05 06:47:39 +0000,img_0153.mov@file:///var/mobile/media/dcim/100apple/img_0153.mov@264.37@566711402@2018-02-27 09:47:58 +0000,img_0294.mov@file:///var/mobile/media/dcim/100apple/img_0294.mov@3.6033333333333335@7361146@2019-04-18 09:34:02 +0000,img_0021.mov@file:///var/mobile/media/dcim/100apple/img_0021.mov@46.608333333333334@97694520@2017-04-05 06:48:52 +0000,");
     }
 
     // Update is called once per frame
@@ -67,13 +67,13 @@ public class LocalVideoManager : MonoBehaviour
 		//Reset count
 		localVideos = new List<Video>();
 
-        if (!Permission.HasUserAuthorizedPermission(Permission.ExternalStorageRead)) {
-            Permission.RequestUserPermission(Permission.ExternalStorageRead);
-            Debug.Log(" RequestUserPermission ExternalStorageRead");
-            StartCoroutine(LoadProgress(callback));
-        } else {
-            StartCoroutine(LoadProgress(callback));
-        }
+//        if (!Permission.HasUserAuthorizedPermission(Permission.ExternalStorageRead)) {
+//            Permission.RequestUserPermission(Permission.ExternalStorageRead);
+//            Debug.Log(" RequestUserPermission ExternalStorageRead");
+//            StartCoroutine(LoadProgress(callback));
+//        } else {
+//            StartCoroutine(LoadProgress(callback));
+//        }
         
     }
 
@@ -364,6 +364,8 @@ public class LocalVideoManager : MonoBehaviour
                 }
             }
 
+			StorageMenu.instance.FastRefresh();
+
         }
         catch (System.Exception e)
         {
@@ -371,69 +373,10 @@ public class LocalVideoManager : MonoBehaviour
         }
     }
 
-    public void BuildLocalVideo(string video)
+    public void BuildLocalVideo(string data)
     {
-        string[] element;
-
-        if (video != null && video != string.Empty)
-        {
-            element = video.Split('@');
-
-            /// Format: videoName@URL@length@size@date
-            /// 
-            string videoName = element[0];
-
-            string videoURL = element[1];
-
-            string videoLength = element[2];
-
-            string videoSize = element[3];
-
-            string videoDate = element[4];
-
-            if (videoName != null && videoName != string.Empty)
-            {
-                Debug.Log("videoName  " + videoName + " videoURL  " + videoURL + " videoLength  " + videoLength + " videoSize  " + videoSize + " videoDate  " + videoDate);
-                LocalVideo newVideo = new LocalVideo(videoName, videoURL, videoLength, videoSize, videoDate);
-
-                bool exists = false;
-
-                if (newVideo != null)
-                {
-                    for (int i = 0; i < localVideos.Count; i++)
-                    {
-
-                        if (localVideos[i].videoInfo.id == newVideo.videoInfo.id)
-                        {
-                            exists = true;
-                            break;
-                        }
-
-                    }
-
-                    if (exists)
-                    {
-
-                    }
-                    else
-                    {
-                        localVideos.Add(newVideo);
-                        StorageMenu.instance.FastRefresh();
-                    }
-
-
-                    Debug.Log("MADE new local " + videoURL);
-                }
-
-
-            }
-            else
-            {
-                Debug.Log("NOT making new local " + videoURL);
-            }
-
-        }
-
+//		localVideos = new List<Video>();
+//		LoadLocal_ios (data);
     }
 
 
