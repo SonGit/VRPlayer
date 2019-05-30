@@ -92,7 +92,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string vr_StreamingString_English = "Streaming?";
 	private string vr_Application_will_beString_English = "Application will be teminated when you move to sensor calibrating page. Continue?";
 	private string vr_Sensor_calibrationString_English = "Sensor calibration";
-
+	private string vr_Usable_capacity_is_not_availableString_English = "Usable capacity is not available";
 	#endregion
 
 	#region VR_Settings
@@ -190,7 +190,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string vr_StreamingString_Korean = "스트리밍?";
 	private string vr_Application_will_beString_Korean = "센서보정 페이지로 이동하게 되면 영상이 종료됩니다. 계속 하시겠습니까?";
 	private string vr_Sensor_calibrationString_Korean = "센서 보정";
-
+	private string vr_Usable_capacity_is_not_availableString_Korean = "사용 가능한 용량을 사용할 수 없습니다";
 	#endregion
 
 	#region VR_Settings
@@ -289,7 +289,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string vr_StreamingString_Japanese = "ストリーミング?";
 	private string vr_Application_will_beString_Japanese = "センサー校正ページに移動するとアプリケーションは終了します。 持続する？";
 	private string vr_Sensor_calibrationString_Japanese = "センサー校正";
-
+	private string vr_Usable_capacity_is_not_availableString_Japanese = "使用可能容量がありません";
 	#endregion
 
 	#region VR_Settings
@@ -388,7 +388,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string vr_StreamingString_Chinese = "流?";
 	private string vr_Application_will_beString_Chinese = "移動到傳感器校準頁面時，應用程序將終止。 繼續？";
 	private string vr_Sensor_calibrationString_Chinese = "傳感器校準";
-
+	private string vr_Usable_capacity_is_not_availableString_Chinese = "可用容量不可用";
 	#endregion
 
 	#region VR_Settings
@@ -538,6 +538,8 @@ public class SystemLanguageManager : MonoBehaviour
 	[SerializeField] private Text vr_MainMenu_VR_SensorContent = null;
 	[SerializeField] private Text vr_MainMenu_VR_SensorYesButton = null;
 	[SerializeField] private Text vr_MainMenu_VR_SensorNoButton = null;
+
+	[SerializeField] private Text vr_MainMenu_VR_UsablecapacityAlert = null;
 
 	[Header("---- VR_Settings ----")]
 
@@ -787,6 +789,8 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (vr_MainMenu_VR_SensorContent,vr_Application_will_beString_English);
 		DisplayValueText (vr_MainMenu_VR_SensorYesButton,vr_YesString_English);
 		DisplayValueText (vr_MainMenu_VR_SensorNoButton,vr_NoString_English);
+
+		DisplayValueText (vr_MainMenu_VR_UsablecapacityAlert,vr_Usable_capacity_is_not_availableString_English);
 	}
 
 	private void SetEnglishLanguage_VR_Settings(){
@@ -974,6 +978,8 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (vr_MainMenu_VR_SensorYesButton,vr_YesString_Korean);
 		DisplayValueText (vr_MainMenu_VR_SensorNoButton,vr_NoString_Korean);
 
+		DisplayValueText (vr_MainMenu_VR_UsablecapacityAlert,vr_Usable_capacity_is_not_availableString_Korean);
+
 	}
 
 	private void SetKoreanLanguage_VR_Settings(){
@@ -1160,6 +1166,8 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (vr_MainMenu_VR_SensorContent,vr_Application_will_beString_Japanese);
 		DisplayValueText (vr_MainMenu_VR_SensorYesButton,vr_YesString_Japanese);
 		DisplayValueText (vr_MainMenu_VR_SensorNoButton,vr_NoString_Japanese);
+
+		DisplayValueText (vr_MainMenu_VR_UsablecapacityAlert,vr_Usable_capacity_is_not_availableString_Japanese);
 	}
 
 	private void SetJapaneseLanguage_VR_Settings(){
@@ -1346,6 +1354,8 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (vr_MainMenu_VR_SensorContent,vr_Application_will_beString_Chinese);
 		DisplayValueText (vr_MainMenu_VR_SensorYesButton,vr_YesString_Chinese);
 		DisplayValueText (vr_MainMenu_VR_SensorNoButton,vr_NoString_Chinese);
+
+		DisplayValueText (vr_MainMenu_VR_UsablecapacityAlert,vr_Usable_capacity_is_not_availableString_Chinese);
 	}
 
 	private void SetChineseLanguage_VR_Settings(){

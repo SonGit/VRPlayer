@@ -41,8 +41,8 @@ public class VR_NodDetect : MonoBehaviour
 		//print (angularVelocity.magnitude);
 
 		if (angularVelocity.magnitude > Threshold) {
-			//print ("angularVelocity  " + angularVelocity.magnitude);
-			//recentering = true;
+			print ("angularVelocity  " + angularVelocity.magnitude);
+			recentering = true;
 		}
 		//#endif
 	}

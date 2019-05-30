@@ -23,13 +23,20 @@ public class VR_LocalVideoUI : LocalVideoUI
 //		}
 	}
 
-	public void PlayVideo()
+//	public void PlayVideo()
+//	{
+//        SceneVR sceneVR = transform.root.GetComponentInParent<SceneVR>();
+//        if(sceneVR != null)
+//        {
+//            sceneVR.PlayFromURL(video);
+//        }
+//	}
+
+	public override void PlayIn3D ()
 	{
-        SceneVR sceneVR = transform.root.GetComponentInParent<SceneVR>();
-        if(sceneVR != null)
-        {
-            sceneVR.PlayFromURL(video);
-        }
+		if (MainAllController.instance != null){
+			MainAllController.instance.Play3D (video);
+		}
 	}
 
 

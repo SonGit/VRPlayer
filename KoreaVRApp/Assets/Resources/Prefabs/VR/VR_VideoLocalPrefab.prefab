@@ -448,6 +448,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9422dee0c4cf83c4f82f6746a6abbd5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cellIdentifier: 
   rootLoading: {fileID: 0}
   thumbnailTexture: {fileID: 0}
   root: {fileID: 9087090415234976614}
@@ -780,7 +781,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6758822764148880195}
-        m_MethodName: PlayVideo
+        m_MethodName: PlayIn3D
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
