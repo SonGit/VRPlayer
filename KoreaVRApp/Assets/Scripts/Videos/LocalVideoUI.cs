@@ -16,8 +16,8 @@ public class LocalVideoUI: VideoUI
 	// Use this for initialization
 	void Start () 
 	{
-       
-	}
+        thumbnailTexture = new Texture2D(4, 4, TextureFormat.RGB565, false);
+    }
 
 	bool loadThumbnail;
 
@@ -71,7 +71,7 @@ public class LocalVideoUI: VideoUI
 		#endif
 
 		//Texture2D texture = LocalVideoManager.instance.GetThumbnailFromCache (path);
-		thumbnailTexture =  new Texture2D(4, 4, TextureFormat.RGB565, false);
+		
 
 	//	if (texture == null) {
 			Debug.Log ("Looking at path: " + path);
