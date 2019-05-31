@@ -34,6 +34,7 @@ public class FavoriteVideoUI : UserVideoUI
 
 		video_size.text = MakeRegistrationDateString() + "  |  " + ((video.videoInfo.size / 1024) / 1024) + " MB";
 		video_desc.text = Regex.Unescape (video.videoInfo.description);
+		video_image.texture = null;
 
 		SetupFavoriteBtns ();
 

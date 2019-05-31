@@ -51,6 +51,7 @@ public class InboxVideoUI : VideoUI
 		this.video_length.text = MakeRegistrationDateString() + " | " +((video.videoInfo.size / 1024) / 1024) + " MB"; ;
 		//video_size.text = ((video.videoInfo.size / 1024) / 1024) + " MB";
 		video_desc.text = Regex.Unescape (video.videoInfo.description);
+		video_image.texture = null;
 
 		OnEnable ();
 	}
