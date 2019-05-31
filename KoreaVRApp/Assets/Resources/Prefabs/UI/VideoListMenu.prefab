@@ -469,7 +469,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollDirection: 0
-  spacing: 0
+  spacing: 18
   padding:
     m_Left: 0
     m_Right: 0
@@ -1494,6 +1494,26 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 2100000, guid: 8fa6e9356ac45e647ae82a6f93f8d9a6, type: 2}
+    - target: {fileID: 4602300031374899377, guid: 7666ed6daca9d61498defb10b35fb17e,
+        type: 3}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 1565393405456949779}
+    - target: {fileID: 4602300031374899377, guid: 7666ed6daca9d61498defb10b35fb17e,
+        type: 3}
+      propertyPath: m_Template
+      value: 
+      objectReference: {fileID: 2908930833323299336}
+    - target: {fileID: 4602300031374899377, guid: 7666ed6daca9d61498defb10b35fb17e,
+        type: 3}
+      propertyPath: m_ItemText
+      value: 
+      objectReference: {fileID: 2435906079142958880}
+    - target: {fileID: 4602300031374899377, guid: 7666ed6daca9d61498defb10b35fb17e,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4833588385064521861}
     - target: {fileID: 8692652386323637642, guid: 7666ed6daca9d61498defb10b35fb17e,
         type: 3}
       propertyPath: m_Content
@@ -1611,26 +1631,6 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 2100000, guid: 8fa6e9356ac45e647ae82a6f93f8d9a6, type: 2}
-    - target: {fileID: 4602300031374899377, guid: 7666ed6daca9d61498defb10b35fb17e,
-        type: 3}
-      propertyPath: m_TargetGraphic
-      value: 
-      objectReference: {fileID: 1565393405456949779}
-    - target: {fileID: 4602300031374899377, guid: 7666ed6daca9d61498defb10b35fb17e,
-        type: 3}
-      propertyPath: m_Template
-      value: 
-      objectReference: {fileID: 2908930833323299336}
-    - target: {fileID: 4602300031374899377, guid: 7666ed6daca9d61498defb10b35fb17e,
-        type: 3}
-      propertyPath: m_ItemText
-      value: 
-      objectReference: {fileID: 2435906079142958880}
-    - target: {fileID: 4602300031374899377, guid: 7666ed6daca9d61498defb10b35fb17e,
-        type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 4833588385064521861}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7666ed6daca9d61498defb10b35fb17e, type: 3}
 --- !u!224 &1895243614782916179 stripped
