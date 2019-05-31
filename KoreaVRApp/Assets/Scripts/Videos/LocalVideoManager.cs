@@ -67,13 +67,13 @@ public class LocalVideoManager : MonoBehaviour
 		//Reset count
 		localVideos = new List<Video>();
 
-//        if (!Permission.HasUserAuthorizedPermission(Permission.ExternalStorageRead)) {
-//            Permission.RequestUserPermission(Permission.ExternalStorageRead);
-//            Debug.Log(" RequestUserPermission ExternalStorageRead");
-//            StartCoroutine(LoadProgress(callback));
-//        } else {
-//            StartCoroutine(LoadProgress(callback));
-//        }
+        if (!Permission.HasUserAuthorizedPermission(Permission.ExternalStorageRead)) {
+            Permission.RequestUserPermission(Permission.ExternalStorageRead);
+            Debug.Log(" RequestUserPermission ExternalStorageRead");
+            StartCoroutine(LoadProgress(callback));
+        } else {
+            StartCoroutine(LoadProgress(callback));
+        }
         
     }
 
