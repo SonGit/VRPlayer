@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 
 public class VR_LocalVideoUI : LocalVideoUI
 {
@@ -12,25 +13,13 @@ public class VR_LocalVideoUI : LocalVideoUI
 		this.video = currentlocalVideo;
 		this.videoTitle.text = (video as LocalVideo).videoName;
 		this.videoLength.text = MakeLengthString ();
-		SetupThumbnail ();
-//		try
-//		{
-//			videoImage.texture = NatShareU.NatShare.GetThumbnail (video.fileInfo.FullName);
-//		}
-//		catch
-//		{
-//			Debug.Log("Failed to GetThumbnail");
-//		}
-	}
 
-//	public void PlayVideo()
-//	{
-//        SceneVR sceneVR = transform.root.GetComponentInParent<SceneVR>();
-//        if(sceneVR != null)
-//        {
-//            sceneVR.PlayFromURL(video);
-//        }
-//	}
+		#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
+		StartCoroutine(LoadThumbnail ());
+		#endif
+
+	}
+		
 
 	public override void PlayIn3D ()
 	{
@@ -44,17 +33,44 @@ public class VR_LocalVideoUI : LocalVideoUI
 	{
 		UIAnimation ();
 	}
-
-
-	void SetupThumbnail()
+		
+	IEnumerator LoadThumbnail()
 	{
-		//videoImage.texture = StorageMenu.instance.GetVideoThumbnail (video);
+		bool gotThumbnail = false;
+
+		string path = Application.persistentDataPath + "/localTemp/" + (video as LocalVideo).videoName;
+
+		#if UNITY_ANDROID
+		path = Application.persistentDataPath + "/" + (video as LocalVideo).videoName;
+		#endif
+
+		#if UNITY_IOS
+		path = Application.persistentDataPath + "/localTemp/" + (video as LocalVideo).videoName;
+		#endif
+
+		Debug.Log ("Looking at path: " + path);
+		while (!gotThumbnail) {
+
+			if (File.Exists (path)) {
+				Debug.Log ("Found thumbnail at" + path);
+				LoadThumbnail (path);
+				gotThumbnail = true;
+
+				yield break;
+			}
+
+			yield return new WaitForSeconds (.5f);
+		}
+
 	}
 
-	void OnEnable()
+	public override void OnLoadedThumbnail()
 	{
-		SetupThumbnail ();
+		videoImage.texture = thumbnailTexture;
+		StopAllCoroutines();
+		Debug.Log("------------------DONE");
 	}
+
 
 }
  
