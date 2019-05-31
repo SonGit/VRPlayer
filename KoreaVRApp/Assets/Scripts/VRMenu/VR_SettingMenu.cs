@@ -180,6 +180,9 @@ public class VR_SettingMenu : MonoBehaviour
 
 				if (_delayCount >= _delayTime && Root.activeSelf) {
 					HideSetting ();
+					if (sceneVR != null){
+						sceneVR.HideProgressBar ();
+					}
 					_delayCount = 0;
 					print ("Hiding>>>>>");
 				}
