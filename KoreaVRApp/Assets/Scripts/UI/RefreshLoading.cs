@@ -52,7 +52,10 @@ public class RefreshLoading : MonoBehaviour, IDropHandler
 		bool isPulled = m_UIRefreshControl.IsPulled;
 		if (isPulled){
 			RefreshData ();
-		}
-	}
+           // m_UIRefreshControl.Reset();
+        }
+  
+
+    }
 	#endregion
 }
