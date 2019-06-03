@@ -39,7 +39,7 @@ public class VR_RecenterPanel : MonoBehaviour
 			vr_NodDetect.enabled = false;
 		}
 			
-		Show ();
+		StartCoroutine (Show(0.7f));
 
 		if (callback != null) {
 			this.callback = callback;
@@ -74,8 +74,9 @@ public class VR_RecenterPanel : MonoBehaviour
 		}
 	}
 
-	void Show()
+	IEnumerator Show(float delay)
 	{
+		yield return new WaitForSeconds (delay);
 		VR_Recenterer.instance.Recenter ();
 
 		if (root != null){
