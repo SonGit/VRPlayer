@@ -254,6 +254,10 @@ public class SceneVR : AppScene
 		if (vrMainMenu != null){
 			vrMainMenu.gameObject.SetActive (true);
 		}
+
+		if (vrSetting != null){
+			vrSetting.HideSetting ();
+		}
 	}
 		
 	void HidePlayer()
