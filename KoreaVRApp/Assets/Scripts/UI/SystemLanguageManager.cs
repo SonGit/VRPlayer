@@ -61,7 +61,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string logged_outString_English = "Logged out";
 	private string press_the_previous_button_again_to_exitString_English = "Press the previous button again to exit.";
 	private string calibrate_SensorString_English = "Calibrate Sensor for 5 seconds for optimization\nPlace the device on a flat surface and press the Start button\nDo not move the device until calibration completes\nSensor calibration is excuted when the application starts for the first time";
-
+	private string screenShotString_English = "Screen Shot";
 	#endregion
 
 	#region VR_ScreenCursor
@@ -160,6 +160,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string logged_outString_Korean = "로그 아웃 됨";
 	private string press_the_previous_button_again_to_exitString_Korean = "이전 버튼을 다시 누르면 종료됩니다.";
 	private string calibrate_SensorString_Korean = "최적화를 위해 센서를 5 초 동안 교정하십시오\n장치를 평평한 바닥에 놓고 시작 단추를 누릅니다\n보정이 완료 될 때까지 장치를 움직이지 마십시오\n센서 보정은 어플리케이션이 처음 시작할 때 실행됩니다";
+	private string screenShotString_Korean = "스크린 샷";
 	#endregion
 
 	#region VR_ScreenCursor
@@ -259,6 +260,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string logged_outString_Japanese = "ログアウトしました";
 	private string press_the_previous_button_again_to_exitString_Japanese = "前のボタンをもう一度押して終了します。";
 	private string calibrate_SensorString_Japanese = "最適化のために5秒間センサーを校正\n平らな場所にデバイスを置き、スタートボタンを押します\n校正が完了するまで装置を動かさないでください\nアプリケーションの初回起動時にセンサーキャリブレーションが実行されます";
+	private string screenShotString_Japanese = "スクリーンショット";
 	#endregion
 
 	#region VR_ScreenCursor
@@ -358,6 +360,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string logged_outString_Chinese = "登出";
 	private string press_the_previous_button_again_to_exitString_Chinese = "再次按上一個按鈕退出。";
 	private string calibrate_SensorString_Chinese = "校準傳感器5秒鐘以進行優化\n將設備放在平坦的表面上，然後按開始按鈕\n在校準完成之前，請勿移動設備\n第一次啟動應用程序時執行傳感器校準";
+	private string screenShotString_Chinese = "屏幕截圖";
 	#endregion
 
 	#region VR_ScreenCursor
@@ -459,6 +462,7 @@ public class SystemLanguageManager : MonoBehaviour
 	[SerializeField] private Text detailMenu_Playtime = null;
 	[SerializeField] private Text detailMenu_Genre = null;
 	[SerializeField] private Text detailMenu_Network = null;
+	[SerializeField] private Text detailMenu_ScreenShotTitle = null;
 
 	[Header("---- FavoriteMenu ----")]
 	[SerializeField] private Text favoriteMenu_Header = null;
@@ -699,6 +703,7 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (detailMenu_Playtime,playtimeString_English);
 		DisplayValueText (detailMenu_Genre,genreString_English);
 		DisplayValueText (detailMenu_Network,networkString_English);
+		DisplayValueText (detailMenu_ScreenShotTitle,screenShotString_English);
 	}
 
 
@@ -887,6 +892,7 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (detailMenu_Playtime,playtimeString_Korean);
 		DisplayValueText (detailMenu_Genre,genreString_Korean);
 		DisplayValueText (detailMenu_Network,networkString_Korean);
+		DisplayValueText (detailMenu_ScreenShotTitle,screenShotString_Korean);
 	}
 
 
@@ -1075,6 +1081,7 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (detailMenu_Playtime,playtimeString_Japanese);
 		DisplayValueText (detailMenu_Genre,genreString_Japanese);
 		DisplayValueText (detailMenu_Network,networkString_Japanese);
+		DisplayValueText (detailMenu_ScreenShotTitle,screenShotString_Japanese);
 	}
 
 
@@ -1264,6 +1271,7 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (detailMenu_Playtime,playtimeString_Chinese);
 		DisplayValueText (detailMenu_Genre,genreString_Chinese);
 		DisplayValueText (detailMenu_Network,networkString_Chinese);
+		DisplayValueText (detailMenu_ScreenShotTitle,screenShotString_Chinese);
 	}
 
 

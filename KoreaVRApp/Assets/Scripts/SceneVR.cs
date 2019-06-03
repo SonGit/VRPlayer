@@ -41,7 +41,8 @@ public class SceneVR : AppScene
 		vrMainMenu.gameObject.SetActive (true);
 
 		if (vr_RecenterPanel != null && !MainAllController.instance.IsShowRecenterPanel){
-			vr_RecenterPanel.Show ();
+			vrMainMenu.gameObject.SetActive (false);
+			vr_RecenterPanel.Show (OnDoneShowVR_MainMenu);
 		}
 			
 		buttonScreenLock.OnClickLockBtn (true);
@@ -245,6 +246,13 @@ public class SceneVR : AppScene
 
 		if (currentVideo != null) {
 			vrPlayer.Stream (currentVideo,currentUrl);
+		}
+	}
+
+	void OnDoneShowVR_MainMenu()
+	{
+		if (vrMainMenu != null){
+			vrMainMenu.gameObject.SetActive (true);
 		}
 	}
 		

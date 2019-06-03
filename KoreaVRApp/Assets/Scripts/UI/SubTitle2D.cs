@@ -14,7 +14,10 @@ public class SubTitle2D : MonoBehaviour
 
 	public List<SubtitleUI2D> subtitleUIList = new List<SubtitleUI2D> ();
 
-	private SubtitlesUGUI[] subtitlesUGUIs;
+	[SerializeField]
+	private SubtitlesUGUI _subtitleLandscape;
+	[SerializeField]
+	private SubtitlesUGUI _subtitlePortrait;
 
 	private Subtitle none = new Subtitle{
 		language = "NONE",
@@ -24,7 +27,6 @@ public class SubTitle2D : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		subtitlesUGUIs = Object.FindObjectsOfType<SubtitlesUGUI> ();
 
 	}
 
@@ -79,11 +81,10 @@ public class SubTitle2D : MonoBehaviour
 	}
 
 	public void ClearTextSubTitle(){
-		if (subtitlesUGUIs != null && subtitlesUGUIs.Length > 0){
-			for (int i = 0; i < subtitlesUGUIs.Length; i++) {
-				subtitlesUGUIs[i]._text.text = string.Empty;
-				Debug.Log ("Clear all text");
-			}
+		if (_subtitleLandscape != null && _subtitlePortrait != null){
+			_subtitleLandscape._text.text = string.Empty;
+			_subtitlePortrait._text.text = string.Empty;
+			Debug.Log ("Clear all text");
 		}
 	}
 

@@ -1286,6 +1286,8 @@ public class MainAllController : MonoBehaviour
 
     void GoTo2DMediaPlayer()
     {
+		IsShowRecenterPanel = false;
+
         foreach (AppScene scene in scenes)
         {
             if (scene is SceneMediaPlayer)
