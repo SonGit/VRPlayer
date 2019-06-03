@@ -34,16 +34,8 @@ public class VR_StorageMenu : VR_BasicMenu
 
 	public override void FastRefresh()
 	{
-        // Only fast refresh if local have been init
-		if(firstTime)
-        {
-            OnGetLocalVideo();
-        }else
-        {
-            Refresh();
-            firstTime = false;
-        }
-	}
+        OnGetLocalVideo();
+    }
 	#endregion
 
 	public void OnGetLocalVideo()

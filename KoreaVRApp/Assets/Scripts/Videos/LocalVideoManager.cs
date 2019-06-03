@@ -64,17 +64,20 @@ public class LocalVideoManager : MonoBehaviour
 
     public void Load(SuccessCallback callback = null)
     {
+
 		//Reset count
 		localVideos = new List<Video>();
+        Debug.Log(" Loading local data");
 
-//        if (!Permission.HasUserAuthorizedPermission(Permission.ExternalStorageRead)) {
-//            Permission.RequestUserPermission(Permission.ExternalStorageRead);
-//            Debug.Log(" RequestUserPermission ExternalStorageRead");
-//            StartCoroutine(LoadProgress(callback));
-//        } else {
-//            StartCoroutine(LoadProgress(callback));
-//        }
-        
+        if (!Permission.HasUserAuthorizedPermission(Permission.ExternalStorageRead))
+        {
+            Permission.RequestUserPermission(Permission.ExternalStorageRead);
+            StartCoroutine(LoadProgress(callback));
+        }
+        else
+        {
+            StartCoroutine(LoadProgress(callback));
+        }
     }
 
     IEnumerator LoadProgress(SuccessCallback callback = null)
@@ -345,26 +348,26 @@ public class LocalVideoManager : MonoBehaviour
 
 					if (videoName != null && videoName != string.Empty)
                     {
-                        Debug.Log("videoName  " + videoName + " videoURL  "+ videoURL + " videoLength  " + videoLength + " videoSize  " + videoSize + " videoDate  " + videoDate);
+//                        Debug.Log("videoName  " + videoName + " videoURL  "+ videoURL + " videoLength  " + videoLength + " videoSize  " + videoSize + " videoDate  " + videoDate);
 						LocalVideo newVideo = new LocalVideo(videoName,videoURL,videoLength,videoSize,videoDate);
 
                         if (newVideo != null)
                         {
                             localVideos.Add(newVideo);
-                            Debug.Log("MADE new local " + videoPath);
+                           // Debug.Log("MADE new local " + videoPath);
                         }
 
 
                     }
                     else
                     {
-                        Debug.Log("NOT making new local " + videoPath);
+                       // Debug.Log("NOT making new local " + videoPath);
                     }
 
                 }
             }
-
-			StorageMenu.instance.FastRefresh();
+            Debug.Log("StorageMenu.instance.FastRefresh()");
+            StorageMenu.instance.FastRefresh();
 
         }
         catch (System.Exception e)

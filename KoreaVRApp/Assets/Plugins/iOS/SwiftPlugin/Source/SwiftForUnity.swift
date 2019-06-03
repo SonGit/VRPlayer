@@ -7,13 +7,15 @@ import Photos
     @objc static let shared = SwiftForUnity()
     @objc func SayHiToUnity() -> String{
         
-        // let group = DispatchGroup()
+        let group = DispatchGroup()
         
         let videosArray = PHAsset.fetchAssets(with: .video, options: nil)
         
+        var result = ""
+        
         for index in 0..<videosArray.count {
             
-            //group.enter()
+            group.enter()
             
             videosArray[index].getURL(completionHandler: { (URL,length) in
                 
@@ -39,20 +41,26 @@ import Photos
                 
                 let expression2 = fileSize + "@" + creationDate
                 
-                let result = expression1 + "@" + expression2
+                result += expression1 + "@" + expression2 + ","
                 
-                self.startScreenCapture(message:result)
-                // group.leave()
+                //self.startScreenCapture(message:result)
+                group.leave()
             })
         }
         
-        for index in 0..<videosArray.count {
-            
-            videosArray[index].buildThumbnail ()
-        }
+        group.wait();
+        
+        // print("result " + result);
+        
+        self.startScreenCapture(message:result)
+        
+        //for index in 0..<videosArray.count {
+        
+        //videosArray[index].buildThumbnail ()
+        // }
         
         
-        return "Nothing here!"
+        return result
     }
     
     let kCallbackTarget = "LocalVideoManager"
