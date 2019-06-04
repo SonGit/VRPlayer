@@ -47,11 +47,6 @@ public class LocalVideoUI: VideoUI
 		loadThumbnail = true;
     }
 	
-//	IEnumerator LoadThumbnail2()
-//	{
-//		print ("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-//		yield return new WaitForSeconds (.5f);
-//	}
     IEnumerator LoadThumbnail()
     {
         bool gotThumbnail = false;

@@ -52,12 +52,12 @@ import Photos
         
         // print("result " + result);
         
-        self.startScreenCapture(message:result)
+       // self.startScreenCapture(message:result)
         
-        //for index in 0..<videosArray.count {
+        for index in 0..<videosArray.count {
         
-        //videosArray[index].buildThumbnail ()
-        // }
+        videosArray[index].buildThumbnail ()
+         }
         
         
         return result

@@ -64,9 +64,8 @@ public class LocalVideoManager : MonoBehaviour
 
     public void Load(SuccessCallback callback = null)
     {
-
-		//Reset count
-		localVideos = new List<Video>();
+        //Reset count
+        localVideos = new List<Video>();
         Debug.Log(" Loading local data");
 
         if (!Permission.HasUserAuthorizedPermission(Permission.ExternalStorageRead))
@@ -82,6 +81,12 @@ public class LocalVideoManager : MonoBehaviour
 
     IEnumerator LoadProgress(SuccessCallback callback = null)
     {
+
+        if (ScreenLoading.instance != null)
+        {
+            ScreenLoading.instance.Play();
+        }
+
 #if UNITY_ANDROID
 		while(!Permission.HasUserAuthorizedPermission (Permission.ExternalStorageRead))
 		{
@@ -126,12 +131,17 @@ public class LocalVideoManager : MonoBehaviour
             {
                 callback();
             }
+
+            if (ScreenLoading.instance != null)
+            {
+                ScreenLoading.instance.Stop();
+            }
         }
 
 #endif
 
         // Enumerate all files in Android local storage, ignoring Android folder #if UNITY_ANDROID  && !UNITY_EDITOR
-		#if UNITY_ANDROID && !UNITY_EDITOR
+#if UNITY_ANDROID && !UNITY_EDITOR
 		try
 		{
 			var plugin = new AndroidJavaClass ("com.example.unityplugin.PluginClass");
@@ -153,9 +163,14 @@ public class LocalVideoManager : MonoBehaviour
 			if (callback != null) {
 				callback ();
 			}
+
+            if (ScreenLoading.instance != null)
+            {
+                ScreenLoading.instance.Stop();
+            }
 		}
 
-	#endif
+#endif
 
 #if UNITY_IOS
         try
@@ -174,6 +189,11 @@ public class LocalVideoManager : MonoBehaviour
 
             if (callback != null) {
                 callback ();
+            }
+
+            if (ScreenLoading.instance != null)
+            {
+                ScreenLoading.instance.Stop();
             }
         }
 
