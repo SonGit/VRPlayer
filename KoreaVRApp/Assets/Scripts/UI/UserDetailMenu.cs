@@ -16,7 +16,7 @@ public class UserDetailMenu : BasicMenuNavigation
 	[SerializeField] private RawImage video_image = null;
 	[SerializeField] private Text video_name = null;
 	[SerializeField] private Text video_length = null;
-	[SerializeField] private Text video_id = null;
+	[SerializeField] private Text video_model = null;
 	[SerializeField] private Text video_description = null;
 	[SerializeField] private Text video_date = null;
 	[SerializeField] private Text video_genre = null;
@@ -60,10 +60,10 @@ public class UserDetailMenu : BasicMenuNavigation
 		return null;
 	}
 
-	public Text GetVideoID()
+	public Text GetVideoModel()
 	{
-		if (video_id != null){
-			return video_id;
+		if (video_model != null){
+			return video_model;
 		}
 		return null;
 	}
@@ -133,7 +133,7 @@ public class UserDetailMenu : BasicMenuNavigation
 	public void Setup(Video video, VideoUI currentShowUI)
 	{
 		GetVideoName().text = video.videoInfo.video_name;
-		GetVideoID ().text = video.videoInfo.id;
+		GetVideoModel ().text = video.videoInfo.actor;
 		GetVideoDescription ().text = Regex.Unescape (video.videoInfo.description);
 	
 		if (currentShowUI is UserVideoUI){
@@ -145,11 +145,10 @@ public class UserDetailMenu : BasicMenuNavigation
 		}
 
 		GetVideoLength().text = (video.videoInfo.length).ToString();
+
 		GetVideoDate().text = video.videoInfo.date;
 
-		foreach (var tag in video.videoInfo.tag) {
-			GetVideoGenre().text = tag;
-		}
+		GetVideoGenre ().text = video.videoInfo.genre;
 			
 		this.video = video;
 		this.currentShowUI = currentShowUI;
