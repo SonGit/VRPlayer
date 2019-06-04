@@ -43,6 +43,11 @@ namespace RenderHeads.Media.AVProVideo
 			ChangeMediaPlayer(null);
 		}
 
+		void OnEnable()
+		{
+			_text.text = string.Empty;
+		}
+
 		public void ChangeMediaPlayer(MediaPlayer newPlayer)
 		{
 			// When changing the media player, handle event subscriptions

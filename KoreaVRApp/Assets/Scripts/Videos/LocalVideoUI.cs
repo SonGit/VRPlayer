@@ -44,10 +44,6 @@ public class LocalVideoUI: VideoUI
 
 		videoLength.text = MakeLengthString ();
 
-		#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
-		StartCoroutine(LoadThumbnail ());
-		#endif
-
 		loadThumbnail = true;
     }
 	

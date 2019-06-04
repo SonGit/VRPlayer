@@ -92,6 +92,7 @@ namespace PullToRefresh
         private void Start()
         {
 			m_ScrollRect = this.GetComponent<ScrollRect> ();
+			m_ScrollRect.verticalNormalizedPosition = 1;
 			m_InitialPosition = 0;
             m_PositionStop = new Vector2(m_ScrollRect.content.anchoredPosition.x, m_InitialPosition - m_PullDistanceRequiredRefresh);
             m_ScrollView = m_ScrollRect.GetComponent<IScrollable>();
