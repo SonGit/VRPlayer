@@ -5,7 +5,6 @@ using UnityEngine.XR;
 
 public class Scene2D : AppScene
 {
-	public Camera camera;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,11 +26,7 @@ public class Scene2D : AppScene
 
 	IEnumerator LoadDevice(string newDevice)
 	{
-		if(camera != null)
-		camera.enabled = false;
-
 		Screen.fullScreen = false;
-
 
 		yield return new WaitForEndOfFrame();
 		UnityEngine.XR.XRSettings.LoadDeviceByName(newDevice);
@@ -40,27 +35,26 @@ public class Scene2D : AppScene
 
 		Screen.orientation = ScreenOrientation.Portrait;
 
-//		int targetWidth = MainAllController.instance.maxWidth / 2;
-//		int targetHeight = MainAllController.instance.maxHeight / 2;
-//
-//		if (targetHeight > 1000) {
-//			Debug.Log ("++++ 2D last " + Screen.currentResolution.width + "  " + Screen.currentResolution.height);
-//			Screen.orientation = ScreenOrientation.Portrait;
-//			yield return new WaitForSeconds (.25f);
-//			Screen.SetResolution (targetWidth,targetHeight,false);
-//			yield return new WaitForSeconds (.25f);
-//			Debug.Log ("++++ 2D current " + Screen.currentResolution.width + "  " + Screen.currentResolution.height);
-//		}
-//
-		if(camera != null)
-		camera.enabled = true;
+		// Only render at half resolution
+		// If target res is too low, ignore
+		int targetWidth = MainAllController.instance.maxWidth / 2;
+		int targetHeight = MainAllController.instance.maxHeight / 2;
 
+		if (targetHeight > 1000) {
+			Screen.orientation = ScreenOrientation.Portrait;
+			yield return new WaitForSeconds (.25f);
+			Screen.SetResolution (targetWidth,targetHeight,false);
+			yield return new WaitForSeconds (.25f);
+		}
+			
 		QualitySettings.vSyncCount = 0;
 		Application.targetFrameRate = 50;
 
-//		Debug.Log ("++++ " + Screen.currentResolution.width + "  " + Screen.currentResolution.height);
-//		Screen.orientation = ScreenOrientation.Portrait;
-//		Screen.SetResolution (720,1280,false);
+
+		Screen.orientation = ScreenOrientation.Portrait;
+		Screen.SetResolution (720,1280,false);
+
+		Debug.Log ("2D ++++Current Resolution  " + Screen.currentResolution.width + "  " + Screen.currentResolution.height);
 //
 //		yield return new WaitForEndOfFrame();
 //		UnityEngine.XR.XRSettings.LoadDeviceByName(newDevice);

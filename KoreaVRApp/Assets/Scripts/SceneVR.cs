@@ -331,27 +331,25 @@ public class SceneVR : AppScene
 
 	IEnumerator LoadDevice(string newDevice)
 	{
-		//int targetWidth = MainAllController.instance.maxWidth;
-		//int targetHeight = MainAllController.instance.maxHeight;
+		int targetWidth = MainAllController.instance.maxWidth;
+		int targetHeight = MainAllController.instance.maxHeight;
 
 		yield return new WaitForEndOfFrame();
 		UnityEngine.XR.XRSettings.LoadDeviceByName(newDevice);
 		yield return null;
 		UnityEngine.XR.XRSettings.enabled = true;
 
-		Debug.Log ("++++ VR last " + Screen.currentResolution.width + "  " + Screen.currentResolution.height);
 		Screen.orientation = ScreenOrientation.LandscapeLeft;
 		yield return new WaitForSeconds (.25f);
-		//Screen.SetResolution (targetHeight,targetWidth,true);
+		Screen.SetResolution (targetHeight,targetWidth,true);
 		yield return new WaitForSeconds (.25f);
-		Debug.Log ("++++ VR current " + Screen.currentResolution.width + "  " + Screen.currentResolution.height);
-
-		Debug.Log ("++++ VR RES " + Screen.resolutions[0].width + "  " + Screen.resolutions[0].height);
 
 		VR_Recenterer.instance.Recenter ();
 
 		QualitySettings.vSyncCount = 0;
 		Application.targetFrameRate = 60;
+
+		Debug.Log ("VR ++++Current Resolution  " + Screen.currentResolution.width + "  " + Screen.currentResolution.height);
 	}
 
 	public override void Hide()
