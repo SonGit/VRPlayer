@@ -54,14 +54,17 @@ public class SystemLanguageManager : MonoBehaviour
 	private string receive_PUSH_notificationString_English = "Receive PUSH notification";
 	private string usable_capacityString_English = "Usable capacity";
 	private string welcomeString_English = "Welcome";
-	private string experience_realistic_virtual_realityString_English = "Experience realistic virtual reality realism with VRUdon";
+	private string experience_realistic_virtual_realityString_English = "Experience realistic virtual reality realism with VR UDON";
 	private string connect_your_mobile_phone_to_your_deviceString_English = "Connect your mobile phone to your device";
 	private string run_vr_PlayerString_English = "RUN VR PLAYER";
 	private string sign_in_completedString_English = "Sign-in completed";
 	private string logged_outString_English = "Logged out";
-	private string press_the_previous_button_again_to_exitString_English = "Press the previous button again to exit.";
+	private string press_the_previous_button_again_to_exitString_English = "Press the previous button again to exit";
 	private string calibrate_SensorString_English = "Calibrate Sensor for 5 seconds for optimization\nPlace the device on a flat surface and press the Start button\nDo not move the device until calibration completes\nSensor calibration is excuted when the application starts for the first time";
 	private string screenShotString_English = "Screen Shot";
+	private string VR_headset_or_cardboard_is_not_readyString_English = "VR headset or cardboard is not ready";
+	private string After_playing_VR_movieString_English = "After playing VR movie, shake to open the screen setting window";
+	private string Switch_from_2D_mode_to_VR_modeString_English = "Switch from 2D mode to VR mode";
 	#endregion
 
 	#region VR_ScreenCursor
@@ -153,7 +156,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string receive_PUSH_notificationString_Korean = "푸시 알림 수신";
 	private string usable_capacityString_Korean = "사용 가능한 용량";
 	private string welcomeString_Korean = "환영";
-	private string experience_realistic_virtual_realityString_Korean = "VRUdon을 사용하여 사실적인 가상 현실 리얼리즘을 경험하십시오";
+	private string experience_realistic_virtual_realityString_Korean = "VR UDON 으로 짜릿하고 실감나는 가상현실을 체험하세요";
 	private string connect_your_mobile_phone_to_your_deviceString_Korean = "휴대 전화를 기기에 연결하십시오";
 	private string run_vr_PlayerString_Korean = "VR 플레이어 실행";
 	private string sign_in_completedString_Korean = "로그인이 완료되었습니다";
@@ -161,6 +164,9 @@ public class SystemLanguageManager : MonoBehaviour
 	private string press_the_previous_button_again_to_exitString_Korean = "이전 버튼을 다시 누르면 종료됩니다.";
 	private string calibrate_SensorString_Korean = "최적화를 위해 센서를 5 초 동안 교정하십시오\n장치를 평평한 바닥에 놓고 시작 단추를 누릅니다\n보정이 완료 될 때까지 장치를 움직이지 마십시오\n센서 보정은 어플리케이션이 처음 시작할 때 실행됩니다";
 	private string screenShotString_Korean = "스크린 샷";
+	private string VR_headset_or_cardboard_is_not_readyString_Korean = "VR 헤드셋 또는 카드보드가 준비 안 된 경우";
+	private string After_playing_VR_movieString_Korean = "VR 영상 재생 후 스마트폰을 위아래로 살짝 흔들어 화면 설정창을 연다";
+	private string Switch_from_2D_mode_to_VR_modeString_Korean = "2D 모드에서 VR 모드로 전환해서 감상할 수 있습니다";
 	#endregion
 
 	#region VR_ScreenCursor
@@ -261,6 +267,9 @@ public class SystemLanguageManager : MonoBehaviour
 	private string press_the_previous_button_again_to_exitString_Japanese = "前のボタンをもう一度押して終了します。";
 	private string calibrate_SensorString_Japanese = "最適化のために5秒間センサーを校正\n平らな場所にデバイスを置き、スタートボタンを押します\n校正が完了するまで装置を動かさないでください\nアプリケーションの初回起動時にセンサーキャリブレーションが実行されます";
 	private string screenShotString_Japanese = "スクリーンショット";
+	private string VR_headset_or_cardboard_is_not_readyString_Japanese = "VRヘッドセットまたは段ボールの準備ができていません";
+	private string After_playing_VR_movieString_Japanese = "VR動画を再生した後、振って画面設定ウィンドウを開く";
+	private string Switch_from_2D_mode_to_VR_modeString_Japanese = "2DモードからVRモードに切り替える";
 	#endregion
 
 	#region VR_ScreenCursor
@@ -361,6 +370,9 @@ public class SystemLanguageManager : MonoBehaviour
 	private string press_the_previous_button_again_to_exitString_Chinese = "再次按上一個按鈕退出。";
 	private string calibrate_SensorString_Chinese = "校準傳感器5秒鐘以進行優化\n將設備放在平坦的表面上，然後按開始按鈕\n在校準完成之前，請勿移動設備\n第一次啟動應用程序時執行傳感器校準";
 	private string screenShotString_Chinese = "屏幕截圖";
+	private string VR_headset_or_cardboard_is_not_readyString_Chinese = "VR耳機或紙板尚未就緒";
+	private string After_playing_VR_movieString_Chinese = "播放VR影片後，搖動以打開屏幕設置窗口";
+	private string Switch_from_2D_mode_to_VR_modeString_Chinese = "從2D模式切換到VR模式";
 	#endregion
 
 	#region VR_ScreenCursor
@@ -496,6 +508,9 @@ public class SystemLanguageManager : MonoBehaviour
 	[SerializeField] private Text vrPlayerMenu_Welcome = null;
 	[SerializeField] private Text vrPlayerMenu_Top = null;
 	[SerializeField] private Text vrPlayerMenu_Bottom = null;
+	[SerializeField] private Text vrPlayerMenu_BottomBoxTitle = null;
+	[SerializeField] private Text vrPlayerMenu_BottomBox1 = null;
+	[SerializeField] private Text vrPlayerMenu_BottomBox2 = null;
 	[SerializeField] private Text vrPlayerMenu_RunVRBnt = null;
 
 	[Header("---- AlertMenu ----")]
@@ -743,6 +758,9 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (vrPlayerMenu_Welcome,welcomeString_English);
 		DisplayValueText (vrPlayerMenu_Top,experience_realistic_virtual_realityString_English);
 		DisplayValueText (vrPlayerMenu_Bottom,connect_your_mobile_phone_to_your_deviceString_English);
+		DisplayValueText (vrPlayerMenu_BottomBoxTitle,VR_headset_or_cardboard_is_not_readyString_English);
+		DisplayValueText (vrPlayerMenu_BottomBox1,After_playing_VR_movieString_English);
+		DisplayValueText (vrPlayerMenu_BottomBox2,Switch_from_2D_mode_to_VR_modeString_English);
 		DisplayValueText (vrPlayerMenu_RunVRBnt,run_vr_PlayerString_English);
 	}
 
@@ -932,6 +950,9 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (vrPlayerMenu_Welcome,welcomeString_Korean);
 		DisplayValueText (vrPlayerMenu_Top,experience_realistic_virtual_realityString_Korean);
 		DisplayValueText (vrPlayerMenu_Bottom,connect_your_mobile_phone_to_your_deviceString_Korean);
+		DisplayValueText (vrPlayerMenu_BottomBoxTitle,VR_headset_or_cardboard_is_not_readyString_Korean);
+		DisplayValueText (vrPlayerMenu_BottomBox1,After_playing_VR_movieString_Korean);
+		DisplayValueText (vrPlayerMenu_BottomBox2,Switch_from_2D_mode_to_VR_modeString_Korean);
 		DisplayValueText (vrPlayerMenu_RunVRBnt,run_vr_PlayerString_Korean);
 	}
 
@@ -1121,6 +1142,9 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (vrPlayerMenu_Welcome,welcomeString_Japanese);
 		DisplayValueText (vrPlayerMenu_Top,experience_realistic_virtual_realityString_Japanese);
 		DisplayValueText (vrPlayerMenu_Bottom,connect_your_mobile_phone_to_your_deviceString_Japanese);
+		DisplayValueText (vrPlayerMenu_BottomBoxTitle,VR_headset_or_cardboard_is_not_readyString_Japanese);
+		DisplayValueText (vrPlayerMenu_BottomBox1,After_playing_VR_movieString_Japanese);
+		DisplayValueText (vrPlayerMenu_BottomBox2,Switch_from_2D_mode_to_VR_modeString_Japanese);
 		DisplayValueText (vrPlayerMenu_RunVRBnt,run_vr_PlayerString_Japanese);
 	}
 
@@ -1311,6 +1335,9 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (vrPlayerMenu_Welcome,welcomeString_Chinese);
 		DisplayValueText (vrPlayerMenu_Top,experience_realistic_virtual_realityString_Chinese);
 		DisplayValueText (vrPlayerMenu_Bottom,connect_your_mobile_phone_to_your_deviceString_Chinese);
+		DisplayValueText (vrPlayerMenu_BottomBoxTitle,VR_headset_or_cardboard_is_not_readyString_Chinese);
+		DisplayValueText (vrPlayerMenu_BottomBox1,After_playing_VR_movieString_Chinese);
+		DisplayValueText (vrPlayerMenu_BottomBox2,Switch_from_2D_mode_to_VR_modeString_Chinese);
 		DisplayValueText (vrPlayerMenu_RunVRBnt,run_vr_PlayerString_Chinese);
 	}
 
