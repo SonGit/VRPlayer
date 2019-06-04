@@ -5,6 +5,8 @@ using UnityEngine.XR;
 
 public class Scene2D : AppScene
 {
+	public Camera camera;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +28,9 @@ public class Scene2D : AppScene
 
 	IEnumerator LoadDevice(string newDevice)
 	{
+		if(camera != null)
+			camera.enabled = false;
+
 		Screen.fullScreen = false;
 
 		yield return new WaitForEndOfFrame();
@@ -55,6 +60,9 @@ public class Scene2D : AppScene
 		Screen.SetResolution (720,1280,false);
 
 		Debug.Log ("2D ++++Current Resolution  " + Screen.currentResolution.width + "  " + Screen.currentResolution.height);
+
+		if(camera != null)
+			camera.enabled = true;
 //
 //		yield return new WaitForEndOfFrame();
 //		UnityEngine.XR.XRSettings.LoadDeviceByName(newDevice);
