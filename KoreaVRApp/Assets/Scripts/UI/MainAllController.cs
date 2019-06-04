@@ -98,6 +98,14 @@ public class MainAllController : MonoBehaviour
 
 		maxWidth = Screen.currentResolution.width;
 		maxHeight = Screen.currentResolution.height;
+
+		// Prevent screen jittering at start
+		int targetWidth = MainAllController.instance.maxWidth / 2;
+		int targetHeight = MainAllController.instance.maxHeight / 2;
+
+		if (targetHeight > 1000) {
+			Screen.SetResolution (targetWidth,targetHeight,false);
+		}
 	}
 
 	private void Start()
