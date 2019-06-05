@@ -24,6 +24,10 @@ public class Video_Info
 
     public int length { get; set; }
 
+	public string genre { get; set; }
+
+	public string actor { get; set; }
+
     public string id { get; set; }
 
     public long size { get; set; }
