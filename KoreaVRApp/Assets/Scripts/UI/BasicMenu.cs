@@ -66,6 +66,19 @@ public class BasicMenu : MonoBehaviour, IEnhancedScrollerDelegate
 		} else {
 			Debug.Log ("Canvas is null!");
 		}
+
+		if (MainAllController.instance != null){
+			MyScrollView[] myScrollViews = MainAllController.instance.myScrollViews;
+			foreach (MyScrollView myScrollView in myScrollViews) {
+				bool isActive = myScrollView.GetComponentInParent<Canvas> ().enabled;
+				if (isActive) {
+					myScrollView.enabled = value;
+				} else {
+					myScrollView.enabled = !value;
+				}
+			}
+		}
+
 //		if (Root != null){
 //			Root.SetActive(value);
 //		}

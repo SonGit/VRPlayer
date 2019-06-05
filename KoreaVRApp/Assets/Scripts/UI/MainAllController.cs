@@ -33,10 +33,11 @@ public class MainAllController : MonoBehaviour
 	private MediaPlayerMenu mediaPlayerMenu = null;
 	private AlertMenu alertMenu = null;
 	private SensorMenu sensorMenu = null;
+	private MyScrollView[] _myScrollViews;
 
-	public BasicMenu lastMenu = null;
+	private BasicMenu lastMenu = null;
 
-	public BasicMenu _currentMenu = null;
+	private BasicMenu _currentMenu = null;
 
 	public BasicMenu currentMenu
 	{
@@ -62,6 +63,19 @@ public class MainAllController : MonoBehaviour
 
 		set {
 			_mediaPlayer = value;
+		}
+	}
+
+
+	public MyScrollView[] myScrollViews
+	{
+		get
+		{
+			return _myScrollViews;
+		}
+
+		set {
+			_myScrollViews = value;
 		}
 	}
 
@@ -308,6 +322,7 @@ public class MainAllController : MonoBehaviour
 		scenes = UnityEngine.Object.FindObjectsOfType<AppScene> ();
 		_mediaPlayer = UnityEngine.Object.FindObjectOfType<MediaPlayer> ();
 		sensorMenu = UnityEngine.Object.FindObjectOfType<SensorMenu> ();
+		_myScrollViews = UnityEngine.Object.FindObjectsOfType<MyScrollView> ();
 
 		GoToScene2D ();
 

@@ -125,6 +125,7 @@ namespace PullToRefresh
 
             if (distance < 0.4f)
             {
+				LoadingUI (distance,0.0f,0);
                 return;
             }
 
@@ -133,8 +134,8 @@ namespace PullToRefresh
 
         private void OnPull(float distance)
         {
-			if (Math.Abs (distance) > 15f) {
-				LoadingUI (distance,0.5f,0.006f);
+			if (Math.Abs (distance) > 30f) {
+				LoadingUI (distance,0.5f,0.0062f);
 			} else {
 				//m_PullLoading.transform.localEulerAngles = new Vector3 (0,180,0);
 				LoadingUI (distance,0.0f,0);
@@ -149,7 +150,7 @@ namespace PullToRefresh
             if (m_IsPulled && m_ScrollView.Dragging)
             {
 				if (Math.Abs (distance) > m_PullDistanceRequiredRefresh) {
-					LoadingUI (distance,1.0f,0.006f);
+					LoadingUI (distance,1.0f,0.0062f);
 				}else{
 					m_IsPulled = false;
 				}
