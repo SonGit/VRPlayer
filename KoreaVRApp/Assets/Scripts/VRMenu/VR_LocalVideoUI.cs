@@ -14,9 +14,6 @@ public class VR_LocalVideoUI : LocalVideoUI
 		this.videoTitle.text = (video as LocalVideo).videoName;
 		this.videoLength.text = MakeLengthString ();
 
-		#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
-		StartCoroutine(LoadThumbnail ());
-		#endif
 
 	}
 		
@@ -48,11 +45,12 @@ public class VR_LocalVideoUI : LocalVideoUI
 		path = Application.persistentDataPath + "/localTemp/" + (video as LocalVideo).videoName;
 		#endif
 
-		Debug.Log ("Looking at path: " + path);
 		while (!gotThumbnail) {
+			
+			Debug.Log ("VR Looking at path: " + path);
 
 			if (File.Exists (path)) {
-				Debug.Log ("Found thumbnail at" + path);
+				Debug.Log ("VR Found thumbnail at" + path);
 				LoadThumbnail (path);
 				gotThumbnail = true;
 
@@ -67,8 +65,16 @@ public class VR_LocalVideoUI : LocalVideoUI
 	public override void OnLoadedThumbnail()
 	{
 		videoImage.texture = thumbnailTexture;
-		StopAllCoroutines();
-		Debug.Log("------------------DONE");
+		thumbnailTexture = null;
+		Debug.Log("------------------DONE VR");
+	}
+
+	void OnEnable()
+	{
+		// Check if udpate thumbnail is necessary
+		if (videoImage.texture == null || videoImage.texture.name != video.videoInfo.id) {
+			StartCoroutine(LoadThumbnail ());
+		}
 	}
 
 
