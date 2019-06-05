@@ -48,19 +48,29 @@ import Photos
             })
         }
         
-        group.wait();
+        // avoid deadlocks by not using .main queue here
         
-        // print("result " + result);
         
-       // self.startScreenCapture(message:result)
+        group.notify(queue: DispatchQueue.main) {
+            
+            print("result " + result);
+            
+            for index in 0..<videosArray.count {
+                
+                videosArray[index].buildThumbnail ()
+            }
+            
+            self.startScreenCapture(message:result)
+            
+            
+        }
         
-        for index in 0..<videosArray.count {
-        
-        videosArray[index].buildThumbnail ()
-         }
-        
+        //  group.wait()
         
         return result
+        
+        
+        
     }
     
     let kCallbackTarget = "LocalVideoManager"

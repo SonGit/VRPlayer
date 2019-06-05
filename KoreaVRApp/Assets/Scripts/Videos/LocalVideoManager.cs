@@ -79,14 +79,19 @@ public class LocalVideoManager : MonoBehaviour
         }
     }
 
+    // For use in IOS
+    SuccessCallback callbackCache;
+
     IEnumerator LoadProgress(SuccessCallback callback = null)
     {
+        callbackCache = callback;
 
         if (ScreenLoading.instance != null)
         {
             ScreenLoading.instance.Play();
         }
 
+        yield return new WaitForSeconds(.5f);
 #if UNITY_ANDROID
 		while(!Permission.HasUserAuthorizedPermission (Permission.ExternalStorageRead))
 		{
@@ -175,10 +180,9 @@ public class LocalVideoManager : MonoBehaviour
 #if UNITY_IOS
         try
         {
-
             string urlString = SwiftForUnity.getURLAndBuildThumbnail();
-            Debug.Log("UNITY_IOS LOCAL   " + urlString);
-            LoadLocal_ios(urlString);
+            //Debug.Log("UNITY_IOS LOCAL   " + urlString);
+            //LoadLocal_ios(urlString);
 
         }
         catch(System.Exception e)
@@ -187,14 +191,10 @@ public class LocalVideoManager : MonoBehaviour
         } finally
         {
 
-            if (callback != null) {
-                callback ();
-            }
+            //if (callback != null) {
+               // callback ();
+            //}
 
-            if (ScreenLoading.instance != null)
-            {
-                ScreenLoading.instance.Stop();
-            }
         }
 
 #endif
@@ -398,8 +398,31 @@ public class LocalVideoManager : MonoBehaviour
 
     public void BuildLocalVideo(string data)
     {
-//		localVideos = new List<Video>();
-//		LoadLocal_ios (data);
+        try
+        {
+
+            Debug.Log("UNITY_IOS LOCAL   " + data);
+
+            LoadLocal_ios(data);
+
+            if(callbackCache != null)
+            {
+                callbackCache();
+            }
+
+        }
+        catch (System.Exception e)
+        {
+            Debug.Log("LocalVideoManager Exception! " + e.Message);
+        }
+        finally
+        {
+            if (ScreenLoading.instance != null)
+            {
+                ScreenLoading.instance.Stop();
+            }
+        }
+
     }
 
 
