@@ -4088,7 +4088,7 @@ PrefabInstance:
     - target: {fileID: 4810842472355034876, guid: d1b01d9d6ac3a0a4eb0cfba7a39146cd,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.0009765625
+      value: -0.0017089844
       objectReference: {fileID: 0}
     - target: {fileID: 4810842470871812426, guid: d1b01d9d6ac3a0a4eb0cfba7a39146cd,
         type: 3}
@@ -4858,8 +4858,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5015412f47b938646baa7d6f88e74efb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastMenu: {fileID: 0}
-  _currentMenu: {fileID: 0}
   fadeInOut: {fileID: 70913068}
   scenes: []
   currentScene: {fileID: 0}
@@ -5814,6 +5812,10 @@ PrefabInstance:
       propertyPath: mediaPlayer
       value: 
       objectReference: {fileID: 112687388}
+    - target: {fileID: 996, guid: eefac19eaca87984bb389e55e42e9c9a, type: 3}
+      propertyPath: _delayTime
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 838, guid: eefac19eaca87984bb389e55e42e9c9a, type: 3}
       propertyPath: _mediaPlayer
       value: 

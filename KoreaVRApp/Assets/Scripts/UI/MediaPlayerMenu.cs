@@ -308,6 +308,7 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 
 	public void OnPointerDown(PointerEventData e) {
         Debug.Log("OnPointerDown");
+		_delayCount = 0;
 	}
 
 	public void OnPointerUp(PointerEventData e) {
