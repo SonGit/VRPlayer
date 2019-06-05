@@ -14,7 +14,6 @@ public class VR_LocalVideoUI : LocalVideoUI
 		this.videoTitle.text = (video as LocalVideo).videoName;
 		this.videoLength.text = MakeLengthString ();
 
-
 	}
 		
 
@@ -73,6 +72,7 @@ public class VR_LocalVideoUI : LocalVideoUI
 	{
 		// Check if udpate thumbnail is necessary
 		if (videoImage.texture == null || videoImage.texture.name != video.videoInfo.id) {
+			if(video != null)
 			StartCoroutine(LoadThumbnail ());
 		}
 	}
