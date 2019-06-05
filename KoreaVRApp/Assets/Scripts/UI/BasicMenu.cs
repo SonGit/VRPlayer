@@ -67,17 +67,22 @@ public class BasicMenu : MonoBehaviour, IEnhancedScrollerDelegate
 			Debug.Log ("Canvas is null!");
 		}
 
+		// Fix pullLoading
 		if (MainAllController.instance != null){
 			MyScrollView[] myScrollViews = MainAllController.instance.myScrollViews;
 			foreach (MyScrollView myScrollView in myScrollViews) {
-				bool isActive = myScrollView.GetComponentInParent<Canvas> ().enabled;
-				if (isActive) {
-					myScrollView.enabled = value;
-				} else {
-					myScrollView.enabled = !value;
+				Canvas canvas = myScrollView.GetComponentInParent<Canvas> ();
+				if (canvas != null){
+					if (canvas.enabled) {
+						myScrollView.enabled = value;
+					} else {
+						myScrollView.enabled = !value;
+					}
 				}
+
 			}
 		}
+		// Fix pullLoading
 
 //		if (Root != null){
 //			Root.SetActive(value);
