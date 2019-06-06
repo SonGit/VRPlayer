@@ -13,7 +13,7 @@ public class SceneVR : AppScene
 	[SerializeField]
 	private VR_MainMenu vrMainMenu;
 	[SerializeField]
-	private Canvas vrProgressBarCanvas;
+	private GameObject vrProgressBar;
 
 	private VR_RecenterPanel vr_RecenterPanel;
 
@@ -272,8 +272,8 @@ public class SceneVR : AppScene
 
 	public void HideProgressBar()
 	{
-		if (vrProgressBarCanvas != null) {
-			vrProgressBarCanvas.enabled = false;
+		if (vrProgressBar != null) {
+			vrProgressBar.SetActive(false);
 		} else {
 			Debug.LogError ("NULL...............");
 		}
@@ -281,8 +281,8 @@ public class SceneVR : AppScene
 
 	public void ShowProgressBar()
 	{
-		if (vrProgressBarCanvas != null) {
-			vrProgressBarCanvas.enabled = true;
+		if (vrProgressBar != null) {
+			vrProgressBar.SetActive(true);
 		}else {
 			Debug.LogError ("NULL...............");
 		}
