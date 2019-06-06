@@ -118,7 +118,7 @@ public class MainAllController : MonoBehaviour
 		int targetHeight = MainAllController.instance.maxHeight / 2;
 
 		if (targetHeight > 1000) {
-			Screen.SetResolution (targetWidth,targetHeight,false);
+			//Screen.SetResolution (targetWidth,targetHeight,false);
 		}
 	}
 

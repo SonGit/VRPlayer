@@ -24,9 +24,8 @@ public class DownloadMenu : BasicMenuNavigation
 		base.Start ();
 		MainAllController.instance.OnGetUserVideo += Init;
 		MainAllController.instance.OnLoggedOut += Reset;
-
 	}
-
+		
 	public override void Init()
 	{
 		videos = GetUserVideo ();
@@ -61,28 +60,6 @@ public class DownloadMenu : BasicMenuNavigation
 //			}
 			return false;
 		}
-
-	}
-
-	protected override void AddVideoUI(Video video)
-	{
-//		VideoUI downloadVideoUI = ObjectPool.instance.GetDownloadVideoUI ();
-//
-//		if (downloadVideoUI != null) {
-//
-//			downloadVideoUI.Setup (video);
-//
-//			if (verticalGrid == null) {
-//				verticalGrid = this.GetComponentInChildren<VerticalLayoutGroup> ();
-//			}
-//
-//			downloadVideoUI.transform.SetParent (verticalGrid.transform,false);
-//
-//			listObject.Add (downloadVideoUI);
-//
-//		} else {
-//			Debug.LogError ("Wrong Prefab!");
-//		}
 
 	}
 

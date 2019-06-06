@@ -49,6 +49,7 @@ public class StorageMenu : BasicMenuNavigation
 
 	public void OnGetLocalVideo()
 	{
+		print ("ppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp");
 		videos = LocalVideoManager.instance.GetAllLocalVideos ();
 
 		if (scroller != null){
@@ -72,7 +73,7 @@ public class StorageMenu : BasicMenuNavigation
 	public override void Refresh()
 	{
 		print ("Storage Refresh()");
-		RefreshVideo ();
+		//RefreshVideo ();
 	}
 
 	#region EnhancedScroller Handlers

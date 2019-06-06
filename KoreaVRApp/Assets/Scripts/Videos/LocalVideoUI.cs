@@ -104,8 +104,7 @@ public class LocalVideoUI: VideoUI
     public override void OnLoadedThumbnail()
     {
         videoImage.texture = thumbnailTexture;
-        StopAllCoroutines();
-        Debug.Log("------------------DONE");
+        Debug.Log("------------------DONE 2D");
     }
 
 	public override void RefreshCellView()

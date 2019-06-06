@@ -294,7 +294,7 @@ public class SceneVR : AppScene
 		Screen.fullScreen = true;
 
 		base.Show (lastMenu);
-		StartCoroutine(LoadDevice("cardboard"));
+		StartCoroutine(SwitchToVR());
 
 		// Return to user to the equivalent menu vased on last menu
 		if (lastMenu != null) {
@@ -328,28 +328,52 @@ public class SceneVR : AppScene
 
 		VR_Recenterer.instance.Recenter ();
 	}
+		
+
 
 	IEnumerator LoadDevice(string newDevice)
 	{
-		int targetWidth = MainAllController.instance.maxWidth;
-		int targetHeight = MainAllController.instance.maxHeight;
+//		int targetWidth = MainAllController.instance.maxWidth;
+//		int targetHeight = MainAllController.instance.maxHeight;
+//
+//		yield return new WaitForEndOfFrame();
+//		UnityEngine.XR.XRSettings.LoadDeviceByName(newDevice);
+//		yield return null;
+//		UnityEngine.XR.XRSettings.enabled = true;
+//
+//		Screen.orientation = ScreenOrientation.LandscapeLeft;
+//		yield return new WaitForSeconds (.25f);
+//		Screen.SetResolution (targetHeight,targetWidth,true);
+//		yield return new WaitForSeconds (.25f);
+//
+//		VR_Recenterer.instance.Recenter ();
+//
+//		QualitySettings.vSyncCount = 0;
+//		Application.targetFrameRate = 60;
+//
+//		Debug.Log ("VR ++++Current Resolution  " + Screen.currentResolution.width + "  " + Screen.currentResolution.height);
+//
+		yield return new WaitForSeconds (.25f);
+	}
 
-		yield return new WaitForEndOfFrame();
-		UnityEngine.XR.XRSettings.LoadDeviceByName(newDevice);
-		yield return null;
-		UnityEngine.XR.XRSettings.enabled = true;
+	public GameObject Camera2D;
+	public GameObject CameraVR;
 
+	IEnumerator SwitchToVR() {
+		
+		Camera2D.SetActive (false);
+		CameraVR.SetActive (false);
+
+		//#if !UNITY_EDITOR
+		// Disable auto rotation, except for landscape left.
 		Screen.orientation = ScreenOrientation.LandscapeLeft;
+		Debug.Log("SwitchToVR DONE ROTATING!");
 		yield return new WaitForSeconds (.25f);
-		Screen.SetResolution (targetHeight,targetWidth,true);
+		//#endif
 		yield return new WaitForSeconds (.25f);
 
-		VR_Recenterer.instance.Recenter ();
-
-		QualitySettings.vSyncCount = 0;
-		Application.targetFrameRate = 60;
-
-		Debug.Log ("VR ++++Current Resolution  " + Screen.currentResolution.width + "  " + Screen.currentResolution.height);
+		Camera2D.SetActive (false);
+		CameraVR.SetActive (true);
 	}
 
 	public override void Hide()

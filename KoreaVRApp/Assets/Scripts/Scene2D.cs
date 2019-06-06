@@ -23,49 +23,69 @@ public class Scene2D : AppScene
 	{
 
 		base.Show (lastMenu);
-		StartCoroutine(LoadDevice("none"));
+		StartCoroutine(SwitchTo2D());
 	}
 
 	IEnumerator LoadDevice(string newDevice)
 	{
-		if(camera != null)
-			camera.enabled = false;
-
-		Screen.fullScreen = false;
-
-		yield return new WaitForEndOfFrame();
-		UnityEngine.XR.XRSettings.LoadDeviceByName(newDevice);
-		yield return null;
-		UnityEngine.XR.XRSettings.enabled = true;
-
-		Screen.orientation = ScreenOrientation.Portrait;
-
-		// Only render at half resolution
-		// If target res is too low, ignore
-		int targetWidth = MainAllController.instance.maxWidth / 2;
-		int targetHeight = MainAllController.instance.maxHeight / 2;
-
-		if (targetHeight > 1000) {
-			Screen.orientation = ScreenOrientation.Portrait;
-			yield return new WaitForSeconds (.25f);
-			Screen.SetResolution (targetWidth,targetHeight,false);
-			yield return new WaitForSeconds (.25f);
-		}
-			
-		QualitySettings.vSyncCount = 0;
-		Application.targetFrameRate = 50;
-
-
-		Screen.orientation = ScreenOrientation.Portrait;
-		Screen.SetResolution (720,1280,false);
-
-		Debug.Log ("2D ++++Current Resolution  " + Screen.currentResolution.width + "  " + Screen.currentResolution.height);
-
-		if(camera != null)
-			camera.enabled = true;
+//		if(camera != null)
+//			camera.enabled = false;
+//
+//		Screen.fullScreen = false;
 //
 //		yield return new WaitForEndOfFrame();
 //		UnityEngine.XR.XRSettings.LoadDeviceByName(newDevice);
+//		yield return null;
+//		UnityEngine.XR.XRSettings.enabled = true;
+//
+//		Screen.orientation = ScreenOrientation.Portrait;
+//
+//		// Only render at half resolution
+//		// If target res is too low, ignore
+//		int targetWidth = MainAllController.instance.maxWidth / 2;
+//		int targetHeight = MainAllController.instance.maxHeight / 2;
+//
+//		if (targetHeight > 1000) {
+//			Screen.orientation = ScreenOrientation.Portrait;
+//			yield return new WaitForSeconds (.25f);
+//			Screen.SetResolution (targetWidth,targetHeight,false);
+//			yield return new WaitForSeconds (.25f);
+//		}
+//			
+//		QualitySettings.vSyncCount = 0;
+//		Application.targetFrameRate = 50;
+//
+//
+//		Screen.orientation = ScreenOrientation.Portrait;
+//		Screen.SetResolution (720,1280,false);
+//
+//		Debug.Log ("2D ++++Current Resolution  " + Screen.currentResolution.width + "  " + Screen.currentResolution.height);
+//
+//		if(camera != null)
+//			camera.enabled = true;
+//
+		yield return new WaitForEndOfFrame();
+//		UnityEngine.XR.XRSettings.LoadDeviceByName(newDevice);
+	}
+
+	public GameObject Camera2D;
+	public GameObject CameraVR;
+
+	IEnumerator SwitchTo2D() {
+		
+		Camera2D.SetActive (false);
+		CameraVR.SetActive (false);
+
+		//#if !UNITY_EDITOR
+		// Disable auto rotation, except for landscape left.
+		Screen.orientation = ScreenOrientation.Portrait;
+		Debug.Log("SwitchTo2D DONE ROTATING!");
+		yield return new WaitForSeconds (.25f);
+		//#endif
+		yield return new WaitForSeconds (.25f);
+
+		Camera2D.SetActive (true);
+		CameraVR.SetActive (false);
 	}
 
 	public override void Hide()
