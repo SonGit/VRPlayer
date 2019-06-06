@@ -34,6 +34,8 @@ public class MainAllController : MonoBehaviour
 	private AlertMenu alertMenu = null;
 	private SensorMenu sensorMenu = null;
 	private MyScrollView[] _myScrollViews;
+	[SerializeField] 
+	private GameObject vr_CloseButton;
 
 	private BasicMenu lastMenu = null;
 
@@ -295,11 +297,7 @@ public class MainAllController : MonoBehaviour
 		Application_BackButton ();
 
 
-		if(Input.GetKeyDown(KeyCode.Escape)){
-			if(currentScene is SceneVR){
-				GoToScene2D ();
-			}
-		}
+
 	}
 
 	private void Init()
@@ -1269,6 +1267,7 @@ public class MainAllController : MonoBehaviour
 	void GoToSceneVR()
 	{
 		isGoVR = true;
+		ShowVR_CloseButton ();
 
 		foreach (AppScene scene in scenes) {
 			if (scene is SceneVR) {
@@ -1288,6 +1287,7 @@ public class MainAllController : MonoBehaviour
 	{
 		isGoVR = false;
 		IsShowRecenterPanel = false;
+		HideVR_CloseButton ();
 
 		foreach (AppScene scene in scenes) {
 			if (scene is Scene2D) {
@@ -1310,6 +1310,7 @@ public class MainAllController : MonoBehaviour
     void GoTo2DMediaPlayer()
     {
 		IsShowRecenterPanel = false;
+		HideVR_CloseButton ();
 
         foreach (AppScene scene in scenes)
         {
@@ -1333,6 +1334,7 @@ public class MainAllController : MonoBehaviour
 	void GoTo2DSceneSensor()
 	{
 		IsShowRecenterPanel = false;
+		HideVR_CloseButton ();
 
 		foreach (AppScene scene in scenes)
 		{
@@ -1811,5 +1813,27 @@ public class MainAllController : MonoBehaviour
 		}
 
 		return string.Empty;
+	}
+
+	private void HideVR_CloseButton(){
+		if (vr_CloseButton != null) {
+			vr_CloseButton.SetActive (false);
+		} else {
+			Debug.LogError ("NULL..................");
+		}
+	}
+
+	private void ShowVR_CloseButton(){
+		if (vr_CloseButton != null){
+			vr_CloseButton.SetActive (true);
+		}else {
+			Debug.LogError ("NULL..................");
+		}
+	}
+
+	public void VR_CloseButton_OnClick(){
+		if(currentScene is SceneVR){
+			GoToScene2D ();
+		}
 	}
 }
