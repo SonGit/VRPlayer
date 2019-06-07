@@ -640,9 +640,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   root: {fileID: 861063439}
-  camera: {fileID: 2118619804}
   Camera2D: {fileID: 2118619802}
   CameraVR: {fileID: 669846138}
+  camera: {fileID: 2118619804}
 --- !u!4 &181841428
 Transform:
   m_ObjectHideFlags: 0
@@ -688,13 +688,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   root: {fileID: 732291007}
+  Camera2D: {fileID: 2118619802}
+  CameraVR: {fileID: 669846138}
   vrPlayer: {fileID: 1730505127434337167}
   vrSetting: {fileID: 1878969806}
   vrMainMenu: {fileID: 513833170}
   vrProgressBar: {fileID: 1032850063}
   buttonScreenLock: {fileID: 1672122189}
-  Camera2D: {fileID: 2118619802}
-  CameraVR: {fileID: 669846138}
 --- !u!4 &198394136
 Transform:
   m_ObjectHideFlags: 0
@@ -4018,6 +4018,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   root: {fileID: 1684365451}
+  Camera2D: {fileID: 0}
+  CameraVR: {fileID: 0}
   camera: {fileID: 1061670580}
 --- !u!4 &1332240675
 Transform:
@@ -4140,7 +4142,7 @@ PrefabInstance:
     - target: {fileID: 4810842472127532172, guid: d1b01d9d6ac3a0a4eb0cfba7a39146cd,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -522.50024
+      value: -522.5002
       objectReference: {fileID: 0}
     - target: {fileID: 4810842472127532172, guid: d1b01d9d6ac3a0a4eb0cfba7a39146cd,
         type: 3}
@@ -4215,7 +4217,7 @@ PrefabInstance:
     - target: {fileID: 4810842472355034876, guid: d1b01d9d6ac3a0a4eb0cfba7a39146cd,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0007324219
+      value: 0.0009765625
       objectReference: {fileID: 0}
     - target: {fileID: 4810842470871812426, guid: d1b01d9d6ac3a0a4eb0cfba7a39146cd,
         type: 3}
@@ -5052,6 +5054,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   root: {fileID: 2042619475}
+  Camera2D: {fileID: 0}
+  CameraVR: {fileID: 0}
   camera: {fileID: 475457184}
 --- !u!1 &1512013112
 GameObject:
@@ -5098,7 +5102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneVR: {fileID: 198394135}
-  Threshold: 7
+  Threshold: 8
   camera: {fileID: 669846135}
 --- !u!114 &1512013115
 MonoBehaviour:
@@ -13347,6 +13351,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3696877543422472576, guid: 8e023f7c083e5b24189a7e200dd65165,
+        type: 3}
+      propertyPath: m_FontData.m_VerticalOverflow
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2907161463019696569, guid: 8e023f7c083e5b24189a7e200dd65165,
         type: 3}

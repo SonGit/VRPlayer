@@ -192,7 +192,9 @@ public class UserVideoUI : VideoUI
 		bool isVideoFavorited = MainAllController.instance.user.IsVideoFavorited (video);
 		//bookmarkIcon.enabled = isVideoFavorited;
 		SetupFavoriteBtns();
-	}
+
+        videoDownloader = null;
+    }
 	#endregion
 
 

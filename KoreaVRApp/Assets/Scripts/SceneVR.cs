@@ -356,21 +356,20 @@ public class SceneVR : AppScene
 		yield return new WaitForSeconds (.25f);
 	}
 
-	public GameObject Camera2D;
-	public GameObject CameraVR;
-
 	IEnumerator SwitchToVR() {
 		
 		Camera2D.SetActive (false);
 		CameraVR.SetActive (false);
 
-		//#if !UNITY_EDITOR
-		// Disable auto rotation, except for landscape left.
-		Screen.orientation = ScreenOrientation.LandscapeLeft;
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 60;
+
+        //#if !UNITY_EDITOR
+        // Disable auto rotation, except for landscape left.
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
 		Debug.Log("SwitchToVR DONE ROTATING!");
-		yield return new WaitForSeconds (.25f);
-		//#endif
-		yield return new WaitForSeconds (.25f);
+		yield return new WaitForSeconds (1);
+
 
 		Camera2D.SetActive (false);
 		CameraVR.SetActive (true);

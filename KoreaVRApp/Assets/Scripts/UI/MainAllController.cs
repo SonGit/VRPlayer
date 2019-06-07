@@ -284,10 +284,8 @@ public class MainAllController : MonoBehaviour
 		}
 		// Event click Button
 
-		LoadAllData ();
+		//LoadAllData ();
 
-        QualitySettings.vSyncCount = 0;
-        Application.targetFrameRate = 50;
 	}
 
 	private void Update (){
@@ -1592,12 +1590,12 @@ public class MainAllController : MonoBehaviour
 		SubmitMobieNetwork (settingsMenu.GetMobieNetworkText());
 	}
 
-	#endregion
+    #endregion
 
 
-	#region LoadAllData
+    #region LoadAllData
 
-	private void LoadAllData(){
+    public void LoadAllData(){
 		LoadKeepLoginProgress ();
 		LoadUserNameProgress ();
 		LoadPasswordProgress ();

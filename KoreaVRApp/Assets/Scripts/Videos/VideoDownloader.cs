@@ -249,15 +249,17 @@ public class VideoDownloader : MonoBehaviour
 				Debug.Log ("Error. Check internet connection!  " + e.Message);
 				
 				downloadState = DownloadState.Fail;
-			}
 
-		}
+                Debug.Log("Error. downloadState:  " + downloadState);
+            }
 
-		// Try to establish connection again, to see if there is anything wrong
-		// Make sure code is run on Main Thread
-		yield return Ninja.JumpToUnity;
+        }
 
-		if (downloadState == DownloadState.Fail)
+        // Try to establish connection again, to see if there is anything wrong
+        // Make sure code is run on Main Thread
+        yield return Ninja.JumpToUnity;
+        Debug.Log("DownloadState  " + downloadState);
+        if (downloadState == DownloadState.Fail)
 		{
 			Debug.Log ("DownloadState.Fail, attempting reset... ");
 			Reset ();

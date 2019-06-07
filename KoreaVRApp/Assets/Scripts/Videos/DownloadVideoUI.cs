@@ -154,15 +154,10 @@ public class DownloadVideoUI : VideoUI
 
 	public void Cancel()
 	{
-		Pause ();
-
 		Delete();
-
-		DeleteDownloader ();
-
 	}
 
-	private void SetDownloadProgressUI (){
+    private void SetDownloadProgressUI (){
 		if (video_DownloadProgressSlider != null && video_DownloadProgressText != null) {
 
 			if (videoDownloader != null && videoDownloader.downloadState == DownloadState.Downloading) {
@@ -213,10 +208,12 @@ public class DownloadVideoUI : VideoUI
 	{
 		base.Setup (video);
 		video_name.text = video.videoInfo.video_name;
-		this.video_length.text = MakeRegistrationDateString() + " | " +((video.videoInfo.size / 1024) / 1024) + " MB"; ;
-		video_image.texture = null;
+		this.video_length.text = MakeRegistrationDateString() + " | " +((video.videoInfo.size / 1024) / 1024) + " MB"; 
 
-		OnEnable ();
+		video_image.texture = null;
+        videoDownloader = null;
+
+        OnEnable ();
 	}
 		
 	/// <summary>
@@ -418,20 +415,36 @@ public class DownloadVideoUI : VideoUI
 
 	public override void OnAlertDeleteComplete ()
 	{
+
         base.OnAlertDeleteComplete();
-        Pause ();
 
-        string path = Path.Combine (MainAllController.instance.user.GetPath(), video.videoInfo.id) ;
+        string _path = Path.Combine(MainAllController.instance.user.GetPath(), video.videoInfo.id);
 
-        if (Directory.Exists (path)) {
-        	Directory.Delete (path,true);
+        if (Directory.Exists(_path))
+        {
+            Directory.Delete(_path, true);
+
+            Pause();
+
+            DeleteDownloader();
         }
 
-        	DownloadMenu menu = Object.FindObjectOfType<DownloadMenu> ();
-        	if (menu != null) {
-        		menu.RemoveUI (this);
-        	}
-			
+        //DownloadMenu menu = Object.FindObjectOfType<DownloadMenu> ();
+        //if (menu != null) {
+        //menu.RemoveUI (this);
+        //}
+
+    }
+
+
+    protected override void OnAlertDeleteComplete_IOS(int buttonIndex)
+    {
+
+        if (buttonIndex == 1)
+        {
+            OnAlertDeleteComplete();
+        }
+
     }
 
     #endregion

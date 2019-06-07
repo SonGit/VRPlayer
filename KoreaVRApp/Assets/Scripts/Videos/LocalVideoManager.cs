@@ -172,6 +172,8 @@ public class LocalVideoManager : MonoBehaviour
             if (ScreenLoading.instance != null)
             {
                 ScreenLoading.instance.Stop();
+
+                RememberUser();
             }
 		}
 
@@ -421,11 +423,26 @@ public class LocalVideoManager : MonoBehaviour
             {
                 ScreenLoading.instance.Stop();
             }
+
+            RememberUser();
         }
 
     }
 
 
+    bool firstTime;
+    /// <summary>
+    /// Only attemp to load remembered user AFTER first time load localvideomanager
+    /// </summary>
+    private void RememberUser()
+    {
+        if(!firstTime)
+        {
+            MainAllController.instance.LoadAllData();
+            firstTime = true;
+        }
+
+    }
 
 
     //	public Dictionary<string,Texture2D> dictionary = new Dictionary<string, Texture2D>();

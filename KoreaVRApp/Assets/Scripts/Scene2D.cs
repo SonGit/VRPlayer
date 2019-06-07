@@ -68,23 +68,21 @@ public class Scene2D : AppScene
 //		UnityEngine.XR.XRSettings.LoadDeviceByName(newDevice);
 	}
 
-	public GameObject Camera2D;
-	public GameObject CameraVR;
-
 	IEnumerator SwitchTo2D() {
 		
 		Camera2D.SetActive (false);
 		CameraVR.SetActive (false);
 
-		//#if !UNITY_EDITOR
-		// Disable auto rotation, except for landscape left.
-		Screen.orientation = ScreenOrientation.Portrait;
-		Debug.Log("SwitchTo2D DONE ROTATING!");
-		yield return new WaitForSeconds (.25f);
-		//#endif
-		yield return new WaitForSeconds (.25f);
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 50;
 
-		Camera2D.SetActive (true);
+        //#if !UNITY_EDITOR
+        // Disable auto rotation, except for landscape left.
+        Screen.orientation = ScreenOrientation.Portrait;
+		Debug.Log("SwitchTo2D DONE ROTATING!");
+        yield return new WaitForSeconds(1f);
+
+        Camera2D.SetActive (true);
 		CameraVR.SetActive (false);
 	}
 

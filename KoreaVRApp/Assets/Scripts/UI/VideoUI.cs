@@ -359,16 +359,26 @@ public class VideoUI : EnhancedScrollerCellView
 	/// </summary>
 	public virtual void GetAlertDelete(){
 
-        AndroidDialog.instance.showLoginDialog("Delete?", OnAlertDeleteComplete);
+    #if UNITY_ANDROID
+     AndroidDialog.instance.showLoginDialog("Delete?", OnAlertDeleteComplete);
+    #endif
 
-       // NativeUI.AlertPopup alert = NativeUI.ShowTwoButtonAlert("Notification!", "Delete?", "CANCEL", "CONFIRM");
-		//if (alert != null)
-			//alert.OnComplete += OnAlertDeleteComplete;
-	}
+    #if UNITY_IOS
+        NativeUI.AlertPopup alert = NativeUI.ShowTwoButtonAlert("Notification!", "Delete?", "CANCEL", "CONFIRM");
 
-    //public virtual void OnAlertDeleteComplete(int buttonIndex){
+		if (alert != null)
+			alert.OnComplete += OnAlertDeleteComplete_IOS;
 
-    //}
+    #endif
+
+    }
+
+    protected virtual void OnAlertDeleteComplete_IOS(int buttonIndex){
+
+        if(buttonIndex == 1)
+            pendingDelete = true;
+
+    }
 
     protected bool pendingDelete;
 
@@ -376,7 +386,7 @@ public class VideoUI : EnhancedScrollerCellView
     {
         pendingDelete = true;
     }
-    #endregion
+#endregion
 
     /// <summary>
     /// Checks if enough space for download video.
@@ -418,13 +428,13 @@ public class VideoUI : EnhancedScrollerCellView
 			MainAllController.instance.PlayButtonSound ();
 		}
 
-        #if !UNITY_EDITOR && (UNITY_ANDROID || UNITY_IOS)
+#if !UNITY_EDITOR && (UNITY_ANDROID || UNITY_IOS)
 		GetAlertDelete ();
-        #endif
+#endif
 
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         DeleteProcess();
-        #endif
+#endif
     }
 
 	protected void DeleteProcess()
@@ -465,8 +475,25 @@ public class VideoUI : EnhancedScrollerCellView
                 Debug.Log("DeleteVideo exception " + e.Message);
             }
 
-            print(Directory.Exists(path));
             DownloadMenu menu = UnityEngine.Object.FindObjectOfType<DownloadMenu>();
+            if (menu != null)
+            {
+                menu.Refresh();
+            }
+        }
+
+        if (this is InboxVideoUI)
+        {
+            try
+            {
+                File.Delete(video.videoInfo.id);
+            }
+            catch (Exception e)
+            {
+                Debug.Log("DeleteVideo exception " + e.Message);
+            }
+
+            InboxMenu menu = UnityEngine.Object.FindObjectOfType<InboxMenu>();
             if (menu != null)
             {
                 menu.Refresh();
