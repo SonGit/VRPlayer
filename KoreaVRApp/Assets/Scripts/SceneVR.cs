@@ -91,7 +91,6 @@ public class SceneVR : AppScene
 			ShowMainMenu ();
 			VR_MainMenu.instance.OpenUserVideoMenu ();
 			vrPlayer.gameObject.SetActive (false);
-			ShowProgressBar ();
 			vrSetting.HideSetting ();
 		} else {
 			ShowStorageMenu ();
@@ -105,7 +104,6 @@ public class SceneVR : AppScene
 			ShowMainMenu ();
 			VR_MainMenu.instance.OpenDownloadMenu ();
 			vrPlayer.gameObject.SetActive (false);
-			ShowProgressBar ();
 			vrSetting.HideSetting ();
 		}else {
 			ShowStorageMenu ();
@@ -119,7 +117,6 @@ public class SceneVR : AppScene
 			ShowMainMenu ();
 			VR_MainMenu.instance.OpenInboxMenu ();
 			vrPlayer.gameObject.SetActive (false);
-			ShowProgressBar ();
 			vrSetting.HideSetting ();
 		}else {
 			ShowStorageMenu ();
@@ -133,7 +130,6 @@ public class SceneVR : AppScene
 			ShowMainMenu ();
 			VR_MainMenu.instance.OpenFavoriteMenu ();
 			vrPlayer.gameObject.SetActive (false);
-			ShowProgressBar ();
 			vrSetting.HideSetting ();
 		}else {
 			ShowStorageMenu ();
@@ -183,6 +179,7 @@ public class SceneVR : AppScene
         //vr_RecenterPanel.Show(OnDoneRecenter);
 
         if (vr_RecenterPanel != null && !MainAllController.instance.IsShowRecenterPanel) {
+			ShowProgressBar ();
         	vr_RecenterPanel.Show (OnDoneRecenter);
         } else {
         	OnDoneRecenter ();
@@ -214,6 +211,7 @@ public class SceneVR : AppScene
 		currentUrl = url;
 
 		if (vr_RecenterPanel != null && !MainAllController.instance.IsShowRecenterPanel) {
+			ShowProgressBar ();
 			vr_RecenterPanel.Show (OnDoneRecenter_Streaming);
 		}else {
 			OnDoneRecenter_Streaming ();
