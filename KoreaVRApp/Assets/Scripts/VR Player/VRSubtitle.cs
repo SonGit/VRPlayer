@@ -49,4 +49,11 @@ public class VRSubtitle : MonoBehaviour
 			}
 		}
 	}
+
+	public void ResetVRSubtitle_ButtonUI()
+	{
+		for (int i = 0; i < subtitleUIs.Count; i++) {
+			subtitleUIs [i].InitVRSubtitle_ButtonUI ();
+		}
+	}
 }

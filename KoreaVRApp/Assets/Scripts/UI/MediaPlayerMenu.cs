@@ -195,19 +195,21 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 			}
 		} else {
 			url = MainAllController.instance.user.GetPathToFile (video.videoInfo.id, video.videoInfo.video_name);
-			if (currentVideo != null && currentVideo.videoInfo.id == video.videoInfo.id) {
-				Debug.Log ("Not Setup Subtitle");
-				isSetDropdownValue = false;
-			} else {
-				InitSubtitle ();
-				SetupSubtitle (video);
-				if (subTitle2D != null) {
-					subTitle2D.SetViewrDropdown (true);
-				}
-				isSetDropdownValue = true;
+//			if (currentVideo != null && currentVideo.videoInfo.id == video.videoInfo.id) {
+//				Debug.Log ("Not Setup Subtitle");
+//				isSetDropdownValue = false;
+//			} else {
+//				
+//			}
 
-				Debug.Log ("Setup Subtitle");
+			InitSubtitle ();
+			SetupSubtitle (video);
+			if (subTitle2D != null) {
+				subTitle2D.SetViewrDropdown (true);
 			}
+			isSetDropdownValue = true;
+
+			Debug.Log ("Setup Subtitle");
 
 		}
 
@@ -248,19 +250,22 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 				subTitle2D.SetViewrDropdown (false);
 			}
 		} else {
-			if (currentVideo != null && currentVideo.videoInfo.id == video.videoInfo.id) {
-				Debug.Log ("Not Setup Subtitle");
-				isSetDropdownValue = false;
-			} else {
-				InitSubtitle ();
-				SetupSubtitle (video);
-				if (subTitle2D != null) {
-					subTitle2D.SetViewrDropdown (true);
-				}
-				isSetDropdownValue = true;
+//			if (currentVideo != null && currentVideo.videoInfo.id == video.videoInfo.id) {
+//				Debug.Log ("Not Setup Subtitle");
+//				isSetDropdownValue = false;
+//			} else {
+//				
+//
+//				Debug.Log ("Setup Subtitle");
+//			}
 
-				Debug.Log ("Setup Subtitle");
+			InitSubtitle ();
+			SetupSubtitle (video);
+			if (subTitle2D != null) {
+				subTitle2D.SetViewrDropdown (true);
 			}
+			isSetDropdownValue = true;
+			Debug.Log ("Setup Subtitle");
 
 		}
 

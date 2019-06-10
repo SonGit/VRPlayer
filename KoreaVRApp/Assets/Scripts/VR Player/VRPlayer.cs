@@ -439,6 +439,7 @@ public class VRPlayer : MonoBehaviour
 		}
 			
 		if(vrSubtitle){
+			vrSubtitle.ResetVRSubtitle_ButtonUI ();
 			vrSubtitle.Setup (video.videoInfo.subtitles, video);
 		}
 

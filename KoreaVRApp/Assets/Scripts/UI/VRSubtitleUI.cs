@@ -27,11 +27,15 @@ public class VRSubtitleUI : MonoBehaviour
     {
 		vrSubtitleManager = GetComponentInParent<VRSubtitle> ();
 
+		InitVRSubtitle_ButtonUI ();
+
+    }
+
+	public void InitVRSubtitle_ButtonUI(){
 		if (_selectedImg != null) {
 			_selectedImg.enabled = false;
 		}
-
-    }
+	}
 
     // Update is called once per frame
     void Update()
