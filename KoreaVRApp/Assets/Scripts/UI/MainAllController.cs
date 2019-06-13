@@ -36,6 +36,8 @@ public class MainAllController : MonoBehaviour
 	private MyScrollView[] _myScrollViews;
 	[SerializeField] 
 	private GameObject vr_CloseButton;
+	[SerializeField] 
+	private GameObject ScreenSwitchSceneMode;
 
 	private BasicMenu lastMenu = null;
 
@@ -1265,7 +1267,6 @@ public class MainAllController : MonoBehaviour
 	void GoToSceneVR()
 	{
 		isGoVR = true;
-		ShowVR_CloseButton ();
 
 		foreach (AppScene scene in scenes) {
 			if (scene is SceneVR) {
@@ -1286,6 +1287,7 @@ public class MainAllController : MonoBehaviour
 		isGoVR = false;
 		IsShowRecenterPanel = false;
 		HideVR_CloseButton ();
+		HideScreenSwitchSceneMode ();
 
 		foreach (AppScene scene in scenes) {
 			if (scene is Scene2D) {
@@ -1309,6 +1311,7 @@ public class MainAllController : MonoBehaviour
     {
 		IsShowRecenterPanel = false;
 		HideVR_CloseButton ();
+		HideScreenSwitchSceneMode ();
 
         foreach (AppScene scene in scenes)
         {
@@ -1333,6 +1336,7 @@ public class MainAllController : MonoBehaviour
 	{
 		IsShowRecenterPanel = false;
 		HideVR_CloseButton ();
+		HideScreenSwitchSceneMode ();
 
 		foreach (AppScene scene in scenes)
 		{
@@ -1813,7 +1817,7 @@ public class MainAllController : MonoBehaviour
 		return string.Empty;
 	}
 
-	private void HideVR_CloseButton(){
+	public void HideVR_CloseButton(){
 		if (vr_CloseButton != null) {
 			vr_CloseButton.SetActive (false);
 		} else {
@@ -1821,7 +1825,7 @@ public class MainAllController : MonoBehaviour
 		}
 	}
 
-	private void ShowVR_CloseButton(){
+	public void ShowVR_CloseButton(){
 		if (vr_CloseButton != null){
 			vr_CloseButton.SetActive (true);
 		}else {
@@ -1832,6 +1836,22 @@ public class MainAllController : MonoBehaviour
 	public void VR_CloseButton_OnClick(){
 		if(currentScene is SceneVR){
 			GoToScene2D ();
+		}
+	}
+
+	public void HideScreenSwitchSceneMode(){
+		if (ScreenSwitchSceneMode != null) {
+			ScreenSwitchSceneMode.SetActive (false);
+		} else {
+			Debug.LogError ("NULL..................");
+		}
+	}
+
+	public void ShowScreenSwitchSceneMode(){
+		if (ScreenSwitchSceneMode != null){
+			ScreenSwitchSceneMode.SetActive (true);
+		}else {
+			Debug.LogError ("NULL..................");
 		}
 	}
 }

@@ -5,7 +5,6 @@ using UnityEngine.XR;
 
 public class Scene2D : AppScene
 {
-	public Camera camera;
 
     // Start is called before the first frame update
     void Start()
@@ -73,6 +72,8 @@ public class Scene2D : AppScene
 		Camera2D.SetActive (false);
 		CameraVR.SetActive (false);
 
+		yield return new WaitForSeconds(0.25f);
+
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 50;
 
@@ -84,6 +85,10 @@ public class Scene2D : AppScene
 
         Camera2D.SetActive (true);
 		CameraVR.SetActive (false);
+
+		if (MainAllController.instance != null){
+			MainAllController.instance.HideVR_CloseButton ();
+		}
 	}
 
 	public override void Hide()
