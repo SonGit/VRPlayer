@@ -1287,7 +1287,6 @@ public class MainAllController : MonoBehaviour
 		isGoVR = false;
 		IsShowRecenterPanel = false;
 		HideVR_CloseButton ();
-		HideScreenSwitchSceneMode ();
 
 		foreach (AppScene scene in scenes) {
 			if (scene is Scene2D) {

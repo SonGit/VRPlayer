@@ -72,6 +72,10 @@ public class Scene2D : AppScene
 		Camera2D.SetActive (false);
 		CameraVR.SetActive (false);
 
+		if (MainAllController.instance != null) {
+			MainAllController.instance.ShowScreenSwitchSceneMode ();
+		}
+
 		yield return new WaitForSeconds(0.25f);
 
         QualitySettings.vSyncCount = 0;
@@ -88,6 +92,10 @@ public class Scene2D : AppScene
 
 		if (MainAllController.instance != null){
 			MainAllController.instance.HideVR_CloseButton ();
+		}
+
+		if (MainAllController.instance != null) {
+			MainAllController.instance.HideScreenSwitchSceneMode ();
 		}
 	}
 
