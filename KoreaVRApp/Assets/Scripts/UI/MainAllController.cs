@@ -390,58 +390,19 @@ public class MainAllController : MonoBehaviour
 
 	void OnGetUserVideoList(Video_Info[] videoList)
 	{
-		this.StartCoroutineAsync (GetVideoSize(videoList,OnSuccessGetVideoSize,OnErrorGetUserVideo));
-	}
-
-	void OnGetFavoriteVideoList(Video_Info[] videoList)
-	{
-		this.StartCoroutineAsync (GetVideoSize(videoList,OnSuccessGetFavoriteVideoSize,OnErrorFavoriteVideo));
-	}
-
-	void OnSuccessGetVideoSize(Video_Info[] videoList)
-	{
 		try
 		{
-			Networking.instance.ResumeThread ();
-
+			ScreenLoading.instance.Play();
+			// Clear user videos list
 			user.userVideos.Clear ();
-			// Cache User video object
+
+			// Create new array of user video object
 			for (int i = 0; i < videoList.Length; i++) {
 				UserVideo userVideo = new UserVideo (videoList[i]);
 				user.userVideos.Add (userVideo);
 			}
 
-
 			Debug.LogError ("Updated VideoList completed!!!!!!!!");
-
-			if (OnGetUserVideo != null)
-				OnGetUserVideo ();
-
-		}
-		catch (System.Exception e)
-		{
-			Debug.LogError ("GetVideoSize Exception " + e.Message);
-
-		} finally {
-
-			// Iteratively update favorite videos
-			UpdateFavorite ();
-
-		}
-	}
-
-	void OnSuccessGetFavoriteVideoSize(Video_Info[] videoList)
-	{
-		try
-		{
-			Networking.instance.ResumeThread ();
-
-			user.favoriteVideos.Clear();
-			// Cache User video object
-			for (int i = 0; i < videoList.Length; i++) {
-				FavoriteVideo userVideo = new FavoriteVideo (videoList[i]);
-				user.favoriteVideos.Add (userVideo);
-			}
 
 			if (currentMenu is LoginMenu || currentMenu is StorageMenu){
 				accessMenu.Close ();
@@ -461,143 +422,29 @@ public class MainAllController : MonoBehaviour
 					alertMenu.LoginAlert();
 				}
 			}
-				
+
 			// When login in sceneVR
 			if (isGoVR && currentScene is Scene2D){
 				OpenStorageMenuVR();
 			}
-			// When login in sceneVR
 
-			Debug.LogError ("Updated FavoriteVideo completed!!!!!!!!");
-
-				
-			if(OnGetFavoriteVideo != null)
-			{
-				OnGetFavoriteVideo();
-			}
-		}
-		catch (System.Exception e)
-		{
-			Debug.LogError ("GetFavoriteVideoSize Exception " + e.Message);
-
-		} finally {
-
-			if (ScreenLoading.instance != null) {
-				ScreenLoading.instance.Stop ();
-			}
-		}
-	}
-
-	IEnumerator GetVideoSize(Video_Info[] videoList,System.Action<Video_Info[]> action,System.Action error)
-	{
-		StreamReader streamReader;
-
-
-		bool success = false;
-
-		string exceptionMessage = string.Empty;
-
-		foreach (Video_Info videoInfo in videoList) {
-			try
-			{
-				//Networking.instance.GetVideoLinkRequest(videoInfo.id,user.token,OnGetLink);
-				string URL = string.Format ("https://m.fetishwoman.co.kr/api/app/v1/Download360Video?auth_token={0}&video_id={1}", user.token,videoInfo.id);
-				var request = (HttpWebRequest)WebRequest.Create(URL); 
-				using (var response = (HttpWebResponse)request.GetResponse()) 
-				{
-					using(streamReader = new StreamReader(response.GetResponseStream()))
-					{
-
-						string readText = String.Empty;
-
-						readText = streamReader.ReadToEnd ();
-
-						GetLinkVideoResponse getLinkVideoResponse = JsonConvert.DeserializeObject<GetLinkVideoResponse> (readText);
-
-						if (getLinkVideoResponse != null) 
-						{
-							request = (HttpWebRequest)WebRequest.Create(getLinkVideoResponse.link); 
-							using (var response2 = (HttpWebResponse)request.GetResponse()) 
-							{
-								videoInfo.size = response2.ContentLength;
-							}
-
-						}
-					}
-
-				}
-
-				//	Networking.instance.GetVideoLinkRequest(videoInfo.id,user.token,OnGetLink);
-				success = true;
-
-			} catch (Exception e)
-			{
-				success = false;
-				exceptionMessage = e.Message;
-				Debug.LogError ("GetVideoSize call exception!  " + exceptionMessage );
-				break;
-
-			}
-		}
-
-		// Nothing to get, so just let it success
-		if (videoList.Length == 0) {
-			success = true;
-		}
-
-		yield return Ninja.JumpToUnity;
-
-		if (!success) {
+			if (OnGetUserVideo != null)
+				OnGetUserVideo ();
 			
-			AndroidDialog.instance.showWarningDialog(exceptionMessage);
+		} 
 
-			if(error != null)
-				error();
-			yield break;
-		}
-
-		action (videoList);
-	}
-
-	void OnGetLink(GetLinkVideoResponse getLinkVideoResponse)
-	{
-		string URL = getLinkVideoResponse.link;
-
-		Networking.instance.GetVideoSizeRequest (URL,getLinkVideoResponse.id,OnGetSize);
-	}
-
-	int index = 0;
-	void OnGetSize(string id,long size)
-	{
-		try
+		catch(Exception e) 
 		{
-			index++;
-
-			for (int i = 0; i < user.userVideos.Count; i++) {
-				if (user.userVideos [i].videoInfo.id == id) {
-					user.userVideos [i].videoInfo.size = size;
-				}
-			}
-
-			if (index == user.userVideos.Count) {
-				if (ScreenLoading.instance != null) {
-					ScreenLoading.instance.Stop ();
-				}
-			}
-
-			print ("id "+id + " size   " + size);
-		}
-		catch (System.Exception e)
-		{
-			Debug.LogError ("OnGetSize Exception " + e.Message);
 
 		} finally {
-
-			if (ScreenLoading.instance != null) {
-				ScreenLoading.instance.Stop ();
-			}
+			ScreenLoading.instance.Stop();
 		}
 
+	}
+
+	void OnGetFavoriteVideoList(Video_Info[] videoList)
+	{
+		
 	}
 
 	void OnErrorGetUserVideo()
@@ -618,7 +465,6 @@ public class MainAllController : MonoBehaviour
 
 	void OnErrorFavoriteVideo()
 	{
-		//NativeUI.AlertPopup alert = NativeUI.Alert("Notification!", "Login isn't correct!");
 
 		Debug.LogError ("+++++++++++++++++++++++++++++ERROR");
 
