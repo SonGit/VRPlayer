@@ -73,7 +73,7 @@ public class StorageMenu : BasicMenuNavigation
 	public override void Refresh()
 	{
 		print ("Storage Refresh()");
-		//RefreshVideo ();
+		RefreshVideo ();
 	}
 
 	#region EnhancedScroller Handlers
