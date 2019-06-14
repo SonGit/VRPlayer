@@ -367,6 +367,12 @@ public class SceneVR : AppScene
 		Camera2D.SetActive (false);
 		CameraVR.SetActive (false);
 
+		if (MainAllController.instance != null) {
+			MainAllController.instance.ShowScreenSwitchSceneMode ();
+		}
+
+		yield return new WaitForSeconds (0.25f);
+
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
 
@@ -374,11 +380,19 @@ public class SceneVR : AppScene
         // Disable auto rotation, except for landscape left.
         Screen.orientation = ScreenOrientation.LandscapeLeft;
 		Debug.Log("SwitchToVR DONE ROTATING!");
-		yield return new WaitForSeconds (1);
+		yield return new WaitForSeconds (1f);
 
 
 		Camera2D.SetActive (false);
 		CameraVR.SetActive (true);
+
+		if (MainAllController.instance != null) {
+			MainAllController.instance.ShowVR_CloseButton ();
+		}
+
+		if (MainAllController.instance != null) {
+			MainAllController.instance.HideScreenSwitchSceneMode ();
+		}
 	}
 
 	public override void Hide()

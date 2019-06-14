@@ -17,6 +17,8 @@ public class VideoUI : EnhancedScrollerCellView
 
 	public Texture2D thumbnailTexture;
 
+	public Texture2D screenShotTexture;
+
 	private UserDetailMenu userDetailMenu;
 
 	public Video video
@@ -124,7 +126,16 @@ public class VideoUI : EnhancedScrollerCellView
 //		downloadingThumbnail = false;
 //		StopLoadingScreen ();
 	}
+
+	public virtual void OnLoadedScreenShot()
+	{
 		
+	}
+		
+
+
+	#region DownloadThumbnail
+
 	/// <summary>
 	/// Attemp to check if thumbnail has been downloaded. It not, download and set thumbnail image
 	/// </summary>
@@ -149,10 +160,9 @@ public class VideoUI : EnhancedScrollerCellView
 			if(gameObject.activeInHierarchy)
 			StartCoroutine(DownloadThumbnail(video.videoInfo.thumbnail_link));
 		}
-			
 	}
 
-	private byte[] raw ;
+	private byte[] thumbnailRaw ;
 	/// <summary>
 	/// Downloads the thumbnail.
 	/// </summary>
@@ -166,7 +176,7 @@ public class VideoUI : EnhancedScrollerCellView
 			try
 			{
 				PlayLoadingScreen();
-				client.DownloadDataCompleted += DownloadDataCompleted;
+				client.DownloadDataCompleted += DownloadThumbnailDataCompleted;
 				client.DownloadDataAsync(new System.Uri(url));
 
 			}catch(Exception e) {
@@ -195,16 +205,16 @@ public class VideoUI : EnhancedScrollerCellView
 
 			try
 			{
-				if(raw != null)
+				if(thumbnailRaw != null)
 				{
 					thumbnailTexture = new Texture2D(4, 4, TextureFormat.DXT1, false);
 					//Proceed to apply the texture image	
-					thumbnailTexture.LoadImage (raw);
+					thumbnailTexture.LoadImage (thumbnailRaw);
 					thumbnailTexture.Apply ();
 
 					print("DOWNLAODED THUMBNAIL COMPLETED " + video.videoInfo.id);
 
-					File.WriteAllBytes(MainAllController.instance.user.GetPathToVideoThumbnail (video.videoInfo.id),raw);
+					File.WriteAllBytes(MainAllController.instance.user.GetPathToVideoThumbnail (video.videoInfo.id),thumbnailRaw);
 
 					OnLoadedThumbnail();
 
@@ -224,11 +234,100 @@ public class VideoUI : EnhancedScrollerCellView
 
 	}
 
-	void DownloadDataCompleted(object sender,
+	void DownloadThumbnailDataCompleted(object sender,
 		DownloadDataCompletedEventArgs e)
 	{
-		raw = e.Result;
+		thumbnailRaw = e.Result;
 	}
+
+	#endregion
+
+
+	#region DownloadScreenShot
+
+	/// <summary>
+	/// Attemp to check if ScreenShot has been downloaded. It not, download and set ScreenShot image
+	/// </summary>
+	public void CheckAndDownloadScreenShot(string url)
+	{
+		StartCoroutine(DownloadScreenShot(url));
+	}
+
+	private byte[] screenShotRaw ;
+	/// <summary>
+	/// Downloads the thumbnail.
+	/// </summary>
+	/// <param name="url">URL.</param>
+	IEnumerator DownloadScreenShot(string url)
+	{
+		yield return new WaitForSeconds (.5f);
+
+		using(WebClient client = new WebClient ())
+		{
+			try
+			{
+				PlayLoadingScreen();
+				client.DownloadDataCompleted += DownloadScreenShotDataCompleted;
+				client.DownloadDataAsync(new System.Uri(url));
+
+			}catch(Exception e) {
+
+				Debug.LogError ("DownloadScreenShot Exception! " + e.Message);
+				StopLoadingScreen ();
+			} 
+
+			// Attemp to reset coroutine if client cannot connect 
+			// Could be useful for when internet is lost during downloading
+			if (!client.IsBusy) {
+				this.StartCoroutine (DownloadScreenShot (url));
+				Debug.Log ("Resetting Download ScreenShot...................................");
+				// Stop Loading screen, no matter what
+				StopLoadingScreen ();
+				yield break;
+			}
+
+			// Wait until client has completed download
+			while(client.IsBusy)
+			{
+				yield return new WaitForSeconds (.25f);
+			}
+
+			yield return new WaitForEndOfFrame ();
+
+			try
+			{
+				if(screenShotRaw != null)
+				{
+					screenShotTexture = new Texture2D(4, 4, TextureFormat.DXT1, false);
+					//Proceed to apply the texture image	
+					screenShotTexture.LoadImage (screenShotRaw);
+					screenShotTexture.Apply ();
+
+					OnLoadedScreenShot();
+
+				}else
+				{
+					throw new Exception("Null Raw!");
+				}
+
+			}catch(Exception e) {
+				Debug.LogError ("Exception! " + e.Message);
+			} finally {
+				// Stop Loading screen, no matter what
+				StopLoadingScreen ();
+			}
+
+		}
+
+	}
+
+	void DownloadScreenShotDataCompleted(object sender,
+		DownloadDataCompletedEventArgs e)
+	{
+		screenShotRaw = e.Result;
+	}
+
+	#endregion
 
 	#region LoadingScreen
 	public void PlayLoadingScreen()

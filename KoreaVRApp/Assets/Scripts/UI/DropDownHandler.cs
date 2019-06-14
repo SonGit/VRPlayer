@@ -113,7 +113,7 @@ public class DropDownHandler : MonoBehaviour
 	private void SetupSortNameList_Korean(){
 		sortNameLists = new List<SortName> ();
 		sortNameLists.Add(new SortName("날짜순 정렬"));
-		sortNameLists.Add(new SortName("이름으로 분류하다"));
+		sortNameLists.Add(new SortName("이름순 정렬"));
 		sortNameLists.Add(new SortName("크기로 정렬"));
 	}
 

@@ -22,15 +22,22 @@ public class UserDetailMenu : BasicMenuNavigation
 	[SerializeField] private Text video_genre = null;
 	[SerializeField] private Button BtnDownload;
 
+	[Header("---- Favorite ----")]
 	[SerializeField] private GameObject favoriteBtn;
 	[SerializeField] private GameObject unfavoriteBtn;
 
+	[Header("---- Downloaded ----")]
 	[SerializeField] private GameObject downloadedUI;
 	[SerializeField] private GameObject haventDownloadedUI;
 
     [SerializeField] private ScrollRect scrollRect;
 
+	[Header("---- ScreenShot ----")]
+	[SerializeField] private GameObject screenShotContent = null;
+	[SerializeField] private GameObject screenShotPrefab = null;
+
     private byte[] raw ;
+	[SerializeField] private ScreenShotUI[] ScreenShotUIArray;
 
 	protected override void Start ()
 	{
@@ -157,6 +164,8 @@ public class UserDetailMenu : BasicMenuNavigation
 		this.StartCoroutine (DownloadThumbnail (video.videoInfo.thumbnail_link, video_image));
 
 		SetupFavoriteBtns ();
+
+		SetupScreenShot (video);
 
 		UiSwitch (currentShowUI);
 
@@ -499,4 +508,44 @@ public class UserDetailMenu : BasicMenuNavigation
 		}
 
 	}
+
+	#region ScreenShot
+
+	private ScreenShotUI screenShotUI;
+
+	void SetupScreenShot(Video video)
+	{
+		InitScreenShot ();
+
+		video.videoInfo.screenShot_links = new string[2];
+
+		foreach (string screenShot_link in  video.videoInfo.screenShot_links) {
+			if (screenShotPrefab != null && screenShotContent != null) {
+				GameObject screenShotObj = (GameObject)Instantiate (screenShotPrefab);
+				screenShotUI = screenShotObj.GetComponent<ScreenShotUI> ();
+				screenShotObj.transform.SetParent (screenShotContent.transform, false);
+			} else {
+				Debug.LogError ("NULL.....................................");
+			}
+
+			if (screenShotUI != null){
+				screenShotUI.SetupScreenShot (screenShot_link);
+			}else {
+				Debug.LogError ("NULL.....................................");
+			}
+		}
+	}
+
+	private void InitScreenShot(){
+		if (screenShotContent != null){
+			ScreenShotUIArray = screenShotContent.GetComponentsInChildren<ScreenShotUI> ();
+		}
+
+		if (ScreenShotUIArray != null){
+			for (int i = 0; i < ScreenShotUIArray.Length; i++) {
+				Destroy (ScreenShotUIArray[i].gameObject);
+			}
+		}
+	}
+	#endregion
 }

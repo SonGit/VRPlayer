@@ -14,6 +14,8 @@ public class Video_Info
 
     public string thumbnail_link { get; set; }
 
+	public string[] screenShot_links { get; set; }
+
     public string video_name { get; set; }
 
     public string description { get; set; }
