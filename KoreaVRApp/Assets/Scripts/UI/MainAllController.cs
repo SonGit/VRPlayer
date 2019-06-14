@@ -626,6 +626,11 @@ public class MainAllController : MonoBehaviour
 		AccessMenu_OnInboxMenu ();
 	}
 
+	public void GoToFavoriteMenu()
+	{
+		AccessMenu_OnFavoriteMenu ();
+	}
+
 	private void AccessMenu_OnInboxMenu()
 	{
 		accessMenu.Close ();
@@ -688,6 +693,11 @@ public class MainAllController : MonoBehaviour
 
 		if (lastMenu is DownloadMenu) {
 			AccessMenu_OnDownloadMenu ();
+			return;
+		}
+
+		if (lastMenu is InboxMenu) {
+			AccessMenu_OnInboxMenu ();
 			return;
 		}
 

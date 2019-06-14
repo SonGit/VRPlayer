@@ -40,14 +40,6 @@ public class UserVideoUI : VideoUI
 		}
 	}
 
-	public RawImage GetVideoImage()
-	{
-		if (video_image != null){
-			return video_image;
-		}
-		return null;
-	}
-
 
 	public void Download ()
 	{
@@ -293,6 +285,10 @@ public class UserVideoUI : VideoUI
 			favoriteBtn.SetActive (false);
 			unfavoriteBtn.SetActive (true);
 		}
+
+		if(MainAllController.instance != null){
+			MainAllController.instance.GoToFavoriteMenu ();
+		}
 	}
 
 	public virtual void OnFailedFavorite()
@@ -331,7 +327,7 @@ public class UserVideoUI : VideoUI
 		}
 	}
 
-	public virtual void  SetupFavoriteBtns()
+	public virtual void SetupFavoriteBtns()
 	{
 		bool isVideoFavorited = MainAllController.instance.user.IsVideoFavorited (video);
 		if (isVideoFavorited) {

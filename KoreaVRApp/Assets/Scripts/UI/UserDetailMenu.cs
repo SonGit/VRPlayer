@@ -55,6 +55,8 @@ public class UserDetailMenu : BasicMenuNavigation
 				});
 		}
 
+		this.OnBack += InitScreenShot;
+
 		// Register events
 		MainAllController.instance.OnDownloadedVideo += OnDownloadedVideo;
 	}
@@ -144,11 +146,15 @@ public class UserDetailMenu : BasicMenuNavigation
 		GetVideoDescription ().text = Regex.Unescape (video.videoInfo.description);
 	
 		if (currentShowUI is UserVideoUI){
-			GetVideoImage ().texture = (currentShowUI as UserVideoUI).GetVideoImage().texture;
+			GetVideoImage ().texture = (currentShowUI as UserVideoUI).thumbnailTexture;
 		}
 
 		if (currentShowUI is DownloadVideoUI){
-			GetVideoImage ().texture = (currentShowUI as DownloadVideoUI).GetVideoImage().texture;
+			GetVideoImage ().texture = (currentShowUI as DownloadVideoUI).thumbnailTexture;
+		}
+
+		if (currentShowUI is InboxVideoUI){
+			GetVideoImage ().texture = (currentShowUI as InboxVideoUI).thumbnailTexture;
 		}
 
 		GetVideoLength().text = (video.videoInfo.length).ToString();
@@ -547,5 +553,6 @@ public class UserDetailMenu : BasicMenuNavigation
 			}
 		}
 	}
+
 	#endregion
 }

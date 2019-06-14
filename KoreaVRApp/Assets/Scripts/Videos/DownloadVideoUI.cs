@@ -94,14 +94,6 @@ public class DownloadVideoUI : VideoUI
 		SetDownloadProgressUI ();
 		SetUI ();
 	}
-
-	public RawImage GetVideoImage()
-	{
-		if (video_image != null){
-			return video_image;
-		}
-		return null;
-	}
 		
 	public void Download ()
 	{
