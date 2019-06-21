@@ -30,13 +30,15 @@ public class BasicMenu : MonoBehaviour, IEnhancedScrollerDelegate
 
 	[SerializeField] protected Canvas canvas;
 
-	public bool isNoVideo;
+	private bool isNoVideo;
 
 	private CanvasGroup _canvasGroup;
 
 	protected List<VideoUI> listObject = new List<VideoUI>();
 
 	protected List<Video> videos = new List<Video>();
+
+	protected VideoUI videoUI;
 
 	protected virtual void Awake()
 	{
@@ -340,8 +342,8 @@ public class BasicMenu : MonoBehaviour, IEnhancedScrollerDelegate
 
 	public void RemoveUIPerma(VideoUI videoUI)
 	{
-		listObject.Remove (videoUI);
-		Destroy (videoUI.gameObject);
+		//listObject.Remove (videoUI);
+		//Destroy (videoUI.gameObject);
 	}
 
 	#region Sort

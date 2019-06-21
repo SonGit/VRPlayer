@@ -13,8 +13,6 @@ public class InboxMenu : BasicMenuNavigation
 {
 	public static InboxMenu instance;
 
-	private VideoUI videoUI;
-
 	public delegate void UserVideoDownloadCallback(UserVideoUI UI);
 
 	void Awake()
@@ -30,7 +28,7 @@ public class InboxMenu : BasicMenuNavigation
 	protected override void Start ()
 	{
 		base.Start ();
-		MainAllController.instance.OnGetUserVideo += Init;
+		MainAllController.instance.OnGetInboxVideo += Init;
 		MainAllController.instance.OnLoggedOut += Reset;
 
 	}
@@ -42,6 +40,8 @@ public class InboxMenu : BasicMenuNavigation
 		if (scroller != null){
 			scroller.ReloadData ();
 		}
+
+		Debug.Log ("InboxMenu.Count---------------:     " + videos.Count);
 
 
 //		List<Video> videoToShow = GetUserVideo ();
@@ -74,7 +74,9 @@ public class InboxMenu : BasicMenuNavigation
 
 	public override void Refresh()
 	{
-		Init ();
+		if (MainAllController.instance != null){
+			MainAllController.instance.UpdateInboxVideo ();
+		}
 	}
 
 	protected override bool CanBeAdded(Video video)

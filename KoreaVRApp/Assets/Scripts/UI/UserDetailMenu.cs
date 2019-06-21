@@ -359,13 +359,17 @@ public class UserDetailMenu : BasicMenuNavigation
 
 	void OnCompleteFavorite(FavoriteVideoResponse callback)
 	{
-		if(MainAllController.instance != null){
-			MainAllController.instance.UpdateFavorite ();
-		}
+//		if(MainAllController.instance != null){
+//			MainAllController.instance.UpdateFavorite ();
+//		}
 		SetupFavoriteBtns ();
 
 		favoriteBtn.SetActive (false);
 		unfavoriteBtn.SetActive (true);
+
+		if(MainAllController.instance != null){
+			MainAllController.instance.GoToFavoriteMenu ();
+		}
 	}
 
 	void OnFailedFavorite()
@@ -392,12 +396,20 @@ public class UserDetailMenu : BasicMenuNavigation
 
 	void OnCompleteUnfavorite(UnfavoriteVideoResponse callback)
 	{
-		if(MainAllController.instance != null){
-			MainAllController.instance.UpdateFavorite ();
-		}
+//		if(MainAllController.instance != null){
+//			MainAllController.instance.UpdateFavorite ();
+//		}
+
+//		if(MainAllController.instance != null){
+//			MainAllController.instance.GoToFavoriteMenu ();
+//		}
 
 		favoriteBtn.SetActive (true);
 		unfavoriteBtn.SetActive (false);
+
+		if (ScreenLoading.instance != null) {
+			ScreenLoading.instance.Stop ();
+		}
 	}
 
 	void SetupFavoriteBtns()

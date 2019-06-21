@@ -11,8 +11,7 @@ public class VR_MainMenu : MonoBehaviour
 
 	VR_BasicMenu[] menus;
 
-	[SerializeField]
-	VR_BasicMenu currentMenu;
+	public VR_BasicMenu currentMenu;
 
 	[SerializeField] private BasicButtonMenu btnLogin;
 	[SerializeField] private BasicButtonMenu btnLogout;
@@ -31,6 +30,8 @@ public class VR_MainMenu : MonoBehaviour
 	private GameObject sensorAlert;
 	[SerializeField]
 	private GameObject UsablecapacityAlert;
+	[SerializeField]
+	private GameObject vr_LoadingObj;
 
 	private float _delayCount = 0;
 	private float _delayTime = 2.5f;
@@ -60,6 +61,7 @@ public class VR_MainMenu : MonoBehaviour
 		HideStreamingAlert ();
 		HideSensorAlert ();
 		HideUsablecapacityAlert ();
+		HideLoadingUI ();
 	}
 
 	void Update()
@@ -77,7 +79,7 @@ public class VR_MainMenu : MonoBehaviour
 		HideStreamingAlert ();
 		HideSensorAlert ();
 		HideUsablecapacityAlert ();
-
+		HideLoadingUI ();
 
 		//Show
 		foreach (VR_BasicMenu menu in menus) {
@@ -93,15 +95,6 @@ public class VR_MainMenu : MonoBehaviour
 			}
 		}
 		//Show
-
-		if (MainAllController.instance != null){
-			bool isNoVideo = MainAllController.instance.CheckNovideos_LocalVideo ();
-			if (!isNoVideo) {
-				HideNoVideoAlert ();
-			} else {
-				ShowNoVideoAlert ();
-			}
-		}
 	}
 
 	/// <summary>
@@ -123,6 +116,7 @@ public class VR_MainMenu : MonoBehaviour
 		HideNoVideoAlert ();
 		HideStreamingAlert ();
 		HideSensorAlert ();
+		HideLoadingUI ();
 
 		bool isConnect = CheckNetworkConnection ();
 		if (isConnect) {
@@ -152,19 +146,6 @@ public class VR_MainMenu : MonoBehaviour
                         }
                     }
                     //Show
-
-                    if (MainAllController.instance != null)
-                    {
-                        bool isNoVideo = MainAllController.instance.CheckNovideos_UserVideo();
-                        if (!isNoVideo)
-                        {
-                            HideNoVideoAlert();
-                        }
-                        else
-                        {
-                            ShowNoVideoAlert();
-                        }
-                    }
                 }
                 else
                 {
@@ -183,6 +164,7 @@ public class VR_MainMenu : MonoBehaviour
 		HideNoVideoAlert ();
 		HideStreamingAlert ();
 		HideSensorAlert ();
+		HideLoadingUI ();
 
 		bool isConnect = CheckNetworkConnection ();
 		if (isConnect) {
@@ -217,6 +199,7 @@ public class VR_MainMenu : MonoBehaviour
 		HideNoVideoAlert ();
 		HideStreamingAlert ();
 		HideSensorAlert ();
+		HideLoadingUI ();
 
 		bool isConnect = CheckNetworkConnection ();
 		if (isConnect) {
@@ -243,20 +226,6 @@ public class VR_MainMenu : MonoBehaviour
                         }
                     }
                     //Show
-
-                    if (MainAllController.instance != null)
-                    {
-                        bool isNoVideo = MainAllController.instance.CheckNovideos_InboxVideo();
-                        if (!isNoVideo)
-                        {
-                            HideNoVideoAlert();
-                        }
-                        else
-                        {
-                            ShowNoVideoAlert();
-                        }
-                    }
-
                 }
                 else
                 {
@@ -276,6 +245,7 @@ public class VR_MainMenu : MonoBehaviour
 		HideNoVideoAlert ();
 		HideStreamingAlert ();
 		HideSensorAlert ();
+		HideLoadingUI ();
 
 		bool isConnect = CheckNetworkConnection ();
 		if (isConnect) {
@@ -298,16 +268,6 @@ public class VR_MainMenu : MonoBehaviour
 					}
 				}
 				//Show
-
-				if (MainAllController.instance != null){
-					bool isNoVideo = MainAllController.instance.CheckNovideos_FavoriteVideo ();
-					if (!isNoVideo) {
-						HideNoVideoAlert ();
-					} else {
-						ShowNoVideoAlert ();
-					}
-				}
-
 			}else {
 				ShowLoginAlert ();
 			}
@@ -318,8 +278,10 @@ public class VR_MainMenu : MonoBehaviour
 
 	public void GoToPage(int pageNo)
 	{
-		if(currentMenu != null)
-		currentMenu.ShowPage (pageNo);
+		if (currentMenu != null) {
+			currentMenu.ShowPage (pageNo);
+			currentMenu.FastRefresh ();
+		}
 	}
 
 
@@ -418,10 +380,10 @@ public class VR_MainMenu : MonoBehaviour
 				
 			HideDeleteAlert ();
 
-			VR_InboxMenu menu = UnityEngine.Object.FindObjectOfType<VR_InboxMenu> ();
-			if (menu != null) {
-				menu.RemoveUIPerma (vr_InboxVideoUI);
-			}
+//			VR_InboxMenu menu = UnityEngine.Object.FindObjectOfType<VR_InboxMenu> ();
+//			if (menu != null) {
+//				menu.RemoveUIPerma (vr_InboxVideoUI);
+//			}
 
 			OpenInboxMenu ();
 
@@ -537,6 +499,26 @@ public class VR_MainMenu : MonoBehaviour
 	}
 	#endregion
 
+	#region LoadingUI
+
+	public void ShowLoadingUI(){
+		if (vr_LoadingObj != null ) {
+			vr_LoadingObj.SetActive (true);
+		}else{
+			Debug.LogError ("Null................");
+		}
+	}
+
+	public void HideLoadingUI(){
+		if (vr_LoadingObj != null) {
+			vr_LoadingObj.SetActive (false);
+		}else{
+			Debug.LogError ("Null................");
+		}
+	}
+		
+	#endregion
+
 
 	#region CheckNetworkConnection
 
@@ -573,5 +555,19 @@ public class VR_MainMenu : MonoBehaviour
 
 	#endregion
 
+	#region CheckNoVideos
 
+	public void VR_CheckNovideos(){
+		bool isNoVideo = currentMenu.VR_CheckNoVideos ();
+		if (!isNoVideo)
+		{
+			HideNoVideoAlert();
+		}
+		else
+		{
+			ShowNoVideoAlert();
+		}
+	}
+		
+	#endregion
 }

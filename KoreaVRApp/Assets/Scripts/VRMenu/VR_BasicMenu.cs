@@ -5,20 +5,16 @@ using UnityEngine;
 public class VR_BasicMenu : BasicMenu
 {
 	public static int MAX_ITEM_PER_PAGE = 8;
-	int count = 0;
-	[SerializeField]
-	protected GameObject tilesHolder;
-	//[SerializeField]
-	//protected VR_VideoTiles[] tiles;
+
 	[SerializeField]
 	protected VR_PageController pageController;
 
-	[SerializeField]
-	protected Transform grid;
+//	[SerializeField]
+//	protected Transform grid;
 
 	protected int currentPage;
 
-	protected bool menuActive;
+	[SerializeField] protected bool menuActive;
 
     protected bool firstTime;
 
@@ -39,38 +35,38 @@ public class VR_BasicMenu : BasicMenu
 
 		currentPage = pageNo;
 
-		int start = pageNo * MAX_ITEM_PER_PAGE;
-
-		int end = start + MAX_ITEM_PER_PAGE;
-
-		if (end > listObject.Count) {
-			end = listObject.Count;
-		}
-
-		int count = 0;
-
-		for (int i = 0; i < listObject.Count; i++) {
-
-			if (start - 1 < i && i < end) {
-
-				if (listObject [i].gameObject != null) {
-					
-					listObject [i].gameObject.SetActive (true);
-
-					// Reshuffle the tiles position
-					//listObject [i].transform.SetParent (tiles[count].transform,false);
-
-				}
-				count++;
-			}
-			else {
-
-				if (listObject [i].gameObject != null) {
-					listObject [i].gameObject.SetActive (false);
-				}
-		
-			}
-		}
+//		int start = pageNo * MAX_ITEM_PER_PAGE;
+//
+//		int end = start + MAX_ITEM_PER_PAGE;
+//
+//		if (end > listObject.Count) {
+//			end = listObject.Count;
+//		}
+//
+//		int count = 0;
+//
+//		for (int i = 0; i < listObject.Count; i++) {
+//
+//			if (start - 1 < i && i < end) {
+//
+//				if (listObject [i].gameObject != null) {
+//					
+//					listObject [i].gameObject.SetActive (true);
+//
+//					// Reshuffle the tiles position
+//					//listObject [i].transform.SetParent (tiles[count].transform,false);
+//
+//				}
+//				count++;
+//			}
+//			else {
+//
+//				if (listObject [i].gameObject != null) {
+//					listObject [i].gameObject.SetActive (false);
+//				}
+//		
+//			}
+//		}
 	}
 
 	protected override void AddUI(List<Video> addThese)
@@ -99,7 +95,7 @@ public class VR_BasicMenu : BasicMenu
 //				count = 0;
 //			}
 
-			obj.transform.SetParent (grid,false);
+			//obj.transform.SetParent (grid,false);
 
 			obj.name = video.videoInfo.id;
 
@@ -134,28 +130,28 @@ public class VR_BasicMenu : BasicMenu
 	public virtual void Show()
 	{
 		//MAX_ITEM_PER_PAGE = tiles.Length;
-		menuActive = true;
+		//menuActive = true;
 
-		FastRefresh ();
+		//FastRefresh ();
 
 //		foreach (VR_VideoTiles tile in tiles) {
 //			tile.gameObject.SetActive (true);
 //		}
 
-		for (int i = 0; i < listObject.Count; i++) {
-			listObject [i].gameObject.SetActive (true);
-		}
-
-		SetupPageController ();
+//		for (int i = 0; i < listObject.Count; i++) {
+//			listObject [i].gameObject.SetActive (true);
+//		}
+//
+//		SetupPageController ();
 	}
 
-	public void Hide()
+	public virtual void Hide()
 	{
-		for (int i = 0; i < listObject.Count; i++) {
-			listObject [i].gameObject.SetActive (false);
-		}
+//		for (int i = 0; i < listObject.Count; i++) {
+//			listObject [i].gameObject.SetActive (false);
+//		}
 
-		menuActive = false;
+		//menuActive = false;
 	}
 
 	protected void SetupPageController()
@@ -163,7 +159,8 @@ public class VR_BasicMenu : BasicMenu
 		if (menuActive) {
 			Debug.Log ("SetupPageController()          " + menuActive);
 			if (pageController != null) {
-				pageController.Refresh (listObject.Count);
+				//pageController.Refresh (listObject.Count);
+				pageController.Refresh (videos.Count);
 			}
 			currentPage = 0;
 		}
@@ -176,12 +173,10 @@ public class VR_BasicMenu : BasicMenu
 
 	public override void Reset()
 	{
-		count = 0;
-
-		for (int i = 0; i < listObject.Count; i++) {
-			Destroy (listObject[i].gameObject);
-		}
-		listObject = new List<VideoUI>();
+//		for (int i = 0; i < listObject.Count; i++) {
+//			Destroy (listObject[i].gameObject);
+//		}
+//		listObject = new List<VideoUI>();
 	}
 
 	public void Rearrange(bool gotoLastPage = true)
@@ -210,5 +205,48 @@ public class VR_BasicMenu : BasicMenu
 		if(gotoLastPage && menuActive)
 		pageController.RefreshLastPage (listObject.Count);
 	}
+
+	public void HideEnhancedScroller(){
+		
+		if (scroller != null) {
+			scroller.gameObject.SetActive (false);
+		}else{
+			Debug.LogError ("Null................");
+		}
+	}
+
+	public void ShowEnhancedScroller(){
+
+		if (scroller != null) {
+			scroller.gameObject.SetActive (true);
+		}else{
+			Debug.LogError ("Null................");
+		}
+	}
+
+
+	#region CheckNoVideos
+
+	public bool VR_CheckNoVideos(){
+
+		if(scroller != null){
+			VideoUI[] videoUIs = scroller.GetComponentsInChildren<VideoUI>();
+
+			foreach (var videoUI in videoUIs) {
+				if (videoUI.root.gameObject.activeSelf){
+					return false;
+					break;
+				}
+			}
+		}
+		return true;
+	}
+
+	#endregion
+
+	public virtual void SetupEnhancedScroller(){
+
+	}
+
 
 }

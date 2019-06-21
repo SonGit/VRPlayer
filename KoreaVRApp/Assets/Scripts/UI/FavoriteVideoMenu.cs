@@ -11,8 +11,6 @@ public class FavoriteVideoMenu : BasicMenuNavigation
 {
 	public static FavoriteVideoMenu instance;
 
-	private VideoUI videoUI;
-
 	protected override void Awake ()
 	{
 		base.Awake ();
@@ -37,6 +35,8 @@ public class FavoriteVideoMenu : BasicMenuNavigation
 		if (scroller != null){
 			scroller.ReloadData ();
 		}
+
+		Debug.Log ("FavoriteVideoMenu.Count---------------:     " + videos.Count);
 
 //		List<Video> videoToShow = GetFavoriteVideo ();
 //

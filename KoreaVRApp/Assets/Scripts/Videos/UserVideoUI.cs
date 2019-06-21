@@ -277,9 +277,10 @@ public class UserVideoUI : VideoUI
 
 	public virtual void OnCompleteFavorite(FavoriteVideoResponse callback)
 	{
-		if(MainAllController.instance != null){
-			MainAllController.instance.UpdateFavorite ();
-		}
+//		if(MainAllController.instance != null){
+//			MainAllController.instance.UpdateFavorite ();
+//		}
+
 		SetupFavoriteBtns ();
 		if (favoriteBtn != null && unfavoriteBtn != null) {
 			favoriteBtn.SetActive (false);
@@ -293,7 +294,9 @@ public class UserVideoUI : VideoUI
 
 	public virtual void OnFailedFavorite()
 	{
-		ScreenLoading.instance.Stop ();
+		if (ScreenLoading.instance != null){
+			ScreenLoading.instance.Stop ();
+		}
 	}
 
 	/// <summary>

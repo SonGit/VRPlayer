@@ -15,8 +15,6 @@ public class UserVideoMenu : BasicMenuNavigation
 
 	public delegate void UserVideoDownloadCallback(UserVideoUI UI);
 
-	private VideoUI videoUI;
-
 	void Awake()
 	{
 		base.Awake ();
@@ -42,6 +40,7 @@ public class UserVideoMenu : BasicMenuNavigation
 			scroller.ReloadData ();
 		}
 
+		Debug.Log ("UserVideoMenu.Count---------------:     " + videos.Count);
 
 //		List<Video> videoToShow = GetUserVideo ();
 //
@@ -71,7 +70,9 @@ public class UserVideoMenu : BasicMenuNavigation
 
 	public override void Refresh()
 	{
-		MainAllController.instance.UpdateUserVideo ();
+		if(MainAllController.instance != null){
+			MainAllController.instance.UpdateUserVideo ();
+		}
 	}
 
 	public void DeleteVideo(string filePath){

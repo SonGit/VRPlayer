@@ -8,12 +8,18 @@ using System.IO;
 public class VR_LocalVideoUI : LocalVideoUI
 {
 	
-	public override void Setup(Video currentlocalVideo)
+	public override void Setup(Video video)
 	{
-		this.video = currentlocalVideo;
-		this.videoTitle.text = (video as LocalVideo).videoName;
-		this.videoLength.text = MakeLengthString ();
-
+		if (root != null){
+			root.gameObject.SetActive(video != null);
+		}
+			
+		if (video != null)
+		{
+			this.video = video;
+			this.videoTitle.text = (video as LocalVideo).videoName;
+			this.videoLength.text = MakeLengthString ();
+		}
 	}
 		
 
@@ -64,7 +70,7 @@ public class VR_LocalVideoUI : LocalVideoUI
 	public override void OnLoadedThumbnail()
 	{
 		videoImage.texture = thumbnailTexture;
-		thumbnailTexture = null;
+		//thumbnailTexture = null;
 		Debug.Log("------------------DONE VR");
 	}
 

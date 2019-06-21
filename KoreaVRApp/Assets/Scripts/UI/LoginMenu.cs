@@ -144,6 +144,10 @@ public class LoginMenu : BasicMenuNavigation
 			ScreenLoading.instance.Play ();
 		}
 
+		if (VR_MainMenu.instance != null) {
+			VR_MainMenu.instance.ShowLoadingUI ();
+		}
+
 		if (Networking.instance != null) {
 			if (MainAllController.instance.user != null) {
 				Networking.instance.LogoutRequest (MainAllController.instance.user.token, LogoutCallback, ErrorLogoutCallback);
@@ -166,6 +170,10 @@ public class LoginMenu : BasicMenuNavigation
 
 		if (ScreenLoading.instance != null) {
 			ScreenLoading.instance.Stop ();
+		}
+
+		if (VR_MainMenu.instance != null) {
+			VR_MainMenu.instance.HideLoadingUI ();
 		}
 	}
 	#endregion

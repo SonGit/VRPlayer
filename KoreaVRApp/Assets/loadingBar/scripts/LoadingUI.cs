@@ -15,13 +15,16 @@ public class LoadingUI : MonoBehaviour
     private void Start()
     {
         rectComponent = GetComponent<RectTransform>();
-        imageComp = rectComponent.GetComponent<Image>();
+        //imageComp = rectComponent.GetComponent<Image>();
         up = true;
     }
 
     private void Update()
     {
-        rectComponent.Rotate(0f, 0f, rotateSpeed * Time.deltaTime);
+		if (rectComponent != null){
+			rectComponent.Rotate(0f, 0f, rotateSpeed * Time.deltaTime);
+		}
+       
         //changeSize();
     }
 

@@ -14,11 +14,18 @@ public class VR_FavoriteVideoUI : UserVideoUI
 	#region setup info video
 	public override void Setup(Video video)
 	{
-		this.video = video;
-		video_name.text = video.videoInfo.video_name;
-		//video_length.text = (video.videoInfo.length).ToString();
-		this.video_length.text = "00:00:00";
-		SetupFavoriteBtns ();
+		if (root != null){
+			root.gameObject.SetActive(video != null);
+		}
+			
+		if (video != null) {
+			this.video = video;
+			video_name.text = video.videoInfo.video_name;
+			//video_length.text = (video.videoInfo.length).ToString();
+			this.video_length.text = "00:00:00";
+			SetupFavoriteBtns ();
+		}
+	
 	}
 	#endregion	
 
@@ -33,6 +40,8 @@ public class VR_FavoriteVideoUI : UserVideoUI
 	public override void OnClickFavoriteButton ()
 	{
 		if (VR_MainMenu.instance != null) {
+
+			VR_MainMenu.instance.ShowLoadingUI ();
 
 			bool isConnect = VR_MainMenu.instance.CheckNetworkConnection ();
 
@@ -54,6 +63,11 @@ public class VR_FavoriteVideoUI : UserVideoUI
 			MainAllController.instance.user.AddFavoriteVideo (video);
 			MainAllController.instance.FastUpdateFavorite ();
 		}
+
+		if (VR_MainMenu.instance != null){
+			VR_MainMenu.instance.HideLoadingUI ();
+		}
+
 		SetupFavoriteBtns ();
 		if (favoriteBtn != null && unfavoriteBtn != null) {
 			favoriteBtn.SetActive (false);
@@ -63,7 +77,9 @@ public class VR_FavoriteVideoUI : UserVideoUI
 
 	public override void OnFailedFavorite ()
 	{
-		
+		if (VR_MainMenu.instance != null){
+			VR_MainMenu.instance.HideLoadingUI ();
+		}
 	}
 
 	/// <summary>
@@ -72,6 +88,8 @@ public class VR_FavoriteVideoUI : UserVideoUI
 	public override void OnClickUnfavoriteButton ()
 	{
 		if (VR_MainMenu.instance != null) {
+
+			VR_MainMenu.instance.ShowLoadingUI ();
 
 			bool isConnect = VR_MainMenu.instance.CheckNetworkConnection ();
 
@@ -92,6 +110,10 @@ public class VR_FavoriteVideoUI : UserVideoUI
 		if(MainAllController.instance != null){
 			MainAllController.instance.user.RemoveFavoriteVideo (video);
 			MainAllController.instance.FastUpdateFavorite ();
+		}
+
+		if (VR_MainMenu.instance != null){
+			VR_MainMenu.instance.HideLoadingUI ();
 		}
 
 		VR_FavoriteMenu.instance.RemoveUIPerma (this);

@@ -9,10 +9,7 @@ using EnhancedUI.EnhancedScroller;
 
 public class DownloadMenu : BasicMenuNavigation
 {
-
 	public static DownloadMenu instance;
-
-	private VideoUI videoUI;
 
 	void Awake()
 	{
@@ -22,7 +19,7 @@ public class DownloadMenu : BasicMenuNavigation
 	protected override void Start ()
 	{
 		base.Start ();
-		MainAllController.instance.OnGetUserVideo += Init;
+		MainAllController.instance.OnGetDownloadVideo += Init;
 		MainAllController.instance.OnLoggedOut += Reset;
 	}
 		
@@ -38,11 +35,15 @@ public class DownloadMenu : BasicMenuNavigation
 
 		UpdateNetworkConnectionUI ();
 		UpdateNoVideoUI ();
+
+		Debug.Log ("DownloadMenu.Count---------------:     " + videos.Count);
 	}
 
 	public override void Refresh()
 	{
-		Init ();
+		if (MainAllController.instance != null){
+			MainAllController.instance.UpdateDownloadVideo ();
+		}
 	}
 
 	protected override bool CanBeAdded(Video video)

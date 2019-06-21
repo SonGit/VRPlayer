@@ -396,8 +396,7 @@ public class VideoUI : EnhancedScrollerCellView
 
 	private bool pointerEntered;
 
-	[SerializeField]
-	private Transform root;
+	public Transform root;
 
 	[SerializeField]
 	private GameObject playBnt;

@@ -11,13 +11,20 @@ public class VR_InboxVideoUI : UserVideoUI
 
 	}
 
-	public override void Setup(Video currentuserVideo)
+	public override void Setup(Video video)
 	{
-		this.video = currentuserVideo;
-		this.video_name.text = currentuserVideo.videoInfo.video_name;
-		//this.video_length.text = (currentuserVideo.videoInfo.length).ToString();
-		this.video_length.text = "00:00:00";
-		SetupThumbnail ();
+		if (root != null){
+			root.gameObject.SetActive(video != null);
+		}
+			
+		if (video != null) {
+			this.video = video;
+			this.video_name.text = video.videoInfo.video_name;
+			//this.video_length.text = (currentuserVideo.videoInfo.length).ToString();
+			this.video_length.text = "00:00:00";
+			SetupThumbnail ();
+		}
+
 	}
 
 	void Update()

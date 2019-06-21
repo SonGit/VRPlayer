@@ -20,6 +20,8 @@ public class SceneVR : AppScene
 	[SerializeField]
 	private VR_ButtonScreenLock buttonScreenLock;
 
+	private BasicMenu lastMenu;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,14 +39,19 @@ public class SceneVR : AppScene
 
 	void ShowMainMenu()
 	{
-		vrSetting.HideSetting ();
 		vrMainMenu.gameObject.SetActive (true);
 
 		if (vr_RecenterPanel != null && !MainAllController.instance.IsShowRecenterPanel){
 			vrMainMenu.gameObject.SetActive (false);
 			vr_RecenterPanel.Show (OnDoneShowVR_MainMenu);
 		}
-			
+	}
+
+	private void SetupAllSetting(){
+		vrMainMenu.gameObject.SetActive (true);
+
+		vrSetting.HideSetting ();
+
 		buttonScreenLock.OnClickLockBtn (true);
 		vrPlayer.gameObject.SetActive (false);
 		ShowProgressBar ();
@@ -56,14 +63,12 @@ public class SceneVR : AppScene
 			vrMainMenu.UserNameViewable_VR (MainAllController.instance.GetUserNameInput());
 		} else {
 			ClickLogoutBnt ();
-
-			vrMainMenu.UserNameViewable_VR ("");
 		}
 	}
 
 	public void ShowStorageMenu()
 	{
-		ShowMainMenu ();
+		SetupAllSetting ();
 		vrMainMenu.OpenStorageMenu ();
 		//vrPlayer.gameObject.SetActive (false);
 
@@ -79,16 +84,20 @@ public class SceneVR : AppScene
 		vrMainMenu.LoginViewable_VR (true);
 		vrMainMenu.LogoutViewable_VR (false);
 
+		vrMainMenu.UserNameViewable_VR ("");
+
 		if (MainAllController.instance != null) {
 			vrMainMenu.UserNameViewable_VR (MainAllController.instance.GetUserNameInput());
 		}
+
+		vrMainMenu.OpenStorageMenu ();
 	}
 
 	public void ShowUserVideoMenu()
 	{
 		bool isConnect = VR_MainMenu.instance.CheckNetworkConnection ();
 		if (isConnect) {
-			ShowMainMenu ();
+			SetupAllSetting ();
 			VR_MainMenu.instance.OpenUserVideoMenu ();
 			vrPlayer.gameObject.SetActive (false);
 			vrSetting.HideSetting ();
@@ -101,7 +110,7 @@ public class SceneVR : AppScene
 	{
 		bool isConnect = VR_MainMenu.instance.CheckNetworkConnection ();
 		if (isConnect) {
-			ShowMainMenu ();
+			SetupAllSetting ();
 			VR_MainMenu.instance.OpenDownloadMenu ();
 			vrPlayer.gameObject.SetActive (false);
 			vrSetting.HideSetting ();
@@ -114,7 +123,7 @@ public class SceneVR : AppScene
 	{
 		bool isConnect = VR_MainMenu.instance.CheckNetworkConnection ();
 		if (isConnect) {
-			ShowMainMenu ();
+			SetupAllSetting ();
 			VR_MainMenu.instance.OpenInboxMenu ();
 			vrPlayer.gameObject.SetActive (false);
 			vrSetting.HideSetting ();
@@ -127,7 +136,7 @@ public class SceneVR : AppScene
 	{
 		bool isConnect = VR_MainMenu.instance.CheckNetworkConnection ();
 		if (isConnect) {
-			ShowMainMenu ();
+			SetupAllSetting ();
 			VR_MainMenu.instance.OpenFavoriteMenu ();
 			vrPlayer.gameObject.SetActive (false);
 			vrSetting.HideSetting ();
@@ -144,6 +153,58 @@ public class SceneVR : AppScene
 
 		ShowProgressBar ();
 	}
+
+	/// <summary>
+	/// Shows the VR menu after click RecenterPanel
+	/// </summary>
+	private void ShowVR_Menu(){
+
+		if (lastMenu != null) {
+			if (lastMenu is StorageMenu) {
+				ShowStorageMenu ();
+			}
+
+			if (lastMenu is UserVideoMenu) {
+				ShowUserVideoMenu ();
+			}
+
+			if (lastMenu is FavoriteVideoMenu) {
+				ShowFavoriteVideoMenu ();
+			}
+
+			if (lastMenu is DownloadMenu) {
+				ShowInboxMenu ();
+			}
+
+			if (lastMenu is InboxMenu) {
+				ShowInboxMenu ();
+			}
+		}
+	}
+
+	#region Listvideo Button in vr_setting
+	public void ShowCurrentVR_Menu(){
+
+		if (VR_MainMenu.instance.currentMenu != null) {
+			if (VR_MainMenu.instance.currentMenu is VR_StorageMenu) {
+				ShowStorageMenu ();
+			}
+
+			if (VR_MainMenu.instance.currentMenu is VR_UserVideoMenu) {
+				ShowUserVideoMenu ();
+			}
+
+			if (VR_MainMenu.instance.currentMenu is VR_FavoriteMenu) {
+				ShowFavoriteVideoMenu ();
+			}
+
+			if (VR_MainMenu.instance.currentMenu is VR_InboxMenu) {
+				ShowInboxMenu ();
+			}
+		}
+	}
+
+	#endregion
 
 
 	Video currentVideo;
@@ -264,6 +325,8 @@ public class SceneVR : AppScene
 		if (vrSetting != null){
 			vrSetting.HideSetting ();
 		}
+
+		ShowVR_Menu ();
 	}
 		
 	void HidePlayer()
@@ -302,37 +365,20 @@ public class SceneVR : AppScene
 		base.Show (lastMenu);
 		StartCoroutine(SwitchToVR());
 
+		ShowMainMenu ();
+		SetupAllSetting ();
+
+		VR_Recenterer.instance.Recenter ();
+
 		// Return to user to the equivalent menu vased on last menu
-		if (lastMenu != null) {
-			if (lastMenu is StorageMenu) {
-				ShowStorageMenu ();
-			}
-
-			if (lastMenu is UserVideoMenu) {
-				ShowUserVideoMenu ();
-			}
-
-			if (lastMenu is FavoriteVideoMenu) {
-				ShowFavoriteVideoMenu ();
-			}
-
-//			if (lastMenu is UserDetailMenu) {
-//				ShowFavoriteVideoMenu ();
-//			}
-
-			if (lastMenu is DownloadMenu) {
-				ShowInboxMenu ();
-			}
-
-			if (lastMenu is InboxMenu) {
-				ShowInboxMenu ();
-			}
-		}else
+		if (lastMenu != null) 
+		{
+			this.lastMenu = lastMenu;
+		}
+		else
         {
             ShowStorageMenu();
         }
-
-		VR_Recenterer.instance.Recenter ();
 	}
 		
 

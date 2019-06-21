@@ -140,4 +140,14 @@ public class User
 			}
 		}
 	}
+
+	public void RemoveUserVideo(Video video)
+	{
+		for (int i = 0; i < userVideos.Count; i++) {
+			if (video.videoInfo.id == userVideos [i].videoInfo.id) {
+				userVideos.RemoveAt (i);
+				return;
+			}
+		}
+	}
 } 

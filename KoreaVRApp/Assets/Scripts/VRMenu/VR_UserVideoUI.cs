@@ -7,15 +7,21 @@ public class VR_UserVideoUI : UserVideoUI
 {
 	private VR_MainMenu vr_MainMenu;
 
-	public override void Setup(Video currentuserVideo)
+	public override void Setup(Video video)
 	{
-		this.video = currentuserVideo;
-		this.video_name.text = currentuserVideo.videoInfo.video_name;
-		//this.video_length.text = (currentuserVideo.videoInfo.length).ToString();
-		this.video_length.text = "00:00:00";
-		SetupThumbnail ();
+		if (root != null){
+			root.gameObject.SetActive(video != null);
+		}
+			
+		if (video != null) {
+			this.video = video;
+			this.video_name.text = video.videoInfo.video_name;
+			//this.video_length.text = (currentuserVideo.videoInfo.length).ToString();
+			this.video_length.text = "00:00:00";
+			SetupThumbnail ();
 
-		SetupFavoriteBtns ();
+			SetupFavoriteBtns ();
+		}
 	}
 
 	void Update()
@@ -72,11 +78,6 @@ public class VR_UserVideoUI : UserVideoUI
 							return;
 						}
 
-						VR_UserVideoMenu menu = UnityEngine.Object.FindObjectOfType<VR_UserVideoMenu> ();
-						if (menu != null) {
-							menu.RemoveUIPerma (this);
-						}
-
 						GameObject videoDownloaderObj = GameObject.Find ("VideoDownLoader" + "-" + video.videoInfo.id);
 
 						if (videoDownloaderObj != null) {
@@ -88,6 +89,15 @@ public class VR_UserVideoUI : UserVideoUI
 							if (authToken != null) {
 								Networking.instance.GetVideoLinkRequest (video.videoInfo.id, authToken, OnGetLink, OnFailedGetStreamingLink);
 							}
+						}
+
+						if(MainAllController.instance != null){
+							MainAllController.instance.user.RemoveUserVideo (video);
+						}
+
+						VR_UserVideoMenu menu = UnityEngine.Object.FindObjectOfType<VR_UserVideoMenu> ();
+						if (menu != null) {
+							menu.FastRefresh ();
 						}
 					}
 				} else {
@@ -107,6 +117,8 @@ public class VR_UserVideoUI : UserVideoUI
 	{
 		if (VR_MainMenu.instance != null) {
 
+			VR_MainMenu.instance.ShowLoadingUI ();
+
 			bool isConnect = VR_MainMenu.instance.CheckNetworkConnection ();
 
 			if (isConnect) {
@@ -125,8 +137,14 @@ public class VR_UserVideoUI : UserVideoUI
 	{
 		if(MainAllController.instance != null){
 			MainAllController.instance.user.AddFavoriteVideo (video);
-			MainAllController.instance.FastUpdateFavorite ();
+			//MainAllController.instance.FastUpdateFavorite ();
 		}
+
+		if (VR_MainMenu.instance != null){
+			VR_MainMenu.instance.OpenFavoriteMenu ();
+			VR_MainMenu.instance.HideLoadingUI ();
+		}
+
 		SetupFavoriteBtns ();
 		if (favoriteBtn != null && unfavoriteBtn != null){
 			favoriteBtn.SetActive (false);
@@ -136,7 +154,9 @@ public class VR_UserVideoUI : UserVideoUI
 
 	public override void OnFailedFavorite ()
 	{
-		
+		if (VR_MainMenu.instance != null){
+			VR_MainMenu.instance.HideLoadingUI ();
+		}
 	}
 
 	/// <summary>
@@ -145,6 +165,8 @@ public class VR_UserVideoUI : UserVideoUI
 	public override void OnClickUnfavoriteButton ()
 	{
 		if (VR_MainMenu.instance != null) {
+
+			VR_MainMenu.instance.ShowLoadingUI ();
 
 			bool isConnect = VR_MainMenu.instance.CheckNetworkConnection ();
 
@@ -166,6 +188,11 @@ public class VR_UserVideoUI : UserVideoUI
 			MainAllController.instance.user.RemoveFavoriteVideo (video);
 			MainAllController.instance.FastUpdateFavorite ();
 		}
+
+		if (VR_MainMenu.instance != null){
+			VR_MainMenu.instance.HideLoadingUI ();
+		}
+
 		SetupFavoriteBtns ();
 		if (favoriteBtn != null && unfavoriteBtn != null) {
 			favoriteBtn.SetActive (true);
@@ -195,6 +222,10 @@ public class VR_UserVideoUI : UserVideoUI
 	/// </summary>
 	public void OnClickStreaming3D()
 	{
+		if (VR_MainMenu.instance != null) {
+			VR_MainMenu.instance.ShowLoadingUI ();
+		}
+
 		Streaming3D (video.videoInfo.id);
 	}
 
@@ -214,13 +245,18 @@ public class VR_UserVideoUI : UserVideoUI
 			Debug.LogError ("OnGetStreamingLink Exception " + e.Message);
 
 		} finally {
-
+			
+			if (VR_MainMenu.instance != null) {
+				VR_MainMenu.instance.HideLoadingUI ();
+			}
 		}
 	}
 
 	void OnFailedGetStreamingLink()
 	{
-		
+		if (VR_MainMenu.instance != null) {
+			VR_MainMenu.instance.HideLoadingUI ();
+		}
 	}
 
 	#endregion

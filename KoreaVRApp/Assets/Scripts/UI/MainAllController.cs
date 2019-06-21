@@ -99,6 +99,8 @@ public class MainAllController : MonoBehaviour
 	public event Action OnLoggedOut;
 	public event Action OnGetUserVideo;
 	public event Action OnGetFavoriteVideo;
+	public event Action OnGetInboxVideo;
+	public event Action OnGetDownloadVideo;
 	public event Action<Video> OnDownloadedVideo;
 
 	// This var purpose is to prevent user from spamming Refresh
@@ -335,12 +337,51 @@ public class MainAllController : MonoBehaviour
 		}
 
 		// If user has logged out, return user to default tab
-		OnLoggedIn += UpdateUserVideo;
+//		OnLoggedIn += UpdateUserVideo;
 	//	OnLoggedIn += UpdateFavorite;
+		OnLoggedIn += LoginCompleted;
 		OnLoggedOut += AccessMenu_OnMyStorage;
 	}
 
-	#region Get User Videos
+
+	private void LoginCompleted(){
+		
+		if (currentMenu is LoginMenu || currentMenu is StorageMenu){
+			accessMenu.Close ();
+			if (accessMenu.checkerMyStorage != null){
+				accessMenu.CheckerViewable (accessMenu.checkerMyStorage,true);
+			}
+
+			if (!(currentMenu is StorageMenu)) {
+				currentMenu.SetActive (false);
+				storageMenu.SetActive(true);
+				currentMenu = storageMenu;
+			}
+
+			Viewable_Login();
+
+			if (alertMenu != null){
+				alertMenu.LoginAlert();
+			}
+		}
+
+		// When login in sceneVR
+		if (isGoVR && currentScene is Scene2D){
+			OpenStorageMenuVR();
+		}
+
+		if (ScreenLoading.instance != null) {
+			ScreenLoading.instance.Stop ();
+		}
+
+		if (currentScene is SceneVR) {
+			if (VR_MainMenu.instance != null) {
+				VR_MainMenu.instance.HideLoadingUI ();
+			}
+		}
+	}
+
+	#region Get Videos
 	/// <summary>
 	/// Server does not provide a way to get total size of a video, so additional requests
 	/// have to be made to get total size based on Content-Length header
@@ -348,8 +389,16 @@ public class MainAllController : MonoBehaviour
 	/// </summary>
 	public void UpdateUserVideo()
 	{
-		if (ScreenLoading.instance != null) {
-			ScreenLoading.instance.Play ();
+		if (currentScene is Scene2D){
+			if (ScreenLoading.instance != null) {
+				ScreenLoading.instance.Play ();
+			}
+		}
+
+		if (currentScene is SceneVR) {
+			if (VR_MainMenu.instance != null) {
+				VR_MainMenu.instance.ShowLoadingUI ();
+			}
 		}
 			
 		Networking.instance.StopThread ();
@@ -363,13 +412,67 @@ public class MainAllController : MonoBehaviour
 	/// </summary>
 	public void UpdateFavorite()
 	{
-		if (ScreenLoading.instance != null) {
-			ScreenLoading.instance.Play ();
+		if (currentScene is Scene2D){
+			if (ScreenLoading.instance != null) {
+				ScreenLoading.instance.Play ();
+			}
+		}
+
+		if (currentScene is SceneVR) {
+			if (VR_MainMenu.instance != null) {
+				VR_MainMenu.instance.ShowLoadingUI ();
+			}
 		}
 
 		Networking.instance.StopThread ();
 		Networking.instance.GetFavoriteVideoRequest (user.token, OnGetFavoriteVideoList, OnErrorFavoriteVideo);
 		Debug.Log ("UpdatING FavoriteVideos.....");
+
+	}
+
+	/// <summary>
+	/// Same thing happens for Inbox videos.
+	/// </summary>
+	public void UpdateInboxVideo()
+	{
+		if (currentScene is Scene2D){
+			if (ScreenLoading.instance != null) {
+				ScreenLoading.instance.Play ();
+			}
+		}
+
+		if (currentScene is SceneVR) {
+			if (VR_MainMenu.instance != null) {
+				VR_MainMenu.instance.ShowLoadingUI ();
+			}
+		}
+
+		Networking.instance.StopThread ();
+		Networking.instance.GetUserVideoRequest (user.token, OnGetInboxVideoList, OnErrorInboxVideo);
+		Debug.Log ("UpdatING InboxVideos.....");
+
+	}
+
+	/// <summary>
+	/// Same thing happens for Download videos.
+	/// </summary>
+	public void UpdateDownloadVideo()
+	{
+		if (currentScene is Scene2D){
+			if (ScreenLoading.instance != null) {
+				ScreenLoading.instance.Play ();
+			}
+		}
+
+		if (currentScene is SceneVR) {
+			if (VR_MainMenu.instance != null) {
+				VR_MainMenu.instance.ShowLoadingUI ();
+			}
+		}
+
+		Networking.instance.StopThread ();
+		Networking.instance.GetUserVideoRequest (user.token, OnGetDownloadVideoList, OnErrorDownloadVideo);
+		Debug.Log ("UpdatING DownloadVideos.....");
 
 	}
 
@@ -394,7 +497,18 @@ public class MainAllController : MonoBehaviour
 	{
 		try
 		{
-			ScreenLoading.instance.Play();
+			if (currentScene is Scene2D){
+				if (ScreenLoading.instance != null) {
+					ScreenLoading.instance.Play ();
+				}
+			}
+
+			if (currentScene is SceneVR) {
+				if (VR_MainMenu.instance != null) {
+					VR_MainMenu.instance.ShowLoadingUI ();
+				}
+			}
+
 			// Clear user videos list
 			user.userVideos.Clear ();
 
@@ -404,49 +518,161 @@ public class MainAllController : MonoBehaviour
 				user.userVideos.Add (userVideo);
 			}
 
-			Debug.LogError ("Updated VideoList completed!!!!!!!!");
-
-			if (currentMenu is LoginMenu || currentMenu is StorageMenu){
-				accessMenu.Close ();
-				if (accessMenu.checkerMyStorage != null){
-					accessMenu.CheckerViewable (accessMenu.checkerMyStorage,true);
-				}
-
-				if (!(currentMenu is StorageMenu)) {
-					currentMenu.SetActive (false);
-					storageMenu.SetActive(true);
-					currentMenu = storageMenu;
-				}
-
-				Viewable_Login();
-
-				if (alertMenu != null){
-					alertMenu.LoginAlert();
-				}
-			}
-
-			// When login in sceneVR
-			if (isGoVR && currentScene is Scene2D){
-				OpenStorageMenuVR();
-			}
+			Debug.LogError ("Updated UserVideos completed!!!!!!!!");
 
 			if (OnGetUserVideo != null)
 				OnGetUserVideo ();
-			
+
+			UpdateFavorite();
 		} 
 
 		catch(Exception e) 
 		{
 
 		} finally {
-			ScreenLoading.instance.Stop();
+			if (ScreenLoading.instance != null) {
+				ScreenLoading.instance.Stop ();
+			}
+
+			if (VR_MainMenu.instance != null) {
+				VR_MainMenu.instance.HideLoadingUI ();
+			}
 		}
 
 	}
 
 	void OnGetFavoriteVideoList(Video_Info[] videoList)
 	{
-		
+		try
+		{
+			if (currentScene is Scene2D){
+				if (ScreenLoading.instance != null) {
+					ScreenLoading.instance.Play ();
+				}
+			}
+
+			if (currentScene is SceneVR) {
+				if (VR_MainMenu.instance != null) {
+					VR_MainMenu.instance.ShowLoadingUI ();
+				}
+			}
+			// Clear favorite videos list
+			user.favoriteVideos.Clear ();
+
+			// Create new array of favorite video object
+			for (int i = 0; i < videoList.Length; i++) {
+				FavoriteVideo favoriteVideo = new FavoriteVideo (videoList[i]);
+				user.favoriteVideos.Add (favoriteVideo);
+			}
+
+			Debug.LogError ("Updated FavoriteVideos completed!!!!!!!!");
+
+			if (OnGetFavoriteVideo != null)
+				OnGetFavoriteVideo ();
+		} 
+
+		catch(Exception e) 
+		{
+
+		} finally {
+			if (ScreenLoading.instance != null) {
+				ScreenLoading.instance.Stop ();
+			}
+
+			if (VR_MainMenu.instance != null) {
+				VR_MainMenu.instance.HideLoadingUI ();
+			}
+		}
+	}
+
+	void OnGetInboxVideoList(Video_Info[] videoList)
+	{
+		try
+		{
+			if (currentScene is Scene2D){
+				if (ScreenLoading.instance != null) {
+					ScreenLoading.instance.Play ();
+				}
+			}
+
+			if (currentScene is SceneVR) {
+				if (VR_MainMenu.instance != null) {
+					VR_MainMenu.instance.ShowLoadingUI ();
+				}
+			}
+			// Clear user videos list
+			user.userVideos.Clear ();
+
+			// Create new array of user video object
+			for (int i = 0; i < videoList.Length; i++) {
+				UserVideo userVideo = new UserVideo (videoList[i]);
+				user.userVideos.Add (userVideo);
+			}
+
+			Debug.LogError ("Updated InboxVideos completed!!!!!!!!");
+
+			if (OnGetInboxVideo != null)
+				OnGetInboxVideo ();
+		} 
+
+		catch(Exception e) 
+		{
+
+		} finally {
+			if (ScreenLoading.instance != null) {
+				ScreenLoading.instance.Stop ();
+			}
+
+			if (VR_MainMenu.instance != null) {
+				VR_MainMenu.instance.HideLoadingUI ();
+			}
+		}
+
+	}
+
+	void OnGetDownloadVideoList(Video_Info[] videoList)
+	{
+		try
+		{
+			if (currentScene is Scene2D){
+				if (ScreenLoading.instance != null) {
+					ScreenLoading.instance.Play ();
+				}
+			}
+
+			if (currentScene is SceneVR) {
+				if (VR_MainMenu.instance != null) {
+					VR_MainMenu.instance.ShowLoadingUI ();
+				}
+			}
+			// Clear user videos list
+			user.userVideos.Clear ();
+
+			// Create new array of user video object
+			for (int i = 0; i < videoList.Length; i++) {
+				UserVideo userVideo = new UserVideo (videoList[i]);
+				user.userVideos.Add (userVideo);
+			}
+
+			Debug.LogError ("Updated DownloadVideos completed!!!!!!!!");
+
+			if (OnGetDownloadVideo != null)
+				OnGetDownloadVideo ();
+		} 
+
+		catch(Exception e) 
+		{
+
+		} finally {
+			if (ScreenLoading.instance != null) {
+				ScreenLoading.instance.Stop ();
+			}
+
+			if (VR_MainMenu.instance != null) {
+				VR_MainMenu.instance.HideLoadingUI ();
+			}
+		}
+
 	}
 
 	void OnErrorGetUserVideo()
@@ -457,6 +683,10 @@ public class MainAllController : MonoBehaviour
 
 		if (ScreenLoading.instance != null) {
 			ScreenLoading.instance.Stop ();
+		}
+
+		if (VR_MainMenu.instance != null) {
+			VR_MainMenu.instance.HideLoadingUI ();
 		}
 
 		if (userVideoMenu != null){
@@ -474,8 +704,50 @@ public class MainAllController : MonoBehaviour
 			ScreenLoading.instance.Stop ();
 		}
 
+		if (VR_MainMenu.instance != null) {
+			VR_MainMenu.instance.HideLoadingUI ();
+		}
+
 		if (favoriteMenu != null){
 			favoriteMenu.UpdateNetworkConnectionUI ();
+		}
+
+	}
+
+	void OnErrorInboxVideo()
+	{
+
+		Debug.LogError ("+++++++++++++++++++++++++++++ERROR");
+
+		if (ScreenLoading.instance != null) {
+			ScreenLoading.instance.Stop ();
+		}
+
+		if (VR_MainMenu.instance != null) {
+			VR_MainMenu.instance.HideLoadingUI ();
+		}
+
+		if (inboxMenu != null){
+			inboxMenu.UpdateNetworkConnectionUI ();
+		}
+
+	}
+
+	void OnErrorDownloadVideo()
+	{
+
+		Debug.LogError ("+++++++++++++++++++++++++++++ERROR");
+
+		if (ScreenLoading.instance != null) {
+			ScreenLoading.instance.Stop ();
+		}
+
+		if (VR_MainMenu.instance != null) {
+			VR_MainMenu.instance.HideLoadingUI ();
+		}
+
+		if (downloadMenu != null){
+			downloadMenu.UpdateNetworkConnectionUI ();
 		}
 
 	}
@@ -567,7 +839,7 @@ public class MainAllController : MonoBehaviour
 				userVideoMenu.SetActive (true);
 				currentMenu = userVideoMenu;
 
-				userVideoMenu.Init ();
+				userVideoMenu.Refresh ();
 			}
 		} else {
 			GetAlertLoggin ();
@@ -588,7 +860,7 @@ public class MainAllController : MonoBehaviour
 				favoriteMenu.SetActive (true);
 				currentMenu = favoriteMenu;
 		
-				favoriteMenu.Init ();
+				favoriteMenu.Refresh ();
 			}
 		}else {
 			GetAlertLoggin ();
@@ -614,7 +886,7 @@ public class MainAllController : MonoBehaviour
 				downloadMenu.SetActive (true);
 				currentMenu = downloadMenu;
 
-				downloadMenu.Init ();
+				downloadMenu.Refresh ();
 			}
 		}else {
 			GetAlertLoggin ();
@@ -631,6 +903,11 @@ public class MainAllController : MonoBehaviour
 		AccessMenu_OnFavoriteMenu ();
 	}
 
+	public void GoToUserMenu()
+	{
+		AccessMenu_OnMyVideo ();
+	}
+
 	private void AccessMenu_OnInboxMenu()
 	{
 		accessMenu.Close ();
@@ -645,7 +922,7 @@ public class MainAllController : MonoBehaviour
 				inboxMenu.SetActive (true);
 				currentMenu = inboxMenu;
 
-				inboxMenu.Init ();
+				inboxMenu.Refresh ();
 			}
 		}else {
 			GetAlertLoggin ();
@@ -955,6 +1232,11 @@ public class MainAllController : MonoBehaviour
 			if (ScreenLoading.instance != null) {
 				ScreenLoading.instance.Stop ();
 			}
+
+			if (VR_MainMenu.instance != null) {
+				VR_MainMenu.instance.HideLoadingUI ();
+			}
+
 		}
 
 	}
@@ -1144,6 +1426,10 @@ public class MainAllController : MonoBehaviour
 		IsShowRecenterPanel = false;
 		HideVR_CloseButton ();
 
+		if (ScreenLoading.instance != null) {
+			ScreenLoading.instance.Stop ();
+		}
+
 		foreach (AppScene scene in scenes) {
 			if (scene is Scene2D) {
 
@@ -1167,6 +1453,10 @@ public class MainAllController : MonoBehaviour
 		IsShowRecenterPanel = false;
 		HideVR_CloseButton ();
 		HideScreenSwitchSceneMode ();
+
+		if (ScreenLoading.instance != null) {
+			ScreenLoading.instance.Stop ();
+		}
 
         foreach (AppScene scene in scenes)
         {
@@ -1193,6 +1483,10 @@ public class MainAllController : MonoBehaviour
 		HideVR_CloseButton ();
 		HideScreenSwitchSceneMode ();
 
+		if (ScreenLoading.instance != null) {
+			ScreenLoading.instance.Stop ();
+		}
+			
 		foreach (AppScene scene in scenes)
 		{
 			if (scene is SceneSensor)
@@ -1554,57 +1848,57 @@ public class MainAllController : MonoBehaviour
 	#endregion
 
 
-	#region GetNovideos Info
-
-	public bool CheckNovideos_LocalVideo()
-	{
-		if (storageMenu != null){
-			storageMenu.FastRefresh ();
-			if (storageMenu.isNoVideo) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	public bool CheckNovideos_UserVideo()
-	{
-		if (userVideoMenu != null){
-			userVideoMenu.Init ();
-			if (userVideoMenu.isNoVideo) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	public bool CheckNovideos_FavoriteVideo()
-	{
-		if (favoriteMenu != null) {
-			favoriteMenu.Init ();
-			if (favoriteMenu.isNoVideo) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	public bool CheckNovideos_InboxVideo()
-	{
-		if (inboxMenu != null){
-			inboxMenu.Init ();
-			if (inboxMenu.isNoVideo) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	#endregion
+//	#region GetNovideos Info
+//
+//	public bool CheckNovideos_LocalVideo()
+//	{
+//		if (storageMenu != null){
+//			storageMenu.FastRefresh ();
+//			if (storageMenu.isNoVideo) {
+//				return true;
+//			}
+//		}
+//
+//		return false;
+//	}
+//
+//	public bool CheckNovideos_UserVideo()
+//	{
+//		if (userVideoMenu != null){
+//			userVideoMenu.Init ();
+//			if (userVideoMenu.isNoVideo) {
+//				return true;
+//			}
+//		}
+//
+//		return false;
+//	}
+//
+//	public bool CheckNovideos_FavoriteVideo()
+//	{
+//		if (favoriteMenu != null) {
+//			favoriteMenu.Init ();
+//			if (favoriteMenu.isNoVideo) {
+//				return true;
+//			}
+//		}
+//
+//		return false;
+//	}
+//
+//	public bool CheckNovideos_InboxVideo()
+//	{
+//		if (inboxMenu != null){
+//			inboxMenu.Init ();
+//			if (inboxMenu.isNoVideo) {
+//				return true;
+//			}
+//		}
+//
+//		return false;
+//	}
+//
+//	#endregion
 
 	#region Orientation
 

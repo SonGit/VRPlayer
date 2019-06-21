@@ -12,8 +12,6 @@ public class StorageMenu : BasicMenuNavigation
 {
 	public static StorageMenu instance;
 
-	private VideoUI videoUI;
-
 	void Awake()
 	{
 		instance = this;
@@ -49,7 +47,7 @@ public class StorageMenu : BasicMenuNavigation
 
 	public void OnGetLocalVideo()
 	{
-		print ("ppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp");
+		print ("OnGetLocalVideo...................................................");
 		videos = LocalVideoManager.instance.GetAllLocalVideos ();
 
 		if (scroller != null){
