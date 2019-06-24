@@ -19,7 +19,9 @@ public class SceneMediaPlayer : AppScene
 
     IEnumerator LoadDevice(string newDevice)
     {
-		if(camera != null)
+        GvrViewer.Instance.VRModeEnabled = false;
+
+        if (camera != null)
 			camera.enabled = false;
 
 		if (UnityEngine.XR.XRSettings.enabled) {
@@ -37,7 +39,16 @@ public class SceneMediaPlayer : AppScene
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 30;
 
-		yield return null;
+        if (VRCrosshair != null)
+        {
+            VRCrosshair.SetActive(false);
+        }
+        else
+        {
+            Debug.Log("VRCrosshair is null!");
+        }
+
+        yield return null;
     }
 
     public void PlayFromURL(Video video)

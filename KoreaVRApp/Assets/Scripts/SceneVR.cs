@@ -27,7 +27,7 @@ public class SceneVR : AppScene
     {
 		vr_RecenterPanel = UnityEngine.Object.FindObjectOfType<VR_RecenterPanel>();
 
-        Show();
+      //  Show();
     }
 
 
@@ -409,12 +409,14 @@ public class SceneVR : AppScene
 	}
 
 	IEnumerator SwitchToVR() {
-		
-		if (MainAllController.instance != null) {
+
+        if (MainAllController.instance != null) {
 			MainAllController.instance.ShowScreenSwitchSceneMode ();
 		}
 
 		yield return new WaitForSeconds (0.25f);
+
+        GvrViewer.Instance.VRModeEnabled = true;
 
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
@@ -422,8 +424,8 @@ public class SceneVR : AppScene
         //#if !UNITY_EDITOR
         // Disable auto rotation, except for landscape left.
         Screen.orientation = ScreenOrientation.LandscapeLeft;
-		Debug.Log("SwitchToVR DONE ROTATING!");
-		yield return new WaitForSeconds (1f);
+        yield return new WaitForSeconds(1f);
+        Debug.Log("SwitchToVR DONE ROTATING!");
 
 		if (MainAllController.instance != null) {
 			MainAllController.instance.ShowVR_CloseButton ();
@@ -433,7 +435,16 @@ public class SceneVR : AppScene
 			MainAllController.instance.HideScreenSwitchSceneMode ();
 		}
 
-        GvrViewer.Instance.VRModeEnabled = true;
+        if(VRCrosshair != null)
+        {
+            VRCrosshair.SetActive(true);
+        }else
+        {
+            Debug.Log("VRCrosshair is null!");
+        }
+
+        yield return new WaitForSeconds(1f);
+
     }
 
 	public override void Hide()

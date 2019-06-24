@@ -7,8 +7,8 @@ public abstract class AppScene : MonoBehaviour
 	[SerializeField]
 	protected GameObject root;
 
-    public GameObject Camera2D;
-    public GameObject CameraVR;
+    [SerializeField]
+    protected GameObject VRCrosshair;
 
     /// <summary>
     /// Show the menu
