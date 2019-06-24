@@ -95,7 +95,7 @@ public class AndroidDialog : MonoBehaviour
 
 	public void showLoginDialog(string message, ConfirmCallback callback,string confirmMessage = "Confirm",string cancelMessage = "Cancel",bool remember = true)
 	{
-		#if UNITY_ANDROID
+#if UNITY_ANDROID
 		AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
 		AndroidJavaObject activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
 
@@ -150,7 +150,10 @@ public class AndroidDialog : MonoBehaviour
                     if (button != 0)
                         return;
 
-                     Debug.Log("ShowTwoButtonAlert   " + button);
+                     if(callback != null)
+                        {
+                            callback();
+                         }
                 };
             }
 
@@ -200,7 +203,7 @@ public class AndroidDialog : MonoBehaviour
 
 #if UNITY_IOS && !UNITY_EDITOR
 
-        var alert = NativeUI.Alert("Notification", message, "CLOSE");
+        var alert = NativeUI.Alert("Notification", message, "Close");
 
 #endif
     }
