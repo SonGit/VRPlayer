@@ -410,9 +410,6 @@ public class SceneVR : AppScene
 
 	IEnumerator SwitchToVR() {
 		
-		Camera2D.SetActive (false);
-		CameraVR.SetActive (false);
-
 		if (MainAllController.instance != null) {
 			MainAllController.instance.ShowScreenSwitchSceneMode ();
 		}
@@ -428,10 +425,6 @@ public class SceneVR : AppScene
 		Debug.Log("SwitchToVR DONE ROTATING!");
 		yield return new WaitForSeconds (1f);
 
-
-		Camera2D.SetActive (false);
-		CameraVR.SetActive (true);
-
 		if (MainAllController.instance != null) {
 			MainAllController.instance.ShowVR_CloseButton ();
 		}
@@ -439,7 +432,9 @@ public class SceneVR : AppScene
 		if (MainAllController.instance != null) {
 			MainAllController.instance.HideScreenSwitchSceneMode ();
 		}
-	}
+
+        GvrViewer.Instance.VRModeEnabled = true;
+    }
 
 	public override void Hide()
 	{
