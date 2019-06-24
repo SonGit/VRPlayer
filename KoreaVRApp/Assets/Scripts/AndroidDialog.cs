@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using EasyMobile;
 
 public class AndroidDialog : MonoBehaviour
 {
@@ -137,12 +138,28 @@ public class AndroidDialog : MonoBehaviour
 			}
 		)
 		);
-		#endif
-	}
+#endif
 
-	public void showWarningDialog(string message,bool remember = true)
+#if UNITY_IOS && !UNITY_EDITOR
+
+            var alert = NativeUI.ShowTwoButtonAlert("Notification", message, confirmMessage, cancelMessage);
+            if (alert != null)
+            {
+                alert.OnComplete += button =>
+                {
+                    if (button != 0)
+                        return;
+
+                     Debug.Log("ShowTwoButtonAlert   " + button);
+                };
+            }
+
+#endif
+    }
+
+    public void showWarningDialog(string message,bool remember = true)
 	{
-		#if UNITY_ANDROID && !UNITY_EDITOR
+#if UNITY_ANDROID && !UNITY_EDITOR
 		AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
 		AndroidJavaObject activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
 
@@ -179,10 +196,16 @@ public class AndroidDialog : MonoBehaviour
 		)
 		);
 
-		#endif
-	}
+#endif
 
-	private void OnApplicationPause(bool pauseStatus)
+#if UNITY_IOS && !UNITY_EDITOR
+
+        var alert = NativeUI.Alert("Notification", message, "CLOSE");
+
+#endif
+    }
+
+    private void OnApplicationPause(bool pauseStatus)
 	{
 		if (pauseStatus)
 		{

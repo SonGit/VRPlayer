@@ -279,8 +279,8 @@ public class VideoUI : EnhancedScrollerCellView
 			// Attemp to reset coroutine if client cannot connect 
 			// Could be useful for when internet is lost during downloading
 			if (!client.IsBusy) {
-				this.StartCoroutine (DownloadScreenShot (url));
-				Debug.Log ("Resetting Download ScreenShot...................................");
+				//this.StartCoroutine (DownloadScreenShot (url));
+				//Debug.Log ("Resetting Download ScreenShot...................................");
 				// Stop Loading screen, no matter what
 				StopLoadingScreen ();
 				yield break;
