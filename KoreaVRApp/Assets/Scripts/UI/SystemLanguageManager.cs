@@ -23,7 +23,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string downloadTitleString_English = "DOWNLOAD";
 	private string inboxString_English = "Inbox";
 	private string inboxTitleString_English = "INBOX";
-	private string etcString_English = "Etc.";
+	private string etcString_English = "Etc";
 	private string preferencesString_English = "Preferences";
 	private string usageInformationString_English = "Usage Information";
 	private string versionString_English = "Version";
@@ -128,7 +128,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string favoriteString_Korean = "즐겨찾기";
 	private string downloadString_Korean = "다운로드";
 	private string inboxString_Korean = "받은 파일함";
-	private string etcString_Korean = "기타.";
+	private string etcString_Korean = "기타";
 	private string preferencesString_Korean = "환경 설정";
 	private string usageInformationString_Korean = "사용 정보";
 	private string versionString_Korean = "번역";
@@ -232,7 +232,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string favoriteString_Japanese = "気に入り";
 	private string downloadString_Japanese = "ダウンロード";
 	private string inboxString_Japanese = "受信トレイ";
-	private string etcString_Japanese = "等.";
+	private string etcString_Japanese = "等";
 	private string preferencesString_Japanese = "設定";
 	private string usageInformationString_Japanese = "利用情報";
 	private string versionString_Japanese = "バージョン";
@@ -336,7 +336,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string favoriteString_Chinese = "喜爱";
 	private string downloadString_Chinese = "下载";
 	private string inboxString_Chinese = "收件箱";
-	private string etcString_Chinese = "等等.";
+	private string etcString_Chinese = "等等";
 	private string preferencesString_Chinese = "喜好";
 	private string usageInformationString_Chinese = "使用信息";
 	private string versionString_Chinese = "版";
