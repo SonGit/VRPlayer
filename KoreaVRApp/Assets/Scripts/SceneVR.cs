@@ -201,6 +201,8 @@ public class SceneVR : AppScene
 			if (VR_MainMenu.instance.currentMenu is VR_InboxMenu) {
 				ShowInboxMenu ();
 			}
+		} else {
+			ShowStorageMenu ();
 		}
 	}
 
@@ -414,9 +416,10 @@ public class SceneVR : AppScene
 			MainAllController.instance.ShowScreenSwitchSceneMode ();
 		}
 
+		GvrViewer.Instance.VRModeEnabled = true;
+
 		yield return new WaitForSeconds (0.25f);
 
-        GvrViewer.Instance.VRModeEnabled = true;
 
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;

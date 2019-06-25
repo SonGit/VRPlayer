@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SceneMediaPlayer : AppScene
 {
-	public Camera camera;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,22 +18,35 @@ public class SceneMediaPlayer : AppScene
 
     IEnumerator LoadDevice(string newDevice)
     {
-        GvrViewer.Instance.VRModeEnabled = false;
-
-        if (camera != null)
-			camera.enabled = false;
-
-		if (UnityEngine.XR.XRSettings.enabled) {
-			UnityEngine.XR.XRSettings.enabled = false;
-			yield return new WaitForEndOfFrame();
-			UnityEngine.XR.XRSettings.LoadDeviceByName(newDevice);
-			yield return null;
+		if (MainAllController.instance != null) {
+			MainAllController.instance.ShowScreenSwitchSceneMode ();
 		}
+
+		GvrViewer.Instance.VRModeEnabled = false;
+
+		yield return new WaitForSeconds(0.25f);
+
+		QualitySettings.vSyncCount = 0;
+		Application.targetFrameRate = 50;
+
+//		if (UnityEngine.XR.XRSettings.enabled) {
+//			UnityEngine.XR.XRSettings.enabled = false;
+//			yield return new WaitForEndOfFrame();
+//			UnityEngine.XR.XRSettings.LoadDeviceByName(newDevice);
+//			yield return null;
+//		}
 
         Screen.orientation = ScreenOrientation.AutoRotation;
 
-		if(camera != null)
-			camera.enabled = true;
+		yield return new WaitForSeconds(0.5f);
+
+		if (MainAllController.instance != null){
+			MainAllController.instance.HideVR_CloseButton ();
+		}
+
+		if (MainAllController.instance != null) {
+			MainAllController.instance.HideScreenSwitchSceneMode ();
+		}
 
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 30;
