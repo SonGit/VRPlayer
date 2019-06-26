@@ -19,7 +19,9 @@ public class VR_LocalVideoUI : LocalVideoUI
 			this.video = video;
 			this.videoTitle.text = (video as LocalVideo).videoName;
 			this.videoLength.text = MakeLengthString ();
-		}
+            loadThumbnail = true;
+        }
+
 	}
 		
 
@@ -30,10 +32,15 @@ public class VR_LocalVideoUI : LocalVideoUI
 		}
 	}
 
-
-	void Update()
+    bool loadThumbnail;
+    void Update()
 	{
-		UIAnimation ();
+        if (loadThumbnail)
+        {
+            StartCoroutine(LoadThumbnail());
+            loadThumbnail = false;
+        }
+        //UIAnimation ();
 	}
 		
 	IEnumerator LoadThumbnail()
@@ -73,16 +80,6 @@ public class VR_LocalVideoUI : LocalVideoUI
 		//thumbnailTexture = null;
 		Debug.Log("------------------DONE VR");
 	}
-
-	void OnEnable()
-	{
-		// Check if udpate thumbnail is necessary
-		if (videoImage.texture == null || videoImage.texture.name != video.videoInfo.id) {
-			if(video != null)
-			StartCoroutine(LoadThumbnail ());
-		}
-	}
-
 
 }
  
