@@ -41,10 +41,11 @@ public class DownloadMenu : BasicMenuNavigation
 
 	public override void Refresh()
 	{
-		if (MainAllController.instance != null){
-			MainAllController.instance.UpdateDownloadVideo ();
-		}
-	}
+        if (MainAllController.instance != null)
+        {
+            MainAllController.instance.UpdateDownloadVideo();
+        }
+    }
 
 	protected override bool CanBeAdded(Video video)
 	{
@@ -53,13 +54,14 @@ public class DownloadMenu : BasicMenuNavigation
 		if (userVideo.isPartial () && !userVideo.isDownloaded ()) {
 			return true;
 		} else {
-			
-//			GameObject videoDownloaderObj = GameObject.Find ("VideoDownLoader" + "-" + video.videoInfo.id);
-//
-//			if (videoDownloaderObj != null) {
-//				return true;
-//			}
-			return false;
+
+            GameObject videoDownloaderObj = GameObject.Find("VideoDownLoader" + "-" + video.videoInfo.id);
+
+            if (videoDownloaderObj != null)
+            {
+                return true;
+            }
+            return false;
 		}
 
 	}

@@ -14,6 +14,7 @@ public class VR_FavoriteVideoUI : UserVideoUI
 	#region setup info video
 	public override void Setup(Video video)
 	{
+		print ("VR_FavoriteVideoUI");
 		if (root != null){
 			root.gameObject.SetActive(video != null);
 		}
@@ -24,7 +25,8 @@ public class VR_FavoriteVideoUI : UserVideoUI
 			//video_length.text = (video.videoInfo.length).ToString();
 			this.video_length.text = "00:00:00";
 			SetupFavoriteBtns ();
-		}
+			CheckAndDownloadThumbnail();
+        }
 	
 	}
 	#endregion	
@@ -116,11 +118,12 @@ public class VR_FavoriteVideoUI : UserVideoUI
 			VR_MainMenu.instance.HideLoadingUI ();
 		}
 
-		VR_FavoriteMenu.instance.RemoveUIPerma (this);
+		//VR_FavoriteMenu.instance.RemoveUIPerma (this);
 	}
 
 	void OnDestroy()
 	{
 		VR_FavoriteMenu.instance.Rearrange ();
 	}
+		
 }

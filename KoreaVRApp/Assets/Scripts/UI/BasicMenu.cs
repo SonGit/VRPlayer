@@ -185,7 +185,12 @@ public class BasicMenu : MonoBehaviour, IEnhancedScrollerDelegate
 
 	}
 
-	protected virtual void TrimUI(List<Video> destroyThese)
+    public virtual void FastRefresh()
+    {
+ 
+    }
+
+    protected virtual void TrimUI(List<Video> destroyThese)
 	{
 //		List<VideoUI> videoUIToDestroy = new List<VideoUI> ();
 //

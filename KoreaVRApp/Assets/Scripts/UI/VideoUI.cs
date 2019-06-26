@@ -87,6 +87,12 @@ public class VideoUI : EnhancedScrollerCellView
 	{
 		string filepath = MainAllController.instance.user.GetPathToFile (video.videoInfo.id,video.videoInfo.video_name);
 
+        // Prevent division by zero
+        if(video.videoInfo.size == 0)
+        {
+            return 0;
+        }
+
 		if (File.Exists (filepath)) {
 
 			FileInfo fINfo = new FileInfo (filepath);
@@ -103,23 +109,23 @@ public class VideoUI : EnhancedScrollerCellView
 		{
 			byte[] fileData = File.ReadAllBytes( thumbnailURL );
 
-			if (thumbnailTexture == null) {
+            if (thumbnailTexture == null) {
 				thumbnailTexture = new Texture2D(4, 4, TextureFormat.RGB565, false);
 			}
 
 			thumbnailTexture.LoadImage(fileData);
 			thumbnailTexture.name = video.videoInfo.id;
 
-//			LocalVideoManager.instance.AddThumbnailToCache(thumbnailURL,thumbnailTexture);
+            //LocalVideoManager.instance.AddThumbnailToCache(thumbnailURL,thumbnailTexture);
 
-			OnLoadedThumbnail();
+            OnLoadedThumbnail();
+
 		} catch(Exception e) {
 			Debug.Log ("Exception!  " + e.Message);
 		} finally {
 			//StopLoadingScreen ();
 		}
-
-	}
+    }
 
 	public virtual void OnLoadedThumbnail()
 	{
@@ -151,7 +157,7 @@ public class VideoUI : EnhancedScrollerCellView
 
 		// If thumbnail exists, load it
 		if (File.Exists (thumbnailURL)) {
-			
+
 			LoadThumbnail (thumbnailURL);
 
 		} else {

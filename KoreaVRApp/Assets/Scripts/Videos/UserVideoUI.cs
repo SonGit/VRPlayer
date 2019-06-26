@@ -179,7 +179,7 @@ public class UserVideoUI : VideoUI
 		video_desc.text = Regex.Unescape (video.videoInfo.description);
 		video_image.texture = null;
 
-		OnEnable ();
+		CheckThumbnail ();
 
 		bool isVideoFavorited = MainAllController.instance.user.IsVideoFavorited (video);
 		//bookmarkIcon.enabled = isVideoFavorited;
@@ -240,7 +240,7 @@ public class UserVideoUI : VideoUI
 		StopLoadingScreen ();
 	}
 
-	protected void OnEnable()
+	protected void CheckThumbnail()
 	{
 		if (video != null) {
 			
@@ -277,11 +277,12 @@ public class UserVideoUI : VideoUI
 
 	public virtual void OnCompleteFavorite(FavoriteVideoResponse callback)
 	{
-//		if(MainAllController.instance != null){
-//			MainAllController.instance.UpdateFavorite ();
-//		}
+        if (MainAllController.instance != null)
+        {
+            MainAllController.instance.UpdateFavorite();
+        }
 
-		SetupFavoriteBtns ();
+        SetupFavoriteBtns ();
 		if (favoriteBtn != null && unfavoriteBtn != null) {
 			favoriteBtn.SetActive (false);
 			unfavoriteBtn.SetActive (true);
@@ -290,7 +291,9 @@ public class UserVideoUI : VideoUI
 		if(MainAllController.instance != null){
 			MainAllController.instance.GoToFavoriteMenu ();
 		}
-	}
+
+        ScreenLoading.instance.Stop();
+    }
 
 	public virtual void OnFailedFavorite()
 	{

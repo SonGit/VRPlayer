@@ -61,13 +61,15 @@ public class FavoriteVideoMenu : BasicMenuNavigation
 
 		UpdateNetworkConnectionUI ();
 		UpdateNoVideoUI ();
-	}
+
+    }
 
 	public override void Refresh(){
-		if(MainAllController.instance != null){
-			MainAllController.instance.UpdateFavorite ();
-		}
-	}
+        if (MainAllController.instance != null)
+        {
+            MainAllController.instance.UpdateFavorite();
+        }
+    }
 
 	protected override bool CanBeAdded(Video video)
 	{

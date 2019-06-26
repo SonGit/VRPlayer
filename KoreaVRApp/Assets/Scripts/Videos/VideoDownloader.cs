@@ -287,7 +287,7 @@ public class VideoDownloader : MonoBehaviour
 		try
 		{
 			string[] contentRangeVal = header.GetValues (7);
-			string TotalSize =  (contentRangeVal [0].Split ('/'))[1];
+            string TotalSize = contentRangeVal[0];
 			result = float.Parse (TotalSize);
 		} catch(Exception e) {
 			Debug.Log ("Exception! " + e.Message);

@@ -70,7 +70,7 @@ public class LocalVideoUI: VideoUI
 
 				if (File.Exists (path)) {
 					Debug.Log ("Found thumbnail at" + path);
-					LoadThumbnail (path);
+                    LoadThumbnail (path);
 					gotThumbnail = true;
 
 					yield break;

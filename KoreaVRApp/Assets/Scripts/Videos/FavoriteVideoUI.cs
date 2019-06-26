@@ -38,7 +38,7 @@ public class FavoriteVideoUI : UserVideoUI
 
 		SetupFavoriteBtns ();
 
-		OnEnable ();
+		CheckThumbnail ();
 
 		UiSwitch ();
 	}

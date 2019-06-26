@@ -74,10 +74,11 @@ public class InboxMenu : BasicMenuNavigation
 
 	public override void Refresh()
 	{
-		if (MainAllController.instance != null){
-			MainAllController.instance.UpdateInboxVideo ();
-		}
-	}
+        if (MainAllController.instance != null)
+        {
+            MainAllController.instance.UpdateInboxVideo();
+        }
+    }
 
 	protected override bool CanBeAdded(Video video)
 	{

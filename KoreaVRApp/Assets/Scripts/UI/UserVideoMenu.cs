@@ -70,12 +70,13 @@ public class UserVideoMenu : BasicMenuNavigation
 
 	public override void Refresh()
 	{
-		if(MainAllController.instance != null){
-			MainAllController.instance.UpdateUserVideo ();
-		}
-	}
+        if (MainAllController.instance != null)
+        {
+            MainAllController.instance.UpdateUserVideo();
+        }
+    }
 
-	public void DeleteVideo(string filePath){
+    public void DeleteVideo(string filePath){
 		if (filePath != null){
 			File.Delete (filePath);
 		}

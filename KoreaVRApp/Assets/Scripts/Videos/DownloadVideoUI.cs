@@ -205,7 +205,7 @@ public class DownloadVideoUI : VideoUI
 		video_image.texture = null;
         videoDownloader = null;
 
-        OnEnable ();
+        CheckThumbnail ();
 	}
 		
 	/// <summary>
@@ -359,7 +359,7 @@ public class DownloadVideoUI : VideoUI
 		StopLoadingScreen ();
 	}
 
-	void OnEnable()
+	void CheckThumbnail()
 	{
 		if (video != null) {
 

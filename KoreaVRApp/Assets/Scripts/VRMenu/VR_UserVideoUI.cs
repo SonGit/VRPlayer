@@ -18,7 +18,7 @@ public class VR_UserVideoUI : UserVideoUI
 			this.video_name.text = video.videoInfo.video_name;
 			//this.video_length.text = (currentuserVideo.videoInfo.length).ToString();
 			this.video_length.text = "00:00:00";
-			SetupThumbnail ();
+			CheckAndDownloadThumbnail ();
 
 			SetupFavoriteBtns ();
 		}
@@ -28,34 +28,12 @@ public class VR_UserVideoUI : UserVideoUI
 	{
 		UIAnimation ();
 	}
-
-	void SetupThumbnail()
-	{
-		video_image.texture = UserVideoMenu.instance.GetVideoThumbnail (video);
-
-		if (video_image.texture == null) {
-			CheckAndDownloadThumbnail ();
-		}
-	}
-
+		
 	public override void OnLoadedThumbnail()
 	{
 		base.OnLoadedThumbnail ();
 		video_image.texture = thumbnailTexture;
 		StopLoadingScreen ();
-	}
-
-	void OnEnable()
-	{
-		if (thumbnailTexture == null) {
-			thumbnailTexture = new Texture2D(4, 4, TextureFormat.DXT1, false);
-		}
-
-		if (video_image.texture == null || thumbnailTexture.name != video.videoInfo.id) {
-			CheckAndDownloadThumbnail ();
-		} else {
-			StopLoadingScreen ();
-		}
 	}
 
 	public void VR_DownloadBnt_OnClick ()

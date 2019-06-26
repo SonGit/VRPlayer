@@ -53,7 +53,7 @@ public class InboxVideoUI : VideoUI
 		video_desc.text = Regex.Unescape (video.videoInfo.description);
 		video_image.texture = null;
 
-		OnEnable ();
+		CheckThumbnail ();
 	}
 	#endregion	
 
@@ -100,7 +100,7 @@ public class InboxVideoUI : VideoUI
 		StopLoadingScreen ();
 	}
 
-	void OnEnable()
+	void CheckThumbnail()
 	{
 		if (video != null) {
 

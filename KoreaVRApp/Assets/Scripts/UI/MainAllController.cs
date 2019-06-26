@@ -337,8 +337,8 @@ public class MainAllController : MonoBehaviour
 		}
 
 		// If user has logged out, return user to default tab
-//		OnLoggedIn += UpdateUserVideo;
-	//	OnLoggedIn += UpdateFavorite;
+		OnLoggedIn += UpdateUserVideo;
+		OnLoggedIn += UpdateFavorite;
 		OnLoggedIn += LoginCompleted;
 		OnLoggedOut += AccessMenu_OnMyStorage;
 	}
@@ -514,8 +514,17 @@ public class MainAllController : MonoBehaviour
 
 			// Create new array of user video object
 			for (int i = 0; i < videoList.Length; i++) {
+
+                // Placeholder
+                if(videoList[i].size == 0)
+                {
+                    videoList[i].size = 76500421;
+                }
+
 				UserVideo userVideo = new UserVideo (videoList[i]);
-				user.userVideos.Add (userVideo);
+                print(videoList[i].size); 
+
+                user.userVideos.Add (userVideo);
 			}
 
 			Debug.LogError ("Updated UserVideos completed!!!!!!!!");
@@ -537,7 +546,7 @@ public class MainAllController : MonoBehaviour
 			if (VR_MainMenu.instance != null) {
 				VR_MainMenu.instance.HideLoadingUI ();
 			}
-		}
+        }
 
 	}
 
@@ -561,7 +570,14 @@ public class MainAllController : MonoBehaviour
 
 			// Create new array of favorite video object
 			for (int i = 0; i < videoList.Length; i++) {
-				FavoriteVideo favoriteVideo = new FavoriteVideo (videoList[i]);
+
+                // Placeholder
+                if (videoList[i].size == 0)
+                {
+                    videoList[i].size = 76500421;
+                }
+
+                FavoriteVideo favoriteVideo = new FavoriteVideo (videoList[i]);
 				user.favoriteVideos.Add (favoriteVideo);
 			}
 
@@ -582,7 +598,7 @@ public class MainAllController : MonoBehaviour
 			if (VR_MainMenu.instance != null) {
 				VR_MainMenu.instance.HideLoadingUI ();
 			}
-		}
+        }
 	}
 
 	void OnGetInboxVideoList(Video_Info[] videoList)
@@ -605,7 +621,14 @@ public class MainAllController : MonoBehaviour
 
 			// Create new array of user video object
 			for (int i = 0; i < videoList.Length; i++) {
-				UserVideo userVideo = new UserVideo (videoList[i]);
+
+                // Placeholder
+                if (videoList[i].size == 0)
+                {
+                    videoList[i].size = 76500421;
+                }
+
+                UserVideo userVideo = new UserVideo (videoList[i]);
 				user.userVideos.Add (userVideo);
 			}
 
@@ -626,7 +649,7 @@ public class MainAllController : MonoBehaviour
 			if (VR_MainMenu.instance != null) {
 				VR_MainMenu.instance.HideLoadingUI ();
 			}
-		}
+        }
 
 	}
 
@@ -650,7 +673,12 @@ public class MainAllController : MonoBehaviour
 
 			// Create new array of user video object
 			for (int i = 0; i < videoList.Length; i++) {
-				UserVideo userVideo = new UserVideo (videoList[i]);
+                // Placeholder
+                if (videoList[i].size == 0)
+                {
+                    videoList[i].size = 76500421;
+                }
+                UserVideo userVideo = new UserVideo (videoList[i]);
 				user.userVideos.Add (userVideo);
 			}
 
@@ -671,7 +699,7 @@ public class MainAllController : MonoBehaviour
 			if (VR_MainMenu.instance != null) {
 				VR_MainMenu.instance.HideLoadingUI ();
 			}
-		}
+        }
 
 	}
 
@@ -839,7 +867,7 @@ public class MainAllController : MonoBehaviour
 				userVideoMenu.SetActive (true);
 				currentMenu = userVideoMenu;
 
-				userVideoMenu.Refresh ();
+				userVideoMenu.Init ();
 			}
 		} else {
 			GetAlertLoggin ();
@@ -855,12 +883,12 @@ public class MainAllController : MonoBehaviour
 				accessMenu.CheckerViewable (accessMenu.checkerFavorite,true);
 			}
 
-			if (!(currentMenu is FavoriteVideo)) {
+			if (!(currentMenu is FavoriteVideoMenu)) {
 				currentMenu.SetActive (false);
 				favoriteMenu.SetActive (true);
 				currentMenu = favoriteMenu;
 		
-				favoriteMenu.Refresh ();
+				favoriteMenu.Init();
 			}
 		}else {
 			GetAlertLoggin ();
@@ -886,7 +914,7 @@ public class MainAllController : MonoBehaviour
 				downloadMenu.SetActive (true);
 				currentMenu = downloadMenu;
 
-				downloadMenu.Refresh ();
+				downloadMenu.Init ();
 			}
 		}else {
 			GetAlertLoggin ();
@@ -922,7 +950,7 @@ public class MainAllController : MonoBehaviour
 				inboxMenu.SetActive (true);
 				currentMenu = inboxMenu;
 
-				inboxMenu.Refresh ();
+				inboxMenu.Init ();
 			}
 		}else {
 			GetAlertLoggin ();

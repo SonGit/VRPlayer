@@ -63,7 +63,7 @@ public class VR_LocalVideoUI : LocalVideoUI
 
 			if (File.Exists (path)) {
 				Debug.Log ("VR Found thumbnail at" + path);
-				LoadThumbnail (path);
+                LoadThumbnail (path);
 				gotThumbnail = true;
 
 				yield break;
