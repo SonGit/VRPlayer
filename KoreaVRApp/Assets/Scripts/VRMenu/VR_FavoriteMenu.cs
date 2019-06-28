@@ -18,7 +18,7 @@ public class VR_FavoriteMenu : VR_BasicMenu
 	protected override void Start ()
 	{
 		base.Start ();
-		MainAllController.instance.OnGetFavoriteVideo += SetupEnhancedScroller;
+		//MainAllController.instance.OnGetFavoriteVideo += SetupEnhancedScroller;
 		//MainAllController.instance.OnLoggedOut += Reset;
 	}
 
@@ -63,9 +63,9 @@ public class VR_FavoriteMenu : VR_BasicMenu
 	}
 
 	public override void Refresh(){
-		if(MainAllController.instance != null){
-			MainAllController.instance.UpdateFavorite ();
-		}
+//		if(MainAllController.instance != null){
+//			MainAllController.instance.UpdateFavorite ();
+//		}
 	}
 
 	public override void FastRefresh()
@@ -98,7 +98,7 @@ public class VR_FavoriteMenu : VR_BasicMenu
 
 		ShowEnhancedScroller ();
 
-		Refresh ();
+		SetupEnhancedScroller ();
 	}
 
 	public override void SetupEnhancedScroller ()

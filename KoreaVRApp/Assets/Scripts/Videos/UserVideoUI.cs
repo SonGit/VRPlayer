@@ -87,9 +87,13 @@ public class UserVideoUI : VideoUI
 	
 	}
 
-	void OnFailedGetStreamingLink()
+	public void OnFailedGetStreamingLink()
 	{
 		ScreenLoading.instance.Stop ();
+
+		if (VR_MainMenu.instance != null) {
+			VR_MainMenu.instance.HideLoadingUI ();
+		}
 	}
 
 	public void OnGetLink(GetLinkVideoResponse getLinkVideoResponse){
@@ -138,6 +142,11 @@ public class UserVideoUI : VideoUI
 
 				GoToDownloadMenu ();
 
+				VR_UserVideoMenu menu = UnityEngine.Object.FindObjectOfType<VR_UserVideoMenu> ();
+				if (menu != null) {
+					menu.FastRefresh ();
+				}
+
 				// Remove self from menu
 				//DestroySelf ();
 			}
@@ -149,6 +158,10 @@ public class UserVideoUI : VideoUI
 		} finally {
 			
 			ScreenLoading.instance.Stop ();
+
+			if (VR_MainMenu.instance != null){
+				VR_MainMenu.instance.HideLoadingUI ();
+			}
 
 		}
 			
@@ -188,6 +201,10 @@ public class UserVideoUI : VideoUI
         videoDownloader = null;
     }
 	#endregion
+
+	private void OnEnable(){
+		CheckThumbnail ();
+	}
 
 
 	void DestroySelf()
@@ -257,6 +274,7 @@ public class UserVideoUI : VideoUI
 
 	}
 
+
 	/// <summary>
 	/// Call this event when user click on favorite button
 	/// </summary>
@@ -277,22 +295,23 @@ public class UserVideoUI : VideoUI
 
 	public virtual void OnCompleteFavorite(FavoriteVideoResponse callback)
 	{
-        if (MainAllController.instance != null)
-        {
-            MainAllController.instance.UpdateFavorite();
-        }
-
-        SetupFavoriteBtns ();
-		if (favoriteBtn != null && unfavoriteBtn != null) {
-			favoriteBtn.SetActive (false);
-			unfavoriteBtn.SetActive (true);
+		if(MainAllController.instance != null){
+			MainAllController.instance.user.AddFavoriteVideo (video);
 		}
+
+//        SetupFavoriteBtns ();
+//		if (favoriteBtn != null && unfavoriteBtn != null) {
+//			favoriteBtn.SetActive (false);
+//			unfavoriteBtn.SetActive (true);
+//		}
 
 		if(MainAllController.instance != null){
 			MainAllController.instance.GoToFavoriteMenu ();
 		}
 
-        ScreenLoading.instance.Stop();
+		if (ScreenLoading.instance != null){
+			ScreenLoading.instance.Stop ();
+		}
     }
 
 	public virtual void OnFailedFavorite()
@@ -323,13 +342,17 @@ public class UserVideoUI : VideoUI
 	public virtual void OnCompleteUnfavorite(UnfavoriteVideoResponse callback)
 	{
 		if(MainAllController.instance != null){
-			MainAllController.instance.UpdateFavorite ();
+			MainAllController.instance.user.RemoveFavoriteVideo (video);
 		}
 
 		SetupFavoriteBtns();
 		if (favoriteBtn != null && unfavoriteBtn != null) {
 			favoriteBtn.SetActive (true);
 			unfavoriteBtn.SetActive (false);
+		}
+
+		if (ScreenLoading.instance != null){
+			ScreenLoading.instance.Stop ();
 		}
 	}
 

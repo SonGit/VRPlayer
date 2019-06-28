@@ -29,7 +29,7 @@ public class VR_InboxMenu : VR_BasicMenu
 	protected override void Start ()
 	{
 		base.Start ();
-		MainAllController.instance.OnGetInboxVideo += SetupEnhancedScroller;
+		//MainAllController.instance.OnGetInboxVideo += SetupEnhancedScroller;
 		//MainAllController.instance.OnLoggedOut += Reset;
 
 	}
@@ -73,9 +73,9 @@ public class VR_InboxMenu : VR_BasicMenu
 
 	public override void Refresh()
 	{
-		if (MainAllController.instance != null){
-			MainAllController.instance.UpdateInboxVideo ();
-		}
+//		if (MainAllController.instance != null){
+//			MainAllController.instance.UpdateInboxVideo ();
+//		}
 	}
 
 	public override void FastRefresh()
@@ -101,7 +101,7 @@ public class VR_InboxMenu : VR_BasicMenu
 
 		ShowEnhancedScroller ();
 
-		Refresh ();
+		SetupEnhancedScroller ();
 	}
 
 	public override void SetupEnhancedScroller ()

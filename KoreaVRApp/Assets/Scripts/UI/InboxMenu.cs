@@ -28,7 +28,7 @@ public class InboxMenu : BasicMenuNavigation
 	protected override void Start ()
 	{
 		base.Start ();
-		MainAllController.instance.OnGetInboxVideo += Init;
+		MainAllController.instance.OnGetUserVideo += Init;
 		MainAllController.instance.OnLoggedOut += Reset;
 
 	}
@@ -65,7 +65,6 @@ public class InboxMenu : BasicMenuNavigation
 //		// update infomation from server
 //		UpdateUI (videoToShow);
 
-		CheckThumbnail ();
 
 		UpdateNetworkConnectionUI ();
 		UpdateNoVideoUI ();
@@ -74,10 +73,12 @@ public class InboxMenu : BasicMenuNavigation
 
 	public override void Refresh()
 	{
-        if (MainAllController.instance != null)
-        {
-            MainAllController.instance.UpdateInboxVideo();
-        }
+//        if (MainAllController.instance != null)
+//        {
+//            MainAllController.instance.UpdateInboxVideo();
+//        }
+
+		Init ();
     }
 
 	protected override bool CanBeAdded(Video video)

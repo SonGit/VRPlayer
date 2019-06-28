@@ -37,7 +37,7 @@ public class InboxVideoUI : VideoUI
 	void Update (){
 		if(pendingDelete)
 		{
-			DeleteProcess();
+			StartCoroutine(DeleteProcess());
 			pendingDelete = false;
 		}
 	}
@@ -55,7 +55,11 @@ public class InboxVideoUI : VideoUI
 
 		CheckThumbnail ();
 	}
-	#endregion	
+	#endregion
+
+	private void OnEnable(){
+		CheckThumbnail ();
+	}
 
 	#region LoadingScreen
 	public void PlayLoadingScreen()
@@ -128,18 +132,18 @@ public class InboxVideoUI : VideoUI
 	public override void OnAlertDeleteComplete ()
 	{
         base.OnAlertDeleteComplete();
-        string path = Path.Combine(MainAllController.instance.user.GetPath(), video.videoInfo.id);
-
-        if (Directory.Exists(path))
-        {
-            Directory.Delete(path, true);
-
-            InboxMenu menu = Object.FindObjectOfType<InboxMenu>();
-            if (menu != null)
-            {
-                menu.RemoveUI(this);
-            }
-        }
+//        string path = Path.Combine(MainAllController.instance.user.GetPath(), video.videoInfo.id);
+//
+//        if (Directory.Exists(path))
+//        {
+//            Directory.Delete(path, true);
+//
+//            InboxMenu menu = Object.FindObjectOfType<InboxMenu>();
+//            if (menu != null)
+//            {
+//				menu.Init();
+//            }
+//        }
 
   //      bool isFistButtonClicked = buttonIndex == 0;
 		//bool isSecondButtonClicked = buttonIndex == 1;

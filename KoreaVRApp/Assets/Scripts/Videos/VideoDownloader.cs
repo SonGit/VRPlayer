@@ -113,6 +113,7 @@ public class VideoDownloader : MonoBehaviour
 	{
 		downloadState = DownloadState.Downloading;
 		// Make sure code is run on Thread
+		iFileSize = 0;
 		iExistLen = 0;
 
 		System.Net.HttpWebRequest hwRq = null;
@@ -435,15 +436,13 @@ public class VideoDownloader : MonoBehaviour
 	private void CheckDownloadComplete()
 	{
 		if (downloadState == DownloadState.Complete || downloadProgress == 100) {
-			
-			// Kick event that this video has been downlaoded
+
+			// Kick event that this video has been downladed
 			MainAllController.instance.Downloaded (video);
 
 			// Destroy the this object too
 			video = null;
 			Destroy (this.gameObject);
-
-			DownloadMenu.instance.Refresh ();
 		}
 
 	}

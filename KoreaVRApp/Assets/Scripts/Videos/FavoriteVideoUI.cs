@@ -43,7 +43,11 @@ public class FavoriteVideoUI : UserVideoUI
 		UiSwitch ();
 	}
 
-	#endregion	
+	#endregion
+
+	private void OnEnable(){
+		CheckThumbnail ();
+	}
 		
 
 	#region Object Pool implementation
@@ -129,12 +133,35 @@ public class FavoriteVideoUI : UserVideoUI
 	/// </summary>
 	public override void OnClickUnfavoriteButton ()
 	{
-		base.OnClickUnfavoriteButton ();
+		if (video != null) {
+			ScreenLoading.instance.Play ();
+
+			if(MainAllController.instance != null){
+				MainAllController.instance.PlayButtonSound ();
+			}
+
+			Networking.instance.UnfavoriteVideoRequest (video.videoInfo.id,MainAllController.instance.user.token,OnCompleteUnfavorite,OnFailedFavorite);
+		} else {
+			Debug.LogError ("Video is null!");
+		}
 	}
 
 	public override void OnCompleteUnfavorite (UnfavoriteVideoResponse callback)
 	{
-		base.OnCompleteUnfavorite (callback);
+//		SetupFavoriteBtns();
+//		if (favoriteBtn != null && unfavoriteBtn != null) {
+//			favoriteBtn.SetActive (true);
+//			unfavoriteBtn.SetActive (false);
+//		}
+
+		if(MainAllController.instance != null){
+			MainAllController.instance.user.RemoveFavoriteVideo (video);
+			MainAllController.instance.InitFavoriteMenu ();
+		}
+
+		if (ScreenLoading.instance != null){
+			ScreenLoading.instance.Stop ();
+		}
 	}
 
 	public override void SetupFavoriteBtns ()

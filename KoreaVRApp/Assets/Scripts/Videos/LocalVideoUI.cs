@@ -19,7 +19,7 @@ public class LocalVideoUI: VideoUI
         thumbnailTexture = new Texture2D(4, 4, TextureFormat.RGB565, false);
     }
 
-	bool loadThumbnail;
+	protected bool loadThumbnail;
 
 	void Update()
 	{
@@ -29,7 +29,7 @@ public class LocalVideoUI: VideoUI
 		}
 		if(pendingDelete)
 		{
-			DeleteProcess();
+			StartCoroutine(DeleteProcess());
 			pendingDelete = false;
 		}
 

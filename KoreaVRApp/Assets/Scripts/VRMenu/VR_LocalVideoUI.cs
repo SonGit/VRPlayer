@@ -31,8 +31,7 @@ public class VR_LocalVideoUI : LocalVideoUI
 			MainAllController.instance.Play3D (video);
 		}
 	}
-
-    bool loadThumbnail;
+		
     void Update()
 	{
         if (loadThumbnail)

@@ -22,7 +22,7 @@ public class VR_UserVideoMenu : VR_BasicMenu
 	protected override void Start ()
 	{
 		base.Start ();
-		MainAllController.instance.OnGetUserVideo += SetupEnhancedScroller;
+		//MainAllController.instance.OnGetUserVideo += SetupEnhancedScroller;
 		//MainAllController.instance.OnLoggedOut += Reset;
 	}
 
@@ -65,9 +65,9 @@ public class VR_UserVideoMenu : VR_BasicMenu
 
 	public override void Refresh()
 	{
-		if(MainAllController.instance != null){
-			MainAllController.instance.UpdateUserVideo ();
-		}
+//		if(MainAllController.instance != null){
+//			MainAllController.instance.UpdateUserVideo ();
+//		}
 	}
 
 	public override void FastRefresh()
@@ -99,7 +99,7 @@ public class VR_UserVideoMenu : VR_BasicMenu
 
 		ShowEnhancedScroller ();
 
-		Refresh ();
+		SetupEnhancedScroller ();
 	}
 
 	public override void SetupEnhancedScroller ()

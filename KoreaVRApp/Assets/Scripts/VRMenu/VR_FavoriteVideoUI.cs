@@ -25,7 +25,7 @@ public class VR_FavoriteVideoUI : UserVideoUI
 			//video_length.text = (video.videoInfo.length).ToString();
 			this.video_length.text = "00:00:00";
 			SetupFavoriteBtns ();
-			CheckAndDownloadThumbnail();
+			video_image.texture = null;
         }
 	
 	}
@@ -63,11 +63,12 @@ public class VR_FavoriteVideoUI : UserVideoUI
 	{
 		if(MainAllController.instance != null){
 			MainAllController.instance.user.AddFavoriteVideo (video);
-			MainAllController.instance.FastUpdateFavorite ();
+			//MainAllController.instance.FastUpdateFavorite ();
 		}
 
 		if (VR_MainMenu.instance != null){
 			VR_MainMenu.instance.HideLoadingUI ();
+			VR_MainMenu.instance.OpenFavoriteMenu ();
 		}
 
 		SetupFavoriteBtns ();
@@ -111,11 +112,12 @@ public class VR_FavoriteVideoUI : UserVideoUI
 	{
 		if(MainAllController.instance != null){
 			MainAllController.instance.user.RemoveFavoriteVideo (video);
-			MainAllController.instance.FastUpdateFavorite ();
+			//MainAllController.instance.FastUpdateFavorite ();
 		}
 
 		if (VR_MainMenu.instance != null){
 			VR_MainMenu.instance.HideLoadingUI ();
+			VR_MainMenu.instance.OpenFavoriteMenu ();
 		}
 
 		//VR_FavoriteMenu.instance.RemoveUIPerma (this);

@@ -18,9 +18,8 @@ public class VR_UserVideoUI : UserVideoUI
 			this.video_name.text = video.videoInfo.video_name;
 			//this.video_length.text = (currentuserVideo.videoInfo.length).ToString();
 			this.video_length.text = "00:00:00";
-			CheckAndDownloadThumbnail ();
-
 			SetupFavoriteBtns ();
+			video_image.texture = null;
 		}
 	}
 
@@ -62,20 +61,19 @@ public class VR_UserVideoUI : UserVideoUI
 
 							Debug.Log ("Already in Download Menu!!!");
 							DownloadMenu.instance.StartDownload (video);
+
+							VR_UserVideoMenu menu = UnityEngine.Object.FindObjectOfType<VR_UserVideoMenu> ();
+							if (menu != null) {
+								menu.FastRefresh ();
+							}
 						} else {
 							string authToken = MainAllController.instance.user.token;
 							if (authToken != null) {
+								if (VR_MainMenu.instance != null){
+									VR_MainMenu.instance.ShowLoadingUI ();
+								}
 								Networking.instance.GetVideoLinkRequest (video.videoInfo.id, authToken, OnGetLink, OnFailedGetStreamingLink);
 							}
-						}
-
-						if(MainAllController.instance != null){
-							MainAllController.instance.user.RemoveUserVideo (video);
-						}
-
-						VR_UserVideoMenu menu = UnityEngine.Object.FindObjectOfType<VR_UserVideoMenu> ();
-						if (menu != null) {
-							menu.FastRefresh ();
 						}
 					}
 				} else {
@@ -123,11 +121,11 @@ public class VR_UserVideoUI : UserVideoUI
 			VR_MainMenu.instance.HideLoadingUI ();
 		}
 
-		SetupFavoriteBtns ();
-		if (favoriteBtn != null && unfavoriteBtn != null){
-			favoriteBtn.SetActive (false);
-			unfavoriteBtn.SetActive (true);
-		}
+//		SetupFavoriteBtns ();
+//		if (favoriteBtn != null && unfavoriteBtn != null){
+//			favoriteBtn.SetActive (false);
+//			unfavoriteBtn.SetActive (true);
+//		}
 	}
 
 	public override void OnFailedFavorite ()
@@ -164,7 +162,7 @@ public class VR_UserVideoUI : UserVideoUI
 	{
 		if(MainAllController.instance != null){
 			MainAllController.instance.user.RemoveFavoriteVideo (video);
-			MainAllController.instance.FastUpdateFavorite ();
+			//MainAllController.instance.FastUpdateFavorite ();
 		}
 
 		if (VR_MainMenu.instance != null){
@@ -229,13 +227,6 @@ public class VR_UserVideoUI : UserVideoUI
 			}
 		}
 	}
-
-	void OnFailedGetStreamingLink()
-	{
-		if (VR_MainMenu.instance != null) {
-			VR_MainMenu.instance.HideLoadingUI ();
-		}
-	}
-
+		
 	#endregion
 }

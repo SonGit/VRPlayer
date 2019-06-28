@@ -49,7 +49,7 @@ public class VideoUI : EnhancedScrollerCellView
     {
         if(pendingDelete)
         {
-            DeleteProcess();
+			StartCoroutine(DeleteProcess());
             pendingDelete = false;
         }
     }
@@ -163,8 +163,10 @@ public class VideoUI : EnhancedScrollerCellView
 		} else {
 
 			// if not, download from link
-			if(gameObject.activeInHierarchy)
-			StartCoroutine(DownloadThumbnail(video.videoInfo.thumbnail_link));
+			if(gameObject.activeInHierarchy){
+				StartCoroutine(DownloadThumbnail(video.videoInfo.thumbnail_link));
+			}
+
 		}
 	}
 
@@ -532,17 +534,20 @@ public class VideoUI : EnhancedScrollerCellView
 			MainAllController.instance.PlayButtonSound ();
 		}
 
-#if !UNITY_EDITOR && (UNITY_ANDROID || UNITY_IOS)
-		GetAlertDelete ();
-#endif
+		#if !UNITY_EDITOR && (UNITY_ANDROID || UNITY_IOS)
+			GetAlertDelete ();
+		#endif
 
-#if UNITY_EDITOR
-        DeleteProcess();
-#endif
+		#if UNITY_EDITOR
+			//StartCoroutine(DeleteProcess());
+			pendingDelete = true;
+		#endif
     }
 
-	protected void DeleteProcess()
+	protected IEnumerator DeleteProcess()
     {
+		yield return new WaitForSeconds (0.5f);
+
         if (this is LocalVideoUI)
         {
             try
@@ -566,7 +571,6 @@ public class VideoUI : EnhancedScrollerCellView
             string path = String.Empty;
             try
             {
-
                 path = Path.Combine(MainAllController.instance.user.GetPath(), video.videoInfo.id);
                 if (Directory.Exists(path))
                 {
@@ -588,9 +592,16 @@ public class VideoUI : EnhancedScrollerCellView
 
         if (this is InboxVideoUI)
         {
+			string path = String.Empty;
+
             try
             {
-                File.Delete(video.videoInfo.id);
+				path = Path.Combine (MainAllController.instance.user.GetPath(), video.videoInfo.id);
+
+				if (Directory.Exists(path))
+				{
+					Directory.Delete(path, true);
+				}
             }
             catch (Exception e)
             {

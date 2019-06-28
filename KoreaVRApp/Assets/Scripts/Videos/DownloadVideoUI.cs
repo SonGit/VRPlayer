@@ -87,7 +87,10 @@ public class DownloadVideoUI : VideoUI
 		
 		if(pendingDelete)
 		{
-			DeleteProcess();
+			Pause();
+			DeleteDownloader();
+
+			StartCoroutine(DeleteProcess());
 			pendingDelete = false;
 		}
 
@@ -410,16 +413,16 @@ public class DownloadVideoUI : VideoUI
 
         base.OnAlertDeleteComplete();
 
-        string _path = Path.Combine(MainAllController.instance.user.GetPath(), video.videoInfo.id);
-
-        if (Directory.Exists(_path))
-        {
-            Directory.Delete(_path, true);
-
-            Pause();
-
-            DeleteDownloader();
-        }
+//        string _path = Path.Combine(MainAllController.instance.user.GetPath(), video.videoInfo.id);
+//
+//        if (Directory.Exists(_path))
+//        {
+//            Directory.Delete(_path, true);
+//
+//            Pause();
+//
+//            DeleteDownloader();
+//        }
 
         //DownloadMenu menu = Object.FindObjectOfType<DownloadMenu> ();
         //if (menu != null) {

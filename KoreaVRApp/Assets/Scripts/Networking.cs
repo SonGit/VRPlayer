@@ -590,22 +590,22 @@ public class Networking : MonoBehaviour
 
 	public void StopThread()
 	{
-		VideoDownloader[] videoUIs = UnityEngine.Object.FindObjectsOfType<VideoDownloader> ();
-		foreach (VideoDownloader downloader in videoUIs) {
-			downloader.StopThread ();
-		}
-		Debug.LogError ("++++++++StopThread");
+//		VideoDownloader[] videoUIs = UnityEngine.Object.FindObjectsOfType<VideoDownloader> ();
+//		foreach (VideoDownloader downloader in videoUIs) {
+//			downloader.StopThread ();
+//		}
+//		Debug.LogError ("++++++++StopThread");
 	}
 
 
 
 	public void ResumeThread()
 	{
-		VideoDownloader[] videoUIs = UnityEngine.Object.FindObjectsOfType<VideoDownloader> ();
-		foreach (VideoDownloader downloader in videoUIs) {
-			downloader.Reset ();
-		}
-		Debug.LogError ("+++++++++++ResumeThread");
+//		VideoDownloader[] videoUIs = UnityEngine.Object.FindObjectsOfType<VideoDownloader> ();
+//		foreach (VideoDownloader downloader in videoUIs) {
+//			downloader.Reset ();
+//		}
+//		Debug.LogError ("+++++++++++ResumeThread");
 	}
 
 	public void DeleteAllThread()

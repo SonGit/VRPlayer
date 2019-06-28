@@ -19,8 +19,9 @@ public class DownloadMenu : BasicMenuNavigation
 	protected override void Start ()
 	{
 		base.Start ();
-		MainAllController.instance.OnGetDownloadVideo += Init;
+		MainAllController.instance.OnGetUserVideo += Init;
 		MainAllController.instance.OnLoggedOut += Reset;
+		MainAllController.instance.OnDownloadedVideo += DownloadedVideo;
 	}
 		
 	public override void Init()
@@ -30,8 +31,6 @@ public class DownloadMenu : BasicMenuNavigation
 		if (scroller != null){
 			scroller.ReloadData ();
 		}
-			
-		CheckThumbnail ();
 
 		UpdateNetworkConnectionUI ();
 		UpdateNoVideoUI ();
@@ -41,11 +40,22 @@ public class DownloadMenu : BasicMenuNavigation
 
 	public override void Refresh()
 	{
-        if (MainAllController.instance != null)
-        {
-            MainAllController.instance.UpdateDownloadVideo();
-        }
+//        if (MainAllController.instance != null)
+//        {
+//            MainAllController.instance.UpdateDownloadVideo();
+//        }
+
+		Init ();
     }
+
+	private void DownloadedVideo(Video anotherVideo){
+		StartCoroutine (DelayInitMenu());
+	}
+
+	private IEnumerator DelayInitMenu(){
+		yield return new WaitForSeconds (1);
+		Init ();
+	}
 
 	protected override bool CanBeAdded(Video video)
 	{

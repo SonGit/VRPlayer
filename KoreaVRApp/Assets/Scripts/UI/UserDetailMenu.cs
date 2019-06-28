@@ -359,9 +359,10 @@ public class UserDetailMenu : BasicMenuNavigation
 
 	void OnCompleteFavorite(FavoriteVideoResponse callback)
 	{
-//		if(MainAllController.instance != null){
-//			MainAllController.instance.UpdateFavorite ();
-//		}
+		if(MainAllController.instance != null){
+			MainAllController.instance.user.AddFavoriteVideo (video);
+		}
+
 		SetupFavoriteBtns ();
 
 		favoriteBtn.SetActive (false);
@@ -369,6 +370,10 @@ public class UserDetailMenu : BasicMenuNavigation
 
 		if(MainAllController.instance != null){
 			MainAllController.instance.GoToFavoriteMenu ();
+		}
+
+		if (ScreenLoading.instance != null){
+			ScreenLoading.instance.Stop ();
 		}
 	}
 
@@ -396,13 +401,12 @@ public class UserDetailMenu : BasicMenuNavigation
 
 	void OnCompleteUnfavorite(UnfavoriteVideoResponse callback)
 	{
-//		if(MainAllController.instance != null){
-//			MainAllController.instance.UpdateFavorite ();
-//		}
+		if(MainAllController.instance != null){
+			MainAllController.instance.user.RemoveFavoriteVideo (video);
+			//MainAllController.instance.InitFavoriteMenu ();
+		}
 
-//		if(MainAllController.instance != null){
-//			MainAllController.instance.GoToFavoriteMenu ();
-//		}
+		SetupFavoriteBtns ();
 
 		favoriteBtn.SetActive (true);
 		unfavoriteBtn.SetActive (false);
@@ -484,6 +488,23 @@ public class UserDetailMenu : BasicMenuNavigation
 
 		// Case: User comes from DownloadMenu
 		if (currentShowUI is DownloadVideoUI) {
+
+			if (video != null) {
+
+				if (video.isDownloaded ()) {
+					ShowDownloadedUI ();
+				} else {
+					ShowHavenotDownloadedUI ();
+				}
+
+				// Hide download button
+				BtnDownload.gameObject.SetActive (false);
+			}
+
+		}
+
+		// Case: User comes from InboxMenu
+		if (currentShowUI is InboxVideoUI) {
 
 			if (video != null) {
 

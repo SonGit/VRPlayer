@@ -22,7 +22,7 @@ public class VR_InboxVideoUI : UserVideoUI
 			this.video_name.text = video.videoInfo.video_name;
 			//this.video_length.text = (currentuserVideo.videoInfo.length).ToString();
 			this.video_length.text = "00:00:00";
-			CheckAndDownloadThumbnail ();
+			video_image.texture = null;
 		}
 
 	}
