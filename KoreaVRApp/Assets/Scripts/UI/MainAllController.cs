@@ -372,10 +372,8 @@ public class MainAllController : MonoBehaviour
 			ScreenLoading.instance.Stop ();
 		}
 
-		if (currentScene is SceneVR) {
-			if (VR_MainMenu.instance != null) {
-				VR_MainMenu.instance.HideLoadingUI ();
-			}
+		if (VR_MainMenu.instance != null) {
+			VR_MainMenu.instance.HideLoadingUI ();
 		}
 	}
 
