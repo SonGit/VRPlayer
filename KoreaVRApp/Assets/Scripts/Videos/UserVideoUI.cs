@@ -78,7 +78,29 @@ public class UserVideoUI : VideoUI
 				}
 			}
 		} else {
-			AndroidDialog.instance.showLoginDialog ("Usable capacity is not available!", OnAlertDownloadComplete);
+			
+			if (SystemLanguageManager.instance != null){
+				if (SystemLanguageManager.instance.IsEnglishLanguage){
+					AndroidDialog.instance.showLoginDialog ("Usable capacity is not available!", OnAlertDownloadComplete, "Yes", "No", true);
+				}
+
+				if (SystemLanguageManager.instance.IsKoreanLanguage){
+					AndroidDialog.instance.showLoginDialog ("사용 가능한 용량을 사용할 수 없습니다!", OnAlertDownloadComplete, "예", "아니오", true);
+				}
+
+				if (SystemLanguageManager.instance.IsJapaneseLanguage){
+					AndroidDialog.instance.showLoginDialog ("使用可能容量がありません!", OnAlertDownloadComplete, "はい", "いいえ", true);
+				}
+
+				if (SystemLanguageManager.instance.IsChineseLanguage){
+					AndroidDialog.instance.showLoginDialog ("可用容量不可用!", OnAlertDownloadComplete, "是", "沒有", true);
+				}
+
+				if (SystemLanguageManager.instance.IsOtherLanguage){
+					AndroidDialog.instance.showLoginDialog ("Usable capacity is not available!", OnAlertDownloadComplete, "Yes", "No", true);
+				}
+			}
+
 		}
 
 	}

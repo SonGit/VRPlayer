@@ -28,7 +28,7 @@ public class VR_SettingsManager : MonoBehaviour
         
     }
 
-	void Init(){
+	public void Init(){
 		btns = GetComponentsInChildren <VR_ButtonSettings> ();
 		if (btns.Length > 0) {
 			foreach (VR_ButtonSettings btn in btns) {
@@ -66,6 +66,48 @@ public class VR_SettingsManager : MonoBehaviour
 		}
 
 		 else {
+			Debug.LogError ("basicButtonMenus[] Null");
+		}
+	}
+
+	public void ShowSettingTB(){
+		btns = GetComponentsInChildren <VR_ButtonSettings> ();
+		if (btns.Length > 0) {
+			foreach (VR_ButtonSettings btn in btns) {
+				switch (btn.name) {
+				case "Flat":
+					btn.Init ();
+					btn.OnInactive ();
+					//btn.thisBtn.onClick.AddListener (vplayer.PackingNone);
+					break;
+				case "btn1-2LR":
+					btn.Init ();
+					btn.OnInactive ();
+					//btn.thisBtn.onClick.AddListener (vplayer.PackingLeftRight);
+					break;
+				case "btn2-1LR":
+					btn.Init ();
+					btn.OnInactive ();
+					//btn.thisBtn.onClick.AddListener (vplayer.PackingLeftRight);
+					break;
+				case "btn1-2TB":
+					btn.Init ();
+					btn.OnActive ();
+					currentBtn = btn;
+					//btn.thisBtn.onClick.AddListener (vplayer.PackingTopBottom);
+					break;
+				case "btn2-1TB":
+					btn.Init ();
+					btn.OnInactive ();
+					//btn.thisBtn.onClick.AddListener (vplayer.PackingTopBottom);
+					break;
+				default:
+					break;
+				}
+			}
+		}
+
+		else {
 			Debug.LogError ("basicButtonMenus[] Null");
 		}
 	}

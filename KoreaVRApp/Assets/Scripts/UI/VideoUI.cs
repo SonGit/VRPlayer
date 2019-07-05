@@ -466,7 +466,29 @@ public class VideoUI : EnhancedScrollerCellView
 	public virtual void GetAlertDelete(){
 
     #if UNITY_ANDROID
-     AndroidDialog.instance.showLoginDialog("Delete?", OnAlertDeleteComplete);
+    
+		if (SystemLanguageManager.instance != null){
+			if (SystemLanguageManager.instance.IsEnglishLanguage){
+				AndroidDialog.instance.showLoginDialog("Are you sure?", OnAlertDeleteComplete, "Yes", "No", true);
+			}
+
+			if (SystemLanguageManager.instance.IsKoreanLanguage){
+				AndroidDialog.instance.showLoginDialog("삭제하시겠습니까?", OnAlertDeleteComplete, "예", "아니오", true);
+			}
+
+			if (SystemLanguageManager.instance.IsJapaneseLanguage){
+				AndroidDialog.instance.showLoginDialog("本気ですか？", OnAlertDeleteComplete, "はい", "いいえ", true);
+			}
+
+			if (SystemLanguageManager.instance.IsChineseLanguage){
+				AndroidDialog.instance.showLoginDialog("你確定嗎？", OnAlertDeleteComplete, "是", "沒有", true);
+			}
+
+			if (SystemLanguageManager.instance.IsOtherLanguage){
+				AndroidDialog.instance.showLoginDialog("Are you sure?", OnAlertDeleteComplete, "Yes", "No", true);
+			}
+		}
+
     #endif
 
     #if UNITY_IOS

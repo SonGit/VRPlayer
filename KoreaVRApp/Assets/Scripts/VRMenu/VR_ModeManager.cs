@@ -39,7 +39,7 @@ public class VR_ModeManager : MonoBehaviour
 //		}
     }
 
-	void Init(){
+	public void Init(){
 		btns = GetComponentsInChildren<VR_ButtonMode> ();
 		if (btns.Length > 0) {
 			foreach (VR_ButtonMode btn in btns) {

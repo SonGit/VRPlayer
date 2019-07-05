@@ -29,6 +29,7 @@ public class MainAllController : MonoBehaviour
 	private DownloadMenu downloadMenu = null;
 	private UserDetailMenu userDetailMenu = null;
 	private InboxMenu inboxMenu = null;
+	private InfoMenu infoMenu = null;
 	private VRPlayerMenu vrPlayerMenu = null;
 	private MediaPlayerMenu mediaPlayerMenu = null;
 	private AlertMenu alertMenu = null;
@@ -143,6 +144,13 @@ public class MainAllController : MonoBehaviour
 			Debug.LogError ("Null");
 		}
 
+		if (accessMenu != null && infoMenu != null) {
+			accessMenu.OnInfo += AccessMenu_OnInfo;
+			infoMenu.OnBack += InfoMenu_OnBack;
+		}else {
+			Debug.LogError ("Null");
+		}
+
 		if (accessMenu != null && loginMenu != null) {
 			accessMenu.OnLogin += AccessMenu_OnLogin;
 		}else {
@@ -156,7 +164,7 @@ public class MainAllController : MonoBehaviour
 		}
 
 		if (accessMenu != null && userVideoMenu != null) {
-			accessMenu.OnMyVideo += AccessMenu_OnMyVideo;
+			accessMenu.OnAffiliatedVideo += AccessMenu_OnAffiliatedVideo;
 		}else {
 			Debug.LogError ("Null");
 		}
@@ -321,6 +329,7 @@ public class MainAllController : MonoBehaviour
 		_mediaPlayer = UnityEngine.Object.FindObjectOfType<MediaPlayer> ();
 		sensorMenu = UnityEngine.Object.FindObjectOfType<SensorMenu> ();
 		_myScrollViews = UnityEngine.Object.FindObjectsOfType<MyScrollView> ();
+		infoMenu = UnityEngine.Object.FindObjectOfType<InfoMenu> ();
 
 		GoToScene2D ();
 
@@ -605,6 +614,7 @@ public class MainAllController : MonoBehaviour
 			currentMenu.SetActive (false);
 			storageMenu.SetActive(true);
 			currentMenu = storageMenu;
+			accessMenu.SetHandleViewable (true);
 
 			storageMenu.FastRefresh ();
 		}
@@ -627,7 +637,22 @@ public class MainAllController : MonoBehaviour
 			settingsMenu.SetActive(true);
 			settingsMenu.InitViewable ();
 			settingsMenu.DisableNetworkAlert ();
+			accessMenu.SetHandleViewable (true);
 			currentMenu = settingsMenu;
+		}
+	}
+
+	private void AccessMenu_OnInfo()
+	{
+		accessMenu.Close ();
+
+		if (!(currentMenu is InfoMenu)) {
+			currentMenu.SetActive (false);
+			infoMenu.SetActive(true);
+			infoMenu.IsShowInfoMenu = true;
+			accessMenu.SetHandleViewable (false);
+
+			infoMenu.Init ();
 		}
 	}
 
@@ -649,6 +674,7 @@ public class MainAllController : MonoBehaviour
 			loginMenu.SetActive(true);
 			loginMenu.InitViewable ();
 			loginMenu.UpdateNetworkConnectionUI ();
+			accessMenu.SetHandleViewable (false);
 			currentMenu = loginMenu;
 		}
 	}
@@ -663,20 +689,21 @@ public class MainAllController : MonoBehaviour
 		loginMenu.Logout ();
 	}
 
-	private void AccessMenu_OnMyVideo()
+	private void AccessMenu_OnAffiliatedVideo()
 	{
 		accessMenu.Close ();
 
 		if (HasUserLoggedIn ()) {
 			
-			if (accessMenu.checkerMyVideo != null) {
-				accessMenu.CheckerViewable (accessMenu.checkerMyVideo, true);
+			if (accessMenu.checkerAffiliatedVideo != null) {
+				accessMenu.CheckerViewable (accessMenu.checkerAffiliatedVideo, true);
 			}
 
 			if (!(currentMenu is UserVideoMenu)) {
 				currentMenu.SetActive (false);
 				userVideoMenu.SetActive (true);
 				currentMenu = userVideoMenu;
+				accessMenu.SetHandleViewable (true);
 
 				userVideoMenu.Init ();
 			}
@@ -698,6 +725,7 @@ public class MainAllController : MonoBehaviour
 				currentMenu.SetActive (false);
 				favoriteMenu.SetActive (true);
 				currentMenu = favoriteMenu;
+				accessMenu.SetHandleViewable (true);
 		
 				favoriteMenu.Init();
 			}
@@ -724,6 +752,7 @@ public class MainAllController : MonoBehaviour
 				currentMenu.SetActive (false);
 				downloadMenu.SetActive (true);
 				currentMenu = downloadMenu;
+				accessMenu.SetHandleViewable (true);
 
 				downloadMenu.Init ();
 			}
@@ -744,7 +773,7 @@ public class MainAllController : MonoBehaviour
 
 	public void GoToUserMenu()
 	{
-		AccessMenu_OnMyVideo ();
+		AccessMenu_OnAffiliatedVideo ();
 	}
 
 	private void AccessMenu_OnInboxMenu()
@@ -760,6 +789,7 @@ public class MainAllController : MonoBehaviour
 				currentMenu.SetActive (false);
 				inboxMenu.SetActive (true);
 				currentMenu = inboxMenu;
+				accessMenu.SetHandleViewable (true);
 
 				inboxMenu.Init ();
 			}
@@ -785,6 +815,7 @@ public class MainAllController : MonoBehaviour
 			currentMenu.SetActive (false);
 			userDetailMenu.SetActive (true);
 			userDetailMenu.UpdateNetworkConnectionUI ();
+			accessMenu.SetHandleViewable (false);
 			currentMenu = userDetailMenu;
 		}
 	}
@@ -798,7 +829,7 @@ public class MainAllController : MonoBehaviour
 	{
 		// Return to respective last accessed menu
 		if (lastMenu is UserVideoMenu) {
-			AccessMenu_OnMyVideo ();
+			AccessMenu_OnAffiliatedVideo ();
 			return;
 		}
 
@@ -818,7 +849,7 @@ public class MainAllController : MonoBehaviour
 		}
 
 		//If not, at least return to to something, better than getting stuck
-		AccessMenu_OnMyVideo ();
+		AccessMenu_OnAffiliatedVideo ();
 	}
 
 	private void userDetailMenu_OnVRPlayerMenu()
@@ -843,6 +874,17 @@ public class MainAllController : MonoBehaviour
 		accessMenu.Open();
 	}
 	#endregion
+
+	#region InfoMenu
+	private void InfoMenu_OnBack()
+	{
+		infoMenu.SetActive (false);
+		infoMenu.IsShowInfoMenu = false;
+		currentMenu.SetActive (true);
+		accessMenu.SetHandleViewable (true);
+	}
+	#endregion
+
 
 	#region storageMenu
 	private void storageMenu_OnAccessMenu()
@@ -937,6 +979,7 @@ public class MainAllController : MonoBehaviour
 		vrPlayerMenu.SetActive (false);
 		vrPlayerMenu.IsShowVRPlayer = false;
 		currentMenu.SetActive (true);
+		accessMenu.SetHandleViewable (true);
 	}
 
 	private void GoVRPplayerMenu(){
@@ -944,6 +987,7 @@ public class MainAllController : MonoBehaviour
             //currentMenu.SetActive (false);
         	vrPlayerMenu.SetActive (true);
 			vrPlayerMenu.IsShowVRPlayer = true;
+			accessMenu.SetHandleViewable (false);
         }
 	}
 
@@ -1106,7 +1150,30 @@ public class MainAllController : MonoBehaviour
 	/// Gets the alert when not loggin.
 	/// </summary>
 	public void GetAlertLoggin(){
-		AndroidDialog.instance.showLoginDialog ("Please try again after logging in!", OnAlertLogginComplete);
+		if (SystemLanguageManager.instance != null){
+			if (SystemLanguageManager.instance.IsEnglishLanguage){
+				AndroidDialog.instance.showLoginDialog ("Please try again after logging in!", OnAlertLogginComplete, "Yes", "No", true);
+			}
+
+			if (SystemLanguageManager.instance.IsKoreanLanguage){
+				AndroidDialog.instance.showLoginDialog ("로그인 후 다시 시도하십시오!", OnAlertLogginComplete, "예", "아니오", true);
+			}
+
+			if (SystemLanguageManager.instance.IsJapaneseLanguage){
+				AndroidDialog.instance.showLoginDialog ("ログインしてからもう一度お試しください!", OnAlertLogginComplete, "はい", "いいえ", true);
+			}
+
+			if (SystemLanguageManager.instance.IsChineseLanguage){
+				AndroidDialog.instance.showLoginDialog ("登錄後請再試一次!", OnAlertLogginComplete, "是", "沒有", true);
+			}
+
+			if (SystemLanguageManager.instance.IsOtherLanguage){
+				AndroidDialog.instance.showLoginDialog ("Please try again after logging in!", OnAlertLogginComplete, "Yes", "No", true);
+			}
+		}
+
+
+
 		//AndroidDialog.OnConfirm += OnAlertLogginComplete ;
 //		NativeUI.AlertPopup alert = NativeUI.ShowTwoButtonAlert("Notification!", "Please try again after logging in.", "CANCEL", "CONFIRM");
 //		if (alert != null)
@@ -1644,6 +1711,11 @@ public class MainAllController : MonoBehaviour
 				} else {
 					if (vrPlayerMenu.IsShowVRPlayer){
 						VRPlayerMenu_OnBack ();
+						return;
+					}
+
+					if (infoMenu.IsShowInfoMenu){
+						InfoMenu_OnBack ();
 						return;
 					}
 						

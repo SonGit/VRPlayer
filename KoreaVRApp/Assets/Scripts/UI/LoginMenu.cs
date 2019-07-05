@@ -109,11 +109,54 @@ public class LoginMenu : BasicMenuNavigation
 			} 
 			else if (login_UsernameField.text == "" || (login_UsernameField.text == "" && login_PasswordField.text == "")) {
 				//NativeUI.AlertPopup alert = NativeUI.Alert ("Notification!", "Enter your email");
-				AndroidDialog.instance.showWarningDialog("Enter your email");
+
+				if (SystemLanguageManager.instance != null){
+					if (SystemLanguageManager.instance.IsEnglishLanguage){
+						AndroidDialog.instance.showWarningDialog("Enter your email");
+					}
+
+					if (SystemLanguageManager.instance.IsKoreanLanguage){
+						AndroidDialog.instance.showWarningDialog("이메일을 입력하십시오");
+					}
+
+					if (SystemLanguageManager.instance.IsJapaneseLanguage){
+						AndroidDialog.instance.showWarningDialog("メールアドレスを入力");
+					}
+
+					if (SystemLanguageManager.instance.IsChineseLanguage){
+						AndroidDialog.instance.showWarningDialog("輸入你的電子郵箱");
+					}
+
+					if (SystemLanguageManager.instance.IsOtherLanguage){
+						AndroidDialog.instance.showWarningDialog("Enter your email");
+					}
+				}
+
 			} 
 			else if (login_PasswordField.text == "") {
 				//NativeUI.AlertPopup alert = NativeUI.Alert ("Notification!", "Enter your password");
-				AndroidDialog.instance.showWarningDialog("Enter your password");
+
+				if (SystemLanguageManager.instance != null){
+					if (SystemLanguageManager.instance.IsEnglishLanguage){
+						AndroidDialog.instance.showWarningDialog("Enter your password");
+					}
+
+					if (SystemLanguageManager.instance.IsKoreanLanguage){
+						AndroidDialog.instance.showWarningDialog("비밀번호를 입력하십시오");
+					}
+
+					if (SystemLanguageManager.instance.IsJapaneseLanguage){
+						AndroidDialog.instance.showWarningDialog("パスワードを入力してください");
+					}
+
+					if (SystemLanguageManager.instance.IsChineseLanguage){
+						AndroidDialog.instance.showWarningDialog("輸入您的密碼");
+					}
+
+					if (SystemLanguageManager.instance.IsOtherLanguage){
+						AndroidDialog.instance.showWarningDialog("Enter your password");
+					}
+				}
 			}
 		}
 	}

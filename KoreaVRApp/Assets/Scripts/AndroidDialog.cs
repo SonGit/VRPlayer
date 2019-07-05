@@ -93,7 +93,7 @@ public class AndroidDialog : MonoBehaviour
 
 	int lastDialog;
 
-	public void showLoginDialog(string message, ConfirmCallback callback,string confirmMessage = "Confirm",string cancelMessage = "Cancel",bool remember = true)
+	public void showLoginDialog(string message, ConfirmCallback callback,string confirmMessage,string cancelMessage,bool remember = true)
 	{
 #if UNITY_ANDROID
 		AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
@@ -107,7 +107,27 @@ public class AndroidDialog : MonoBehaviour
 			{
 				AndroidJavaObject alertDialogBuilder = new AndroidJavaObject("android/app/AlertDialog$Builder",paramObject);
 
-				alertDialogBuilder.Call<AndroidJavaObject>("setTitle","Notification");
+				if (SystemLanguageManager.instance != null){
+					if (SystemLanguageManager.instance.IsEnglishLanguage){
+						alertDialogBuilder.Call<AndroidJavaObject>("setTitle","Notification");
+					}
+
+					if (SystemLanguageManager.instance.IsKoreanLanguage){
+						alertDialogBuilder.Call<AndroidJavaObject>("setTitle","공고");
+					}
+
+					if (SystemLanguageManager.instance.IsJapaneseLanguage){
+						alertDialogBuilder.Call<AndroidJavaObject>("setTitle","お知らせ");
+					}
+
+					if (SystemLanguageManager.instance.IsChineseLanguage){
+						alertDialogBuilder.Call<AndroidJavaObject>("setTitle","通知");
+					}
+
+					if (SystemLanguageManager.instance.IsOtherLanguage){
+						alertDialogBuilder.Call<AndroidJavaObject>("setTitle","Notification");
+					}
+				}
 
 				alertDialogBuilder.Call<AndroidJavaObject>("setMessage",message);
 
@@ -174,7 +194,27 @@ public class AndroidDialog : MonoBehaviour
 			{
 				AndroidJavaObject alertDialogBuilder = new AndroidJavaObject("android/app/AlertDialog$Builder",paramObject);
 
-				alertDialogBuilder.Call<AndroidJavaObject>("setTitle","Notification");
+				if (SystemLanguageManager.instance != null){
+					if (SystemLanguageManager.instance.IsEnglishLanguage){
+						alertDialogBuilder.Call<AndroidJavaObject>("setTitle","Notification");
+					}
+
+					if (SystemLanguageManager.instance.IsKoreanLanguage){
+						alertDialogBuilder.Call<AndroidJavaObject>("setTitle","공고");
+					}
+
+					if (SystemLanguageManager.instance.IsJapaneseLanguage){
+						alertDialogBuilder.Call<AndroidJavaObject>("setTitle","お知らせ");
+					}
+
+					if (SystemLanguageManager.instance.IsChineseLanguage){
+						alertDialogBuilder.Call<AndroidJavaObject>("setTitle","通知");
+					}
+
+					if (SystemLanguageManager.instance.IsOtherLanguage){
+						alertDialogBuilder.Call<AndroidJavaObject>("setTitle","Notification");
+					}
+				}
 
 				alertDialogBuilder.Call<AndroidJavaObject>("setMessage",message);
 

@@ -12,32 +12,33 @@ namespace NavigationDrawer.UI
 		private BasicButtonMenu btnMyStorage;
 		private BasicButtonMenu btnLogin;
 		private BasicButtonMenu btnLogout;
-		private BasicButtonMenu btnMyVideo;
+		private BasicButtonMenu btnAffiliatedVideoList;
 		private BasicButtonMenu btnFavorite;
 		private BasicButtonMenu btnDownload;
 		private BasicButtonMenu btnInbox;
 		private BasicButtonMenu btnSettings;
-		private BasicButtonMenu btnButtonUsageInformation;
+		private BasicButtonMenu btnButtonHowToUse;
 		private BasicButtonMenu btnCloseSideMenu;
 
 		[HideInInspector] public RawImage checkerMyStorage;
-		[HideInInspector] public RawImage checkerMyVideo;
+		[HideInInspector] public RawImage checkerAffiliatedVideo;
 		[HideInInspector] public RawImage checkerFavorite;
 		[HideInInspector] public RawImage checkerDownload;
 		[HideInInspector] public RawImage checkerInbox;
 		[HideInInspector] public RawImage checkerSettings;
-		[HideInInspector] public RawImage checkerUsageInformation;
+		[HideInInspector] public RawImage checkerInfo;
 		public RawImage currentchecker;
 
 		public event Action OnMyStorage;
 		public event Action OnSettings;
 		public event Action OnLogin;
 		public event Action OnLogout;
-		public event Action OnMyVideo;
+		public event Action OnAffiliatedVideo;
 		public event Action OnClose;
 		public event Action OnFavorite;
 		public event Action OnDownload;
 		public event Action OnInbox;
+		public event Action OnInfo;
 
 		private RectTransform rectTransformS;
 
@@ -100,8 +101,8 @@ namespace NavigationDrawer.UI
 					case "ButtonLogout": 
 						btnLogout = basicButtonMenu;
 						break;
-					case "ButtonVideoList": 
-						btnMyVideo = basicButtonMenu;
+					case "ButtonAffiliatedVideoList": 
+						btnAffiliatedVideoList = basicButtonMenu;
 						break;
 					case "ButtonFavorite": 
 						btnFavorite = basicButtonMenu;
@@ -115,8 +116,8 @@ namespace NavigationDrawer.UI
 					case "ButtonPreferences": 
 						btnSettings = basicButtonMenu;
 						break;
-					case "ButtonUsageInformation": 
-						btnButtonUsageInformation = basicButtonMenu;
+					case "ButtonHowToUse": 
+						btnButtonHowToUse = basicButtonMenu;
 						break;
 					case "BackgroundCloseSideMenu": 
 						btnCloseSideMenu = basicButtonMenu;
@@ -166,11 +167,11 @@ namespace NavigationDrawer.UI
 				Debug.LogError ("btnLogout null");
 			}
 
-			if (btnMyVideo != null) {
-				btnMyVideo.OnClick += btnMyVideo_OnClick;
-				checkerMyVideo = btnMyVideo.GetComponentInChildren<RawImage> ();
-				if (checkerMyVideo != null){
-					checkerMyVideo.enabled = false;
+			if (btnAffiliatedVideoList != null) {
+				btnAffiliatedVideoList.OnClick += btnAffiliatedVideo_OnClick;
+				checkerAffiliatedVideo = btnAffiliatedVideoList.GetComponentInChildren<RawImage> ();
+				if (checkerAffiliatedVideo != null){
+					checkerAffiliatedVideo.enabled = false;
 				}
 			} else {
 				Debug.LogError ("btnMyVideo null");
@@ -212,14 +213,14 @@ namespace NavigationDrawer.UI
 				Debug.LogError ("btnInbox null");
 			}
 
-			if (btnButtonUsageInformation != null) {
-				//btnRecommend.OnClick += btnMyVideo_OnClick;
-				checkerUsageInformation = btnButtonUsageInformation.GetComponentInChildren<RawImage> ();
-				if (checkerUsageInformation != null){
-					checkerUsageInformation.enabled = false;
+			if (btnButtonHowToUse != null) {
+				btnButtonHowToUse.OnClick += btnButtonHowToUse_OnClick;
+				checkerInfo = btnButtonHowToUse.GetComponentInChildren<RawImage> ();
+				if (checkerInfo != null){
+					checkerInfo.enabled = false;
 				}
 			} else {
-				Debug.LogError ("btnButtonUsageInformation null");
+				Debug.LogError ("btnButtonHowToUse null");
 			}
 			// Init event button
 
@@ -299,15 +300,15 @@ namespace NavigationDrawer.UI
 			}
 		}
 
-		private void btnMyVideo_OnClick()
+		private void btnAffiliatedVideo_OnClick()
 		{
 			if(MainAllController.instance != null){
 				MainAllController.instance.PlayButtonSound ();
 			}
 
-			if (OnMyVideo != null)
+			if (OnAffiliatedVideo != null)
 			{
-				OnMyVideo();
+				OnAffiliatedVideo();
 			}
 		}
 
@@ -354,6 +355,19 @@ namespace NavigationDrawer.UI
 				OnInbox();
 			}
 		}
+
+		private void btnButtonHowToUse_OnClick()
+		{
+			if(MainAllController.instance != null){
+				MainAllController.instance.PlayButtonSound ();
+			}
+
+			if (OnInfo != null)
+			{
+				OnInfo();
+			}
+		}
+			
 		// Event click Button
 
 		public void InitViewable(){

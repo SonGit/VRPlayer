@@ -216,6 +216,7 @@ public class SceneVR : AppScene
 	{
 		vrSetting.HideSetting ();
 		vrMainMenu.gameObject.SetActive (false);
+		ResetAllMode ();
 
 		string url = string.Empty;
 
@@ -253,6 +254,7 @@ public class SceneVR : AppScene
 	{
 		vrSetting.HideSetting ();
 		vrMainMenu.gameObject.SetActive (false);
+		ResetAllMode ();
 
 		if (video is LocalVideo) {
 
@@ -459,6 +461,19 @@ public class SceneVR : AppScene
 
 		if (vr_RecenterPanel != null){
 			vr_RecenterPanel.Hide();
+		}
+	}
+
+	private void ResetAllMode(){
+		vrPlayer.CinemaMode ();
+		vrPlayer.PackingNone ();
+
+		if (VR_ModeManager.instance != null){
+			VR_ModeManager.instance.Init ();
+		}
+
+		if (VR_SettingsManager.instance != null){
+			VR_SettingsManager.instance.Init ();
 		}
 	}
 }

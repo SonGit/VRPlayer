@@ -256,12 +256,38 @@ public class SettingsMenu : BasicMenuNavigation
 			EnableMobieNetwork (mobieNetworkvisible);
 		} else {
 			#if !UNITY_EDITOR
-			AndroidDialog.instance.showLoginDialog ("Allow data network access Using your 3G / LTE connection may incur additional data charges", OnAlertMobieNetworkComplete);
+
+			ShowAlertMobieNetwork();
+
 			#endif
 
 			#if UNITY_EDITOR
 			DisableMobieNetwork (mobieNetworkvisible);
 			#endif
+		}
+	}
+
+	private void ShowAlertMobieNetwork(){
+		if (SystemLanguageManager.instance != null){
+			if (SystemLanguageManager.instance.IsEnglishLanguage){
+				AndroidDialog.instance.showLoginDialog ("Allow data network access Using your 3G / LTE connection may incur additional data charges", OnAlertMobieNetworkComplete, "Yes", "No", true);
+			}
+
+			if (SystemLanguageManager.instance.IsKoreanLanguage){
+				AndroidDialog.instance.showLoginDialog ("데이터 네트워크 액세스 허용 3G / LTE 연결을 사용하면 추가 데이터 요금이 부과 될 수 있습니다", OnAlertMobieNetworkComplete, "예", "아니오", true);
+			}
+
+			if (SystemLanguageManager.instance.IsJapaneseLanguage){
+				AndroidDialog.instance.showLoginDialog ("データネットワークアクセスを許可する3G / LTE接続を使用すると追加のデータ料金が発生する場合があります", OnAlertMobieNetworkComplete, "はい", "いいえ", true);
+			}
+
+			if (SystemLanguageManager.instance.IsChineseLanguage){
+				AndroidDialog.instance.showLoginDialog ("允許數據網絡訪問使用3G / LTE連接可能會產生額外的數據費用", OnAlertMobieNetworkComplete, "是", "沒有", true);
+			}
+
+			if (SystemLanguageManager.instance.IsOtherLanguage){
+				AndroidDialog.instance.showLoginDialog ("Allow data network access Using your 3G / LTE connection may incur additional data charges", OnAlertMobieNetworkComplete, "Yes", "No", true);
+			}
 		}
 	}
 	 

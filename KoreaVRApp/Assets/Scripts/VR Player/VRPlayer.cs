@@ -260,7 +260,7 @@ public class VRPlayer : MonoBehaviour
 	/// <summary>
 	/// Default mode
 	/// </summary>
-	void DefaultMode()
+	public void DefaultMode()
 	{
 		foreach (VRMode mode in vrModes) {
 			mode.Hide ();
@@ -563,6 +563,10 @@ public class VRPlayer : MonoBehaviour
 
 				PackingTopBottom ();
 
+				if (VR_SettingsManager.instance != null){
+					VR_SettingsManager.instance.ShowSettingTB ();
+				}
+
 			}
 
 			// if aspect ratio = 2, high chance that the video is 360
@@ -571,6 +575,10 @@ public class VRPlayer : MonoBehaviour
 				SphereMode ();
 
 				PackingNone ();
+
+				if (VR_SettingsManager.instance != null){
+					VR_SettingsManager.instance.Init ();
+				}
 
 			}
 		}

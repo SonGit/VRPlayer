@@ -15,8 +15,9 @@ public class SystemLanguageManager : MonoBehaviour
 	private string myStorageString_English = "My Storage";
 	private string myStorageTitleString_English = "MY STORAGE";
 	private string myvideoString_English = "My Video";
-	private string myvideoTitleString_English = "MY VIDEO";
-	private string videoListString_English = "Video List";
+	private string myvideoTitleString_English = "AFFILIATED VIDEO";
+	private string vrUDONVideoListString_English = "VR UDON Video List";
+	private string affiliatedVideoListString_English = "Affiliated Video List";
 	private string favoriteString_English = "Favorites";
 	private string favoriteTitleString_English = "FAVORITES";
 	private string downloadString_English = "Download";
@@ -25,7 +26,8 @@ public class SystemLanguageManager : MonoBehaviour
 	private string inboxTitleString_English = "INBOX";
 	private string etcString_English = "Etc";
 	private string preferencesString_English = "Preferences";
-	private string usageInformationString_English = "Usage Information";
+	private string howtouseString_English = "How to use";
+	private string howtouseTitleString_English = "HOW TO USE";
 	private string versionString_English = "Version";
 	private string lOGINString_English = "LOGIN";
 	private string autoLoginString_English = "Auto Login";
@@ -89,7 +91,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string vr_YesString_English = "Yes";
 	private string vr_NoString_English = "No";
 	private string vr_DeleterequiredString_English = "Delete required";
-	private string vr_DeleteString_English = "Delete?";
+	private string vr_DeleteString_English = "Are you sure?";
 	private string vr_Please_check_the_network_connectionString_English = "Please check the network connection";
 	private string vr_NovideosString_English = "No Videos";
 	private string vr_StreamingrequiredString_English = "Streaming required";
@@ -124,14 +126,17 @@ public class SystemLanguageManager : MonoBehaviour
 	private string phoneVideoString_Korean = "폰비디오";
 	private string myStorageString_Korean = "내 저장 공간";
 	private string myvideoString_Korean = "내 비디오";
-	private string videoListString_Korean = "동영상 목록";
+	private string myvideoTitleString_Korean = "제휴 동영상 목록";
+	private string vrUDONVideoListString_Korean = "VR UDON 동영상 목록";
+	private string affiliatedVideoListString_Korean = "제휴 동영상 목록";
 	private string favoriteString_Korean = "즐겨찾기";
 	private string downloadString_Korean = "다운로드";
 	private string inboxString_Korean = "받은 파일함";
 	private string etcString_Korean = "기타";
 	private string preferencesString_Korean = "환경 설정";
-	private string usageInformationString_Korean = "사용 정보";
-	private string versionString_Korean = "번역";
+	private string howtouseString_Korean = "이용 안내";
+	private string howtouseTitleString_Korean = "이용 안내";
+	private string versionString_Korean = "버전";
 	private string lOGINString_Korean = "로그인";
 	private string autoLoginString_Korean = "자동 로그인";
 	private string networkString_Korean = "네트워크에 연결할 수 없습니다.\n네트워크 연결을 확인하고 다시 시도하십시오.";
@@ -192,7 +197,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string vr_YesString_Korean = "예";
 	private string vr_NoString_Korean = "아니오";
 	private string vr_DeleterequiredString_Korean = "삭제 필요";
-	private string vr_DeleteString_Korean = "지우다?";
+	private string vr_DeleteString_Korean = "삭제하시겠습니까?";
 	private string vr_Please_check_the_network_connectionString_Korean = "네트워크 연결을 확인하십시오.";
 	private string vr_NovideosString_Korean = "동영상 없음";
 	private string vr_StreamingrequiredString_Korean = "스트리밍 요구됨";
@@ -228,13 +233,16 @@ public class SystemLanguageManager : MonoBehaviour
 	private string phoneVideoString_Japanese = "電話ビデオ";
 	private string myStorageString_Japanese = "私のストレージ";
 	private string myvideoString_Japanese = "私のビデオ";
-	private string videoListString_Japanese = "ビデオリスト";
+	private string myvideoTitleString_Japanese = "提携ビデオ";
+	private string vrUDONVideoListString_Japanese = "VR UDONビデオリスト";
+	private string affiliatedVideoListString_Japanese = "所属ビデオリスト";
 	private string favoriteString_Japanese = "気に入り";
 	private string downloadString_Japanese = "ダウンロード";
 	private string inboxString_Japanese = "受信トレイ";
 	private string etcString_Japanese = "等";
 	private string preferencesString_Japanese = "設定";
-	private string usageInformationString_Japanese = "利用情報";
+	private string howtouseString_Japanese = "使い方";
+	private string howtouseTitleString_Japanese = "使い方";
 	private string versionString_Japanese = "バージョン";
 	private string lOGINString_Japanese = "ログイン";
 	private string autoLoginString_Japanese = "自動ログイン";
@@ -296,7 +304,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string vr_YesString_Japanese = "はい";
 	private string vr_NoString_Japanese = "いいえ";
 	private string vr_DeleterequiredString_Japanese = "削除が必要です";
-	private string vr_DeleteString_Japanese = "削除する?";
+	private string vr_DeleteString_Japanese = "本気ですか？";
 	private string vr_Please_check_the_network_connectionString_Japanese = "ネットワーク接続を確認してください";
 	private string vr_NovideosString_Japanese = "動画なし";
 	private string vr_StreamingrequiredString_Japanese = "ストリーミングが必要";
@@ -332,16 +340,19 @@ public class SystemLanguageManager : MonoBehaviour
 	private string phoneVideoString_Chinese = "手机视频";
 	private string myStorageString_Chinese = "我的存储";
 	private string myvideoString_Chinese = "我的视频";
-	private string videoListString_Chinese = "视频列表";
+	private string myvideoTitleString_Chinese = "附屬視頻";
+	private string vrUDONVideoListString_Chinese = "VR UDON視頻列表";
+	private string affiliatedVideoListString_Chinese = "附屬視頻列表";
 	private string favoriteString_Chinese = "喜爱";
 	private string downloadString_Chinese = "下载";
 	private string inboxString_Chinese = "收件箱";
 	private string etcString_Chinese = "等等";
 	private string preferencesString_Chinese = "喜好";
-	private string usageInformationString_Chinese = "使用信息";
+	private string howtouseString_Chinese = "如何使用";
+	private string howtouseTitleString_Chinese = "如何使用";
 	private string versionString_Chinese = "版";
 	private string lOGINString_Chinese = "登錄";
-	private string autoLoginString_Chinese = "Auto Login";
+	private string autoLoginString_Chinese = "自動登錄";
 	private string networkString_Chinese = "無法連接到網絡。\n請檢查您的網絡連接，然後重試。";
 	private string noVideosString_Chinese = "沒有視頻";
 	private string detailPageString_Chinese = "細節頁面";
@@ -400,7 +411,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string vr_YesString_Chinese = "是";
 	private string vr_NoString_Chinese = "沒有";
 	private string vr_DeleterequiredString_Chinese = "需要刪除";
-	private string vr_DeleteString_Chinese = "刪除?";
+	private string vr_DeleteString_Chinese = "你確定嗎?";
 	private string vr_Please_check_the_network_connectionString_Chinese = "請檢查網絡連接";
 	private string vr_NovideosString_Chinese = "沒有視頻";
 	private string vr_StreamingrequiredString_Chinese = "需要流媒體";
@@ -435,7 +446,8 @@ public class SystemLanguageManager : MonoBehaviour
 	[SerializeField] private Text accessMenu_MyStorageName = null;
 
 	[SerializeField] private Text accessMenu_MyVideoTitle = null;
-	[SerializeField] private Text accessMenu_Videolistname = null;
+	[SerializeField] private Text accessMenu_UdonVideoname = null;
+	[SerializeField] private Text accessMenu_AffiliatedVideoname = null;
 	[SerializeField] private Text accessMenu_Favoritename = null;
 
 	[SerializeField] private Text accessMenu_DownloadTitle = null;
@@ -444,7 +456,7 @@ public class SystemLanguageManager : MonoBehaviour
 
 	[SerializeField] private Text accessMenu_EtcTitle = null;
 	[SerializeField] private Text accessMenu_PreferencesName = null;
-	[SerializeField] private Text accessMenu_UsageInformationName = null;
+	[SerializeField] private Text accessMenu_HowtouseName = null;
 	[SerializeField] private Text accessMenu_VersionName = null;
 
 	[Header("---- LoginMenu ----")]
@@ -507,6 +519,9 @@ public class SystemLanguageManager : MonoBehaviour
 	[SerializeField] private Text settingMenu_PushNotificationSettingsNotice = null;
 	[SerializeField] private Text settingMenu_UsableCapacity = null;
 	[SerializeField] private Text settingMenu_Network = null;
+
+	[Header("---- InfoMenu ----")]
+	[SerializeField] private Text infoMenu_Header = null;
 
 	[Header("---- VRPlayerMenu ----")]
 	[SerializeField] private Text vrPlayerMenu_Welcome = null;
@@ -588,6 +603,43 @@ public class SystemLanguageManager : MonoBehaviour
 	[SerializeField] private Text vr_Settings_Bottom_Alert2DBnt_YesButton = null;
 	[SerializeField] private Text vr_Settings_Bottom_Alert2DBnt_NoButton = null;
 
+
+	private bool isEnglishLanguage;
+	private bool isKoreanLanguage;
+	private bool isJapaneseLanguage;
+	private bool isChineseLanguage;
+	private bool isOtherLanguage;
+
+	public bool IsEnglishLanguage
+	{
+		get { return isEnglishLanguage; }
+		set { isEnglishLanguage = value; }
+	}
+
+	public bool IsKoreanLanguage
+	{
+		get { return isKoreanLanguage; }
+		set { isKoreanLanguage = value; }
+	}
+
+	public bool IsJapaneseLanguage
+	{
+		get { return isJapaneseLanguage; }
+		set { isJapaneseLanguage = value; }
+	}
+
+	public bool IsChineseLanguage
+	{
+		get { return isChineseLanguage; }
+		set { isChineseLanguage = value; }
+	}
+
+	public bool IsOtherLanguage
+	{
+		get { return isOtherLanguage; }
+		set { isOtherLanguage = value; }
+	}
+
 	void Awake(){
 		instance = this;
 
@@ -614,26 +666,31 @@ public class SystemLanguageManager : MonoBehaviour
 			Debug.Log ("This system is in English............................................");
 
 			SetEnglishLanguage ();
+			IsEnglishLanguage = true;
 			break;
 		
 		case SystemLanguage.Korean: //Otherwise, if the system is Korean
 			Debug.Log ("This system is in Korean.............................................");
 
 			SetKoreaLanguage ();
+			IsKoreanLanguage = true;
 			break;
 		case SystemLanguage.Japanese: //Otherwise, if the system is Japanese
 			Debug.Log ("This system is in Japanese...........................................");
 
 			SetJapaneseLanguage ();
+			IsJapaneseLanguage = true;
 			break;
 		case SystemLanguage.Chinese: //Otherwise, if the system is Chinese
 			Debug.Log ("This system is in Chinese.............................................");
 
 			SetChineseLanguage ();
+			IsChineseLanguage = true;
 			break;
 		default:
 			Debug.Log ("This system is in other language......................................");
 			SetEnglishLanguage ();
+			IsOtherLanguage = true;
 			break;
 		}
 		
@@ -677,14 +734,15 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (accessMenu_PhoneVideoTitle,phoneVideoString_English);
 		DisplayValueText (accessMenu_MyStorageName,myStorageString_English);
 		DisplayValueText (accessMenu_MyVideoTitle,myvideoString_English);
-		DisplayValueText (accessMenu_Videolistname,videoListString_English);
+		DisplayValueText (accessMenu_UdonVideoname,vrUDONVideoListString_English);
+		DisplayValueText (accessMenu_AffiliatedVideoname,affiliatedVideoListString_English);
 		DisplayValueText (accessMenu_Favoritename,favoriteString_English);
 		DisplayValueText (accessMenu_DownloadTitle,downloadString_English);
 		DisplayValueText (accessMenu_DownloadName,downloadString_English);
 		DisplayValueText (accessMenu_Inboxname,inboxString_English);
 		DisplayValueText (accessMenu_EtcTitle,etcString_English);
 		DisplayValueText (accessMenu_PreferencesName,preferencesString_English);
-		DisplayValueText (accessMenu_UsageInformationName,usageInformationString_English);
+		DisplayValueText (accessMenu_HowtouseName,howtouseString_English);
 		DisplayValueText (accessMenu_VersionName,versionString_English);
 	}
 
@@ -758,6 +816,10 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (settingMenu_Network,networkString_English);
 	}
 
+	private void SetEnglishLanguage_InfoMenu(){
+		DisplayValueText (infoMenu_Header,howtouseTitleString_English);
+	}
+
 	private void SetEnglishLanguage_VRPlayerMenu(){
 		DisplayValueText (vrPlayerMenu_Welcome,welcomeString_English);
 		DisplayValueText (vrPlayerMenu_Top,experience_realistic_virtual_realityString_English);
@@ -797,7 +859,6 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (vr_MainMenu_LoginAlertContent,vr_Move_to_loginString_English);
 		DisplayValueText (vr_MainMenu_LoginAlertYesButton,vr_YesString_English);
 		DisplayValueText (vr_MainMenu_LoginAlertNoButton,vr_NoString_English);
-		DisplayValueText (vr_MainMenu_VR_DeleteAlertTitle,vr_DeleterequiredString_English);
 		DisplayValueText (vr_MainMenu_VR_DeleteAlertTitle,vr_DeleterequiredString_English);
 		DisplayValueText (vr_MainMenu_VR_DeleteAlertContent,vr_DeleteString_English);
 		DisplayValueText (vr_MainMenu_VR_DeleteAlertYesButton,vr_YesString_English);
@@ -852,6 +913,7 @@ public class SystemLanguageManager : MonoBehaviour
 		SetEnglishLanguage_DownloadMenu ();
 		SetEnglishLanguage_InboxMenu ();
 		SetEnglishLanguage_SettingMenu ();
+		SetEnglishLanguage_InfoMenu ();
 		SetEnglishLanguage_VRPlayerMenu ();
 		SetEnglishLanguage_AlertMenu ();
 		SetEnglishLanguage_SensorMenu ();
@@ -869,14 +931,15 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (accessMenu_PhoneVideoTitle,phoneVideoString_Korean);
 		DisplayValueText (accessMenu_MyStorageName,myStorageString_Korean);
 		DisplayValueText (accessMenu_MyVideoTitle,myvideoString_Korean);
-		DisplayValueText (accessMenu_Videolistname,videoListString_Korean);
+		DisplayValueText (accessMenu_UdonVideoname,vrUDONVideoListString_Korean);
+		DisplayValueText (accessMenu_AffiliatedVideoname,affiliatedVideoListString_Korean);
 		DisplayValueText (accessMenu_Favoritename,favoriteString_Korean);
 		DisplayValueText (accessMenu_DownloadTitle,downloadString_Korean);
 		DisplayValueText (accessMenu_DownloadName,downloadString_Korean);
 		DisplayValueText (accessMenu_Inboxname,inboxString_Korean);
 		DisplayValueText (accessMenu_EtcTitle,etcString_Korean);
 		DisplayValueText (accessMenu_PreferencesName,preferencesString_Korean);
-		DisplayValueText (accessMenu_UsageInformationName,usageInformationString_Korean);
+		DisplayValueText (accessMenu_HowtouseName,howtouseString_Korean);
 		DisplayValueText (accessMenu_VersionName,versionString_Korean);
 	}
 
@@ -894,7 +957,7 @@ public class SystemLanguageManager : MonoBehaviour
 	}
 
 	private void SetKoreanLanguage_MyVideoMenu(){
-		DisplayValueText (myVideoMenu_Header,myvideoString_Korean);
+		DisplayValueText (myVideoMenu_Header,myvideoTitleString_Korean);
 		DisplayValueText (myVideoMenu_Novideos,noVideosString_Korean);
 		DisplayValueText (myVideoMenu_Network,networkString_Korean);
 	}
@@ -950,6 +1013,10 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (settingMenu_Network,networkString_Korean);
 	}
 
+	private void SetKoreanLanguage_InfoMenu(){
+		DisplayValueText (infoMenu_Header,howtouseTitleString_Korean);
+	}
+
 	private void SetKoreanLanguage_VRPlayerMenu(){
 		DisplayValueText (vrPlayerMenu_Welcome,welcomeString_Korean);
 		DisplayValueText (vrPlayerMenu_Top,experience_realistic_virtual_realityString_Korean);
@@ -989,7 +1056,6 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (vr_MainMenu_LoginAlertContent,vr_Move_to_loginString_Korean);
 		DisplayValueText (vr_MainMenu_LoginAlertYesButton,vr_YesString_Korean);
 		DisplayValueText (vr_MainMenu_LoginAlertNoButton,vr_NoString_Korean);
-		DisplayValueText (vr_MainMenu_VR_DeleteAlertTitle,vr_DeleterequiredString_Korean);
 		DisplayValueText (vr_MainMenu_VR_DeleteAlertTitle,vr_DeleterequiredString_Korean);
 		DisplayValueText (vr_MainMenu_VR_DeleteAlertContent,vr_DeleteString_Korean);
 		DisplayValueText (vr_MainMenu_VR_DeleteAlertYesButton,vr_YesString_Korean);
@@ -1044,6 +1110,7 @@ public class SystemLanguageManager : MonoBehaviour
 		SetKoreanLanguage_DownloadMenu ();
 		SetKoreanLanguage_InboxMenu ();
 		SetKoreanLanguage_SettingMenu ();
+		SetKoreanLanguage_InfoMenu ();
 		SetKoreanLanguage_VRPlayerMenu ();
 		SetKoreanLanguage_AlertMenu ();
 		SetKoreanLanguage_SensorMenu ();
@@ -1061,14 +1128,15 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (accessMenu_PhoneVideoTitle,phoneVideoString_Japanese);
 		DisplayValueText (accessMenu_MyStorageName,myStorageString_Japanese);
 		DisplayValueText (accessMenu_MyVideoTitle,myvideoString_Japanese);
-		DisplayValueText (accessMenu_Videolistname,videoListString_Japanese);
+		DisplayValueText (accessMenu_UdonVideoname,vrUDONVideoListString_Japanese);
+		DisplayValueText (accessMenu_AffiliatedVideoname,affiliatedVideoListString_Japanese);
 		DisplayValueText (accessMenu_Favoritename,favoriteString_Japanese);
 		DisplayValueText (accessMenu_DownloadTitle,downloadString_Japanese);
 		DisplayValueText (accessMenu_DownloadName,downloadString_Japanese);
 		DisplayValueText (accessMenu_Inboxname,inboxString_Japanese);
 		DisplayValueText (accessMenu_EtcTitle,etcString_Japanese);
 		DisplayValueText (accessMenu_PreferencesName,preferencesString_Japanese);
-		DisplayValueText (accessMenu_UsageInformationName,usageInformationString_Japanese);
+		DisplayValueText (accessMenu_HowtouseName,howtouseString_Japanese);
 		DisplayValueText (accessMenu_VersionName,versionString_Japanese);
 	}
 
@@ -1086,7 +1154,7 @@ public class SystemLanguageManager : MonoBehaviour
 	}
 
 	private void SetJapaneseLanguage_MyVideoMenu(){
-		DisplayValueText (myVideoMenu_Header,myvideoString_Japanese);
+		DisplayValueText (myVideoMenu_Header,myvideoTitleString_Japanese);
 		DisplayValueText (myVideoMenu_Novideos,noVideosString_Japanese);
 		DisplayValueText (myVideoMenu_Network,networkString_Japanese);
 	}
@@ -1142,6 +1210,10 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (settingMenu_Network,networkString_Japanese);
 	}
 
+	private void SetJapaneseLanguage_InfoMenu(){
+		DisplayValueText (infoMenu_Header,howtouseTitleString_Japanese);
+	}
+
 	private void SetJapaneseLanguage_VRPlayerMenu(){
 		DisplayValueText (vrPlayerMenu_Welcome,welcomeString_Japanese);
 		DisplayValueText (vrPlayerMenu_Top,experience_realistic_virtual_realityString_Japanese);
@@ -1182,7 +1254,6 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (vr_MainMenu_LoginAlertContent,vr_Move_to_loginString_Japanese);
 		DisplayValueText (vr_MainMenu_LoginAlertYesButton,vr_YesString_Japanese);
 		DisplayValueText (vr_MainMenu_LoginAlertNoButton,vr_NoString_Japanese);
-		DisplayValueText (vr_MainMenu_VR_DeleteAlertTitle,vr_DeleterequiredString_Japanese);
 		DisplayValueText (vr_MainMenu_VR_DeleteAlertTitle,vr_DeleterequiredString_Japanese);
 		DisplayValueText (vr_MainMenu_VR_DeleteAlertContent,vr_DeleteString_Japanese);
 		DisplayValueText (vr_MainMenu_VR_DeleteAlertYesButton,vr_YesString_Japanese);
@@ -1237,6 +1308,7 @@ public class SystemLanguageManager : MonoBehaviour
 		SetJapaneseLanguage_DownloadMenu ();
 		SetJapaneseLanguage_InboxMenu ();
 		SetJapaneseLanguage_SettingMenu ();
+		SetJapaneseLanguage_InfoMenu ();
 		SetJapaneseLanguage_VRPlayerMenu ();
 		SetJapaneseLanguage_AlertMenu ();
 		SetJapaneseLanguage_SensorMenu ();
@@ -1254,14 +1326,15 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (accessMenu_PhoneVideoTitle,phoneVideoString_Chinese);
 		DisplayValueText (accessMenu_MyStorageName,myStorageString_Chinese);
 		DisplayValueText (accessMenu_MyVideoTitle,myvideoString_Chinese);
-		DisplayValueText (accessMenu_Videolistname,videoListString_Chinese);
+		DisplayValueText (accessMenu_UdonVideoname,vrUDONVideoListString_Chinese);
+		DisplayValueText (accessMenu_AffiliatedVideoname,affiliatedVideoListString_Chinese);
 		DisplayValueText (accessMenu_Favoritename,favoriteString_Chinese);
 		DisplayValueText (accessMenu_DownloadTitle,downloadString_Chinese);
 		DisplayValueText (accessMenu_DownloadName,downloadString_Chinese);
 		DisplayValueText (accessMenu_Inboxname,inboxString_Chinese);
 		DisplayValueText (accessMenu_EtcTitle,etcString_Chinese);
 		DisplayValueText (accessMenu_PreferencesName,preferencesString_Chinese);
-		DisplayValueText (accessMenu_UsageInformationName,usageInformationString_Chinese);
+		DisplayValueText (accessMenu_HowtouseName,howtouseString_Chinese);
 		DisplayValueText (accessMenu_VersionName,versionString_Chinese);
 	}
 
@@ -1279,7 +1352,7 @@ public class SystemLanguageManager : MonoBehaviour
 	}
 
 	private void SetChineseLanguage_MyVideoMenu(){
-		DisplayValueText (myVideoMenu_Header,myvideoString_Chinese);
+		DisplayValueText (myVideoMenu_Header,myvideoTitleString_Chinese);
 		DisplayValueText (myVideoMenu_Novideos,noVideosString_Chinese);
 		DisplayValueText (myVideoMenu_Network,networkString_Chinese);
 	}
@@ -1335,6 +1408,10 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (settingMenu_Network,networkString_Chinese);
 	}
 
+	private void SetChineseLanguage_InfoMenu(){
+		DisplayValueText (infoMenu_Header,howtouseTitleString_Chinese);
+	}
+
 	private void SetChineseLanguage_VRPlayerMenu(){
 		DisplayValueText (vrPlayerMenu_Welcome,welcomeString_Chinese);
 		DisplayValueText (vrPlayerMenu_Top,experience_realistic_virtual_realityString_Chinese);
@@ -1374,7 +1451,6 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (vr_MainMenu_LoginAlertContent,vr_Move_to_loginString_Chinese);
 		DisplayValueText (vr_MainMenu_LoginAlertYesButton,vr_YesString_Chinese);
 		DisplayValueText (vr_MainMenu_LoginAlertNoButton,vr_NoString_Chinese);
-		DisplayValueText (vr_MainMenu_VR_DeleteAlertTitle,vr_DeleterequiredString_Chinese);
 		DisplayValueText (vr_MainMenu_VR_DeleteAlertTitle,vr_DeleterequiredString_Chinese);
 		DisplayValueText (vr_MainMenu_VR_DeleteAlertContent,vr_DeleteString_Chinese);
 		DisplayValueText (vr_MainMenu_VR_DeleteAlertYesButton,vr_YesString_Chinese);
@@ -1428,6 +1504,7 @@ public class SystemLanguageManager : MonoBehaviour
 		SetChineseLanguage_DownloadMenu ();
 		SetChineseLanguage_InboxMenu ();
 		SetChineseLanguage_SettingMenu ();
+		SetChineseLanguage_InfoMenu ();
 		SetChineseLanguage_VRPlayerMenu ();
 		SetChineseLanguage_AlertMenu ();
 		SetChineseLanguage_SensorMenu ();
