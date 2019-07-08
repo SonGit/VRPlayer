@@ -3861,7 +3861,7 @@ PrefabInstance:
     - target: {fileID: 4810842472355034876, guid: d1b01d9d6ac3a0a4eb0cfba7a39146cd,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.009277344
+      value: 0.0009765625
       objectReference: {fileID: 0}
     - target: {fileID: 4810842470871812426, guid: d1b01d9d6ac3a0a4eb0cfba7a39146cd,
         type: 3}
@@ -10050,6 +10050,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1730505127434337167}
+    - target: {fileID: 1604409711, guid: 33e9abdc7e8567249a901f37cacf9659, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RatioOriginal
+      objectReference: {fileID: 0}
     - target: {fileID: 4130720861537014817, guid: 33e9abdc7e8567249a901f37cacf9659,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -10485,6 +10489,39 @@ PrefabInstance:
     - target: {fileID: 1274900171, guid: bc3b65be6fc05f64c8a9e8d171be3174, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4284022737756769683, guid: bc3b65be6fc05f64c8a9e8d171be3174,
+        type: 3}
+      propertyPath: m_Text
+      value: 2D Mode
+      objectReference: {fileID: 0}
+    - target: {fileID: 1295206740360882099, guid: bc3b65be6fc05f64c8a9e8d171be3174,
+        type: 3}
+      propertyPath: m_Text
+      value: You can view VR video by clicking on VR goggles button. Doing this will
+        switch the app the VR mode.
+      objectReference: {fileID: 0}
+    - target: {fileID: 1295206740547782791, guid: bc3b65be6fc05f64c8a9e8d171be3174,
+        type: 3}
+      propertyPath: m_Text
+      value: Click on Play Button to start viewing videos in 2D mode.
+      objectReference: {fileID: 0}
+    - target: {fileID: 1295206741108830902, guid: bc3b65be6fc05f64c8a9e8d171be3174,
+        type: 3}
+      propertyPath: m_Text
+      value: You can open VR setting panel by doing a nod gesture in VR mode. Doing
+        so will also recenter VR. In setting panel, you can switch VR mode to Stereo/Mono
+        or to 360 mode.
+      objectReference: {fileID: 0}
+    - target: {fileID: 1295206742072398846, guid: bc3b65be6fc05f64c8a9e8d171be3174,
+        type: 3}
+      propertyPath: m_Text
+      value: VR Mode
+      objectReference: {fileID: 0}
+    - target: {fileID: 1295206742201753382, guid: bc3b65be6fc05f64c8a9e8d171be3174,
+        type: 3}
+      propertyPath: m_Text
+      value: 'VR settings '
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc3b65be6fc05f64c8a9e8d171be3174, type: 3}

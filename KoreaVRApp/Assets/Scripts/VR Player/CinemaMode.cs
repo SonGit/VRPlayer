@@ -26,13 +26,10 @@ public class CinemaMode : VRMode
 		mediaPlayer.VideoLayoutMapping = RenderHeads.Media.AVProVideo.VideoMapping.Unknown;
 		applyToMesh.ForceUpdate ();
 
-        if(first)
-        {
-            ResumeRatio();
-        }else
-        {
-            first = true;
-        }
+		if (VRPlayer.instance.aspectRatio == AspectRatio.ORIGINAL) {
+			VRPlayer.instance.aspectRatio = AspectRatio.RATIO_2351;
+		}
 
+		ResumeRatio ();
 	}
 }

@@ -30,6 +30,10 @@ public class FlatMode : VRMode
 		mediaPlayer.VideoLayoutMapping = RenderHeads.Media.AVProVideo.VideoMapping.Unknown;
 		applyToMesh.ForceUpdate ();
 
+		if (VRPlayer.instance.aspectRatio == AspectRatio.RATIO_2351) {
+			VRPlayer.instance.aspectRatio = AspectRatio.ORIGINAL;
+		}
+
 		ResumeRatio ();
 	}
 

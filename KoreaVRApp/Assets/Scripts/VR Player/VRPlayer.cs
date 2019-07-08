@@ -74,7 +74,7 @@ public class VRPlayer : MonoBehaviour
 		//ScreenUnlock ();
 
 		// Default is Ratio 16:9
-		Ratio169 ();
+		//Ratio169 ();
     }
 
     // Update is called once per frame
@@ -269,6 +269,10 @@ public class VRPlayer : MonoBehaviour
 		if (defaultMode != null) {
 			currentMode = defaultMode;
 			defaultMode.Show ();
+
+			if (defaultMode is FlatMode || defaultMode is CinemaMode) {
+				RatioOriginal ();
+			}
 		}
 	}
 	#endregion
@@ -318,38 +322,44 @@ public class VRPlayer : MonoBehaviour
 	}
 	public void Ratio43()
 	{
-		aspectRatio = AspectRatio.RATIO_43;
 		if (currentMode != null) {
 			if (currentMode is CinemaMode || currentMode is FlatMode) {
 				currentMode.Ratio43 ();
+				aspectRatio = AspectRatio.RATIO_43;
 			} 		
 		}
 	}
 	public void Ratio1851()
 	{
-		aspectRatio = AspectRatio.RATIO_1851;
+
 		if (currentMode != null) {
 			if (currentMode is CinemaMode || currentMode is FlatMode) {
 				currentMode.Ratio1851 ();
+				aspectRatio = AspectRatio.RATIO_1851;
 			}	
 		}
 	}
+
 	public void Ratio169()
 	{
-		aspectRatio = AspectRatio.RATIO_169;
 		if (currentMode != null) {
 			if (currentMode is CinemaMode || currentMode is FlatMode) {
 				currentMode.Ratio169 ();
+				aspectRatio = AspectRatio.RATIO_169;
 			}
 		}
 	}
 
 	public void RatioOriginal()
 	{
-		aspectRatio = AspectRatio.ORIGINAL;
 		if (currentMode != null) {
-			if (currentMode is CinemaMode || currentMode is FlatMode) {
+			if (currentMode is FlatMode) {
 				currentMode.RatioOriginal ();
+				aspectRatio = AspectRatio.ORIGINAL;
+			}
+			if (currentMode is CinemaMode ) {
+				currentMode.Ratio2351 ();
+				aspectRatio = AspectRatio.RATIO_2351;
 			}
 		}
 	}
@@ -548,7 +558,7 @@ public class VRPlayer : MonoBehaviour
 
 			int videoWidth = currentMode.GetMediaPlayer ().Info.GetVideoWidth ();
 			int videoHeight = currentMode.GetMediaPlayer ().Info.GetVideoHeight ();
-
+			Debug.Log ("videoWidth " + videoWidth + "   videoHeight " + videoHeight);
 			if (videoWidth == 0 || videoHeight == 0) {
 				Debug.Log ("Error AutoVR! Width/Height is zero!");
 				return;

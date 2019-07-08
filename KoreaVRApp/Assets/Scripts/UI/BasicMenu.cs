@@ -73,9 +73,9 @@ public class BasicMenu : MonoBehaviour, IEnhancedScrollerDelegate
 		if (MainAllController.instance != null){
 			MyScrollView[] myScrollViews = MainAllController.instance.myScrollViews;
 			foreach (MyScrollView myScrollView in myScrollViews) {
-				Canvas canvas = myScrollView.GetComponentInParent<Canvas> ();
-				if (canvas != null){
-					if (canvas.enabled) {
+				Canvas canvas2 = myScrollView.GetComponentInParent<Canvas> ();
+				if (canvas2 != null){
+					if (canvas2.enabled) {
 						myScrollView.enabled = value;
 					} else {
 						myScrollView.enabled = !value;

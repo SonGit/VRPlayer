@@ -9,6 +9,7 @@ public enum AspectRatio
 	RATIO_43,
 	RATIO_169,
 	RATIO_1851,
+	RATIO_2351,
 	ORIGINAL
 }
 
@@ -207,6 +208,12 @@ public abstract class VRMode : MonoBehaviour
 		case AspectRatio.RATIO_1851:
 			Ratio1851 ();
 			break;
+		case AspectRatio.RATIO_2351:
+			Ratio2351 ();
+			break;
+		case AspectRatio.ORIGINAL:
+			RatioOriginal ();
+			break;
 		}
 
 
@@ -222,9 +229,9 @@ public abstract class VRMode : MonoBehaviour
 		SetSize (VRPlayer.instance.screenSize);
 	}
 
-	Vector3 ratio43 = new Vector3(14.5f,10.8777f,1f);
-	Vector3 ratio169 = new Vector3(14.6f,8.213f,1f);
-	Vector3 ratio1851 = new Vector3(14.6f,8.918f,1f);
+	protected Vector3 ratio43 = new Vector3(14.5f,10.8777f,1f);
+	protected Vector3 ratio169 = new Vector3(14.6f,8.213f,1f);
+	protected Vector3 ratio1851 = new Vector3(14.6f,8.918f,1f);
 
 	public void Ratio43()
 	{
@@ -244,10 +251,18 @@ public abstract class VRMode : MonoBehaviour
 	{
 		float scaleX = ratio1851.x + currentScale;
 		float scaleY = scaleX / 1.85f;
-			applyToMesh.transform.localScale = new Vector3 (scaleX,scaleY,0);
+		applyToMesh.transform.localScale = new Vector3 (scaleX,scaleY,0);
 	}
 
-	public void RatioOriginal()
+	public void Ratio2351()
+	{
+		Ratio169 ();
+		//float scaleX = ratio1851.x + currentScale;
+		//float scaleY = scaleX / 2.35f;
+		//applyToMesh.transform.localScale = new Vector3 (scaleX,scaleY,0);
+	}
+
+	public virtual void RatioOriginal()
 	{
 		float ratio = (float)mediaPlayer.Info.GetVideoWidth () /  (float)mediaPlayer.Info.GetVideoHeight();
 		float scaleX = ratio169.x + currentScale;
