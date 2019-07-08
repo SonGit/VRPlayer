@@ -95,7 +95,7 @@ public class AndroidDialog : MonoBehaviour
 
 	public void showLoginDialog(string message, ConfirmCallback callback,string confirmMessage,string cancelMessage,bool remember = true)
 	{
-#if UNITY_ANDROID
+		#if UNITY_ANDROID && !UNITY_EDITOR
 		AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
 		AndroidJavaObject activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
 
