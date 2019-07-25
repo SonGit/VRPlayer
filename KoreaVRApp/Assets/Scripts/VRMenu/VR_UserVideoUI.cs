@@ -20,12 +20,14 @@ public class VR_UserVideoUI : UserVideoUI
 			this.video_length.text = "00:00:00";
 			SetupFavoriteBtns ();
 			video_image.texture = null;
+
+			CheckThumbnail ();
 		}
 	}
 
-	void Update()
+	public override void Update ()
 	{
-		UIAnimation ();
+		base.Update ();
 	}
 		
 	public override void OnLoadedThumbnail()

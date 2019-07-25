@@ -11,6 +11,7 @@ public class AlertMenu : MonoBehaviour
 	[SerializeField] private GameObject alertLogin;
 	[SerializeField] private GameObject alertLogout;
 	[SerializeField] private GameObject alertExit;
+	[SerializeField] private GameObject alertPurchase;
 
 	private float _delayCount = 0;
 	private float _delayTime = 2.5f;
@@ -31,31 +32,46 @@ public class AlertMenu : MonoBehaviour
 
 	public void LoginAlert()
 	{
-		if (_canvas != null && !_canvas.enabled && alertLogin != null && alertLogout != null && alertExit != null) {
+		if (_canvas != null && !_canvas.enabled) {
 			_canvas.enabled = true;
-			alertLogin.gameObject.SetActive (true);
-			alertLogout.gameObject.SetActive (false);
-			alertExit.gameObject.SetActive (false);
+			SetActive (true,alertLogin);
+			SetActive (false,alertLogout);
+			SetActive (false,alertExit);
+			SetActive (false,alertPurchase);
 		}
 	}
 
 	public void LogoutAlert()
 	{
-		if (_canvas != null && !_canvas.enabled && alertLogin != null && alertLogout != null && alertExit != null) {
+		if (_canvas != null && !_canvas.enabled) {
 			_canvas.enabled = true;
-			alertLogout.gameObject.SetActive (true);
-			alertLogin.gameObject.SetActive (false);
-			alertExit.gameObject.SetActive (false);
+			SetActive (true,alertLogout);
+			SetActive (false,alertLogin);
+			SetActive (false,alertExit);
+			SetActive (false,alertPurchase);
 		}
 	}
 
 	public void ExitAlert()
 	{
-		if (_canvas != null && !_canvas.enabled && alertLogin != null && alertLogout != null && alertExit != null) {
+		if (_canvas != null && !_canvas.enabled) {
 			_canvas.enabled = true;
-			alertExit.gameObject.SetActive (true);
-			alertLogout.gameObject.SetActive (false);
-			alertLogin.gameObject.SetActive (false);
+			SetActive (true,alertExit);
+			SetActive (false,alertLogout);
+			SetActive (false,alertLogin);
+			SetActive (false,alertPurchase);
+		}
+	}
+
+	public void PurchaseAlert()
+	{
+		if (_canvas != null && !_canvas.enabled) {
+			_canvas.enabled = true;
+
+			SetActive (true,alertPurchase);
+			SetActive (false,alertExit);
+			SetActive (false,alertLogout);
+			SetActive (false,alertLogin);
 		}
 	}
 
@@ -78,6 +94,12 @@ public class AlertMenu : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.Escape)){
 			Application.Quit ();
 			Debug.Log("Application Quit.........................................................");
+		}
+	}
+
+	private void SetActive(bool value, GameObject obj){
+		if (obj != null){
+			obj.SetActive (value);
 		}
 	}
 }

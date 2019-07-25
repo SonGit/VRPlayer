@@ -40,6 +40,11 @@ public class UserVideoUI : VideoUI
 		}
 	}
 
+	public override void Update ()
+	{
+		base.Update ();
+	}
+
 
 	public void Download ()
 	{
@@ -224,10 +229,6 @@ public class UserVideoUI : VideoUI
     }
 	#endregion
 
-	private void OnEnable(){
-		CheckThumbnail ();
-	}
-
 
 	void DestroySelf()
 	{
@@ -286,7 +287,7 @@ public class UserVideoUI : VideoUI
 			if (thumbnailTexture == null) {
 				thumbnailTexture = new Texture2D(4, 4, TextureFormat.DXT1, false);
 			}
-
+				
 			if (video_image.texture == null || thumbnailTexture.name != video.videoInfo.id) {
 				CheckAndDownloadThumbnail ();
 			} else {

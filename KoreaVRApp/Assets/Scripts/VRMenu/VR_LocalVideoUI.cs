@@ -19,6 +19,7 @@ public class VR_LocalVideoUI : LocalVideoUI
 			this.video = video;
 			this.videoTitle.text = (video as LocalVideo).videoName;
 			this.videoLength.text = MakeLengthString ();
+			//videoImage.texture = null;
             loadThumbnail = true;
         }
 
@@ -31,16 +32,16 @@ public class VR_LocalVideoUI : LocalVideoUI
 			MainAllController.instance.Play3D (video);
 		}
 	}
-		
-    void Update()
+
+
+	public override void Update ()
 	{
-        if (loadThumbnail)
-        {
-            StartCoroutine(LoadThumbnail());
-            loadThumbnail = false;
-        }
-        //UIAnimation ();
-	}
+		if (loadThumbnail)
+		{
+			StartCoroutine(LoadThumbnail());
+			loadThumbnail = false;
+		}
+	} 
 		
 	IEnumerator LoadThumbnail()
 	{

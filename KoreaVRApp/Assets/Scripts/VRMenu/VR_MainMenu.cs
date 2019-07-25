@@ -31,6 +31,8 @@ public class VR_MainMenu : MonoBehaviour
 	[SerializeField]
 	private GameObject UsablecapacityAlert;
 	[SerializeField]
+	private GameObject purchaseAlert;
+	[SerializeField]
 	private GameObject vr_LoadingObj;
 
 	private float _delayCount = 0;
@@ -62,12 +64,14 @@ public class VR_MainMenu : MonoBehaviour
 		HideSensorAlert ();
 		HideUsablecapacityAlert ();
 		HideLoadingUI ();
+		HidePurchaseAlert ();
 	}
 
 	void Update()
 	{
 		CheckDisableNetworkAlert ();
 		CheckDisableUsablecapacityAlert ();
+		CheckDisablePurchaseAlert ();
 	}
 
 	public void OpenStorageMenu()
@@ -80,6 +84,7 @@ public class VR_MainMenu : MonoBehaviour
 		HideSensorAlert ();
 		HideUsablecapacityAlert ();
 		HideLoadingUI ();
+		HidePurchaseAlert ();
 
 		//Show
 		foreach (VR_BasicMenu menu in menus) {
@@ -117,6 +122,7 @@ public class VR_MainMenu : MonoBehaviour
 		HideStreamingAlert ();
 		HideSensorAlert ();
 		HideLoadingUI ();
+		HidePurchaseAlert ();
 
 		bool isConnect = CheckNetworkConnection ();
 		if (isConnect) {
@@ -165,6 +171,7 @@ public class VR_MainMenu : MonoBehaviour
 		HideStreamingAlert ();
 		HideSensorAlert ();
 		HideLoadingUI ();
+		HidePurchaseAlert ();
 
 		bool isConnect = CheckNetworkConnection ();
 		if (isConnect) {
@@ -200,6 +207,7 @@ public class VR_MainMenu : MonoBehaviour
 		HideStreamingAlert ();
 		HideSensorAlert ();
 		HideLoadingUI ();
+		HidePurchaseAlert ();
 
 		bool isConnect = CheckNetworkConnection ();
 		if (isConnect) {
@@ -246,6 +254,7 @@ public class VR_MainMenu : MonoBehaviour
 		HideStreamingAlert ();
 		HideSensorAlert ();
 		HideLoadingUI ();
+		HidePurchaseAlert ();
 
 		bool isConnect = CheckNetworkConnection ();
 		if (isConnect) {
@@ -519,6 +528,26 @@ public class VR_MainMenu : MonoBehaviour
 		
 	#endregion
 
+	#region PurchaseAlert
+
+	public void ShowPurchaseAlert(){
+		if (purchaseAlert != null ) {
+			purchaseAlert.SetActive (true);
+		}else{
+			Debug.LogError ("Null................");
+		}
+	}
+
+	public void HidePurchaseAlert(){
+		if (purchaseAlert != null) {
+			purchaseAlert.SetActive (false);
+		}else{
+			Debug.LogError ("Null................");
+		}
+	}
+
+	#endregion
+
 
 	#region CheckNetworkConnection
 
@@ -549,6 +578,17 @@ public class VR_MainMenu : MonoBehaviour
 			if (_delayCount >= _delayTime) {
 				_delayCount = 0;
 				HideUsablecapacityAlert ();
+			}
+		}
+	}
+
+	private void CheckDisablePurchaseAlert(){
+
+		if (purchaseAlert.activeSelf && purchaseAlert != null) {
+			_delayCount += Time.deltaTime;
+			if (_delayCount >= _delayTime) {
+				_delayCount = 0;
+				HidePurchaseAlert ();
 			}
 		}
 	}

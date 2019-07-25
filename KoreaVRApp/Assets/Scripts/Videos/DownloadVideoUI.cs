@@ -83,8 +83,8 @@ public class DownloadVideoUI : VideoUI
 		}
 	}
 
-	void Update (){
-		
+	public override void Update ()
+	{
 		if(pendingDelete)
 		{
 			Pause();
@@ -94,9 +94,20 @@ public class DownloadVideoUI : VideoUI
 			pendingDelete = false;
 		}
 
+		if (isDownloadThumbnail == true) {
+			delayCount += Time.deltaTime;
+			if (delayCount >= 0.5f) {
+				delayCount = 0;
+				isDownloadThumbnail = false;
+				StartCoroutine(DownloadThumbnail(video.videoInfo.thumbnail_link));
+			}
+		}
+
 		SetDownloadProgressUI ();
 		SetUI ();
 	}
+
+
 		
 	public void Download ()
 	{

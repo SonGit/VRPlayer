@@ -367,9 +367,7 @@ public class MainAllController : MonoBehaviour
 
 			Viewable_Login();
 
-			if (alertMenu != null){
-				alertMenu.LoginAlert();
-			}
+			LoginAlert ();
 		}
 
 		// When login in sceneVR
@@ -1105,9 +1103,7 @@ public class MainAllController : MonoBehaviour
 
 			Viewable_Logout();
 
-			if (alertMenu != null){
-				alertMenu.LogoutAlert();
-			}
+			LogoutAlert();
 
 			if (OnLoggedOut != null)
 				OnLoggedOut ();
@@ -1726,9 +1722,7 @@ public class MainAllController : MonoBehaviour
 
 					if (currentMenu is StorageMenu) 
 					{
-						if (alertMenu != null) {
-							alertMenu.ExitAlert ();
-						}
+						ExitAlert ();
 						return;
 					} 
 
@@ -1931,4 +1925,37 @@ public class MainAllController : MonoBehaviour
 			Debug.LogError ("NULL..................");
 		}
 	}
+
+
+	#region AlertMenu
+
+	public void LoginAlert()
+	{
+		if (alertMenu != null){
+			alertMenu.LoginAlert();
+		}
+	}
+
+	public void LogoutAlert()
+	{
+		if (alertMenu != null){
+			alertMenu.LogoutAlert();
+		}
+	}
+
+	public void ExitAlert()
+	{
+		if (alertMenu != null) {
+			alertMenu.ExitAlert ();
+		}
+	}
+
+	public void PurchaseAlert()
+	{
+		if (alertMenu != null){
+			alertMenu.PurchaseAlert();
+		}
+	}
+
+	#endregion
 }

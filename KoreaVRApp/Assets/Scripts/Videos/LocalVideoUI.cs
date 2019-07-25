@@ -21,7 +21,7 @@ public class LocalVideoUI: VideoUI
 
 	protected bool loadThumbnail;
 
-	void Update()
+	public override void Update ()
 	{
 		if (loadThumbnail) {
 			StartCoroutine(LoadThumbnail ());
@@ -32,7 +32,6 @@ public class LocalVideoUI: VideoUI
 			StartCoroutine(DeleteProcess());
 			pendingDelete = false;
 		}
-
 	}
 
 	public override void Setup(Video currentlocalVideo)
@@ -43,7 +42,7 @@ public class LocalVideoUI: VideoUI
 		videoTitle.text = (video as LocalVideo).videoName;
 
 		videoLength.text = MakeLengthString ();
-
+		videoImage.texture = null;
 		loadThumbnail = true;
     }
 	

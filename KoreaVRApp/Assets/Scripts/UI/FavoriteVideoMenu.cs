@@ -36,6 +36,8 @@ public class FavoriteVideoMenu : BasicMenuNavigation
 			scroller.ReloadData ();
 		}
 
+		SortByCurrentStyle ();
+
 		Debug.Log ("FavoriteVideoMenu.Count---------------:     " + videos.Count);
 
 //		List<Video> videoToShow = GetFavoriteVideo ();

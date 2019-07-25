@@ -41,6 +41,8 @@ public class InboxMenu : BasicMenuNavigation
 			scroller.ReloadData ();
 		}
 
+		SortByCurrentStyle ();
+
 		Debug.Log ("InboxMenu.Count---------------:     " + videos.Count);
 
 

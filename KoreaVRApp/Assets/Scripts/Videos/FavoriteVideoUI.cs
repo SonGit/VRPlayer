@@ -24,6 +24,11 @@ public class FavoriteVideoUI : UserVideoUI
 		}
 	}
 
+	public override void Update ()
+	{
+		base.Update ();
+	}
+
 	#region setup info video
 	public override void Setup(Video video)
 	{
@@ -44,10 +49,6 @@ public class FavoriteVideoUI : UserVideoUI
 	}
 
 	#endregion
-
-	private void OnEnable(){
-		CheckThumbnail ();
-	}
 		
 
 	#region Object Pool implementation

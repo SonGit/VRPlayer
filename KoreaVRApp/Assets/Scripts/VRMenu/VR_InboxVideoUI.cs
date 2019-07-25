@@ -23,13 +23,15 @@ public class VR_InboxVideoUI : UserVideoUI
 			//this.video_length.text = (currentuserVideo.videoInfo.length).ToString();
 			this.video_length.text = "00:00:00";
 			video_image.texture = null;
+
+			CheckThumbnail ();
 		}
 
 	}
 
-	void Update()
+	public override void Update ()
 	{
-		UIAnimation ();
+		base.Update ();
 	}
 		
 	public override void OnLoadedThumbnail()

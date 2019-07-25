@@ -8,6 +8,7 @@ using EasyMobile;
 using System.Net;
 using UnityEngine.Networking;
 using System.Text.RegularExpressions;
+using System;
 
 
 public class InboxVideoUI : VideoUI
@@ -34,12 +35,9 @@ public class InboxVideoUI : VideoUI
 		}
 	}
 
-	void Update (){
-		if(pendingDelete)
-		{
-			StartCoroutine(DeleteProcess());
-			pendingDelete = false;
-		}
+	public override void Update ()
+	{
+		base.Update ();
 	}
 
 	#region setup info video
@@ -56,10 +54,6 @@ public class InboxVideoUI : VideoUI
 		CheckThumbnail ();
 	}
 	#endregion
-
-	private void OnEnable(){
-		CheckThumbnail ();
-	}
 
 	#region LoadingScreen
 	public void PlayLoadingScreen()
@@ -84,17 +78,30 @@ public class InboxVideoUI : VideoUI
 		#endif
 
 		#if UNITY_EDITOR
-		string path = Path.Combine (MainAllController.instance.user.GetPath(), video.videoInfo.id) ;
+		string path = String.Empty;
 
-		if (Directory.Exists (path)) {
-			Directory.Delete (path,true);
+		try
+		{
+			path = Path.Combine (MainAllController.instance.user.GetPath(), video.videoInfo.id);
+
+			if (Directory.Exists(path))
+			{
+				Directory.Delete(path, true);
+			}
+		}
+		catch (Exception e)
+		{
+			Debug.Log("DeleteVideo exception " + e.Message);
 		}
 
-		InboxMenu menu = Object.FindObjectOfType<InboxMenu> ();
-		if (menu != null) {
-			menu.RemoveUI (this);
+		InboxMenu menu = UnityEngine.Object.FindObjectOfType<InboxMenu>();
+		if (menu != null)
+		{
+			menu.Refresh();
 		}
 		#endif 
+
+
 	}
 
 	public override void OnLoadedThumbnail()

@@ -40,6 +40,8 @@ public class UserVideoMenu : BasicMenuNavigation
 			scroller.ReloadData ();
 		}
 
+		SortByCurrentStyle ();
+
 		Debug.Log ("UserVideoMenu.Count---------------:     " + videos.Count);
 
 //		List<Video> videoToShow = GetUserVideo ();

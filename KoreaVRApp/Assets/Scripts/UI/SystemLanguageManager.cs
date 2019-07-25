@@ -68,6 +68,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string After_playing_VR_movieString_English = "After playing VR movie, shake to open the screen setting window";
 	private string Switch_from_2D_mode_to_VR_modeString_English = "Switch from 2D mode to VR mode";
 	private string add_to_FavoritesString_English = "Add to Favorites";
+	private string this_content_is_available_after_purchaseString_English = "This content is available after purchase";
 	#endregion
 
 	#region VR_ScreenCursor
@@ -174,6 +175,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string After_playing_VR_movieString_Korean = "VR 영상 재생 후 스마트폰을 위아래로 살짝 흔들어 화면 설정창을 연다";
 	private string Switch_from_2D_mode_to_VR_modeString_Korean = "2D 모드에서 VR 모드로 전환해서 감상할 수 있습니다";
 	private string add_to_FavoritesString_Korean = "즐겨찾기에 추가";
+	private string this_content_is_available_after_purchaseString_Korean = "이 콘텐츠는 구매 후 사용 가능합니다";
 	#endregion
 
 	#region VR_ScreenCursor
@@ -281,6 +283,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string After_playing_VR_movieString_Japanese = "VR動画を再生した後、振って画面設定ウィンドウを開く";
 	private string Switch_from_2D_mode_to_VR_modeString_Japanese = "2DモードからVRモードに切り替える";
 	private string add_to_FavoritesString_Japanese = "お気に入りに追加";
+	private string this_content_is_available_after_purchaseString_Japanese = "このコンテンツは購入後に利用可能です";
 	#endregion
 
 	#region VR_ScreenCursor
@@ -388,6 +391,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string After_playing_VR_movieString_Chinese = "播放VR影片後，搖動以打開屏幕設置窗口";
 	private string Switch_from_2D_mode_to_VR_modeString_Chinese = "從2D模式切換到VR模式";
 	private string add_to_FavoritesString_Chinese = "添加到收藏夾";
+	private string this_content_is_available_after_purchaseString_Chinese = "購買後即可獲得此內容";
 	#endregion
 
 	#region VR_ScreenCursor
@@ -536,6 +540,7 @@ public class SystemLanguageManager : MonoBehaviour
 	[SerializeField] private Text alertMenu_Login = null;
 	[SerializeField] private Text alertMenu_Logout = null;
 	[SerializeField] private Text alertMenu_Exit = null;
+	[SerializeField] private Text alertMenu_purchase = null;
 
 	[Header("---- SensorMenu ----")]
 	[SerializeField] private Text sensorMenu_SensorContent = null;
@@ -682,6 +687,18 @@ public class SystemLanguageManager : MonoBehaviour
 			IsJapaneseLanguage = true;
 			break;
 		case SystemLanguage.Chinese: //Otherwise, if the system is Chinese
+			Debug.Log ("This system is in Chinese.............................................");
+
+			SetChineseLanguage ();
+			IsChineseLanguage = true;
+			break;
+		case SystemLanguage.ChineseSimplified: //Otherwise, if the system is Chinese
+			Debug.Log ("This system is in Chinese.............................................");
+
+			SetChineseLanguage ();
+			IsChineseLanguage = true;
+			break;
+		case SystemLanguage.ChineseTraditional: //Otherwise, if the system is Chinese
 			Debug.Log ("This system is in Chinese.............................................");
 
 			SetChineseLanguage ();
@@ -834,6 +851,7 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (alertMenu_Login,sign_in_completedString_English);
 		DisplayValueText (alertMenu_Logout,logged_outString_English);
 		DisplayValueText (alertMenu_Exit,press_the_previous_button_again_to_exitString_English);
+		DisplayValueText (alertMenu_purchase,this_content_is_available_after_purchaseString_English);
 	}
 
 	private void SetEnglishLanguage_SensorMenu(){
@@ -1031,6 +1049,7 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (alertMenu_Login,sign_in_completedString_Korean);
 		DisplayValueText (alertMenu_Logout,logged_outString_Korean);
 		DisplayValueText (alertMenu_Exit,press_the_previous_button_again_to_exitString_Korean);
+		DisplayValueText (alertMenu_purchase,this_content_is_available_after_purchaseString_Korean);
 	}
 
 	private void SetKoreanLanguage_SensorMenu(){
@@ -1228,6 +1247,7 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (alertMenu_Login,sign_in_completedString_Japanese);
 		DisplayValueText (alertMenu_Logout,keep_logged_inString_Japanese);
 		DisplayValueText (alertMenu_Exit,press_the_previous_button_again_to_exitString_Japanese);
+		DisplayValueText (alertMenu_purchase,this_content_is_available_after_purchaseString_Japanese);
 	}
 
 	private void SetJapaneseLanguage_SensorMenu(){
@@ -1426,6 +1446,7 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (alertMenu_Login,sign_in_completedString_Chinese);
 		DisplayValueText (alertMenu_Logout,logged_outString_Chinese);
 		DisplayValueText (alertMenu_Exit,press_the_previous_button_again_to_exitString_Chinese);
+		DisplayValueText (alertMenu_purchase,this_content_is_available_after_purchaseString_Chinese);
 	}
 
 	private void SetChineseLanguage_SensorMenu(){

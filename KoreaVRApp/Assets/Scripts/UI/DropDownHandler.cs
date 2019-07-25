@@ -94,9 +94,20 @@ public class DropDownHandler : MonoBehaviour
 
 			SetupSortNameList_Chinese ();
 			break;
+		case SystemLanguage.ChineseSimplified: //Otherwise, if the system is Chinese
+			Debug.Log ("This system is in Chinese.............................................");
+
+			SetupSortNameList_Chinese ();
+			break;
+		case SystemLanguage.ChineseTraditional: //Otherwise, if the system is Chinese
+			Debug.Log ("This system is in Chinese.............................................");
+
+			SetupSortNameList_Chinese ();
+			break;
 		default:
 			Debug.Log ("This system is in other language......................................");
 
+			SetupSortNameList_English ();
 			break;
 		}
 

@@ -26,14 +26,16 @@ public class VR_FavoriteVideoUI : UserVideoUI
 			this.video_length.text = "00:00:00";
 			SetupFavoriteBtns ();
 			video_image.texture = null;
+
+			CheckThumbnail ();
         }
 	
 	}
 	#endregion	
 
-	void Update()
+	public override void Update ()
 	{
-		UIAnimation ();
+		base.Update ();
 	}
 
 	/// <summary>

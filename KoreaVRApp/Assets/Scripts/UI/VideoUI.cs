@@ -21,6 +21,9 @@ public class VideoUI : EnhancedScrollerCellView
 
 	private UserDetailMenu userDetailMenu;
 
+	protected bool isDownloadThumbnail;
+	protected float delayCount;
+
 	public Video video
 	{
 		get {
@@ -45,13 +48,22 @@ public class VideoUI : EnhancedScrollerCellView
     }
 
     // Update is called once per frame
-    void Update()
+	public virtual void Update()
     {
         if(pendingDelete)
         {
 			StartCoroutine(DeleteProcess());
             pendingDelete = false;
         }
+
+		if (isDownloadThumbnail == true) {
+			delayCount += Time.deltaTime;
+			if (delayCount >= 0.5f) {
+				delayCount = 0;
+				isDownloadThumbnail = false;
+				StartCoroutine(DownloadThumbnail(video.videoInfo.thumbnail_link));
+			}
+		}
     }
 
 	public virtual void Setup(Video video)
@@ -163,10 +175,11 @@ public class VideoUI : EnhancedScrollerCellView
 		} else {
 
 			// if not, download from link
-			if(gameObject.activeInHierarchy){
-				StartCoroutine(DownloadThumbnail(video.videoInfo.thumbnail_link));
-			}
+//			if(gameObject.activeInHierarchy){
+//				StartCoroutine(DownloadThumbnail(video.videoInfo.thumbnail_link));
+//			}
 
+			isDownloadThumbnail = true;
 		}
 	}
 
@@ -175,7 +188,7 @@ public class VideoUI : EnhancedScrollerCellView
 	/// Downloads the thumbnail.
 	/// </summary>
 	/// <param name="url">URL.</param>
-	IEnumerator DownloadThumbnail(string url)
+	protected IEnumerator DownloadThumbnail(string url)
 	{
 		yield return new WaitForSeconds (.5f);
 
