@@ -42,7 +42,7 @@ public class LocalVideoUI: VideoUI
 		videoTitle.text = (video as LocalVideo).videoName;
 
 		videoLength.text = MakeLengthString ();
-		videoImage.texture = null;
+		//videoImage.texture = null;
 		loadThumbnail = true;
     }
 	

@@ -49,7 +49,9 @@ public class DownloadMenu : BasicMenuNavigation
     }
 
 	private void DownloadedVideo(Video anotherVideo){
-		StartCoroutine (DelayInitMenu());
+		if (gameObject.activeInHierarchy){
+			StartCoroutine (DelayInitMenu());
+		}
 	}
 
 	private IEnumerator DelayInitMenu(){

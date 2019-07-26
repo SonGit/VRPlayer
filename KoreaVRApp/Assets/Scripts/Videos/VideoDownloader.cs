@@ -406,7 +406,7 @@ public class VideoDownloader : MonoBehaviour
 
 	public void OnSuccessDownloadCallback()
 	{
-		Notifications_DownloadCompleted();
+		//Notifications_DownloadCompleted();
 		CheckDownloadComplete ();
 	}
 
@@ -426,7 +426,7 @@ public class VideoDownloader : MonoBehaviour
 		NotificationsDemo notificationsDemo = UnityEngine.Object.FindObjectOfType<NotificationsDemo>();
 		SettingsMenu settingsMenu = UnityEngine.Object.FindObjectOfType<SettingsMenu>();
 
-		if (notificationsDemo != null && settingsMenu.GetNotificationText() == settingsMenu.GetkeyTrueNotification()){
+		if (notificationsDemo != null && settingsMenu != null && settingsMenu.gameObject.activeInHierarchy && settingsMenu.GetNotificationText() == settingsMenu.GetkeyTrueNotification()){
 			notificationsDemo.ScheduleLocalNotification ("" + video.videoInfo.video_name, "Download Completed!" );
 		}
 	}
