@@ -157,7 +157,7 @@ public class UserDetailMenu : BasicMenuNavigation
 			GetVideoImage ().texture = (currentShowUI as InboxVideoUI).thumbnailTexture;
 		}
 
-		GetVideoLength().text = (video.videoInfo.length).ToString();
+		GetVideoLength ().text = currentShowUI.MakeLengthString ();
 
 		GetVideoDate().text = video.videoInfo.date;
 

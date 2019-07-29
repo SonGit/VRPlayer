@@ -17,7 +17,7 @@ public class VR_UserVideoUI : UserVideoUI
 			this.video = video;
 			this.video_name.text = video.videoInfo.video_name;
 			//this.video_length.text = (currentuserVideo.videoInfo.length).ToString();
-			this.video_length.text = "00:00:00";
+			this.video_length.text = MakeLengthString ();
 			SetupFavoriteBtns ();
 			video_image.texture = null;
 

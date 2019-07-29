@@ -18,7 +18,7 @@ public class VR_LocalVideoUI : LocalVideoUI
 		{
 			this.video = video;
 			this.videoTitle.text = (video as LocalVideo).videoName;
-			this.videoLength.text = MakeLengthString ();
+			this.videoLength_videoSize.text = MakeLengthString ();
 			//videoImage.texture = null;
             loadThumbnail = true;
         }

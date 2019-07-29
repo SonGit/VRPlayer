@@ -27,7 +27,7 @@ public class SceneVR : AppScene
     {
 		vr_RecenterPanel = UnityEngine.Object.FindObjectOfType<VR_RecenterPanel>();
 
-      //  Show();
+      	Show();
     }
 
 
@@ -429,7 +429,7 @@ public class SceneVR : AppScene
         //#if !UNITY_EDITOR
         // Disable auto rotation, except for landscape left.
         Screen.orientation = ScreenOrientation.LandscapeLeft;
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.1f);
         Debug.Log("SwitchToVR DONE ROTATING!");
 
 		if (MainAllController.instance != null) {

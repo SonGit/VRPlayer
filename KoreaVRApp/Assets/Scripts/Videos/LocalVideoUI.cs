@@ -10,8 +10,7 @@ public class LocalVideoUI: VideoUI
 {
 	[SerializeField] protected RawImage videoImage;
 	[SerializeField] protected Text videoTitle;
-	[SerializeField] protected Text videoLength;
-	[SerializeField] protected Text videoSize;
+	[SerializeField] protected Text videoLength_videoSize;
 
 	// Use this for initialization
 	void Start () 
@@ -38,10 +37,9 @@ public class LocalVideoUI: VideoUI
 	{
 		base.Setup (currentlocalVideo);
 
-		videoSize.text = ((video as LocalVideo).videoSize / 1024f / 1024f).ToString("0.0") + " MB";
 		videoTitle.text = (video as LocalVideo).videoName;
 
-		videoLength.text = MakeLengthString ();
+		videoLength_videoSize.text = MakeLengthString () + " | " + ((video as LocalVideo).videoSize / 1024f / 1024f).ToString("0.0") + " MB";
 		//videoImage.texture = null;
 		loadThumbnail = true;
     }

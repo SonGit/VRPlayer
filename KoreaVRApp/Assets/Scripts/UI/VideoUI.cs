@@ -405,8 +405,12 @@ public class VideoUI : EnhancedScrollerCellView
 	public string MakeLengthString()
 	{
 		if (video.videoInfo.length != null) {
-			ts = System.TimeSpan.FromMilliseconds((double)video.videoInfo.length);
-			return System.String.Format("{0:00}", ts.Hours) + ":" + System.String.Format("{0:00}", ts.Minutes) + ":" + System.String.Format("{0:00}", ts.Seconds);  ;
+			if (video is LocalVideo) {
+				ts = System.TimeSpan.FromMilliseconds ((double)video.videoInfo.length);
+			} else {
+				ts = System.TimeSpan.FromSeconds ((double)video.videoInfo.length);
+			}
+			return System.String.Format("{0:00}", ts.Hours) + ":" + System.String.Format("{0:00}", ts.Minutes) + ":" + System.String.Format("{0:00}", ts.Seconds);
 		}
 		return string.Empty;
 	}
