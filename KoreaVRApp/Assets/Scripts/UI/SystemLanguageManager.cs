@@ -42,7 +42,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string informationString_English = "Basic Information";
 	private string registration_dateString_English = "Registration";
 	private string modelString_English = "Model";
-	private string directorString_English = "Director";
+	private string playtimeString_English = "Play time";
 	private string genreString_English = "Genre";
 	private string Go_to_inbox_after_downloadString_English = "Go to inbox after download";
 	private string settingsString_English = "Settings";
@@ -150,7 +150,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string informationString_Korean = "기본정보";
 	private string registration_dateString_Korean = "등록일";
 	private string modelString_Korean = "모 델";
-	private string directorString_Korean = "감 독"; //"재생시간";
+	private string playtimeString_Korean = "재생시간"; //"감 독";
 	private string genreString_Korean = "장 르";
 	private string Go_to_inbox_after_downloadString_Korean = "다운로드 받은 파일은 받은 파일함으로 이동";
 	private string settingsString_Korean = "설정";
@@ -258,7 +258,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string informationString_Japanese = "基本情報";
 	private string registration_dateString_Japanese = "登録日";
 	private string modelString_Japanese = "モデル";
-	private string directorString_Japanese = "ディレクター";
+	private string playtimeString_Japanese = "プレイタイム";
 	private string genreString_Japanese = "ジャンル";
 	private string Go_to_inbox_after_downloadString_Japanese = "ダウンロード後に受信トレイに移動する";
 	private string settingsString_Japanese = "設定";
@@ -366,7 +366,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string informationString_Chinese = "基本信息";
 	private string registration_dateString_Chinese = "登記日期";
 	private string modelString_Chinese = "模型";
-	private string directorString_Chinese = "導向器";
+	private string playtimeString_Chinese = "上場時間";
 	private string genreString_Chinese = "類型";
 	private string Go_to_inbox_after_downloadString_Chinese = "下載後轉到收件箱";
 	private string settingsString_Chinese = "設置";
@@ -491,7 +491,7 @@ public class SystemLanguageManager : MonoBehaviour
 	//[SerializeField] private Text detailMenu_InformationTitle = null;
 	[SerializeField] private Text detailMenu_ModelTitle = null;
 	[SerializeField] private Text detailMenu_GenreTitle = null;
-	[SerializeField] private Text detailMenu_DirectorTitle = null;
+	[SerializeField] private Text detailMenu_PlaytimeTitle = null;
 	[SerializeField] private Text detailMenu_RegistrationdateTitle = null;
 	[SerializeField] private Text detailMenu_Network = null;
 	[SerializeField] private Text detailMenu_ScreenShotTitle = null;
@@ -794,7 +794,7 @@ public class SystemLanguageManager : MonoBehaviour
 		//DisplayValueText (detailMenu_InformationTitle,informationString_English);
 		DisplayValueText (detailMenu_RegistrationdateTitle,registration_dateString_English);
 		DisplayValueText (detailMenu_ModelTitle,modelString_English);
-		DisplayValueText (detailMenu_DirectorTitle,directorString_English);
+		DisplayValueText (detailMenu_PlaytimeTitle,playtimeString_English);
 		DisplayValueText (detailMenu_GenreTitle,genreString_English);
 		DisplayValueText (detailMenu_Network,networkString_English);
 		DisplayValueText (detailMenu_ScreenShotTitle,screenShotString_English);
@@ -992,7 +992,7 @@ public class SystemLanguageManager : MonoBehaviour
 		//DisplayValueText (detailMenu_InformationTitle,informationString_Korean);
 		DisplayValueText (detailMenu_RegistrationdateTitle,registration_dateString_Korean);
 		DisplayValueText (detailMenu_ModelTitle,modelString_Korean);
-		DisplayValueText (detailMenu_DirectorTitle,directorString_Korean);
+		DisplayValueText (detailMenu_PlaytimeTitle,playtimeString_Korean);
 		DisplayValueText (detailMenu_GenreTitle,genreString_Korean);
 		DisplayValueText (detailMenu_Network,networkString_Korean);
 		DisplayValueText (detailMenu_ScreenShotTitle,screenShotString_Korean);
@@ -1190,7 +1190,7 @@ public class SystemLanguageManager : MonoBehaviour
 		//DisplayValueText (detailMenu_InformationTitle,informationString_Japanese);
 		DisplayValueText (detailMenu_RegistrationdateTitle,registration_dateString_Japanese);
 		DisplayValueText (detailMenu_ModelTitle,modelString_Japanese);
-		DisplayValueText (detailMenu_DirectorTitle,directorString_Japanese);
+		DisplayValueText (detailMenu_PlaytimeTitle,playtimeString_Japanese);
 		DisplayValueText (detailMenu_GenreTitle,genreString_Japanese);
 		DisplayValueText (detailMenu_Network,networkString_Japanese);
 		DisplayValueText (detailMenu_ScreenShotTitle,screenShotString_Japanese);
@@ -1389,7 +1389,7 @@ public class SystemLanguageManager : MonoBehaviour
 		//DisplayValueText (detailMenu_InformationTitle,informationString_Chinese);
 		DisplayValueText (detailMenu_RegistrationdateTitle,registration_dateString_Chinese);
 		DisplayValueText (detailMenu_ModelTitle,modelString_Chinese);
-		DisplayValueText (detailMenu_DirectorTitle,directorString_Chinese);
+		DisplayValueText (detailMenu_PlaytimeTitle,playtimeString_Chinese);
 		DisplayValueText (detailMenu_GenreTitle,genreString_Chinese);
 		DisplayValueText (detailMenu_Network,networkString_Chinese);
 		DisplayValueText (detailMenu_ScreenShotTitle,screenShotString_Chinese);

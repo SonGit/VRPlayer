@@ -1569,7 +1569,7 @@ GameObject:
   - component: {fileID: 6562107149336229571}
   - component: {fileID: 5676817915082899614}
   m_Layer: 5
-  m_Name: DirectorContent
+  m_Name: PlaytimeContent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4439,7 +4439,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.0012283325}
+  m_AnchoredPosition: {x: 0, y: -0.0008544922}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1617874746018266525
@@ -4768,7 +4768,7 @@ GameObject:
   - component: {fileID: 3663945480124423534}
   - component: {fileID: 1422686726839800148}
   m_Layer: 5
-  m_Name: DirectorTitle
+  m_Name: PlaytimeTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4834,7 +4834,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Director
+  m_Text: Play time
 --- !u!1 &5716664184632586495
 GameObject:
   m_ObjectHideFlags: 0
@@ -6258,7 +6258,6 @@ MonoBehaviour:
   verticalGrid: {fileID: 5161116259362255305}
   currentSortStyle: 0
   canvas: {fileID: 0}
-  isNoVideo: 0
   btnOnBack: {fileID: 6997011261237480965}
   btnOnVR: {fileID: 2239512284282243050}
   video_image: {fileID: 8695006980927955352}
@@ -6277,6 +6276,7 @@ MonoBehaviour:
   screenShotContent: {fileID: 2770887816942377568}
   screenShotPrefab: {fileID: 3495286716135060616, guid: 5c93bd8844cfe5745b5d91a6033cf5ca,
     type: 3}
+  ScreenShotUIArray: []
 --- !u!1 &7919588832012375882
 GameObject:
   m_ObjectHideFlags: 0
@@ -6945,7 +6945,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2796950887084330090}
   m_Layer: 5
-  m_Name: Director
+  m_Name: Playtime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
