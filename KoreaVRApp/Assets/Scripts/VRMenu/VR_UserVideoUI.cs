@@ -216,7 +216,7 @@ public class VR_UserVideoUI : UserVideoUI
 	{
 		try
 		{
-			MainAllController.instance.Streaming3D (video,getLinkVideoResponse.link);
+			MainAllController.instance.Streaming3D (video, this, getLinkVideoResponse.link);
 		}
 		catch (System.Exception e)
 		{

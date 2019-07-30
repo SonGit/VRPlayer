@@ -29,7 +29,7 @@ public class VR_LocalVideoUI : LocalVideoUI
 	public override void PlayIn3D ()
 	{
 		if (MainAllController.instance != null){
-			MainAllController.instance.Play3D (video);
+			MainAllController.instance.Play3D (video, this);
 		}
 	}
 

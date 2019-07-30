@@ -33,7 +33,7 @@ namespace RenderHeads.Media.AVProVideo.Demos
 		public MediaPlayer	_mediaPlayerB;
 		public DisplayUGUI	_mediaDisplay;
 		public RectTransform _bufferedSliderRect;
-		public TextMeshProUGUI _currentTimeLabel;
+		public Text _currentTimeLabel;
 
 		public Slider		_videoSeekSlider;
 		private float		_setVideoSeekSliderValue;

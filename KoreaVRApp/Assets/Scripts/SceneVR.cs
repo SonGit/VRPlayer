@@ -27,7 +27,7 @@ public class SceneVR : AppScene
     {
 		vr_RecenterPanel = UnityEngine.Object.FindObjectOfType<VR_RecenterPanel>();
 
-      	Show();
+      	//Show();
     }
 
 
@@ -210,9 +210,10 @@ public class SceneVR : AppScene
 
 
 	Video currentVideo;
+	VideoUI currentVideoUI;
 	string currentUrl;
 
-	public void PlayFromURL(Video video)
+	public void PlayFromURL(Video video, VideoUI videoUI)
 	{
 		vrSetting.HideSetting ();
 		vrMainMenu.gameObject.SetActive (false);
@@ -239,6 +240,7 @@ public class SceneVR : AppScene
 		}
 
 		currentVideo = video;
+		currentVideoUI = videoUI;
 
         //vr_RecenterPanel.Show(OnDoneRecenter);
 
@@ -250,7 +252,7 @@ public class SceneVR : AppScene
         }
     }
 
-	public void Streaming(Video video, string url)
+	public void Streaming(Video video, VideoUI videoUI, string url)
 	{
 		vrSetting.HideSetting ();
 		vrMainMenu.gameObject.SetActive (false);
@@ -274,6 +276,7 @@ public class SceneVR : AppScene
 
 		currentVideo = video;
 		currentUrl = url;
+		currentVideoUI = videoUI;
 
 		if (vr_RecenterPanel != null && !MainAllController.instance.IsShowRecenterPanel) {
 			ShowProgressBar ();
@@ -303,7 +306,7 @@ public class SceneVR : AppScene
 		HideProgressBar ();
 
 		if (currentVideo != null) {
-			vrPlayer.Play (currentVideo);
+			vrPlayer.Play (currentVideo, currentVideoUI);
 		}
 	}
 
@@ -316,7 +319,7 @@ public class SceneVR : AppScene
 		HideProgressBar ();
 
 		if (currentVideo != null) {
-			vrPlayer.Stream (currentVideo,currentUrl);
+			vrPlayer.Stream (currentVideo,currentVideoUI,currentUrl);
 		}
 	}
 
@@ -429,7 +432,7 @@ public class SceneVR : AppScene
         //#if !UNITY_EDITOR
         // Disable auto rotation, except for landscape left.
         Screen.orientation = ScreenOrientation.LandscapeLeft;
-        yield return new WaitForSeconds(1.1f);
+        yield return new WaitForSeconds(1.4f);
         Debug.Log("SwitchToVR DONE ROTATING!");
 
 		if (MainAllController.instance != null) {

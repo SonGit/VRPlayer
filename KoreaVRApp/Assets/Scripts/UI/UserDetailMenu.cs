@@ -202,7 +202,7 @@ public class UserDetailMenu : BasicMenuNavigation
 	{
 		try
 		{
-			MainAllController.instance.Streaming3D (video,getLinkVideoResponse.link);
+			MainAllController.instance.Streaming3D (video, currentShowUI, getLinkVideoResponse.link);
 		}
 		catch (System.Exception e)
 		{
@@ -242,7 +242,7 @@ public class UserDetailMenu : BasicMenuNavigation
 	{
 		try
 		{
-			MainAllController.instance.Streaming2D (video,getLinkVideoResponse.link);
+			MainAllController.instance.Streaming2D (video, currentShowUI, getLinkVideoResponse.link);
 		}
 		catch (System.Exception e)
 		{
@@ -437,7 +437,7 @@ public class UserDetailMenu : BasicMenuNavigation
 
 		if (video is LocalVideo) {
 			//Handheld.PlayFullScreenMovie ((video as LocalVideo).videoURL, Color.black, FullScreenMovieControlMode.Full, FullScreenMovieScalingMode.AspectFill);
-			MainAllController.instance.Play2D(video);
+			MainAllController.instance.Play2D(video,currentShowUI);
 
 			if(MainAllController.instance != null){
 				MainAllController.instance.DisableSubtitleVR ();
@@ -445,14 +445,14 @@ public class UserDetailMenu : BasicMenuNavigation
 		} else {
 			string path = MainAllController.instance.user.GetPathToFile (video.videoInfo.id,video.videoInfo.video_name);
 			//Handheld.PlayFullScreenMovie (path, Color.black, FullScreenMovieControlMode.Full, FullScreenMovieScalingMode.AspectFill);
-			MainAllController.instance.Play2D(video);
+			MainAllController.instance.Play2D(video,currentShowUI);
 		}
 	}
 
 	public void PlayIn3D()
 	{
 		if (MainAllController.instance != null){
-			MainAllController.instance.Play3D (video);
+			MainAllController.instance.Play3D (video, currentShowUI);
 		}
 
 		if(MainAllController.instance != null){

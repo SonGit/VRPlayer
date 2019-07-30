@@ -211,7 +211,6 @@ MonoBehaviour:
   verticalGrid: {fileID: 0}
   currentSortStyle: 0
   canvas: {fileID: 0}
-  isNoVideo: 0
   btnOnBack: {fileID: 1471205756}
   btnOnVR: {fileID: 0}
   mediaPlayer: {fileID: 0}
@@ -220,6 +219,7 @@ MonoBehaviour:
   allUI: {fileID: 770696186}
   videoSeekSlider: {fileID: 511777613}
   _currentTimeLabel: {fileID: 176925466}
+  _totalTimeLabel: {fileID: 746412127}
   _bufferedSliderRect: {fileID: 1155685782}
   subTitle2D: {fileID: 101506263}
   _subtitleLandscape: {fileID: 1806873372}
@@ -1302,7 +1302,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &746412126
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1312,7 +1312,7 @@ RectTransform:
   m_GameObject: {fileID: 746412125}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.99996907, y: 0.99996907, z: 0.99996907}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 467897355}
   m_RootOrder: 1
@@ -1352,7 +1352,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: f49af5510249cb84c8c6680f3ec74035, type: 3}
-    m_FontSize: 27
+    m_FontSize: 34
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2

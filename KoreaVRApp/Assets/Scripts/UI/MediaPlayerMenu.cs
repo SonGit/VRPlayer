@@ -23,6 +23,8 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 	[SerializeField]
 	private Text _currentTimeLabel;
 	[SerializeField]
+	private Text _totalTimeLabel;
+	[SerializeField]
 	private RectTransform _bufferedSliderRect;
 	[SerializeField]
 	private SubTitle2D subTitle2D;
@@ -153,7 +155,7 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 
 	#region PlayVieo
 
-	public void Play(Video video, VRPlayer vrPlayer, float resumeMs = 0)
+	public void Play(Video video, VideoUI videoUI, VRPlayer vrPlayer, float resumeMs = 0)
 	{
 		
 		if (mediaPlayer == null){
@@ -176,6 +178,10 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 		if (pauseBnt != null && playBnt != null){
 			pauseBnt.gameObject.SetActive (true);
 			playBnt.gameObject.SetActive (false);
+		}
+
+		if (videoUI != null && _totalTimeLabel != null){
+			_totalTimeLabel.text = videoUI.MakeLengthString ();
 		}
 			
 		// Attemp to resume video from last time
@@ -234,7 +240,7 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 		_buttonContainer.SetActive (false);
 	}
 
-	public void Streaming(Video video, string urlStreaming){
+	public void Streaming(Video video, VideoUI videoUI, string urlStreaming){
 		if (allUI != null && allUI.activeSelf) {
 			allUI.SetActive (false);
 		}
@@ -242,6 +248,10 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 		if (pauseBnt != null && playBnt != null){
 			pauseBnt.gameObject.SetActive (true);
 			playBnt.gameObject.SetActive (false);
+		}
+
+		if (videoUI != null && _totalTimeLabel != null){
+			_totalTimeLabel.text = videoUI.MakeLengthString ();
 		}
 
 		if (video is LocalVideo) {

@@ -42,6 +42,9 @@ public class VRPlayer : MonoBehaviour
 	[SerializeField]
 	private Text videoNameLabel;
 
+	[SerializeField]
+	private Text _totalTimeLabel;
+
     // Start is called before the first frame update
 
 	private SubtitlesUGUI[] subtitlesUGUIs;
@@ -98,7 +101,7 @@ public class VRPlayer : MonoBehaviour
 	/// Can be used for streaming
 	/// </summary>
 	/// <param name="url">URL.</param>
-	public void Play(Video video)
+	public void Play(Video video, VideoUI videoUI)
 	{
 		float resumeMs = 0;
 		// Attemp to resume video from last time
@@ -121,9 +124,13 @@ public class VRPlayer : MonoBehaviour
 		}
 
 		SetVideoNameLabel (video);
+
+		if (videoUI != null && _totalTimeLabel != null){
+			_totalTimeLabel.text = videoUI.MakeLengthString ();
+		}
 	}
 
-	public void Stream(Video video,string url)
+	public void Stream(Video video, VideoUI videoUI, string url)
 	{
 		if (currentMode != null) {
 			
@@ -140,6 +147,10 @@ public class VRPlayer : MonoBehaviour
 		}
 
 		SetVideoNameLabel (video);
+
+		if (videoUI != null && _totalTimeLabel != null){
+			_totalTimeLabel.text = videoUI.MakeLengthString ();
+		}
 	}
 
 	public void LoadSubTitles(string url)

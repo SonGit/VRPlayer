@@ -402,12 +402,12 @@ public class DownloadVideoUI : VideoUI
 
 	public void OnClickStreaming3D()
 	{
-		DownloadMenu.instance.Streaming3D (video);
+		DownloadMenu.instance.Streaming3D (video, this);
 	}
 
 	public void OnClickStreaming2D()
 	{
-		DownloadMenu.instance.Streaming2D (video);
+		DownloadMenu.instance.Streaming2D (video, this);
 	}
 
 	#region NativeUI AlertPopup	

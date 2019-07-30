@@ -80,17 +80,19 @@ public class DownloadMenu : BasicMenuNavigation
 
 	#region Streaming 3D
 	Video currentVideo;
+	VideoUI currentVideoUI;
 	/// <summary>
 	/// This is called when user clicked on 3D Streaming button
 	/// </summary>
 	/// 
-	public void Streaming3D(Video video)
+	public void Streaming3D(Video video, VideoUI videoUI)
 	{
 		if(MainAllController.instance != null){
 			MainAllController.instance.PlayButtonSound ();
 		}
 
 		currentVideo = video;
+		currentVideoUI = videoUI;
 
 		ScreenLoading.instance.Play ();
 		Networking.instance.GetVideoLinkRequest (video.videoInfo.id, MainAllController.instance.user.token ,OnGetStreamingLink,OnFailedGetStreamingLink);
@@ -100,7 +102,7 @@ public class DownloadMenu : BasicMenuNavigation
 	{
 		try
 		{
-			MainAllController.instance.Streaming3D (currentVideo,getLinkVideoResponse.link);
+			MainAllController.instance.Streaming3D (currentVideo, currentVideoUI, getLinkVideoResponse.link);
 		}
 		catch (System.Exception e)
 		{
@@ -121,13 +123,14 @@ public class DownloadMenu : BasicMenuNavigation
 
 	#region Streaming 2D
 
-	public void Streaming2D(Video video)
+	public void Streaming2D(Video video, VideoUI videoUI)
 	{
 		if(MainAllController.instance != null){
 			MainAllController.instance.PlayButtonSound ();
 		}
 
 		currentVideo = video;
+		currentVideoUI = videoUI;
 
 		ScreenLoading.instance.Play ();
 		Networking.instance.GetVideoLinkRequest (video.videoInfo.id, MainAllController.instance.user.token ,OnGetStreamingLink2D,OnFailedGetStreamingLink2D);
@@ -138,7 +141,7 @@ public class DownloadMenu : BasicMenuNavigation
 	{
 		try
 		{
-			MainAllController.instance.Streaming2D (currentVideo,getLinkVideoResponse.link);
+			MainAllController.instance.Streaming2D (currentVideo, currentVideoUI, getLinkVideoResponse.link);
 		}
 		catch (System.Exception e)
 		{

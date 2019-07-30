@@ -374,14 +374,14 @@ public class VideoUI : EnhancedScrollerCellView
 
 		if (video is LocalVideo) {
 			//Handheld.PlayFullScreenMovie ((video as LocalVideo).videoURL, Color.black, FullScreenMovieControlMode.Full, FullScreenMovieScalingMode.AspectFill);
-			MainAllController.instance.Play2D(video);
+			MainAllController.instance.Play2D(video, this);
 			if(MainAllController.instance != null){
 				MainAllController.instance.DisableSubtitleVR ();
 			}
 		} else {
 			string path = MainAllController.instance.user.GetPathToFile (video.videoInfo.id,video.videoInfo.video_name);
 			//Handheld.PlayFullScreenMovie (path, Color.black, FullScreenMovieControlMode.Full, FullScreenMovieScalingMode.AspectFill);
-			MainAllController.instance.Play2D(video);
+			MainAllController.instance.Play2D(video, this);
 		}
 	}
 
@@ -392,7 +392,7 @@ public class VideoUI : EnhancedScrollerCellView
 		}
 
 		if (MainAllController.instance != null){
-			MainAllController.instance.Play3D (video);
+			MainAllController.instance.Play3D (video, this);
 		}
 
         if (playBnt != null)

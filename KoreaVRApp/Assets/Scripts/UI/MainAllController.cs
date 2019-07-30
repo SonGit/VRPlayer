@@ -20,6 +20,7 @@ public class MainAllController : MonoBehaviour
 
 	[Header("---- Menus ----")]
 
+	private WalkthroughMenu walkthroughMenu = null;
 	private AccessMenu accessMenu = null;
 	private StorageMenu storageMenu = null;
 	private SettingsMenu settingsMenu = null;
@@ -34,6 +35,7 @@ public class MainAllController : MonoBehaviour
 	private MediaPlayerMenu mediaPlayerMenu = null;
 	private AlertMenu alertMenu = null;
 	private SensorMenu sensorMenu = null;
+
 	private MyScrollView[] _myScrollViews;
 	[SerializeField] 
 	private GameObject vr_CloseButton;
@@ -42,7 +44,7 @@ public class MainAllController : MonoBehaviour
 
 	private BasicMenu lastMenu = null;
 
-	private BasicMenu _currentMenu = null;
+	public BasicMenu _currentMenu = null;
 
 	public BasicMenu currentMenu
 	{
@@ -132,6 +134,12 @@ public class MainAllController : MonoBehaviour
 		Init ();
 
 		// Event open,close Menu
+		if (walkthroughMenu != null) {
+			walkthroughMenu.OnClick += WalkthroughMenu_OnGetStarted;
+		} else {
+			Debug.LogError ("Null");
+		}
+
 		if (accessMenu != null && storageMenu != null) {
 			accessMenu.OnMyStorage += AccessMenu_OnMyStorage;
 		} else {
@@ -313,6 +321,7 @@ public class MainAllController : MonoBehaviour
 		user = null;
 
 		// Load all references
+		walkthroughMenu = UnityEngine.Object.FindObjectOfType<WalkthroughMenu>();
 		accessMenu = UnityEngine.Object.FindObjectOfType<AccessMenu>();
 		storageMenu = UnityEngine.Object.FindObjectOfType<StorageMenu>();
 		settingsMenu = UnityEngine.Object.FindObjectOfType<SettingsMenu>();
@@ -331,23 +340,25 @@ public class MainAllController : MonoBehaviour
 		_myScrollViews = UnityEngine.Object.FindObjectsOfType<MyScrollView> ();
 		infoMenu = UnityEngine.Object.FindObjectOfType<InfoMenu> ();
 
-		GoToScene2D ();
-
 		// Start state
-		if (storageMenu != null){
-			storageMenu.SetActive(true);
-			currentMenu = storageMenu;
+		if (walkthroughMenu != null){
+			currentMenu = walkthroughMenu;
+
+			// Disable Handle AccessMenu
+			accessMenu.SetHandleViewable (false);
 		}
 
-		if (accessMenu != null){
-			accessMenu.SetActive(true);
-		}
+		GoToScene2D ();
 
 		// If user has logged out, return user to default tab
 		OnLoggedIn += UpdateUserVideo;
 		OnLoggedIn += UpdateFavorite;
 		OnLoggedIn += LoginCompleted;
 		OnLoggedOut += AccessMenu_OnMyStorage;
+	}
+
+	private void WalkthroughMenu_OnGetStarted(){
+		AccessMenu_OnMyStorage ();
 	}
 
 
@@ -1206,31 +1217,33 @@ public class MainAllController : MonoBehaviour
 	}
 
 
-	public void Play3D(Video video)
+	public void Play3D(Video video, VideoUI videoUI)
 	{
 		this.video = video;
+		this.videoUI = videoUI;
 		isStreaming = false;
 
 		if (currentScene is SceneVR) {
-			(currentScene as SceneVR).PlayFromURL (video);
+			(currentScene as SceneVR).PlayFromURL (video,videoUI);
 		} else {
 			GoToSceneVR ();
 			if (currentScene is SceneVR) {
-				(currentScene as SceneVR).PlayFromURL (video);
+				(currentScene as SceneVR).PlayFromURL (video,videoUI);
 			}
 		}
 	}
 
-	public void Play2D(Video video)
+	public void Play2D(Video video, VideoUI videoUI)
 	{
 		this.video = video;
+		this.videoUI = videoUI;
 		isStreaming = false;
 
 		ModeVR_OnMediaPlayerMenu ();
 	}
 
+	VideoUI videoUI;
 	Video video;
-	Video videoStreaming;
 	VRPlayer vrPlayer;
 	bool isStreaming;
 	string urlStreaming;
@@ -1240,9 +1253,9 @@ public class MainAllController : MonoBehaviour
         GoTo2DMediaPlayer();
 
         if (isStreaming) {
-			mediaPlayerMenu.Streaming (videoStreaming, urlStreaming);
+			mediaPlayerMenu.Streaming (video,videoUI,urlStreaming);
 		} else {
-			mediaPlayerMenu.Play (video, this.vrPlayer);
+			mediaPlayerMenu.Play (video,videoUI,this.vrPlayer);
 		}
 	}
 
@@ -1259,10 +1272,10 @@ public class MainAllController : MonoBehaviour
 		}
 
 		if (isStreaming) {
-			Streaming3D (videoStreaming,urlStreaming);
+			Streaming3D (video,videoUI,urlStreaming);
 		} else {
 			mediaPlayerMenu.Resume ();
-			Play3D (video);
+			Play3D (video, videoUI);
 		}
 	}
 
@@ -1291,26 +1304,28 @@ public class MainAllController : MonoBehaviour
 		mediaPlayerMenu.DisableSubtitles ();
 	}
 
-	public void Streaming3D(Video video,string url)
+	public void Streaming3D(Video video, VideoUI videoUI, string url)
 	{
 		isStreaming = true;
 		this.urlStreaming = url;
-		this.videoStreaming = video;
+		this.video = video;
+		this.videoUI = videoUI;
 
 		if (!(currentScene is SceneVR)){
 			GoToSceneVR ();
 		}
 			
 		if (currentScene is SceneVR) {
-			(currentScene as SceneVR).Streaming (video,url);
+			(currentScene as SceneVR).Streaming (video,videoUI,url);
 		}
 	}
 
-	public void Streaming2D(Video video,string url)
+	public void Streaming2D(Video video, VideoUI videoUI, string url)
 	{
 		isStreaming = true;
 		this.urlStreaming = url;
-		this.videoStreaming = video;
+		this.video = video;
+		this.videoUI = videoUI;
 
 		ModeVR_OnMediaPlayerMenu ();
 	}
@@ -1705,6 +1720,10 @@ public class MainAllController : MonoBehaviour
 				if (accessMenu.PanelLayer.gameObject.activeSelf) {
 					accessMenu.Close ();
 				} else {
+					if (currentMenu is WalkthroughMenu){
+						return;
+					}
+						
 					if (vrPlayerMenu.IsShowVRPlayer){
 						VRPlayerMenu_OnBack ();
 						return;
