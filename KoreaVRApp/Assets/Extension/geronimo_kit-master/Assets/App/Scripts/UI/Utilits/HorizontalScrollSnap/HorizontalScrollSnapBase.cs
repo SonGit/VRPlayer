@@ -227,7 +227,7 @@ namespace UnityEngine.UI.Extensions
             {
                 try
                 {
-					ChildObjects[i].SetActive(false);
+                    ChildObjects[i].SetActive(true);
                 }
                 catch
                 {
@@ -235,8 +235,8 @@ namespace UnityEngine.UI.Extensions
                 }
             }
 
-			if (_currentPage > HalfNoVisibleItems) ChildObjects[CurrentPage].SetActive(true);
-			if (ScreensContainer.childCount - _currentPage > _topItem) ChildObjects[CurrentPage].SetActive(true);
+            if (_currentPage > HalfNoVisibleItems) ChildObjects[CurrentPage - _bottomItem].SetActive(false);
+            if (ScreensContainer.childCount - _currentPage > _topItem) ChildObjects[CurrentPage + _topItem].SetActive(false);
         }
 
         public void NextScreen()
