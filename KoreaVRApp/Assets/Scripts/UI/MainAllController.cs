@@ -358,6 +358,10 @@ public class MainAllController : MonoBehaviour
 	}
 
 	private void WalkthroughMenu_OnGetStarted(){
+		if (storageMenu != null){
+			storageMenu.Refresh ();
+		}
+
 		AccessMenu_OnMyStorage ();
 	}
 

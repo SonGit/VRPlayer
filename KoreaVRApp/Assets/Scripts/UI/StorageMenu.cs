@@ -20,8 +20,6 @@ public class StorageMenu : BasicMenuNavigation
 	protected override void Start ()
 	{
 		base.Start ();
-
-		RefreshVideo ();
 	}
 
 	private void Update(){
@@ -29,10 +27,10 @@ public class StorageMenu : BasicMenuNavigation
 	}
 
 	#region RefreshVideo
-	public void RefreshVideo(){
-//		if (ScreenLoading.instance != null) {
-//			ScreenLoading.instance.Play ();
-//		}
+
+	public override void Refresh()
+	{
+		print ("Storage Refresh()");
 
 		if (LocalVideoManager.instance != null) {
 			LocalVideoManager.instance.Load (OnGetLocalVideo);
@@ -68,11 +66,7 @@ public class StorageMenu : BasicMenuNavigation
 	}
 		
 
-	public override void Refresh()
-	{
-		print ("Storage Refresh()");
-		RefreshVideo ();
-	}
+
 
 	#region EnhancedScroller Handlers
 
