@@ -406,7 +406,13 @@ public class VideoUI : EnhancedScrollerCellView
 	{
 		if (video.videoInfo.length != null) {
 			if (video is LocalVideo) {
+				#if UNITY_IOS
+				ts = System.TimeSpan.FromMilliseconds ((double)((video as LocalVideo).videoLength));
+				#endif
+
+				#if UNITY_ANDROID
 				ts = System.TimeSpan.FromMilliseconds ((double)video.videoInfo.length);
+				#endif
 			} else {
 				ts = System.TimeSpan.FromSeconds ((double)video.videoInfo.length);
 			}
