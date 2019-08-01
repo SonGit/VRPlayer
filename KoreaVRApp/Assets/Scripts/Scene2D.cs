@@ -73,8 +73,10 @@ public class Scene2D : AppScene
 			MainAllController.instance.ShowScreenSwitchSceneMode ();
 		}
 
-		GvrViewer.Instance.VRModeEnabled = false;
-
+		if (GvrViewer.Instance.VRModeEnabled == true){
+			GvrViewer.Instance.VRModeEnabled = false;
+		}
+			
 		yield return new WaitForSeconds(0.25f);
 
 
@@ -83,10 +85,14 @@ public class Scene2D : AppScene
 
         //#if !UNITY_EDITOR
         // Disable auto rotation, except for landscape left.
-        Screen.orientation = ScreenOrientation.Portrait;
-		Debug.Log("SwitchTo2D DONE ROTATING!");
+		if (Screen.orientation != ScreenOrientation.Portrait) {
+			Screen.orientation = ScreenOrientation.Portrait;
+			Debug.Log("SwitchTo2D DONE ROTATING!");
+		} else {
+			Debug.Log ("No Switch Screen");
+		}
 
-		yield return new WaitForSeconds(0.6f);
+		yield return new WaitForSeconds(0.5f);
 
 		if (MainAllController.instance != null){
 			MainAllController.instance.HideVR_CloseButton ();

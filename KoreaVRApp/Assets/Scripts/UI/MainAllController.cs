@@ -104,10 +104,25 @@ public class MainAllController : MonoBehaviour
 	public event Action OnGetFavoriteVideo;
 	public event Action<Video> OnDownloadedVideo;
 
-	// This var purpose is to prevent user from spamming Refresh
-	public bool Floodgate;
 	private bool isGoVR;
 	private bool isShowRecenterPanel;
+	private bool isFirstGoToVR;
+
+	/// <summary>
+	/// Gets or sets a value indicating whether this instance is show recenter panel.
+	/// </summary>
+	/// <value><c>true</c> if this instance is show recenter panel; otherwise, <c>false</c>.</value>
+	public bool IsShowRecenterPanel
+	{
+		get { return isShowRecenterPanel; }
+		set { isShowRecenterPanel = value; }
+	}
+
+	public bool IsFirstGoToVR
+	{
+		get { return isFirstGoToVR; }
+		set { isFirstGoToVR = value; }
+	}
 
 	//Resolution
 	public int maxWidth;
@@ -131,7 +146,7 @@ public class MainAllController : MonoBehaviour
 
 	private void Start()
 	{
-		Init ();
+		StartCoroutine (Init ());
 
 		// Event open,close Menu
 		if (walkthroughMenu != null) {
@@ -316,7 +331,7 @@ public class MainAllController : MonoBehaviour
 
 	}
 
-	private void Init()
+	private IEnumerator Init()
 	{
 		user = null;
 
@@ -340,6 +355,8 @@ public class MainAllController : MonoBehaviour
 		_myScrollViews = UnityEngine.Object.FindObjectsOfType<MyScrollView> ();
 		infoMenu = UnityEngine.Object.FindObjectOfType<InfoMenu> ();
 
+		HideScreenSwitchSceneMode ();
+
 		// Start state
 		if (walkthroughMenu != null){
 			currentMenu = walkthroughMenu;
@@ -347,6 +364,10 @@ public class MainAllController : MonoBehaviour
 			// Disable Handle AccessMenu
 			accessMenu.SetHandleViewable (false);
 		}
+
+		GoToSceneVR ();
+
+		yield return new WaitForSeconds (1.5f);
 
 		GoToScene2D ();
 
@@ -1889,16 +1910,6 @@ public class MainAllController : MonoBehaviour
 	}
 
 	#endregion
-
-	/// <summary>
-	/// Gets or sets a value indicating whether this instance is show recenter panel.
-	/// </summary>
-	/// <value><c>true</c> if this instance is show recenter panel; otherwise, <c>false</c>.</value>
-	public bool IsShowRecenterPanel
-	{
-		get { return isShowRecenterPanel; }
-		set { isShowRecenterPanel = value; }
-	}
 
 	public string GetUserNameInput(){
 		string username;
