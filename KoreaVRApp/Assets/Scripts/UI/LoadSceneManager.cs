@@ -18,14 +18,11 @@ public class LoadSceneManager : MonoBehaviour
     }
 
 	IEnumerator LoadAsyncSceneMainMenu (){
+		
+		Debug.Log ("ScreenOrientation.LandscapeLeft");
 
-		if (Screen.orientation != ScreenOrientation.LandscapeLeft) {
-			Screen.orientation = ScreenOrientation.LandscapeLeft;
-			Debug.Log ("ScreenOrientation.LandscapeLeft");
-		} else {
-			Debug.Log ("No Switch Screen");
-		}
-			
+		Screen.orientation = ScreenOrientation.LandscapeLeft;
+
 		yield return new WaitForSeconds(2f);
 
 		AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("MainMenu");
