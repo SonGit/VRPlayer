@@ -83,7 +83,7 @@ public class Scene2D : AppScene
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 50;
 
-        //#if !UNITY_EDITOR
+        
         // Disable auto rotation, except for landscape left.
 		if (Screen.orientation != ScreenOrientation.Portrait) {
 			Screen.orientation = ScreenOrientation.Portrait;
@@ -92,7 +92,7 @@ public class Scene2D : AppScene
 			Debug.Log ("No Switch Screen");
 		}
 
-		yield return new WaitForSeconds(1f);
+		yield return new WaitForSeconds(0.7f);
 
 		if (MainAllController.instance != null){
 			MainAllController.instance.HideVR_CloseButton ();

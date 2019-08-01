@@ -431,16 +431,16 @@ public class SceneVR : AppScene
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
 
-        //#if !UNITY_EDITOR
+        
         // Disable auto rotation, except for landscape left.
-		if (Screen.orientation != ScreenOrientation.LandscapeLeft && MainAllController.instance != null && MainAllController.instance.IsFirstGoToVR) {
+		if (Screen.orientation != ScreenOrientation.LandscapeLeft) {
 			Screen.orientation = ScreenOrientation.LandscapeLeft;
 			Debug.Log ("ScreenOrientation.LandscapeLeft");
 		} else {
 			Debug.Log ("No Switch Screen");
 		}
 
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(1.1f);
         Debug.Log("SwitchToVR DONE ROTATING!");
 
 		if (MainAllController.instance != null && MainAllController.instance.IsFirstGoToVR) {

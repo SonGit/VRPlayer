@@ -13,6 +13,7 @@ using UnityEngine.SceneManagement;
 using SimpleDiskUtils;
 using EasyMobile.Demo;
 using RenderHeads.Media.AVProVideo;
+using UnityEngine.Android;
 
 public class MainAllController : MonoBehaviour
 {
@@ -357,6 +358,11 @@ public class MainAllController : MonoBehaviour
 
 		HideScreenSwitchSceneMode ();
 
+		if (!Permission.HasUserAuthorizedPermission(Permission.ExternalStorageRead))
+		{
+			Permission.RequestUserPermission(Permission.ExternalStorageRead);
+		}
+
 		// Start state
 		if (walkthroughMenu != null){
 			currentMenu = walkthroughMenu;
@@ -368,7 +374,7 @@ public class MainAllController : MonoBehaviour
 		// Fix Error "Switch to VR"
 		GoToSceneVR ();
 
-		yield return new WaitForSeconds (2f);
+		yield return new WaitForSeconds (1.8f);
 
 		GoToScene2D ();
 

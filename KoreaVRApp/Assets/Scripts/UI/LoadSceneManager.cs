@@ -23,7 +23,7 @@ public class LoadSceneManager : MonoBehaviour
 
 		Screen.orientation = ScreenOrientation.LandscapeLeft;
 
-		yield return new WaitForSeconds(2f);
+		yield return new WaitForSeconds(0.5f);
 
 		AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("MainMenu");
 
