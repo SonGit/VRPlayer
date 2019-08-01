@@ -1381,6 +1381,10 @@ public class MainAllController : MonoBehaviour
 		IsShowRecenterPanel = false;
 		HideVR_CloseButton ();
 
+		if (accessMenu != null){
+			accessMenu.SetHandleViewable (true);
+		}
+			
 		if (ScreenLoading.instance != null) {
 			ScreenLoading.instance.Stop ();
 		}

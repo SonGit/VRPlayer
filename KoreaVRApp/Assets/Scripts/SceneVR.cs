@@ -425,7 +425,7 @@ public class SceneVR : AppScene
 			GvrViewer.Instance.VRModeEnabled = true;
 		}
 			
-		//yield return new WaitForSeconds (0.25f);
+		yield return new WaitForSeconds (0.25f);
 
 
         QualitySettings.vSyncCount = 0;
