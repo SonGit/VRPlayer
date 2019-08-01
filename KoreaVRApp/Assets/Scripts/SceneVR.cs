@@ -425,7 +425,7 @@ public class SceneVR : AppScene
 			GvrViewer.Instance.VRModeEnabled = true;
 		}
 			
-		yield return new WaitForSeconds (0.25f);
+		//yield return new WaitForSeconds (0.25f);
 
 
         QualitySettings.vSyncCount = 0;
@@ -440,7 +440,7 @@ public class SceneVR : AppScene
 			Debug.Log ("No Switch Screen");
 		}
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.2f);
         Debug.Log("SwitchToVR DONE ROTATING!");
 
 		if (MainAllController.instance != null && MainAllController.instance.IsFirstGoToVR) {

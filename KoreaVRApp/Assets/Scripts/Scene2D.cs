@@ -77,7 +77,7 @@ public class Scene2D : AppScene
 			GvrViewer.Instance.VRModeEnabled = false;
 		}
 			
-		yield return new WaitForSeconds(0.25f);
+		//yield return new WaitForSeconds(0.25f);
 
 
         QualitySettings.vSyncCount = 0;
@@ -92,7 +92,7 @@ public class Scene2D : AppScene
 			Debug.Log ("No Switch Screen");
 		}
 
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(1f);
 
 		if (MainAllController.instance != null){
 			MainAllController.instance.HideVR_CloseButton ();

@@ -26,7 +26,7 @@ public class LoadSceneManager : MonoBehaviour
 			Debug.Log ("No Switch Screen");
 		}
 			
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(2f);
 
 		AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("MainMenu");
 

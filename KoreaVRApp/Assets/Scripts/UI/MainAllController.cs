@@ -365,9 +365,10 @@ public class MainAllController : MonoBehaviour
 			accessMenu.SetHandleViewable (false);
 		}
 
+		// Fix Error "Switch to VR"
 		GoToSceneVR ();
 
-		yield return new WaitForSeconds (1.5f);
+		yield return new WaitForSeconds (2f);
 
 		GoToScene2D ();
 
