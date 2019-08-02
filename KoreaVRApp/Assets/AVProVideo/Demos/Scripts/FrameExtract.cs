@@ -29,6 +29,7 @@ namespace RenderHeads.Media.AVProVideo.Demos
 		public bool _saveToJPG = false;
 		private string _filenamePrefix;
 #endif
+		private bool _busyProcessingFrame = false;
 		private float _timeStepSeconds;
 		private int _frameIndex = -1;
 		private Texture2D _texture;
@@ -121,7 +122,6 @@ namespace RenderHeads.Media.AVProVideo.Demos
 			if (_texture != null && _frameIndex >=0 && _frameIndex < NumFrames)
 			{
 				ExtractNextFrame();
-				_frameIndex++;
 			}
 		}
 
@@ -154,21 +154,29 @@ namespace RenderHeads.Media.AVProVideo.Demos
 			RenderTexture.active = null;
 			GL.PopMatrix();
 			GL.InvalidateState();
+
+			_busyProcessingFrame = false;
+			_frameIndex++;
 		}
 
 		private void ExtractNextFrame()
 		{
 			// Extract the frame to Texture2D
-			float timeSeconds = _frameIndex * _timeStepSeconds;
+			if (!_busyProcessingFrame)
+			{
+				_busyProcessingFrame = true;
 
-			if (!_asyncExtract)
-			{
-				_texture = _mediaPlayer.ExtractFrame(_texture, timeSeconds, _accurateSeek, _timeoutMs);
-				ProcessExtractedFrame(_texture);
-			}
-			else
-			{
-				_mediaPlayer.ExtractFrameAsync(_texture, ProcessExtractedFrame, timeSeconds, _accurateSeek, _timeoutMs);
+				float timeSeconds = _frameIndex * _timeStepSeconds;
+
+				if (!_asyncExtract)
+				{
+					_texture = _mediaPlayer.ExtractFrame(_texture, timeSeconds, _accurateSeek, _timeoutMs);
+					ProcessExtractedFrame(_texture);
+				}
+				else
+				{
+					_mediaPlayer.ExtractFrameAsync(_texture, ProcessExtractedFrame, timeSeconds, _accurateSeek, _timeoutMs);
+				}
 			}
 		}
 

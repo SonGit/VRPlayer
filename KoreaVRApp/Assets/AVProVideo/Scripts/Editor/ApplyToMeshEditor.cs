@@ -67,7 +67,7 @@ namespace RenderHeads.Media.AVProVideo.Editor
 					}
 				}
 
-				List<GUIContent> items = new List<GUIContent>(8);
+				List<GUIContent> items = new List<GUIContent>(16);
 				foreach (MaterialProperty matProp in matProps)
 				{
 					if (matProp.type == MaterialProperty.PropType.Texture)

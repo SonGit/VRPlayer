@@ -94,11 +94,12 @@ namespace RenderHeads.Media.AVProVideo.Editor
 		private const string SubtitleExtensions = "Subtitle Files;*.srt";
 #endif
 
-		public const string LinkPluginWebsite = "http://renderheads.com/product/avpro-video/";
+		public const string LinkPluginWebsite = "http://renderheads.com/products/avpro-video/";
 		public const string LinkForumPage = "http://forum.unity3d.com/threads/released-avpro-video-complete-video-playback-solution.385611/";
 		public const string LinkForumLastPage = "http://forum.unity3d.com/threads/released-avpro-video-complete-video-playback-solution.385611/page-60";
+		public const string LinkGithubIssues = "https://github.com/RenderHeads/UnityPlugin-AVProVideo/issues";
+		public const string LinkGithubIssuesNew = "https://github.com/RenderHeads/UnityPlugin-AVProVideo/issues/new/choose";
 		public const string LinkAssetStorePage = "https://www.assetstore.unity3d.com/#!/content/56355";
-		public const string LinkEmailSupport = "mailto:unitysupport@renderheads.com";
 		public const string LinkUserManual = "http://downloads.renderheads.com/docs/UnityAVProVideo.pdf";
 		public const string LinkScriptingClassReference = "http://www.renderheads.com/content/docs/AVProVideoClassReference/";
 
@@ -351,6 +352,41 @@ namespace RenderHeads.Media.AVProVideo.Editor
 					GUI.color = Color.white;
 				}
 			}
+
+			// Warn about using Vulkan graphics API
+#if UNITY_2018_1_OR_NEWER
+			{
+				if (EditorUserBuildSettings.selectedBuildTargetGroup == BuildTargetGroup.Android)
+				{
+					bool showWarningVulkan = false;
+					if (!UnityEditor.PlayerSettings.GetUseDefaultGraphicsAPIs(BuildTarget.Android))
+					{
+						UnityEngine.Rendering.GraphicsDeviceType[] devices = UnityEditor.PlayerSettings.GetGraphicsAPIs(BuildTarget.Android);
+						foreach (UnityEngine.Rendering.GraphicsDeviceType device in devices)
+						{
+							if (device == UnityEngine.Rendering.GraphicsDeviceType.Vulkan)
+							{
+								showWarningVulkan = true;
+								break;
+							}
+						}
+					}
+					if (showWarningVulkan)
+					{
+						GUI.backgroundColor = Color.yellow;
+						EditorGUILayout.BeginVertical(GUI.skin.box);
+						GUI.color = Color.yellow;
+						GUILayout.Label("Compatibility Warning", EditorStyles.boldLabel);
+						GUI.color = Color.white;
+						GUILayout.Label("Vulkan graphics API is not supported.  Please go to Player Settings > Android > Auto Graphics API and remove Vulkan from the list.  Only OpenGL 2.0 and 3.0 are supported on Android.", EditorStyles.wordWrappedLabel);
+						EditorGUILayout.EndVertical();
+						GUI.backgroundColor = Color.white;
+						GUI.color = Color.white;
+					}
+				}
+			}
+#endif
+
 
 			/*
 #if UNITY_WEBGL
@@ -854,7 +890,7 @@ namespace RenderHeads.Media.AVProVideo.Editor
 						// Display warning for Android users if they're trying to use a URL without setting permission
 						if (isPlatformAndroid && !PlayerSettings.Android.forceInternetPermission)
 						{
-							ShowNoticeBox(MessageType.Warning, "You may need to set 'Internet Access' to 'require' in your Player Settings for Android builds when using URLs");
+							ShowNoticeBox(MessageType.Warning, "You need to set 'Internet Access' to 'require' in your Player Settings for Android builds when using URLs");
 						}
 
 						// Display warning for UWP users if they're trying to use a URL without setting permission
@@ -875,7 +911,7 @@ namespace RenderHeads.Media.AVProVideo.Editor
 							if (!PlayerSettings.WSA.GetCapability(PlayerSettings.WSACapability.InternetClient))
 #endif
 							{
-								ShowNoticeBox(MessageType.Warning, "You may need to set 'InternetClient' capability in your Player Settings when using URLs");
+								ShowNoticeBox(MessageType.Warning, "You need to set 'InternetClient' capability in your Player Settings when using URLs");
 							}
 						}
 					}
@@ -987,6 +1023,8 @@ namespace RenderHeads.Media.AVProVideo.Editor
 
 		private void OnInspectorGUI_VideoPreview(MediaPlayer media, IMediaProducer textureSource)
 		{
+			GUILayout.Label("* Inspector preview affects playback performance");
+			
 			Texture texture = null;
 			if (textureSource != null)
 			{
@@ -2591,19 +2629,27 @@ namespace RenderHeads.Media.AVProVideo.Editor
 					}
 				}
 
-				SerializedProperty propShowPosterFrame = serializedObject.FindProperty(optionsVarName + ".showPosterFrame");
-				if (propShowPosterFrame != null)
-				{
-					EditorGUILayout.PropertyField(propShowPosterFrame, new GUIContent("Show Poster Frame", "Allows a paused loaded video to display the initial frame. This uses up decoder resources."));
-				}
-
 				SerializedProperty propHttpHeaderJson = serializedObject.FindProperty(optionsVarName + ".httpHeaderJson");
 				if (propHttpHeaderJson != null)
 				{
 					EditorGUILayout.PropertyField(propHttpHeaderJson, new GUIContent("HTTP Header (JSON)", "Allows custom http fields."));
 				}
 
-				if ((Android.VideoApi)propVideoApi.intValue == Android.VideoApi.ExoPlayer)
+				// MediaPlayer API options
+				{
+					EditorGUILayout.BeginVertical("box");
+					GUILayout.Label("MediaPlayer Options", EditorStyles.boldLabel);					
+					
+					SerializedProperty propShowPosterFrame = serializedObject.FindProperty(optionsVarName + ".showPosterFrame");
+					if (propShowPosterFrame != null)
+					{
+						EditorGUILayout.PropertyField(propShowPosterFrame, new GUIContent("Show Poster Frame", "Allows a paused loaded video to display the initial frame. This uses up decoder resources."));
+					}
+
+					EditorGUILayout.EndVertical();
+				}
+
+				// ExoPlayer API options
 				{
 					EditorGUILayout.BeginVertical("box");
 					GUILayout.Label("ExoPlayer Options", EditorStyles.boldLabel);

@@ -31,21 +31,9 @@ namespace RenderHeads.Media.AVProVideo
 			ChangeMediaPlayer(_mediaPlayer);
 		}
 
-		void Update()
-		{
-			//if (_mediaPlayer == null){
-				//_mediaPlayer = MainAllController.instance.mediaPlayer;
-			//}
-		}
-
 		void OnDestroy()
 		{
 			ChangeMediaPlayer(null);
-		}
-
-		void OnEnable()
-		{
-			_text.text = string.Empty;
 		}
 
 		public void ChangeMediaPlayer(MediaPlayer newPlayer)

@@ -56,6 +56,7 @@ namespace RenderHeads.Media.AVProVideo.Demos
 				case MediaPlayerEvent.EventType.FirstFrameReady:
 					break;
 				case MediaPlayerEvent.EventType.MetaDataReady:
+				case MediaPlayerEvent.EventType.ResolutionChanged:
 					GatherProperties();
 					break;
 				case MediaPlayerEvent.EventType.FinishedPlaying:
@@ -244,6 +245,19 @@ namespace RenderHeads.Media.AVProVideo.Demos
 				{
 					_mediaPlayer.m_Loop = newLoopStatus;
 					_mediaPlayer.Control.SetLooping(newLoopStatus);
+				}
+
+				// Mute
+				bool muteStatus = _mediaPlayer.m_Muted;
+				if (_mediaPlayer.Control != null)
+				{
+					muteStatus = _mediaPlayer.Control.IsMuted();
+				}
+				bool newMuteStatus = GUILayout.Toggle(muteStatus, "Mute");
+				if (newMuteStatus != muteStatus)
+				{
+					_mediaPlayer.m_Muted = newMuteStatus;
+					_mediaPlayer.Control.MuteAudio(newMuteStatus);
 				}
 
 				GUILayout.EndHorizontal();

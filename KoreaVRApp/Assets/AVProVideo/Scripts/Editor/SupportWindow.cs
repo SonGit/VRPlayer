@@ -22,10 +22,14 @@ namespace RenderHeads.Media.AVProVideo.Editor
 		private class MyPopupWindow : PopupWindowContent
 		{
 			private string _text;
+			private string _url;
+			private string _buttonMessage;
 
-			public MyPopupWindow(string text)
+			public MyPopupWindow(string text, string buttonMessage,string url)
 			{
 				_text = text;
+				_url = url;
+				_buttonMessage = buttonMessage;
 			}
 
 			public override Vector2 GetWindowSize()
@@ -38,9 +42,9 @@ namespace RenderHeads.Media.AVProVideo.Editor
 				GUILayout.BeginHorizontal();
 				GUILayout.Label("Copy-Paste this text, then ", EditorStyles.boldLabel);
 				GUI.color = Color.green;
-				if (GUILayout.Button("Go to Forum", GUILayout.ExpandWidth(true)))
+				if (GUILayout.Button(_buttonMessage, GUILayout.ExpandWidth(true)))
 				{
-					Application.OpenURL(MediaPlayerEditor.LinkForumLastPage);
+					Application.OpenURL(_url);
 				}
 				GUILayout.EndHorizontal();
 				GUI.color = Color.white;
@@ -223,6 +227,17 @@ namespace RenderHeads.Media.AVProVideo.Editor
 				GUILayout.BeginHorizontal();
 				GUILayout.Label("4) ");
 				GUI.color = Color.green;
+				if (GUILayout.Button("Read the GitHub Issues", GUILayout.ExpandWidth(false)))
+				{
+					Application.OpenURL(MediaPlayerEditor.LinkGithubIssues);
+				}
+				GUI.color = Color.white;
+				GUILayout.FlexibleSpace();
+				GUILayout.EndHorizontal();
+
+				GUILayout.BeginHorizontal();
+				GUILayout.Label("5) ");
+				GUI.color = Color.green;
 				if (GUILayout.Button("Read the Scripting Reference", GUILayout.ExpandWidth(false)))
 				{
 					Application.OpenURL(MediaPlayerEditor.LinkScriptingClassReference);
@@ -232,7 +247,7 @@ namespace RenderHeads.Media.AVProVideo.Editor
 				GUILayout.EndHorizontal();
 
 				GUILayout.BeginHorizontal();
-				GUILayout.Label("5) ");
+				GUILayout.Label("6) ");
 				GUI.color = Color.green;
 				if (GUILayout.Button("Visit the AVPro Video Website", GUILayout.ExpandWidth(false)))
 				{
@@ -243,7 +258,7 @@ namespace RenderHeads.Media.AVProVideo.Editor
 				GUILayout.EndHorizontal();
 
 				GUILayout.BeginHorizontal();
-				GUILayout.Label("6) ");
+				GUILayout.Label("7) ");
 				GUI.color = Color.green;
 				if (GUILayout.Button("Browse the Unity Forum", GUILayout.ExpandWidth(false)))
 				{
@@ -292,8 +307,6 @@ namespace RenderHeads.Media.AVProVideo.Editor
 				////GUILayout.Label("System Information");
 				//GUILayout.TextArea(CollectSupportData());
 
-				string emailSubject = "AVPro Video - " + _emailTopic;
-
 				string emailBody = System.Environment.NewLine + System.Environment.NewLine;
 				emailBody += "Problem description:" + System.Environment.NewLine + System.Environment.NewLine + _emailDescription + System.Environment.NewLine + System.Environment.NewLine;
 				emailBody += "Device (which devices are you having the issue with - model, OS version number):" + System.Environment.NewLine + System.Environment.NewLine + _emailDeviceSpecs + System.Environment.NewLine + System.Environment.NewLine;
@@ -313,16 +326,13 @@ namespace RenderHeads.Media.AVProVideo.Editor
 				GUILayout.BeginHorizontal();
 				GUILayout.FlexibleSpace();
 				GUI.color = Color.green;
-				if (GUILayout.Button("Send via Email ➔\nunitysupport@renderheads.com", GUILayout.ExpandWidth(false), GUILayout.Height(32f)))
+				if (GUILayout.Button("Send at GitHub Issues ➔", GUILayout.ExpandWidth(false), GUILayout.Height(32f)))
 				{
-					emailBody = emailBody.Replace(System.Environment.NewLine, "%0D%0A");
-					Application.OpenURL(string.Format("mailto:unitysupport@renderheads.com?subject={0}&body={1}", emailSubject, emailBody));
+					PopupWindow.Show(buttonRect, new MyPopupWindow(emailBody, "Go to GitHub", MediaPlayerEditor.LinkGithubIssuesNew));
 				}
 				if (GUILayout.Button("Send at the Unity Forum ➔", GUILayout.ExpandWidth(false), GUILayout.Height(32f)))
 				{
-					PopupWindow.Show(buttonRect, new MyPopupWindow(emailBody));
-					//SupportWindowPopup.Init(emailBody);
-					//EditorUtility.DisplayDialog("AVPro Video", "Please include as much information as you can in the forum post", "OK");
+					PopupWindow.Show(buttonRect, new MyPopupWindow(emailBody, "Go to Forum", MediaPlayerEditor.LinkForumLastPage));
 				}
 
 				if (Event.current.type == EventType.Repaint)

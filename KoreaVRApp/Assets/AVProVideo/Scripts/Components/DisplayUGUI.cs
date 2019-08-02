@@ -116,33 +116,6 @@ namespace RenderHeads.Media.AVProVideo
 #endif
 			}
 
-			if (_shaderAlphaPacking == null)
-			{
-				_shaderAlphaPacking = Shader.Find("AVProVideo/UI/Transparent Packed");
-				if (_shaderAlphaPacking == null)
-				{
-					Debug.LogWarning("[AVProVideo] Missing shader AVProVideo/UI/Transparent Packed");
-				}
-			}
-			if (_shaderStereoPacking == null)
-			{
-				_shaderStereoPacking = Shader.Find("AVProVideo/UI/Stereo");
-				if (_shaderStereoPacking == null)
-				{
-					Debug.LogWarning("[AVProVideo] Missing shader AVProVideo/UI/Stereo");
-				}
-			}
-#if REAL_ANDROID
-			if (_shaderAndroidOES == null)
-			{
-				_shaderAndroidOES = Shader.Find("AVProVideo/UI/AndroidOES");
-				if (_shaderAndroidOES == null)
-				{
-					Debug.LogWarning("[AVProVideo] Missing shader AVProVideo/UI/AndroidOES");
-				}
-			}
-#endif
-
 #if UNITY_IOS
 			bool hasMask = HasMask(gameObject);
 			if (hasMask)
@@ -155,7 +128,7 @@ namespace RenderHeads.Media.AVProVideo
 			base.Awake();
 		}
 
-		private bool HasMask(GameObject obj)
+		private static bool HasMask(GameObject obj)
 		{
 			if (obj.GetComponent<Mask>() != null)
 				return true;
@@ -163,6 +136,40 @@ namespace RenderHeads.Media.AVProVideo
 				return HasMask(obj.transform.parent.gameObject);
 			return false;
 		}
+
+		private static Shader EnsureShader(Shader shader, string name)
+		{
+			if (shader == null)
+			{
+				shader = Shader.Find(name);
+				if (shader == null)
+				{
+					Debug.LogWarning("[AVProVideo] Missing shader " + name);
+				}
+			}
+
+			return shader;
+		}
+
+		private static Shader EnsureAlphaPackingShader()
+		{
+			_shaderAlphaPacking = EnsureShader(_shaderAlphaPacking, "AVProVideo/UI/Transparent Packed");
+			return _shaderAlphaPacking;
+		}
+
+		private static Shader EnsureStereoPackingShader()
+		{
+			_shaderStereoPacking = EnsureShader(_shaderStereoPacking, "AVProVideo/UI/Stereo");
+			return _shaderStereoPacking;
+		}
+
+#if REAL_ANDROID
+		private Shader EnsureAndroidOESShader()
+		{
+			_shaderAndroidOES = EnsureShader(_shaderAndroidOES, "AVProVideo/UI/AndroidOES");
+			return _shaderAndroidOES;
+		}
+#endif
 
 		protected override void Start()
 		{
@@ -203,7 +210,7 @@ namespace RenderHeads.Media.AVProVideo
 					break;
 				case StereoPacking.LeftRight:
 				case StereoPacking.TopBottom:
-					result = _shaderStereoPacking;
+					result = EnsureStereoPackingShader();
 					break;
 			}
 
@@ -213,7 +220,7 @@ namespace RenderHeads.Media.AVProVideo
 					break;
 				case AlphaPacking.LeftRight:
 				case AlphaPacking.TopBottom:
-					result = _shaderAlphaPacking;
+					result = EnsureAlphaPackingShader();
 					break;
 			}
 
@@ -222,19 +229,19 @@ namespace RenderHeads.Media.AVProVideo
 			{
 				if (QualitySettings.activeColorSpace == ColorSpace.Linear && !_mediaPlayer.Info.PlayerSupportsLinearColorSpace())
 				{
-					result = _shaderAlphaPacking;
+					result = EnsureAlphaPackingShader();
 				}
 			}
 #endif
 			if (result == null && _mediaPlayer.TextureProducer != null && _mediaPlayer.TextureProducer.GetTextureCount() == 2)
 			{
-				result = _shaderAlphaPacking;
+				result = EnsureAlphaPackingShader();
 			}
 
 #if REAL_ANDROID
 			if (_mediaPlayer.PlatformOptionsAndroid.useFastOesPath)
 			{
-				result = _shaderAndroidOES;
+				result = EnsureAndroidOESShader();
 			}
 #endif
 			return result;
