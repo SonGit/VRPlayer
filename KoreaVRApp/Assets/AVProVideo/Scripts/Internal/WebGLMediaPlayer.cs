@@ -170,7 +170,7 @@ namespace RenderHeads.Media.AVProVideo
 
         public override string GetVersion()
         {
-			return "1.9.12";
+			return "1.9.17";
 		}
 
         public override bool OpenVideoFromFile(string path, long offset, string httpHeaderJson, uint sourceSamplerate = 0, uint sourceChannels = 0, int forceFileFormat = 0)
@@ -615,7 +615,9 @@ namespace RenderHeads.Media.AVProVideo
 						if (_texture == null && _width > 0 && _height > 0)
 						{
 							_texture = new RenderTexture(_width, _height, 0, RenderTextureFormat.Default);
+                            #if UNITY_5_6_OR_NEWER
                             _texture.autoGenerateMips = false;
+                            #endif
                             _texture.useMipMap = false;
                             if (_useTextureMips && (!_isWebGL1 || (Mathf.IsPowerOfTwo(_width) && Mathf.IsPowerOfTwo(_height))))
                             {
@@ -634,7 +636,9 @@ namespace RenderHeads.Media.AVProVideo
 						{
                             RenderTexture.Destroy(_texture);
 							_texture = new RenderTexture(_width, _height, 0, RenderTextureFormat.Default);
+                            #if UNITY_5_6_OR_NEWER
                             _texture.autoGenerateMips = false;
+                            #endif
                             _texture.useMipMap = false;
                             if (_useTextureMips && (!_isWebGL1 || (Mathf.IsPowerOfTwo(_width) && Mathf.IsPowerOfTwo(_height))))
                             {
@@ -647,10 +651,12 @@ namespace RenderHeads.Media.AVProVideo
 
                             // Textures in WebGL 2.0 don't require texImage2D as they are already recreated with texStorage2D
                             AVPPlayerFetchVideoTexture(_playerIndex, _cachedTextureNativePtr, _isWebGL1?true:false);
+                            #if UNITY_5_6_OR_NEWER
                             if (_texture.useMipMap)
                             {
                                 _texture.GenerateMips();
                             }
+                            #endif
 						}
 
 						if (_cachedTextureNativePtr != System.IntPtr.Zero)
@@ -658,10 +664,12 @@ namespace RenderHeads.Media.AVProVideo
 							// TODO: only update the texture when the frame count changes
 							// (actually this will break the update for certain browsers such as edge and possibly safari - Sunrise)
 							AVPPlayerFetchVideoTexture(_playerIndex, _cachedTextureNativePtr, false);
+                            #if UNITY_5_6_OR_NEWER
                             if (_texture.useMipMap)
                             {
                                 _texture.GenerateMips();
                             }
+                            #endif
 						}
 
 						UpdateDisplayFrameRate();

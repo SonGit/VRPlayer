@@ -1,7 +1,4 @@
 ﻿#if UNITY_4_6 || UNITY_4_7 || UNITY_4_8 || UNITY_5 || UNITY_5_4_OR_NEWER
-
-
-
 	#define UNITY_FEATURE_UGUI
 #endif
 
@@ -10,8 +7,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using RenderHeads.Media.AVProVideo;
-using TMPro;
-using System;
 
 //-----------------------------------------------------------------------------
 // Copyright 2015-2018 RenderHeads Ltd.  All rights reserverd.
@@ -33,7 +28,6 @@ namespace RenderHeads.Media.AVProVideo.Demos
 		public MediaPlayer	_mediaPlayerB;
 		public DisplayUGUI	_mediaDisplay;
 		public RectTransform _bufferedSliderRect;
-		public Text _currentTimeLabel;
 
 		public Slider		_videoSeekSlider;
 		private float		_setVideoSeekSliderValue;
@@ -147,7 +141,6 @@ namespace RenderHeads.Media.AVProVideo.Demos
 		{
 			if(PlayingPlayer)
 			{
-				if(PlayingPlayer.Control != null)
 				PlayingPlayer.Control.Play();
 //				SetButtonEnabled( "PlayButton", false );
 //				SetButtonEnabled( "PauseButton", true );
@@ -157,7 +150,6 @@ namespace RenderHeads.Media.AVProVideo.Demos
 		{
 			if(PlayingPlayer)
 			{
-				if(PlayingPlayer.Control != null)
 				PlayingPlayer.Control.Pause();
 //				SetButtonEnabled( "PauseButton", false );
 //				SetButtonEnabled( "PlayButton", true );
@@ -264,7 +256,7 @@ namespace RenderHeads.Media.AVProVideo.Demos
 				}
 
 				// Auto start toggle
-//				_AutoStartToggle.isOn = PlayingPlayer.m_AutoStart;
+				_AutoStartToggle.isOn = PlayingPlayer.m_AutoStart;
 
 				if(PlayingPlayer.m_AutoOpen )
 				{
@@ -282,7 +274,7 @@ namespace RenderHeads.Media.AVProVideo.Demos
 //				SetButtonEnabled( "MuteButton", !_mediaPlayer.m_Muted );
 //				SetButtonEnabled( "UnmuteButton", _mediaPlayer.m_Muted );
 
-				//OnOpenVideoFile();
+				OnOpenVideoFile();
 			}
 		}
 
@@ -345,22 +337,7 @@ namespace RenderHeads.Media.AVProVideo.Demos
 						_bufferedSliderRect.anchorMax = anchorMax;
 					}
 				}
-
-				SetCurrentTimeLabel (time);
 			}			
-		}
-
-		TimeSpan ts;
-		/// <summary>
-		/// Sets the current time label in VR Setting prefab.
-		/// </summary>
-		/// <param name="time">Time.</param>
-		void SetCurrentTimeLabel(float time)
-		{
-			if (_currentTimeLabel) {
-				ts = TimeSpan.FromMilliseconds(time);
-				_currentTimeLabel.text = String.Format("{0:00}", ts.Hours) + ":" + String.Format("{0:00}", ts.Minutes) + ":" + String.Format("{0:00}", ts.Seconds);  ;
-			}
 		}
 
 		// Callback function to handle events
@@ -373,6 +350,7 @@ namespace RenderHeads.Media.AVProVideo.Demos
 				case MediaPlayerEvent.EventType.Started:
 				break;
 				case MediaPlayerEvent.EventType.FirstFrameReady:
+					SwapPlayers();
 				break;
 				case MediaPlayerEvent.EventType.FinishedPlaying:
 				break;

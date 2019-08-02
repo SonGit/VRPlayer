@@ -229,7 +229,14 @@ namespace RenderHeads.Media.AVProVideo
 				if (filename.ToLower().StartsWith("http://") || filename.ToLower().StartsWith("https://"))
 				{
 #if UNITY_WSA_10_0 || UNITY_WINRT_8_1 || UNITY_WSA
+
+#if UNITY_2017_2_OR_NEWER
+					UnityEngine.Networking.UnityWebRequest www = UnityEngine.Networking.UnityWebRequest.Get(filename);
+					AsyncOperation request = www.SendWebRequest();
+#else
 					WWW www = new WWW(filename);
+#endif
+
 					int watchdog = 0;
 					while (!www.isDone && watchdog < 5000)
 					{
@@ -242,9 +249,21 @@ namespace RenderHeads.Media.AVProVideo
 					}
 					if (www.isDone && watchdog < 5000)
 					{
-						string fileString = www.text;
-						fileLines = fileString.Split('\n');
+#if UNITY_2017_2_OR_NEWER
+						if (!request.isDone)
+						{
+							Debug.LogError("[AVProVideo] Failed to download subtitles: " + www.error);
+						}
+						else
+						{
+							fileLines = ((UnityEngine.Networking.DownloadHandler)www.downloadHandler).text.Split('\n');
+						}
+#else
+						fileLines = www.text.Split('\n');
+#endif
+						
 					}
+					www.Dispose();
 #else
 
 #if SUPPORT_SSL

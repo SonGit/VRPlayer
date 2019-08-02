@@ -478,9 +478,9 @@ namespace RenderHeads.Media.AVProVideo
 				if (!s_GlobalStartup)
 				{
 #if UNITY_5 || UNITY_5_4_OR_NEWER
-					Helper.LogInfo(string.Format("Initialising AVPro Video (script v{0} plugin v{1}) on {2}/{3} (MT {4}) on {5}", Helper.ScriptVersion, mediaPlayer.GetVersion(), SystemInfo.graphicsDeviceName, SystemInfo.graphicsDeviceVersion, SystemInfo.graphicsMultiThreaded, Application.platform));
+					Helper.LogInfo(string.Format("Initialising AVPro Video (script v{0} plugin v{1}) on {2}/{3} (MT {4}) on {5} {6}", Helper.ScriptVersion, mediaPlayer.GetVersion(), SystemInfo.graphicsDeviceName, SystemInfo.graphicsDeviceVersion, SystemInfo.graphicsMultiThreaded, Application.platform, SystemInfo.operatingSystem));
 #else
-					Helper.LogInfo(string.Format("Initialising AVPro Video (script v{0} plugin v{1}) on {2}/{3} on {4}", Helper.ScriptVersion, mediaPlayer.GetVersion(), SystemInfo.graphicsDeviceName, SystemInfo.graphicsDeviceVersion, Application.platform));
+					Helper.LogInfo(string.Format("Initialising AVPro Video (script v{0} plugin v{1}) on {2}/{3} on {4} {5}", Helper.ScriptVersion, mediaPlayer.GetVersion(), SystemInfo.graphicsDeviceName, SystemInfo.graphicsDeviceVersion, Application.platform, SystemInfo.operatingSystem));
 #endif
 
 #if AVPROVIDEO_BETA_SUPPORT_TIMESCALE
@@ -876,7 +876,9 @@ namespace RenderHeads.Media.AVProVideo
 					{
 						checkForFileExist = false;
 						httpHeaderJson = GetPlatformHttpHeaderJson();
+#if UNITY_EDITOR
 						// TODO: validate the above JSON
+#endif
 					}
 #if (UNITY_ANDROID || (UNITY_5_2 && UNITY_WSA))
 					checkForFileExist = false;
@@ -888,7 +890,7 @@ namespace RenderHeads.Media.AVProVideo
 					}
 					else
 					{
-						Helper.LogInfo("Opening " + fullPath + " (offset " + fileOffset + ")", this);
+						Helper.LogInfo(string.Format("Opening {0} (offset {1}) with API {2}", fullPath, fileOffset, GetPlatformVideoApiString()), this);
 
 #if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
 						if (_optionsWindows.enableAudio360)
@@ -1463,6 +1465,21 @@ namespace RenderHeads.Media.AVProVideo
 			return result;
 		}
 
+		private string GetPlatformVideoApiString()
+		{
+			string result = string.Empty;
+#if UNITY_EDITOR_OSX
+#elif UNITY_EDITOR_WIN
+			result = _optionsWindows.videoApi.ToString();
+#elif UNITY_EDITOR_LINUX
+#elif UNITY_STANDALONE_WIN
+			result = _optionsWindows.videoApi.ToString();
+#elif UNITY_ANDROID
+			result = _optionsAndroid.videoApi.ToString();
+#endif
+			return result;
+		}
+
 		private long GetPlatformFileOffset()
 		{
 			long result = 0;
@@ -1505,6 +1522,13 @@ namespace RenderHeads.Media.AVProVideo
 			return result;
 		}
 
+	#if (UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN)
+		[System.Runtime.InteropServices.DllImport("kernel32.dll", CharSet = System.Runtime.InteropServices.CharSet.Unicode, EntryPoint = "GetShortPathNameW", SetLastError=true)]
+		private static extern int GetShortPathName([System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.LPWStr)] string pathName, 
+													[System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.LPWStr)] System.Text.StringBuilder shortName, 
+													int cbShortName);
+	#endif
+
 		private string GetPlatformFilePath(Platform platform, ref string filePath, ref FileLocation fileLocation)
 		{
 			string result = string.Empty;
@@ -1524,6 +1548,25 @@ namespace RenderHeads.Media.AVProVideo
 			}
 
 			result = GetFilePath(filePath, fileLocation);
+
+			#if (UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN)
+			// Handle very long file paths by converting to DOS 8.3 format
+			if (result.Length > 200 && !result.Contains("://"))
+			{
+				const string pathToken = @"\\?\";
+				result = pathToken + result.Replace("/","\\");
+				int length = GetShortPathName(result, null, 0);
+				if (length > 0)
+				{
+					System.Text.StringBuilder sb = new System.Text.StringBuilder(length);
+					if (0 != GetShortPathName(result, sb, length))
+					{
+						result = sb.ToString().Replace(pathToken, "");
+						Debug.LogWarning("[AVProVideo] Long path detected. Changing to DOS 8.3 format");
+					}
+				}
+			}
+			#endif
 
 			return result;
 		}
@@ -1900,7 +1943,7 @@ namespace RenderHeads.Media.AVProVideo
 						result = (m_Control.HasMetaData());
 						break;
 					case MediaPlayerEvent.EventType.FirstFrameReady:
-						result = (m_Texture != null && m_Control.CanPlay() && m_Texture.GetTextureFrameCount() > 0);
+						result = (m_Texture != null && m_Control.CanPlay() && m_Control.HasMetaData() && m_Texture.GetTextureFrameCount() > 0);
 						break;
 					case MediaPlayerEvent.EventType.ReadyToPlay:
 						result = (!m_Control.IsPlaying() && m_Control.CanPlay() && !m_AutoStart);
@@ -1972,8 +2015,9 @@ namespace RenderHeads.Media.AVProVideo
 					if (m_Control!= null && m_Control.IsPlaying())
 					{
 						m_WasPlayingOnPause = true;
+#if !UNITY_IPHONE
 						m_Control.Pause();
-
+#endif
 						Helper.LogInfo("OnApplicationPause: pausing video");
 					}
 				}
@@ -2051,7 +2095,7 @@ namespace RenderHeads.Media.AVProVideo
 			return m_DummyCamera;
 		}
 
-		private IEnumerator ExtractFrameCoroutine(Texture2D target, ProcessExtractedFrame callback, float timeSeconds = -1f, bool accurateSeek = true, int timeoutMs = 1000)
+		private IEnumerator ExtractFrameCoroutine(Texture2D target, ProcessExtractedFrame callback, float timeSeconds = -1f, bool accurateSeek = true, int timeoutMs = 1000, int timeThresholdMs = 100)
 		{
 #if REAL_ANDROID || UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN || UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX || UNITY_IOS || UNITY_TVOS
 			Texture2D result = target;
@@ -2066,8 +2110,8 @@ namespace RenderHeads.Media.AVProVideo
 
 					float seekTimeMs = timeSeconds * 1000f;
 
-					// If the frame is already available just grab it
-					if (TextureProducer.GetTexture() != null && m_Control.GetCurrentTimeMs() == seekTimeMs)
+					// If the right frame is already available (or close enough) just grab it
+					if (TextureProducer.GetTexture() != null && (Mathf.Abs(m_Control.GetCurrentTimeMs() - seekTimeMs) < timeThresholdMs))
 					{
 						frame = TextureProducer.GetTexture();
 					}
@@ -2107,31 +2151,30 @@ namespace RenderHeads.Media.AVProVideo
 					frame = TextureProducer.GetTexture();
 				}
 			}
-
 			if (frame != null)
 			{
 				result = Helper.GetReadableTexture(frame, TextureProducer.RequiresVerticalFlip(), Helper.GetOrientation(Info.GetTextureTransform()), target);
 			}
 #else
-			Texture2D result = ExtractFrame(target, timeSeconds, accurateSeek, timeoutMs);
+			Texture2D result = ExtractFrame(target, timeSeconds, accurateSeek, timeoutMs, timeThresholdMs);
 #endif
 			callback(result);
 
 			yield return null;
 		}
 
-		public void ExtractFrameAsync(Texture2D target, ProcessExtractedFrame callback, float timeSeconds = -1f, bool accurateSeek = true, int timeoutMs = 1000)
+		public void ExtractFrameAsync(Texture2D target, ProcessExtractedFrame callback, float timeSeconds = -1f, bool accurateSeek = true, int timeoutMs = 1000, int timeThresholdMs = 100)
 		{
-			StartCoroutine(ExtractFrameCoroutine(target, callback, timeSeconds, accurateSeek, timeoutMs));
+			StartCoroutine(ExtractFrameCoroutine(target, callback, timeSeconds, accurateSeek, timeoutMs, timeThresholdMs));
 		}
 
 		// "target" can be null or you can pass in an existing texture.
-		public Texture2D ExtractFrame(Texture2D target, float timeSeconds = -1f, bool accurateSeek = true, int timeoutMs = 1000)
+		public Texture2D ExtractFrame(Texture2D target, float timeSeconds = -1f, bool accurateSeek = true, int timeoutMs = 1000, int timeThresholdMs = 100)
 		{
 			Texture2D result = target;
 
 			// Extract frames returns the interal frame of the video player
-			Texture frame = ExtractFrame(timeSeconds, accurateSeek, timeoutMs);
+			Texture frame = ExtractFrame(timeSeconds, accurateSeek, timeoutMs, timeThresholdMs);
 			if (frame != null)
 			{
 				result = Helper.GetReadableTexture(frame, TextureProducer.RequiresVerticalFlip(), Helper.GetOrientation(Info.GetTextureTransform()), target);
@@ -2140,7 +2183,7 @@ namespace RenderHeads.Media.AVProVideo
 			return result;
 		}
 
-		private Texture ExtractFrame(float timeSeconds = -1f, bool accurateSeek = true, int timeoutMs = 1000)
+		private Texture ExtractFrame(float timeSeconds = -1f, bool accurateSeek = true, int timeoutMs = 1000, int timeThresholdMs = 100)
 		{
 			Texture result = null;
 
@@ -2152,8 +2195,8 @@ namespace RenderHeads.Media.AVProVideo
 
 					float seekTimeMs = timeSeconds * 1000f;
 
-					// If the frame is already available just grab it
-					if (TextureProducer.GetTexture() != null && m_Control.GetCurrentTimeMs() == seekTimeMs)
+					// If the right frame is already available (or close enough) just grab it
+					if (TextureProducer.GetTexture() != null && (Mathf.Abs(m_Control.GetCurrentTimeMs() - seekTimeMs) < timeThresholdMs))
 					{
 						result = TextureProducer.GetTexture();
 					}

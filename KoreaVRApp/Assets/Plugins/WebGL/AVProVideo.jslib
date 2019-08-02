@@ -360,7 +360,7 @@ var AVProVideoWebGL = {
 
         return _videos[playerIndex].isStalled;
     },
-    AVPPlayerPlay__deps: ["videos", "hasVideos"],
+    AVPPlayerPlay__deps: ["videos", "hasVideos", "AVPPlayerIsMuted", "AVPPlayerSetMuted", "AVPPlayerPlay"],
     AVPPlayerPlay: function (playerIndex) {
         if (!_hasVideos(playerIndex)) {
             return false;
@@ -378,7 +378,12 @@ var AVProVideoWebGL = {
 			 .catch(function(error) {
 			  // Auto-play was prevented
 			  // Show paused UI.
-			  return false;
+			  if (!_AVPPlayerIsMuted(playerIndex))
+			  {
+			  	console.error("[AVProVideo] Video refused to start playback - check your browser permission settings as videos that contain audio can be blocked by default.  Muting video and attempting playback again.");
+			  	_AVPPlayerSetMuted(playerIndex, true);
+			  	_AVPPlayerPlay(playerIndex);
+			  }
 			});
 		}
 		return true;

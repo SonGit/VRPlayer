@@ -32,7 +32,7 @@
 		#include "AVProVideo.cginc"
 
 		uniform sampler2D _MainTex;
-		//uniform float4 _MainTex_ST;
+		uniform float4 _MainTex_ST;
 		uniform float4 _MainTex_TexelSize;
 #if USE_YPCBCR
 		uniform sampler2D _ChromaTex;
@@ -50,7 +50,7 @@
 		{
 			UNITY_INITIALIZE_OUTPUT(Input, o);
 
-			o.texcoords = OffsetAlphaPackingUV(_MainTex_TexelSize.xy, v.texcoord.xy, true);// _MainTex_ST.y < 0.0);
+			o.texcoords = OffsetAlphaPackingUV(_MainTex_TexelSize.xy, v.texcoord, _MainTex_ST.y < 0.0);
 		}
 
 		void surf(Input IN, inout SurfaceOutput o) 

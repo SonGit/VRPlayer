@@ -296,7 +296,10 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: RenderHeads.Media.AVProVideo.MediaPlayerEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  m_eventMask: -1
   m_forceFileFormat: 0
+  _pauseMediaOnAppPause: 1
+  _playMediaOnAppUnpause: 1
   m_manuallySetAudioSourceProperties: 0
   _optionsWindows:
     overridePath: 0
@@ -318,23 +321,32 @@ MonoBehaviour:
     pathLocation: 2
     path: 
     httpHeaderJson: 
+    keyServerURLOverride: 
+    keyServerAuthToken: 
+    base64EncodedKeyBlob: 
   _optionsIOS:
     overridePath: 0
     pathLocation: 2
     path: 
-    useYpCbCr420Textures: 1
     httpHeaderJson: 
+    keyServerURLOverride: 
+    keyServerAuthToken: 
+    base64EncodedKeyBlob: 
+    useYpCbCr420Textures: 1
   _optionsTVOS:
     overridePath: 0
     pathLocation: 2
     path: 
-    useYpCbCr420Textures: 1
     httpHeaderJson: 
+    keyServerURLOverride: 
+    keyServerAuthToken: 
+    base64EncodedKeyBlob: 
+    useYpCbCr420Textures: 1
   _optionsAndroid:
     overridePath: 0
     pathLocation: 2
     path: 
-    videoApi: 1
+    videoApi: 2
     useFastOesPath: 0
     showPosterFrame: 0
     enableAudio360: 0
@@ -364,6 +376,8 @@ MonoBehaviour:
     overridePath: 0
     pathLocation: 2
     path: 
+    externalLibrary: 0
+    useTextureMips: 0
   _optionsPS4:
     overridePath: 0
     pathLocation: 2
@@ -555,7 +569,10 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: RenderHeads.Media.AVProVideo.MediaPlayerEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  m_eventMask: -1
   m_forceFileFormat: 0
+  _pauseMediaOnAppPause: 1
+  _playMediaOnAppUnpause: 1
   m_manuallySetAudioSourceProperties: 0
   _optionsWindows:
     overridePath: 0
@@ -577,23 +594,32 @@ MonoBehaviour:
     pathLocation: 2
     path: 
     httpHeaderJson: 
+    keyServerURLOverride: 
+    keyServerAuthToken: 
+    base64EncodedKeyBlob: 
   _optionsIOS:
     overridePath: 0
     pathLocation: 2
     path: 
-    useYpCbCr420Textures: 1
     httpHeaderJson: 
+    keyServerURLOverride: 
+    keyServerAuthToken: 
+    base64EncodedKeyBlob: 
+    useYpCbCr420Textures: 1
   _optionsTVOS:
     overridePath: 0
     pathLocation: 2
     path: 
-    useYpCbCr420Textures: 1
     httpHeaderJson: 
+    keyServerURLOverride: 
+    keyServerAuthToken: 
+    base64EncodedKeyBlob: 
+    useYpCbCr420Textures: 1
   _optionsAndroid:
     overridePath: 0
     pathLocation: 2
     path: 
-    videoApi: 1
+    videoApi: 2
     useFastOesPath: 0
     showPosterFrame: 0
     enableAudio360: 0
@@ -623,6 +649,8 @@ MonoBehaviour:
     overridePath: 0
     pathLocation: 2
     path: 
+    externalLibrary: 0
+    useTextureMips: 0
   _optionsPS4:
     overridePath: 0
     pathLocation: 2
