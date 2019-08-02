@@ -358,11 +358,6 @@ public class MainAllController : MonoBehaviour
 
 		HideScreenSwitchSceneMode ();
 
-		if (!Permission.HasUserAuthorizedPermission(Permission.ExternalStorageRead))
-		{
-			Permission.RequestUserPermission(Permission.ExternalStorageRead);
-		}
-
 		// Start state
 		if (walkthroughMenu != null){
 			currentMenu = walkthroughMenu;
