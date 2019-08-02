@@ -71,8 +71,8 @@ namespace Gvr.Internal {
 
     public virtual RenderTexture CreateStereoScreen() {
       float scale = GvrViewer.Instance.StereoScreenScale;
-      int width = Mathf.RoundToInt(Screen.width * scale);
-      int height = Mathf.RoundToInt(Screen.height * scale);
+	  int width = Mathf.RoundToInt(Screen.height * scale);
+	  int height = Mathf.RoundToInt(Screen.width * scale);
       if (this.RequiresNativeDistortionCorrection()) {
         width = (int)recommendedTextureSize[0];
         height = (int)recommendedTextureSize[1];

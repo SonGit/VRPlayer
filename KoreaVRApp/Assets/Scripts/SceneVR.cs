@@ -427,10 +427,8 @@ public class SceneVR : AppScene
 			
 		yield return new WaitForSeconds (0.25f);
 
-
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
-
         
         // Disable auto rotation, except for landscape left.
 		if (Screen.orientation != ScreenOrientation.LandscapeLeft) {
@@ -440,14 +438,20 @@ public class SceneVR : AppScene
 			Debug.Log ("No Switch Screen");
 		}
 
-        yield return new WaitForSeconds(1.1f);
-        Debug.Log("SwitchToVR DONE ROTATING!");
+        yield return new WaitForSeconds(1f);
 
-		if (MainAllController.instance != null && MainAllController.instance.IsFirstGoToVR) {
+		GvrViewer.Instance.InitDevice ();
+		Debug.Log ("VR InitDevice");
+
+		yield return new WaitForSeconds(1f);
+
+        Debug.Log("SwitchToVR DONE!");
+
+		if (MainAllController.instance != null) {
 			MainAllController.instance.ShowVR_CloseButton ();
 		}
 
-		if (MainAllController.instance != null && MainAllController.instance.IsFirstGoToVR) {
+		if (MainAllController.instance != null) {
 			MainAllController.instance.HideScreenSwitchSceneMode ();
 		}
 
@@ -458,10 +462,6 @@ public class SceneVR : AppScene
         {
             Debug.Log("VRCrosshair is null!");
         }
-
-		if (MainAllController.instance != null && !MainAllController.instance.IsFirstGoToVR) {
-			MainAllController.instance.IsFirstGoToVR = true;
-		}
 
         yield return new WaitForSeconds(1f);
 

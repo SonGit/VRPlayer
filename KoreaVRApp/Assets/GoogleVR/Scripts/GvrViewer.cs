@@ -429,7 +429,7 @@ public class GvrViewer : MonoBehaviour {
   public Uri DefaultDeviceProfile = null;
   /// @endcond
 
-  private void InitDevice() {
+	public void InitDevice() {
     if (device != null) {
       device.Destroy();
     }

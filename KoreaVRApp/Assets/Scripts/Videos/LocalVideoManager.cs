@@ -180,6 +180,12 @@ public class LocalVideoManager : MonoBehaviour
 #endif
 
 #if UNITY_IOS
+
+		while(!Permission.HasUserAuthorizedPermission (Permission.ExternalStorageRead))
+		{
+			yield return new WaitForSeconds (.5f);
+		}
+
         try
         {
             string urlString = SwiftForUnity.getURLAndBuildThumbnail();

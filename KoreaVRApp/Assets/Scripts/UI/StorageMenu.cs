@@ -55,11 +55,11 @@ public class StorageMenu : BasicMenuNavigation
 		SortByCurrentStyle ();
 
 		//ALso refresh the VR counterpart too
-		if (VR_MainMenu.instance != null) {
-			VR_MainMenu.instance.InitStorageMenu ();
-		} else {
-			Debug.LogError ("Exception! " + "  VR_MainMenu.instance null! ");
-		}
+//		if (VR_MainMenu.instance != null) {
+//			VR_MainMenu.instance.InitStorageMenu ();
+//		} else {
+//			Debug.LogError ("Exception! " + "  VR_MainMenu.instance null! ");
+//		}
 			
 		DisableNetworkAlert ();
 		UpdateNoVideoUI ();

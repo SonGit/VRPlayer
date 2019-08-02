@@ -107,7 +107,6 @@ public class MainAllController : MonoBehaviour
 
 	private bool isGoVR;
 	private bool isShowRecenterPanel;
-	private bool isFirstGoToVR;
 
 	/// <summary>
 	/// Gets or sets a value indicating whether this instance is show recenter panel.
@@ -117,12 +116,6 @@ public class MainAllController : MonoBehaviour
 	{
 		get { return isShowRecenterPanel; }
 		set { isShowRecenterPanel = value; }
-	}
-
-	public bool IsFirstGoToVR
-	{
-		get { return isFirstGoToVR; }
-		set { isFirstGoToVR = value; }
 	}
 
 	//Resolution
@@ -147,7 +140,7 @@ public class MainAllController : MonoBehaviour
 
 	private void Start()
 	{
-		StartCoroutine (Init ());
+		Init ();
 
 		// Event open,close Menu
 		if (walkthroughMenu != null) {
@@ -323,16 +316,12 @@ public class MainAllController : MonoBehaviour
 	}
 
 	private void Update (){
-
-//		print ("RUNNINGGGGG");
 		
 		Application_BackButton ();
 
-
-
 	}
 
-	private IEnumerator Init()
+	private void Init()
 	{
 		user = null;
 
@@ -356,20 +345,15 @@ public class MainAllController : MonoBehaviour
 		_myScrollViews = UnityEngine.Object.FindObjectsOfType<MyScrollView> ();
 		infoMenu = UnityEngine.Object.FindObjectOfType<InfoMenu> ();
 
-		HideScreenSwitchSceneMode ();
-
 		// Start state
 		if (walkthroughMenu != null){
 			currentMenu = walkthroughMenu;
 
 			// Disable Handle AccessMenu
-			accessMenu.SetHandleViewable (false);
+			if (accessMenu != null){
+				accessMenu.SetHandleViewable (false);
+			}
 		}
-
-		// Fix Error "Switch to VR"
-		GoToSceneVR ();
-
-		yield return new WaitForSeconds (1.8f);
 
 		GoToScene2D ();
 
@@ -1381,10 +1365,6 @@ public class MainAllController : MonoBehaviour
 		isGoVR = false;
 		IsShowRecenterPanel = false;
 		HideVR_CloseButton ();
-
-		if (accessMenu != null){
-			accessMenu.SetHandleViewable (true);
-		}
 			
 		if (ScreenLoading.instance != null) {
 			ScreenLoading.instance.Stop ();
@@ -1820,94 +1800,6 @@ public class MainAllController : MonoBehaviour
 	#endregion
 
 
-//	#region GetNovideos Info
-//
-//	public bool CheckNovideos_LocalVideo()
-//	{
-//		if (storageMenu != null){
-//			storageMenu.FastRefresh ();
-//			if (storageMenu.isNoVideo) {
-//				return true;
-//			}
-//		}
-//
-//		return false;
-//	}
-//
-//	public bool CheckNovideos_UserVideo()
-//	{
-//		if (userVideoMenu != null){
-//			userVideoMenu.Init ();
-//			if (userVideoMenu.isNoVideo) {
-//				return true;
-//			}
-//		}
-//
-//		return false;
-//	}
-//
-//	public bool CheckNovideos_FavoriteVideo()
-//	{
-//		if (favoriteMenu != null) {
-//			favoriteMenu.Init ();
-//			if (favoriteMenu.isNoVideo) {
-//				return true;
-//			}
-//		}
-//
-//		return false;
-//	}
-//
-//	public bool CheckNovideos_InboxVideo()
-//	{
-//		if (inboxMenu != null){
-//			inboxMenu.Init ();
-//			if (inboxMenu.isNoVideo) {
-//				return true;
-//			}
-//		}
-//
-//		return false;
-//	}
-//
-//	#endregion
-
-	#region Orientation
-
-//	private bool isLandscape;
-//	private bool isPortrait;
-//
-//	private void CheckOrientation(){
-//		if (currentScene is Scene2D){
-//			if (currentMenu is MediaPlayerMenu) {
-//				if (isLandscape){
-//					Screen.orientation = ScreenOrientation.LandscapeLeft;
-//					isLandscape = false;
-//					Debug.Log ("LandscapeLeft..........................");
-//				}
-//			} else {
-//				if(isPortrait){
-//					Screen.orientation = ScreenOrientation.Portrait;
-//					isPortrait = false;
-//					Debug.Log ("Portrait..............................");
-//				}
-//
-//			}
-//		}
-//	}
-//
-//	private void SetLandscapeRotation(){
-//		isLandscape = true;
-//		isPortrait = false;
-//	}
-//
-//	private void SetPortraitRotation(){
-//		isPortrait = true;
-//		isLandscape = false;
-//	}
-
-	#endregion
-
 	#region PlayButtonSound 
 
 	public void PlayButtonSound()
@@ -1916,6 +1808,7 @@ public class MainAllController : MonoBehaviour
 	}
 
 	#endregion
+
 
 	public string GetUserNameInput(){
 		string username;
@@ -1947,6 +1840,10 @@ public class MainAllController : MonoBehaviour
 	public void VR_CloseButton_OnClick(){
 		if(currentScene is SceneVR){
 			GoToScene2D ();
+		}
+
+		if (accessMenu != null){
+			accessMenu.SetHandleViewable (true);
 		}
 	}
 
