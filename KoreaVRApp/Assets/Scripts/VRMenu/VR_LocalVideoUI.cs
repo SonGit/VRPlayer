@@ -17,7 +17,7 @@ public class VR_LocalVideoUI : LocalVideoUI
 		if (video != null)
 		{
 			this.video = video;
-			this.videoTitle.text = (video as LocalVideo).videoName;
+			this.videoTitle.text = Path.GetFileNameWithoutExtension ((video as LocalVideo).videoURL); // Exeption "type .mp4"
 			this.videoLength_videoSize.text = MakeLengthString ();
 			//videoImage.texture = null;
             loadThumbnail = true;

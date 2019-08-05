@@ -37,7 +37,7 @@ public class LocalVideoUI: VideoUI
 	{
 		base.Setup (currentlocalVideo);
 
-		videoTitle.text = (video as LocalVideo).videoName;
+		videoTitle.text = Path.GetFileNameWithoutExtension ((video as LocalVideo).videoURL); // Exeption "type .mp4"
 
 		videoLength_videoSize.text = MakeLengthString () + " | " + ((video as LocalVideo).videoSize / 1024f / 1024f).ToString("0.0") + " MB";
 		//videoImage.texture = null;
