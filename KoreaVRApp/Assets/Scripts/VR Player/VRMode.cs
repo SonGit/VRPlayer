@@ -71,9 +71,15 @@ public abstract class VRMode : MonoBehaviour
 	{
 		#if UNITY_ANDROID  && !UNITY_EDITOR
 		mediaPlayer.OpenVideoFromFile (MediaPlayer.FileLocation.AbsolutePathOrURL, url, true);
+		#endif
+
+		#if UNITY_IOS && !UNITY_EDITOR
+		mediaPlayer.OpenVideoFromFile (MediaPlayer.FileLocation.AbsolutePathOrURL, url, true);
 		#endif 
+
 		// Reset
 		//mediaPlayer.Control.SeekFast (0);
+
 		#if UNITY_EDITOR
 		mediaPlayer.OpenVideoFromFile (MediaPlayer.FileLocation.AbsolutePathOrURL, url, true);
 		#endif 

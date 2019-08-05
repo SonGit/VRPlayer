@@ -20,6 +20,8 @@ public class StorageMenu : BasicMenuNavigation
 	protected override void Start ()
 	{
 		base.Start ();
+
+		Refresh ();
 	}
 
 	private void Update(){
