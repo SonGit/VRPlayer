@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RenderHeads.Media.AVProVideo;
 using UnityEngine.UI;
+using System.IO;
 
 public class VRPlayer : MonoBehaviour
 {
@@ -609,7 +610,7 @@ public class VRPlayer : MonoBehaviour
 	{
 		if (videoNameLabel != null) {
 			if (video is LocalVideo) {
-				videoNameLabel.text = (video as LocalVideo).videoName;
+				videoNameLabel.text = Path.GetFileNameWithoutExtension ((video as LocalVideo).videoURL); // Exeption "type .mp4"
 			} else {
 				videoNameLabel.text = video.videoInfo.video_name;
 			}
