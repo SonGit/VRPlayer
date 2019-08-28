@@ -63,7 +63,7 @@ public class DownloadMenu : BasicMenuNavigation
 	{
 		UserVideo userVideo = video as UserVideo;
 
-		if (userVideo.isPartial () && !userVideo.isDownloaded ()) {
+		if (userVideo.isPartial ()) {
 			return true;
 		} else {
 

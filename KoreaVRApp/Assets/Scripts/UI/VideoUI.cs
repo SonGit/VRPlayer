@@ -71,8 +71,14 @@ public class VideoUI : EnhancedScrollerCellView
 		this.video = video;
 	}
 
-	#region Go Detail page
-	public void GoDetailVideo(){
+    
+    public virtual void UiSwitch()
+    {
+        
+    }
+
+    #region Go Detail page
+    public void GoDetailVideo(){
 		if(MainAllController.instance != null){
 			MainAllController.instance.PlayButtonSound ();
 		}

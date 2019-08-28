@@ -523,8 +523,16 @@ public class VRPlayer : MonoBehaviour
 			
 			try
 			{
-				// Remember the time for resuming
-				currentVideo.lastTimeMs = currentMode.GetMediaPlayer ().Control.GetCurrentTimeMs ();
+                // When Video IsFinished -> Rewind Video
+                if (currentMode.GetMediaPlayer().Control.IsFinished())
+                {
+                    currentMode.GetMediaPlayer().Control.Rewind();
+
+                    Debug.Log("Rewind Video.....................");
+                }
+
+                // Remember the time for resuming
+                currentVideo.lastTimeMs = currentMode.GetMediaPlayer ().Control.GetCurrentTimeMs ();
 
 				bool updated = false;
 				for(int i = 0 ; i < playedVideoList.Count ; i ++)

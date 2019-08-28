@@ -322,17 +322,18 @@ public class UserVideoUI : VideoUI
 			MainAllController.instance.user.AddFavoriteVideo (video);
 		}
 
-//        SetupFavoriteBtns ();
-//		if (favoriteBtn != null && unfavoriteBtn != null) {
-//			favoriteBtn.SetActive (false);
-//			unfavoriteBtn.SetActive (true);
-//		}
+        SetupFavoriteBtns();
+        if (favoriteBtn != null && unfavoriteBtn != null)
+        {
+            favoriteBtn.SetActive(false);
+            unfavoriteBtn.SetActive(true);
+        }
 
-		if(MainAllController.instance != null){
-			MainAllController.instance.GoToFavoriteMenu ();
-		}
+        //if(MainAllController.instance != null){
+        //	MainAllController.instance.GoToFavoriteMenu ();
+        //}
 
-		if (ScreenLoading.instance != null){
+        if (ScreenLoading.instance != null){
 			ScreenLoading.instance.Stop ();
 		}
     }

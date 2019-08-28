@@ -35,18 +35,24 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 	private GameObject _subtitlePortrait;
 	[SerializeField]
 	private GameObject _buttonContainer;
+    [SerializeField]
+    private GameObject _videoFinishUI;
+    [SerializeField]
+    private Button _menuBnt;
+    [SerializeField]
+    private Button _replayVideoBnt;
 
-	private Image _bufferedSliderImage;
+    private Image _bufferedSliderImage;
 	private float _setVideoSeekSliderValue;
 	private Video currentVideo;
-
+    private bool isVideoFinish;
 
 	public float _delayCount = 0;
 	public float _delayTime = 3f;
 	public bool isShowDropDown;
 	public bool isSetDropdownValue;
 
-	protected override void Awake ()
+    protected override void Awake ()
 	{
 		base.Awake ();
 
@@ -81,10 +87,34 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 					}
 				});
 		}
-	}
+
+        if (_menuBnt != null)
+        {
+            _menuBnt.onClick.AddListener(() =>
+            {
+                if (MainAllController.instance != null)
+                {
+                    MainAllController.instance.PlayButtonSound();
+                }
+            });
+        }
+
+        if (_replayVideoBnt != null)
+        {
+            _replayVideoBnt.onClick.AddListener(() =>
+            {
+                if (MainAllController.instance != null)
+                {
+                    MainAllController.instance.PlayButtonSound();
+                }
+            });
+        }
+    }
 
 	void Update()
 	{
+        CheckIsVideoFinish();
+
 		DisableAllUI ();
 
 		if (mediaPlayer == null){
@@ -155,32 +185,28 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 
 	#region PlayVieo
 
-	public void Play(Video video, VideoUI videoUI, VRPlayer vrPlayer, float resumeMs = 0)
+	public void Play(Video video, VideoUI videoUI, float resumeMs = 0)
 	{
 		
 		if (mediaPlayer == null){
 			mediaPlayer = MainAllController.instance.mediaPlayer;
 		}
 
-		//mediaPlayer.m_StereoPacking =  StereoPacking.None;
+        //mediaPlayer.m_StereoPacking =  StereoPacking.None;
 
-//		#if UNITY_ANDROID
-//		if (mediaPlayer.PlatformOptionsAndroid.videoApi == Android.VideoApi.ExoPlayer) {
-//			mediaPlayer.PlatformOptionsAndroid.videoApi = Android.VideoApi.MediaPlayer;
-//		}
-//		#endif
+        //		#if UNITY_ANDROID
+        //		if (mediaPlayer.PlatformOptionsAndroid.videoApi == Android.VideoApi.ExoPlayer) {
+        //			mediaPlayer.PlatformOptionsAndroid.videoApi = Android.VideoApi.MediaPlayer;
+        //		}
+        //		#endif
 
-		if (allUI != null && allUI.activeSelf) {
-			allUI.SetActive (false);
-			_buttonContainer.SetActive (false);
-		}
+        SetActiveObj(allUI, false);
+        SetActiveObj(_buttonContainer, false);
 
-		if (pauseBnt != null && playBnt != null){
-			pauseBnt.gameObject.SetActive (true);
-			playBnt.gameObject.SetActive (false);
-		}
+        SetActiveObj(pauseBnt.gameObject, true);
+        SetActiveObj(playBnt.gameObject, false);
 
-		if (videoUI != null && _totalTimeLabel != null){
+        if (videoUI != null && _totalTimeLabel != null){
 			_totalTimeLabel.text = videoUI.MakeLengthString ();
 		}
 			
@@ -236,21 +262,20 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 
 		OnRectTransformDimensionsChange ();
 
-		allUI.SetActive (false);
-		_buttonContainer.SetActive (false);
-	}
+        DisableVideoFinishUI();
+
+        isVideoFinish = false;
+    }
 
 	public void Streaming(Video video, VideoUI videoUI, string urlStreaming){
-		if (allUI != null && allUI.activeSelf) {
-			allUI.SetActive (false);
-		}
 
-		if (pauseBnt != null && playBnt != null){
-			pauseBnt.gameObject.SetActive (true);
-			playBnt.gameObject.SetActive (false);
-		}
+        SetActiveObj(allUI, false);
+        SetActiveObj(_buttonContainer, false);
 
-		if (videoUI != null && _totalTimeLabel != null){
+        SetActiveObj(pauseBnt.gameObject, true);
+        SetActiveObj(playBnt.gameObject, false);
+
+        if (videoUI != null && _totalTimeLabel != null){
 			_totalTimeLabel.text = videoUI.MakeLengthString ();
 		}
 
@@ -288,9 +313,10 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 
 		OnRectTransformDimensionsChange ();
 
-		allUI.SetActive (false);
-		_buttonContainer.SetActive (false);
-	}
+        DisableVideoFinishUI();
+
+        isVideoFinish = false;
+    }
 
 
 
@@ -301,11 +327,9 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 			mediaPlayer.Control.Pause ();
 		}
 
-		if (pauseBnt != null && playBnt != null){
-			pauseBnt.gameObject.SetActive (false);
-			playBnt.gameObject.SetActive (true);
-		}
-	}
+        SetActiveObj(pauseBnt.gameObject, false);
+        SetActiveObj(playBnt.gameObject, true);
+    }
 
 	public void Play(){
 		_delayCount = 0;
@@ -314,29 +338,37 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 			mediaPlayer.Control.Play ();
 		}
 
-		if (pauseBnt != null && playBnt != null){
-			pauseBnt.gameObject.SetActive (true);
-			playBnt.gameObject.SetActive (false);
-		}
+        SetActiveObj(pauseBnt.gameObject, true);
+        SetActiveObj(playBnt.gameObject, false);
 
-	}
+    }
 
 	public void OnPointerDown(PointerEventData e) {
-        Debug.Log("OnPointerDown");
-		_delayCount = 0;
+        if (mediaPlayer != null && !mediaPlayer.Control.IsFinished())
+        {
+            Debug.Log("OnPointerDown");
+            _delayCount = 0;
+        }
 	}
 
 	public void OnPointerUp(PointerEventData e) {
-        Debug.Log("OnPointerUp");
-        if (allUI != null ) {
-			if (allUI.activeSelf) {
-				allUI.SetActive (false);
-				_buttonContainer.SetActive (false);
-			} else {
-				allUI.SetActive (true);
-				_buttonContainer.SetActive (true);
-			}
-		} 
+        if (mediaPlayer != null && !mediaPlayer.Control.IsFinished())
+        {
+            Debug.Log("OnPointerUp");
+            if (allUI != null)
+            {
+                if (allUI.activeSelf)
+                {
+                    SetActiveObj(allUI, false);
+                    SetActiveObj(_buttonContainer, false);
+                }
+                else
+                {
+                    SetActiveObj(allUI, true);
+                    SetActiveObj(_buttonContainer, true);
+                }
+            }
+        }
 	}
 
 	public void OnVideoSeekSlider()
@@ -375,9 +407,9 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 		if (allUI.activeSelf && !isShowDropDown) {
 			_delayCount += Time.deltaTime;
 			if (_delayCount >= _delayTime) {
-				allUI.SetActive (false);
-				_buttonContainer.SetActive (false);
-				_delayCount = 0;
+                SetActiveObj(allUI, false);
+                SetActiveObj(_buttonContainer, false);
+                _delayCount = 0;
 			}
 
 		}
@@ -432,12 +464,12 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 		Debug.Log("RectTransformDimensionsChange firing on " + Screen.orientation + " width ." + Screen.width + " heighty ." + Screen.height);
 
 		if (Screen.width < Screen.height) {
-			_subtitleLandscape.SetActive (false);
-			_subtitlePortrait.SetActive (true);
+            SetActiveObj(_subtitleLandscape, false);
+            SetActiveObj(_subtitlePortrait, true);
 		} else {
-			_subtitleLandscape.SetActive (true);
-			_subtitlePortrait.SetActive (false);
-		}
+            SetActiveObj(_subtitleLandscape, true);
+            SetActiveObj(_subtitlePortrait, false);
+        }
 
 //		if (_subtitleLandscape != null && _subtitlePortrait != null) {
 //			switch (Screen.orientation) {
@@ -455,6 +487,59 @@ public class MediaPlayerMenu : BasicMenuNavigation,IPointerDownHandler, IPointer
 //			Debug.Log ("_subtitleLandscape/_subtitlePortrait not assigned!");
 //		}
 	}
-		
+
+    #region FinishVideo
+
+    public void MediaPlayerMenu_OnBack() {
+        if (MainAllController.instance != null)
+        {
+            MainAllController.instance.MediaPlayerMenu_OnBack();
+        }
+    }
+
+    public void MediaPlayerMenu_ReplayVideo()
+    {
+        if (mediaPlayer != null)
+        {
+            mediaPlayer.Control.Rewind();
+        }
+
+        DisableVideoFinishUI();
+        StartCoroutine(WaitIsVideoFinish());
+    }
+
+    private void EnableVideoFinishUI() {
+        SetActiveObj(_videoFinishUI, true);
+    }
+
+    private void DisableVideoFinishUI()
+    {
+        SetActiveObj(_videoFinishUI,false);
+    }
+
+    private void CheckIsVideoFinish()
+    {
+        if (mediaPlayer != null && mediaPlayer.Control.IsFinished() && !isVideoFinish)
+        {
+            isVideoFinish = true;
+            EnableVideoFinishUI();
+            SetActiveObj(allUI, false);
+            SetActiveObj(_buttonContainer, false);
+        }
+    }
+
+    #endregion
+
+    private void SetActiveObj(GameObject obj, bool value)
+    {
+        if (obj != null) {
+            obj.SetActive(value);
+        }
+    }
+
+    IEnumerator WaitIsVideoFinish() {
+        yield return new WaitForSeconds(0.4f);
+        isVideoFinish = false;
+    }
 
 }

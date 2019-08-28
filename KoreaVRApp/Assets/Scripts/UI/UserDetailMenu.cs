@@ -368,9 +368,9 @@ public class UserDetailMenu : BasicMenuNavigation
 		favoriteBtn.SetActive (false);
 		unfavoriteBtn.SetActive (true);
 
-		if(MainAllController.instance != null){
-			MainAllController.instance.GoToFavoriteMenu ();
-		}
+		//if(MainAllController.instance != null){
+		//	MainAllController.instance.GoToFavoriteMenu ();
+		//}
 
 		if (ScreenLoading.instance != null){
 			ScreenLoading.instance.Stop ();

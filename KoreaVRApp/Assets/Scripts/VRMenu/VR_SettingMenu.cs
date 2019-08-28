@@ -22,6 +22,21 @@ public class VR_SettingMenu : MonoBehaviour
 
     public Camera cameraSubtitle;
 
+    private bool _isShowSetting;
+
+    public bool isShowSetting
+    {
+        get
+        {
+            return _isShowSetting;
+        }
+
+        set
+        {
+            _isShowSetting = value;
+        }
+    }
+
     void Awake(){
 	}
 
@@ -58,7 +73,9 @@ public class VR_SettingMenu : MonoBehaviour
 		if (!Root.activeSelf){
 			Root.SetActive (true);
 
-			if (VR_TopMenuManager.instance != null){
+            _isShowSetting = true;
+
+            if (VR_TopMenuManager.instance != null){
 				VR_TopMenuManager.instance.Init ();
 			}
 
@@ -94,8 +111,10 @@ public class VR_SettingMenu : MonoBehaviour
 			Root.SetActive (false);
 		}
 
-		// Force resuyme video when setting is shown
-		if (vcr != null) {
+        _isShowSetting = false;
+
+        // Force resuyme video when setting is shown
+        if (vcr != null) {
 			vcr.OnPlayButton ();
 		} else {
 			vcr = Object.FindObjectOfType<VCR> ();

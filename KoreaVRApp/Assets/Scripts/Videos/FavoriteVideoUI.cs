@@ -84,21 +84,29 @@ public class FavoriteVideoUI : UserVideoUI
 
 	}
 
-	void UiSwitch()
-	{
-		if (video != null) {
-			if (video.isDownloaded ()) {
-				ShowDownloadedUI ();
-			} else {
-				ShowHavenotDownloadedUI ();
-			}
+    public override void UiSwitch()
+    {
+        base.UiSwitch();
 
-		} else {
-			Debug.Log ("VIDEO IS NULL!");
-		}
-	}
+        if (video != null)
+        {
+            if (video.isDownloaded())
+            {
+                ShowDownloadedUI();
+            }
+            else
+            {
+                ShowHavenotDownloadedUI();
+            }
 
-	void ShowDownloadedUI()
+        }
+        else
+        {
+            Debug.Log("VIDEO IS NULL!");
+        }
+    }
+
+    void ShowDownloadedUI()
 	{
 		downloadedUI.gameObject.SetActive (true);
 		havenotDownloadedUI.gameObject.SetActive (false);

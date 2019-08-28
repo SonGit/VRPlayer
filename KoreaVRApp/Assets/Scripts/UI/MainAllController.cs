@@ -1041,7 +1041,7 @@ public class MainAllController : MonoBehaviour
 		}
 	}
 
-	private void MediaPlayerMenu_OnBack(){
+	public void MediaPlayerMenu_OnBack(){
 		if (!(currentScene is Scene2D)){
 			GoToScene2D();
 		}
@@ -1255,7 +1255,6 @@ public class MainAllController : MonoBehaviour
 
 	VideoUI videoUI;
 	Video video;
-	VRPlayer vrPlayer;
 	bool isStreaming;
 	string urlStreaming;
 
@@ -1266,7 +1265,7 @@ public class MainAllController : MonoBehaviour
         if (isStreaming) {
 			mediaPlayerMenu.Streaming (video,videoUI,urlStreaming);
 		} else {
-			mediaPlayerMenu.Play (video,videoUI,this.vrPlayer);
+			mediaPlayerMenu.Play (video,videoUI);
 		}
 	}
 

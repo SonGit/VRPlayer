@@ -119,16 +119,17 @@ public class VR_UserVideoUI : UserVideoUI
 		}
 
 		if (VR_MainMenu.instance != null){
-			VR_MainMenu.instance.OpenFavoriteMenu ();
+			//VR_MainMenu.instance.OpenFavoriteMenu ();
 			VR_MainMenu.instance.HideLoadingUI ();
 		}
 
-//		SetupFavoriteBtns ();
-//		if (favoriteBtn != null && unfavoriteBtn != null){
-//			favoriteBtn.SetActive (false);
-//			unfavoriteBtn.SetActive (true);
-//		}
-	}
+        SetupFavoriteBtns();
+        if (favoriteBtn != null && unfavoriteBtn != null)
+        {
+            favoriteBtn.SetActive(false);
+            unfavoriteBtn.SetActive(true);
+        }
+    }
 
 	public override void OnFailedFavorite ()
 	{

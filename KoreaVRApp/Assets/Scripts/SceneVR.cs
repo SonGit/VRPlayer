@@ -9,25 +9,41 @@ public class SceneVR : AppScene
 {
 	public VRPlayer vrPlayer;
 	[SerializeField]
-	private VR_SettingMenu vrSetting;
+	private VR_SettingMenu _vrSetting;
 	[SerializeField]
-	private VR_MainMenu vrMainMenu;
+	private VR_MainMenu _vrMainMenu;
 	[SerializeField]
 	private GameObject vrProgressBar;
-
-	private VR_RecenterPanel vr_RecenterPanel;
+  
+    private VR_VideoFinishMenu vr_VideoFinishMenu;
+    private VR_RecenterPanel vr_RecenterPanel;
 
 	[SerializeField]
 	private VR_ButtonScreenLock buttonScreenLock;
 
 	private BasicMenu lastMenu;
 
+
+    public VR_SettingMenu vrSetting
+    {
+        get
+        {
+            return _vrSetting;
+        }
+
+        set
+        {
+            _vrSetting = value;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
 		vr_RecenterPanel = UnityEngine.Object.FindObjectOfType<VR_RecenterPanel>();
+        vr_VideoFinishMenu = UnityEngine.Object.FindObjectOfType<VR_VideoFinishMenu>();
 
-      	//Show();
+        //Show();
     }
 
 
@@ -39,28 +55,33 @@ public class SceneVR : AppScene
 
 	void ShowMainMenu()
 	{
-		vrMainMenu.gameObject.SetActive (true);
+		_vrMainMenu.gameObject.SetActive (true);
 
 		if (vr_RecenterPanel != null && !MainAllController.instance.IsShowRecenterPanel){
-			vrMainMenu.gameObject.SetActive (false);
+			_vrMainMenu.gameObject.SetActive (false);
 			vr_RecenterPanel.Show (OnDoneShowVR_MainMenu);
 		}
 	}
 
 	private void SetupAllSetting(){
-		vrMainMenu.gameObject.SetActive (true);
+		_vrMainMenu.gameObject.SetActive (true);
 
-		vrSetting.HideSetting ();
+        vrSetting.HideSetting ();
 
 		buttonScreenLock.OnClickLockBtn (true);
 		vrPlayer.gameObject.SetActive (false);
 		ShowProgressBar ();
 
-		// HasUserLoggedIn ???
-		if (MainAllController.instance != null && MainAllController.instance.HasUserLoggedIn ()) {
+        if (vr_VideoFinishMenu != null)
+        {
+            vr_VideoFinishMenu.DisableVideoFinishUI();
+        }
+
+        // HasUserLoggedIn ???
+        if (MainAllController.instance != null && MainAllController.instance.HasUserLoggedIn ()) {
 			ClickLoginBnt ();
 
-			vrMainMenu.UserNameViewable_VR (MainAllController.instance.GetUserNameInput());
+			_vrMainMenu.UserNameViewable_VR (MainAllController.instance.GetUserNameInput());
 		} else {
 			ClickLogoutBnt ();
 		}
@@ -69,28 +90,28 @@ public class SceneVR : AppScene
 	public void ShowStorageMenu()
 	{
 		SetupAllSetting ();
-		vrMainMenu.OpenStorageMenu ();
+		_vrMainMenu.OpenStorageMenu ();
 		//vrPlayer.gameObject.SetActive (false);
 
 		//vrSetting.HideSetting ();
 	}
 
 	public void ClickLoginBnt(){
-		vrMainMenu.LoginViewable_VR (false);
-		vrMainMenu.LogoutViewable_VR (true);
+		_vrMainMenu.LoginViewable_VR (false);
+		_vrMainMenu.LogoutViewable_VR (true);
 	}
 
 	public void ClickLogoutBnt(){
-		vrMainMenu.LoginViewable_VR (true);
-		vrMainMenu.LogoutViewable_VR (false);
+		_vrMainMenu.LoginViewable_VR (true);
+		_vrMainMenu.LogoutViewable_VR (false);
 
-		vrMainMenu.UserNameViewable_VR ("");
+		_vrMainMenu.UserNameViewable_VR ("");
 
 		if (MainAllController.instance != null) {
-			vrMainMenu.UserNameViewable_VR (MainAllController.instance.GetUserNameInput());
+			_vrMainMenu.UserNameViewable_VR (MainAllController.instance.GetUserNameInput());
 		}
 
-		vrMainMenu.OpenStorageMenu ();
+		_vrMainMenu.OpenStorageMenu ();
 	}
 
 	public void ShowUserVideoMenu()
@@ -100,7 +121,7 @@ public class SceneVR : AppScene
 			SetupAllSetting ();
 			VR_MainMenu.instance.OpenUserVideoMenu ();
 			vrPlayer.gameObject.SetActive (false);
-			vrSetting.HideSetting ();
+            vrSetting.HideSetting ();
 		} else {
 			ShowStorageMenu ();
 		}
@@ -147,7 +168,7 @@ public class SceneVR : AppScene
 
 	public void ShowSetting()
 	{
-		if (!vrMainMenu.gameObject.activeInHierarchy) {
+		if ((_vrMainMenu != null && !_vrMainMenu.gameObject.activeInHierarchy) && (vr_VideoFinishMenu.root != null && !vr_VideoFinishMenu.root.activeInHierarchy)) {
 			vrSetting.ShowSetting ();
 		}
 
@@ -216,7 +237,7 @@ public class SceneVR : AppScene
 	public void PlayFromURL(Video video, VideoUI videoUI)
 	{
 		vrSetting.HideSetting ();
-		vrMainMenu.gameObject.SetActive (false);
+		_vrMainMenu.gameObject.SetActive (false);
 		ResetAllMode ();
 
 		string url = string.Empty;
@@ -255,7 +276,7 @@ public class SceneVR : AppScene
 	public void Streaming(Video video, VideoUI videoUI, string url)
 	{
 		vrSetting.HideSetting ();
-		vrMainMenu.gameObject.SetActive (false);
+		_vrMainMenu.gameObject.SetActive (false);
 		ResetAllMode ();
 
 		if (video is LocalVideo) {
@@ -305,6 +326,12 @@ public class SceneVR : AppScene
 
 		HideProgressBar ();
 
+        if (vr_VideoFinishMenu != null)
+        {
+            vr_VideoFinishMenu.DisableVideoFinishUI();
+            vr_VideoFinishMenu.isVideoFinish = false;
+        }
+
 		if (currentVideo != null) {
 			vrPlayer.Play (currentVideo, currentVideoUI);
 		}
@@ -318,15 +345,21 @@ public class SceneVR : AppScene
 
 		HideProgressBar ();
 
-		if (currentVideo != null) {
+        if (vr_VideoFinishMenu != null)
+        {
+            vr_VideoFinishMenu.DisableVideoFinishUI();
+            vr_VideoFinishMenu.isVideoFinish = false;
+        }
+
+        if (currentVideo != null) {
 			vrPlayer.Stream (currentVideo,currentVideoUI,currentUrl);
 		}
 	}
 
 	void OnDoneShowVR_MainMenu()
 	{
-		if (vrMainMenu != null){
-			vrMainMenu.gameObject.SetActive (true);
+		if (_vrMainMenu != null){
+			_vrMainMenu.gameObject.SetActive (true);
 		}
 
 		if (vrSetting != null){
@@ -429,14 +462,9 @@ public class SceneVR : AppScene
 
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
-        
+
         // Disable auto rotation, except for landscape left.
-		if (Screen.orientation != ScreenOrientation.LandscapeLeft) {
-			Screen.orientation = ScreenOrientation.LandscapeLeft;
-			Debug.Log ("ScreenOrientation.LandscapeLeft");
-		} else {
-			Debug.Log ("No Switch Screen");
-		}
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
 
         yield return new WaitForSeconds(1f);
 

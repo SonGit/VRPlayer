@@ -37,7 +37,10 @@ public class DownloadVideoUI : VideoUI
 	[SerializeField] private Button video_Cancel = null;
 	[SerializeField] private GameObject videoDownloaderPrefab = null;
 
-	private string fullpathfile;
+    [Header("Components")]
+    [SerializeField] private GameObject grayDownloadedUI;
+
+    private string fullpathfile;
 	private string path;
 	private FileInfo fileInfo;
 
@@ -81,7 +84,14 @@ public class DownloadVideoUI : VideoUI
 					}
 				});
 		}
-	}
+
+        if (MainAllController.instance != null)
+        {
+            MainAllController.instance.OnDownloadedVideo += DownloadedVideo;
+        }
+
+       
+    }
 
 	public override void Update ()
 	{
@@ -107,9 +117,12 @@ public class DownloadVideoUI : VideoUI
 		SetUI ();
 	}
 
+    private void DownloadedVideo(Video anotherVideo)
+    {
+        SetDownloadStateUI(DownloadState.Complete);
+    }
 
-		
-	public void Download ()
+    public void Download ()
 	{
 		//Find downlaoder object
 		// if found, kick start the download
@@ -185,22 +198,22 @@ public class DownloadVideoUI : VideoUI
 		}
 	}
 
-	private void CheckDownloadComplete()
-	{
-		if (videoDownloader != null) {
-			if (videoDownloader.downloadState == DownloadState.Complete || videoDownloader.downloadProgress == 100) {
-				DeleteDownloader ();
-				SetDownloadStateUI (DownloadState.Complete);
+//	private void CheckDownloadComplete()
+//	{
+//		if (videoDownloader != null) {
+//			if (videoDownloader.downloadState == DownloadState.Complete || videoDownloader.downloadProgress == 100) {
+//				DeleteDownloader ();
+//				SetDownloadStateUI (DownloadState.Complete);
 
-				// Kick event that this video has been downlaoded
-				MainAllController.instance.Downloaded (video);
+//				// Kick event that this video has been downlaoded
+//				MainAllController.instance.Downloaded (video);
 
-                // Destroy the this object too
-                video = null;
-//                Destroy();
-			}
-		}
-	}
+//                // Destroy the this object too
+//                video = null;
+////                Destroy();
+//			}
+//		}
+//	}
 
 	void DeleteDownloader()
 	{
@@ -238,8 +251,10 @@ public class DownloadVideoUI : VideoUI
 			video_size.text = ((totalSize / 1024) / 1024) + " MB";
 
 			if (progress == 100) {
-		
-			} else {
+
+                SetDownloadStateUI(DownloadState.Complete);
+
+            } else {
 				
 				SetDownloadStateUI (DownloadState.Pause);
 
@@ -286,7 +301,8 @@ public class DownloadVideoUI : VideoUI
 				SetActive (video_DownloadProgressSlider.gameObject, false);
 				SetActive (video_DownloadProgressText.gameObject, false);
 				SetActive (video_DownloadSpeedText.gameObject, false);
-				break;
+                SetActive(grayDownloadedUI, false);
+                break;
 			case DownloadState.Downloading:
 				SetActive (video_Download.gameObject, false);
 				SetActive (video_Pause.gameObject, true);
@@ -295,7 +311,8 @@ public class DownloadVideoUI : VideoUI
 				SetActive (video_DownloadProgressSlider.gameObject, true);
 				SetActive (video_DownloadProgressText.gameObject, true);
 				SetActive (video_DownloadSpeedText.gameObject, true);
-				break;
+                SetActive(grayDownloadedUI, false);
+                break;
 			case DownloadState.Pause:
 				SetActive (video_Download.gameObject, false);
 				SetActive (video_Pause.gameObject, false);
@@ -304,7 +321,8 @@ public class DownloadVideoUI : VideoUI
 				SetActive (video_DownloadProgressSlider.gameObject, true);
 				SetActive (video_DownloadProgressText.gameObject, true);
 				SetActive (video_DownloadSpeedText.gameObject, true);
-				break;
+                SetActive(grayDownloadedUI, false);
+                break;
 			case DownloadState.Complete:
 				SetActive (video_Download.gameObject, false);
 				SetActive (video_Pause.gameObject, false);
@@ -313,7 +331,8 @@ public class DownloadVideoUI : VideoUI
 				SetActive (video_DownloadProgressSlider.gameObject, false);
 				SetActive (video_DownloadProgressText.gameObject, false);
 				SetActive (video_DownloadSpeedText.gameObject, false);
-				break;
+                SetActive(grayDownloadedUI, true);
+                break;
 			case DownloadState.Fail:
 				SetActive (video_Download.gameObject, false);
 				SetActive (video_Pause.gameObject, false);
@@ -322,7 +341,8 @@ public class DownloadVideoUI : VideoUI
 				SetActive (video_DownloadProgressSlider.gameObject, false);
 				SetActive (video_DownloadProgressText.gameObject, false);
 				SetActive (video_DownloadSpeedText.gameObject, false);
-				break;
+                SetActive(grayDownloadedUI, false);
+                break;
 			case DownloadState.Cancel:
 				SetActive (video_Download.gameObject, true);
 				SetActive (video_Pause.gameObject, false);
@@ -331,7 +351,8 @@ public class DownloadVideoUI : VideoUI
 				SetActive (video_DownloadProgressSlider.gameObject, false);
 				SetActive (video_DownloadProgressText.gameObject, false);
 				SetActive (video_DownloadSpeedText.gameObject, false);
-				break;
+                SetActive(grayDownloadedUI, false);
+                break;
 			default:
 				break;
 		}
