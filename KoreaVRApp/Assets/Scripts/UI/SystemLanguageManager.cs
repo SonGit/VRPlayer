@@ -169,7 +169,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string sign_in_completedString_Korean = "로그인이 완료되었습니다";
 	private string logged_outString_Korean = "로그 아웃 됨";
 	private string press_the_previous_button_again_to_exitString_Korean = "이전 버튼을 다시 누르면 종료됩니다.";
-	private string calibrate_SensorString_Korean = "최적화를 위해 센서를 5 초 동안 교정하십시오\n장치를 평평한 바닥에 놓고 시작 단추를 누릅니다\n보정이 완료 될 때까지 장치를 움직이지 마십시오\n센서 보정은 어플리케이션이 처음 시작할 때 실행됩니다";
+	private string calibrate_SensorString_Korean = "최적화를 위한 센서보정을 5초간 진행합니다.\n기기를 평평한 곳에 올려놓고 시작버튼을 눌러주세요.\n보정이 완료될 때까지 기기를 움직이지 마세요.\n센서보정은 구동 시 최초 1회가 실행됩니다.";
 	private string screenShotString_Korean = "스크린 샷";
 	private string VR_headset_or_cardboard_is_not_readyString_Korean = "VR 헤드셋 또는 카드보드가 준비 안 된 경우";
 	private string After_playing_VR_movieString_Korean = "VR 영상 재생 후 스마트폰을 위아래로 살짝 흔들어 화면 설정창을 연다";
@@ -180,8 +180,8 @@ public class SystemLanguageManager : MonoBehaviour
 
 	#region VR_ScreenCursor
 
-	private string Hover_the_on_screenString_Korean = "화면 커서를 3 초 동안 가져 가서 플레이어를 시작하십시오.";
-	private string Precautions_AvoidString_Korean = "예방 조치\n장기간 사용하지 마십시오.눈의 피로 나 멀미와 같은 비정상적인 증상이 나타나면,\n즉시 장치 사용을 중지하십시오.";
+	private string Hover_the_on_screenString_Korean = "화면 커서를 3초간 응시하시면 플레이어가 실행됩니다.";
+	private string Precautions_AvoidString_Korean = "주의사항\n장시간 사용은 피하도록 하고, 눈의 피로, 멀미감과 같은 이상증상이 나타나면 즉시 사용을 중지하세요.";
 
 	#endregion
 
@@ -194,15 +194,15 @@ public class SystemLanguageManager : MonoBehaviour
 	private string vr_Mid_InboxString_Korean = "받은 파일함";
 	private string vr_Mid_VideoListString_Korean = "동영상 목록";
 	private string vr_Mid_FavoriteString_Korean = "즐겨찾기";
-	private string vr_LoginrequiredString_Korean = "로그인 필요";
-	private string vr_Move_to_loginString_Korean = "로그인 페이지로 이동 하시겠습니까?";
+	private string vr_LoginrequiredString_Korean = "로그인이 필요합니다";
+	private string vr_Move_to_loginString_Korean = "로그인 페이지로 이동하시겠습니까? 로그인 페이지로 이동시 플레이어 화면이 종료됩니다.";
 	private string vr_YesString_Korean = "예";
 	private string vr_NoString_Korean = "아니오";
 	private string vr_DeleterequiredString_Korean = "삭제 필요";
 	private string vr_DeleteString_Korean = "삭제하시겠습니까?";
 	private string vr_Please_check_the_network_connectionString_Korean = "네트워크 연결을 확인하십시오.";
 	private string vr_NovideosString_Korean = "동영상 없음";
-	private string vr_StreamingrequiredString_Korean = "스트리밍 요구됨";
+	private string vr_StreamingrequiredString_Korean = "스트리밍 요구 됨";
 	private string vr_StreamingString_Korean = "스트리밍?";
 	private string vr_Application_will_beString_Korean = "센서보정 페이지로 이동하게 되면 영상이 종료됩니다. 계속 하시겠습니까?";
 	private string vr_Sensor_calibrationString_Korean = "센서 보정";
@@ -224,7 +224,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string vr_AutoString_Korean = "자동";
 	private string vr_SizeString_Korean = "크기";
 	private string vr_RatioString_Korean = "비율";
-	private string vr_Are_you_sure_you_deviceString_Korean = "VR 장치에서 전화기를 분리 하시겠습니까?";
+	private string vr_Are_you_sure_you_deviceString_Korean = "VR 장치에서 폰을 분리하시겠습니까?";
 
 	#endregion
 

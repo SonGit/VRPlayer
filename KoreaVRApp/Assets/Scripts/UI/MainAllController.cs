@@ -21,7 +21,7 @@ public class MainAllController : MonoBehaviour
 
 	[Header("---- Menus ----")]
 
-	private WalkthroughMenu walkthroughMenu = null;
+	private TutorialMenu tutorialMenu = null;
 	private AccessMenu accessMenu = null;
 	private StorageMenu storageMenu = null;
 	private SettingsMenu settingsMenu = null;
@@ -143,8 +143,8 @@ public class MainAllController : MonoBehaviour
 		Init ();
 
 		// Event open,close Menu
-		if (walkthroughMenu != null) {
-			walkthroughMenu.OnClick += WalkthroughMenu_OnGetStarted;
+		if (tutorialMenu != null) {
+			tutorialMenu.OnClick += TutorialMenu_OnGetStarted;
 		} else {
 			Debug.LogError ("Null");
 		}
@@ -326,7 +326,7 @@ public class MainAllController : MonoBehaviour
 		user = null;
 
 		// Load all references
-		walkthroughMenu = UnityEngine.Object.FindObjectOfType<WalkthroughMenu>();
+		tutorialMenu = UnityEngine.Object.FindObjectOfType<TutorialMenu>();
 		accessMenu = UnityEngine.Object.FindObjectOfType<AccessMenu>();
 		storageMenu = UnityEngine.Object.FindObjectOfType<StorageMenu>();
 		settingsMenu = UnityEngine.Object.FindObjectOfType<SettingsMenu>();
@@ -346,8 +346,8 @@ public class MainAllController : MonoBehaviour
 		infoMenu = UnityEngine.Object.FindObjectOfType<InfoMenu> ();
 
 		// Start state
-		if (walkthroughMenu != null){
-			currentMenu = walkthroughMenu;
+		if (tutorialMenu != null){
+			currentMenu = tutorialMenu;
 
 			// Disable Handle AccessMenu
 			if (accessMenu != null){
@@ -364,7 +364,7 @@ public class MainAllController : MonoBehaviour
 		OnLoggedOut += AccessMenu_OnMyStorage;
 	}
 
-	private void WalkthroughMenu_OnGetStarted(){
+	private void TutorialMenu_OnGetStarted(){
 		if (storageMenu != null){
 			storageMenu.Refresh ();
 		}
@@ -1174,7 +1174,7 @@ public class MainAllController : MonoBehaviour
 			}
 
 			if (SystemLanguageManager.instance.IsKoreanLanguage){
-				AndroidDialog.instance.showLoginDialog ("로그인 후 다시 시도하십시오!", OnAlertLogginComplete, "예", "아니오", true);
+				AndroidDialog.instance.showLoginDialog ("로그인 후 이용해 주세요!", OnAlertLogginComplete, "예", "아니오", true);
 			}
 
 			if (SystemLanguageManager.instance.IsJapaneseLanguage){
@@ -1730,7 +1730,8 @@ public class MainAllController : MonoBehaviour
 				if (accessMenu.PanelLayer.gameObject.activeSelf) {
 					accessMenu.Close ();
 				} else {
-					if (currentMenu is WalkthroughMenu){
+					if (currentMenu is TutorialMenu)
+                    {
 						return;
 					}
 						
