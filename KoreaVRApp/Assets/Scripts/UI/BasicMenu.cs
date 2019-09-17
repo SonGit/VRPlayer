@@ -40,7 +40,9 @@ public class BasicMenu : MonoBehaviour, IEnhancedScrollerDelegate
 
 	protected VideoUI videoUI;
 
-	protected virtual void Awake()
+    protected float cellViewSize;
+
+    protected virtual void Awake()
 	{
 		
 	}

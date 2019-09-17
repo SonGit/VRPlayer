@@ -9,7 +9,6 @@ public class VR_SettingsManager : MonoBehaviour
 
 	private VR_ButtonSettings[] btns;
 	public VR_ButtonSettings currentBtn;
-	private VRPlayer vplayer;
     
 	void Awake(){
 		instance = this;
@@ -17,7 +16,6 @@ public class VR_SettingsManager : MonoBehaviour
 
 	void Start()
     {
-		vplayer = UnityEngine.Object.FindObjectOfType<VRPlayer>();
 		Init ();
 
     }
@@ -36,28 +34,23 @@ public class VR_SettingsManager : MonoBehaviour
 				case "Flat":
 					btn.Init ();
 					btn.OnActive ();
-					//btn.thisBtn.onClick.AddListener (vplayer.PackingNone);
 					currentBtn = btn;
 					break;
 				case "btn1-2LR":
 					btn.Init ();
 					btn.OnInactive ();
-					//btn.thisBtn.onClick.AddListener (vplayer.PackingLeftRight);
 					break;
 				case "btn2-1LR":
 					btn.Init ();
 					btn.OnInactive ();
-					//btn.thisBtn.onClick.AddListener (vplayer.PackingLeftRight);
 					break;
 				case "btn1-2TB":
 					btn.Init ();
 					btn.OnInactive ();
-					//btn.thisBtn.onClick.AddListener (vplayer.PackingTopBottom);
 					break;
 				case "btn2-1TB":
 					btn.Init ();
 					btn.OnInactive ();
-					//btn.thisBtn.onClick.AddListener (vplayer.PackingTopBottom);
 					break;
 				default:
 					break;
@@ -70,49 +63,7 @@ public class VR_SettingsManager : MonoBehaviour
 		}
 	}
 
-	public void ShowSettingTB(){
-		btns = GetComponentsInChildren <VR_ButtonSettings> ();
-		if (btns.Length > 0) {
-			foreach (VR_ButtonSettings btn in btns) {
-				switch (btn.name) {
-				case "Flat":
-					btn.Init ();
-					btn.OnInactive ();
-					//btn.thisBtn.onClick.AddListener (vplayer.PackingNone);
-					break;
-				case "btn1-2LR":
-					btn.Init ();
-					btn.OnInactive ();
-					//btn.thisBtn.onClick.AddListener (vplayer.PackingLeftRight);
-					break;
-				case "btn2-1LR":
-					btn.Init ();
-					btn.OnInactive ();
-					//btn.thisBtn.onClick.AddListener (vplayer.PackingLeftRight);
-					break;
-				case "btn1-2TB":
-					btn.Init ();
-					btn.OnActive ();
-					currentBtn = btn;
-					//btn.thisBtn.onClick.AddListener (vplayer.PackingTopBottom);
-					break;
-				case "btn2-1TB":
-					btn.Init ();
-					btn.OnInactive ();
-					//btn.thisBtn.onClick.AddListener (vplayer.PackingTopBottom);
-					break;
-				default:
-					break;
-				}
-			}
-		}
-
-		else {
-			Debug.LogError ("basicButtonMenus[] Null");
-		}
-	}
-
-	public void FlatModeBtn()
+    public void FlatModeBtn()
 	{
 		SetActiveBtn ("Flat");
 	}
@@ -139,18 +90,19 @@ public class VR_SettingsManager : MonoBehaviour
 
 	void SetActiveBtn(string btnName)
 	{
-		
-	if (btns.Length > 0) {
-			foreach (VR_ButtonSettings btn in btns) {
+	    if (btns.Length > 0)
+        {
+			foreach (VR_ButtonSettings btn in btns)
+            {
+			    if (btn.name == btnName) {
+				    btn.OnActive ();
+                    currentBtn = btn;
+			    } else {
+				    btn.OnInactive ();
+			    }
 
-			if (btn.name == btnName) {
-				btn.OnActive ();
-			} else {
-				btn.OnInactive ();
-			}
-
-		}
-	}
+		    }
+	    }
 
 	}
 

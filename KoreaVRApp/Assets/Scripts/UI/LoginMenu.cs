@@ -111,52 +111,16 @@ public class LoginMenu : BasicMenuNavigation
 				//NativeUI.AlertPopup alert = NativeUI.Alert ("Notification!", "Enter your email");
 
 				if (SystemLanguageManager.instance != null){
-					if (SystemLanguageManager.instance.IsEnglishLanguage){
-						AndroidDialog.instance.showWarningDialog("Enter your email");
-					}
-
-					if (SystemLanguageManager.instance.IsKoreanLanguage){
-						AndroidDialog.instance.showWarningDialog("이메일을 입력하십시오");
-					}
-
-					if (SystemLanguageManager.instance.IsJapaneseLanguage){
-						AndroidDialog.instance.showWarningDialog("メールアドレスを入力");
-					}
-
-					if (SystemLanguageManager.instance.IsChineseLanguage){
-						AndroidDialog.instance.showWarningDialog("輸入你的電子郵箱");
-					}
-
-					if (SystemLanguageManager.instance.IsOtherLanguage){
-						AndroidDialog.instance.showWarningDialog("Enter your email");
-					}
-				}
+                    SystemLanguageManager.instance.UsernameFieldAlert();
+                }
 
 			} 
 			else if (login_PasswordField.text == "") {
 				//NativeUI.AlertPopup alert = NativeUI.Alert ("Notification!", "Enter your password");
 
 				if (SystemLanguageManager.instance != null){
-					if (SystemLanguageManager.instance.IsEnglishLanguage){
-						AndroidDialog.instance.showWarningDialog("Enter your password");
-					}
-
-					if (SystemLanguageManager.instance.IsKoreanLanguage){
-						AndroidDialog.instance.showWarningDialog("비밀번호를 입력하십시오");
-					}
-
-					if (SystemLanguageManager.instance.IsJapaneseLanguage){
-						AndroidDialog.instance.showWarningDialog("パスワードを入力してください");
-					}
-
-					if (SystemLanguageManager.instance.IsChineseLanguage){
-						AndroidDialog.instance.showWarningDialog("輸入您的密碼");
-					}
-
-					if (SystemLanguageManager.instance.IsOtherLanguage){
-						AndroidDialog.instance.showWarningDialog("Enter your password");
-					}
-				}
+                    SystemLanguageManager.instance.PasswordFieldAlert();
+                }
 			}
 		}
 	}
@@ -168,9 +132,14 @@ public class LoginMenu : BasicMenuNavigation
 	}
 
 	public void ErrorGetLoginCallback(){
-		//NativeUI.AlertPopup alert = NativeUI.Alert("Notification!", "This email address does not exist");
+        //NativeUI.AlertPopup alert = NativeUI.Alert("Notification!", "This email address does not exist");
 
-		if (ScreenLoading.instance != null) {
+        if (SystemLanguageManager.instance != null)
+        {
+            SystemLanguageManager.instance.ErrorLoginAlert();
+        }
+
+        if (ScreenLoading.instance != null) {
 			ScreenLoading.instance.Stop ();
 		}
 
@@ -209,9 +178,9 @@ public class LoginMenu : BasicMenuNavigation
 
 	void ErrorLogoutCallback()
 	{
-		//NativeUI.AlertPopup alert = NativeUI.Alert("Notification!", "Logout isn't correct!");
+        //NativeUI.AlertPopup alert = NativeUI.Alert("Notification!", "Logout isn't correct!");
 
-		if (ScreenLoading.instance != null) {
+        if (ScreenLoading.instance != null) {
 			ScreenLoading.instance.Stop ();
 		}
 
@@ -252,4 +221,6 @@ public class LoginMenu : BasicMenuNavigation
 		login_UsernameField.text = "";
 		login_PasswordField.text = "";
 	}
+
+
 }

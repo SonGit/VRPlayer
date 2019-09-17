@@ -278,7 +278,7 @@ public class LocalVideoManager : MonoBehaviour
             }
         }
     }
-    public string testData;
+
     private void LoadLocal(string data)
     {
         try

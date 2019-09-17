@@ -78,7 +78,9 @@ public class VideoDownloader : MonoBehaviour
 	}
 		
 	public void Pause (){
-		if (task != null) {
+        downloadState = DownloadState.Pause;
+
+        if (task != null) {
 			task.Cancel ();
 		}
 		DisposeStreams ();

@@ -12,12 +12,14 @@ public class StorageMenu : BasicMenuNavigation
 {
 	public static StorageMenu instance;
 
-	void Awake()
-	{
-		instance = this;
-	}
+    protected override void Awake()
+    {
+        base.Awake();
+        instance = this;
+        cellViewSize = Utility.CELLVIEWSIZE;
+    }
 
-	protected override void Start ()
+    protected override void Start ()
 	{
 		base.Start ();
 
@@ -82,7 +84,7 @@ public class StorageMenu : BasicMenuNavigation
 
 	public override float GetCellViewSize (EnhancedScroller scroller, int dataIndex)
 	{
-        return 500f;
+        return cellViewSize;
     }
 
 	public override EnhancedScrollerCellView GetCellView (EnhancedScroller scroller, int dataIndex, int cellIndex)

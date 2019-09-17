@@ -593,17 +593,22 @@ MonoBehaviour:
   cellIdentifier: 
   rootLoading: {fileID: 8736561925288114700}
   thumbnailTexture: {fileID: 0}
+  screenShotTexture: {fileID: 0}
+  downloaded2D_Text: {fileID: 0}
+  downloaded3D_Text: {fileID: 0}
+  streaming2D_Text: {fileID: 0}
+  streaming3D_Text: {fileID: 0}
   root: {fileID: 2231974832330906352}
   playBnt: {fileID: 7822195680316458511}
   animUpLimit: -60
   video_image: {fileID: 7153947765658500164}
   video_name: {fileID: 1311857899999457208}
-  video_length: {fileID: 4343782395722058704}
-  video_size: {fileID: 0}
-  video_desc: {fileID: 0}
+  videoRegistration_videoSize: {fileID: 4343782395722058704}
   videoDownloaderPrefab: {fileID: 2098110154028071213, guid: 73ce04fb610e44b4caf4fa80d4145c5c,
     type: 3}
   favoriteBtn: {fileID: 8266881581753541620}
+  favoriteText: {fileID: 0}
+  unFavoriteText: {fileID: 0}
   unfavoriteBtn: {fileID: 7610944127289274398}
 --- !u!1 &1311857901116311343
 GameObject:

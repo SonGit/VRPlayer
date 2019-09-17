@@ -21,7 +21,7 @@ public class VR_InboxVideoUI : UserVideoUI
 			this.video = video;
 			this.video_name.text = video.videoInfo.video_name;
 			//this.video_length.text = (currentuserVideo.videoInfo.length).ToString();
-			this.video_length.text = MakeLengthString ();
+			this.videoRegistration_videoSize.text = MakeLengthString ();
 			video_image.texture = null;
 
 			CheckThumbnail ();

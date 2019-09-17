@@ -17,7 +17,7 @@ public class VR_UserVideoUI : UserVideoUI
 			this.video = video;
 			this.video_name.text = video.videoInfo.video_name;
 			//this.video_length.text = (currentuserVideo.videoInfo.length).ToString();
-			this.video_length.text = MakeLengthString ();
+			this.videoRegistration_videoSize.text = MakeLengthString ();
 			SetupFavoriteBtns ();
 			video_image.texture = null;
 
@@ -39,53 +39,88 @@ public class VR_UserVideoUI : UserVideoUI
 
 	public void VR_DownloadBnt_OnClick ()
 	{
-		if (VR_MainMenu.instance != null){
-			
-			bool isConnect = VR_MainMenu.instance.CheckNetworkConnection ();
+        if (video.videoInfo.status == "200") // if Video can download (200)
+        {
+            if (VR_MainMenu.instance != null)
+            {
 
-			if (isConnect) {
+                bool isConnect = VR_MainMenu.instance.CheckNetworkConnection();
 
-				float space = DiskUtils.CheckAvailableSpace ();
+                if (isConnect)
+                {
 
-				float viseoSize = video.videoInfo.size / 1024;
+                    float space = DiskUtils.CheckAvailableSpace();
 
-				// compare KB With KB
-				if ((space * 1024) > viseoSize) {
-					if (MainAllController.instance != null) {
+                    float viseoSize = video.videoInfo.size / 1024;
 
-						if (video.isDownloaded ()) {
-							return;
-						}
+                    // compare KB With KB
+                    if ((space * 1024) > viseoSize)
+                    {
+                        if (MainAllController.instance != null)
+                        {
 
-						GameObject videoDownloaderObj = GameObject.Find ("VideoDownLoader" + "-" + video.videoInfo.id);
+                            if (video.isDownloaded())
+                            {
+                                return;
+                            }
 
-						if (videoDownloaderObj != null) {
+                            GameObject videoDownloaderObj = GameObject.Find("VideoDownLoader" + "-" + video.videoInfo.id);
 
-							Debug.Log ("Already in Download Menu!!!");
-							DownloadMenu.instance.StartDownload (video);
+                            if (videoDownloaderObj != null)
+                            {
 
-							VR_UserVideoMenu menu = UnityEngine.Object.FindObjectOfType<VR_UserVideoMenu> ();
-							if (menu != null) {
-								menu.FastRefresh ();
-							}
-						} else {
-							string authToken = MainAllController.instance.user.token;
-							if (authToken != null) {
-								if (VR_MainMenu.instance != null){
-									VR_MainMenu.instance.ShowLoadingUI ();
-								}
-								Networking.instance.GetVideoLinkRequest (video.videoInfo.id, authToken, OnGetLink, OnFailedGetStreamingLink);
-							}
-						}
-					}
-				} else {
-					VR_MainMenu.instance.ShowUsablecapacityAlert ();
-				}
-			} else {
-				VR_MainMenu.instance.ShowNetworkAlert ();
-			}
-		}
-	}
+                                Debug.Log("Already in Download Menu!!!");
+                                DownloadMenu.instance.StartDownload(video);
+
+                                VR_UserVideoMenu vr_UserVideoMenu = UnityEngine.Object.FindObjectOfType<VR_UserVideoMenu>();
+                                VR_FavoriteMenu vr_FavoriteMenu = UnityEngine.Object.FindObjectOfType<VR_FavoriteMenu>();
+
+                                if (vr_UserVideoMenu != null)
+                                {
+                                    vr_UserVideoMenu.FastRefresh();
+                                }
+
+                                if (vr_FavoriteMenu != null)
+                                {
+                                    vr_FavoriteMenu.FastRefresh();
+                                }
+
+                            }
+                            else
+                            {
+                                string authToken = MainAllController.instance.user.token;
+                                if (authToken != null)
+                                {
+                                    if (VR_MainMenu.instance != null)
+                                    {
+                                        VR_MainMenu.instance.ShowLoadingUI();
+                                    }
+
+                                    Networking.instance.GetVideoLinkRequest(video.videoInfo.id, authToken, OnGetLink, OnFailedGetStreamingLink);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        VR_MainMenu.instance.ShowUsablecapacityAlert();
+                    }
+                }
+                else
+                {
+                    VR_MainMenu.instance.ShowNetworkAlert();
+                }
+            }
+        }
+        else if (video.videoInfo.status == "405") // if Video need payment (405)
+        {
+            Debug.Log("VIDEO" + "_" + video.videoInfo.id + " : " + "Need payment");
+            if (VR_MainMenu.instance != null)
+            {
+                VR_MainMenu.instance.ShowPurchaseAlert();
+            }
+        }
+    }
 		
 
 	/// <summary>
@@ -107,7 +142,8 @@ public class VR_UserVideoUI : UserVideoUI
 				}
 			} else {
 				VR_MainMenu.instance.ShowNetworkAlert ();
-			}
+                VR_MainMenu.instance.HideLoadingUI();
+            }
 		}
 	}
 
@@ -131,11 +167,12 @@ public class VR_UserVideoUI : UserVideoUI
         }
     }
 
-	public override void OnFailedFavorite ()
+	protected override void OnFailedFavorite ()
 	{
 		if (VR_MainMenu.instance != null){
 			VR_MainMenu.instance.HideLoadingUI ();
-		}
+            VR_MainMenu.instance.ShowNetworkAlert();
+        }
 	}
 
 	/// <summary>
@@ -157,7 +194,8 @@ public class VR_UserVideoUI : UserVideoUI
 				}
 			}else {
 				VR_MainMenu.instance.ShowNetworkAlert ();
-			}
+                VR_MainMenu.instance.HideLoadingUI();
+            }
 		}
 	}
 
@@ -187,28 +225,38 @@ public class VR_UserVideoUI : UserVideoUI
 
 	public void ClickPlayBnt()
 	{
-		if (vr_MainMenu == null){
-			vr_MainMenu = Object.FindObjectOfType<VR_MainMenu>();
-		}
+        if (video.videoInfo.status == "200")
+        {
+            if (vr_MainMenu == null)
+            {
+                vr_MainMenu = Object.FindObjectOfType<VR_MainMenu>();
+            }
 
-		vr_MainMenu.ShowStreamingAlert (this);
-	}
+            vr_MainMenu.ShowStreamingAlert(this);
+        }
+        else if (video.videoInfo.status == "405") // if Video need payment (405)
+        {
+            Debug.Log("VIDEO" + "_" + video.videoInfo.id + " : " + "Need payment");
+            if (VR_MainMenu.instance != null)
+            {
+                VR_MainMenu.instance.ShowPurchaseAlert();
+            }
+        }
+    }
 
-	#region Streaming 3D
+    #region Streaming 3D
 
-	/// <summary>
-	/// This is called when user clicked on 3D Streaming button
-	/// </summary>
-	public void OnClickStreaming3D()
-	{
-		if (VR_MainMenu.instance != null) {
-			VR_MainMenu.instance.ShowLoadingUI ();
-		}
+    public override void OnClickStreaming3D()
+    {
+        if (VR_MainMenu.instance != null)
+        {
+            VR_MainMenu.instance.ShowLoadingUI();
+        }
 
-		Streaming3D (video.videoInfo.id);
-	}
+        Streaming3D(video.videoInfo.id);
+    }
 
-	void Streaming3D(string id)
+    void Streaming3D(string id)
 	{
 		Networking.instance.GetVideoLinkRequest (id, MainAllController.instance.user.token ,OnGetStreamingLink,OnFailedGetStreamingLink);
 	}
@@ -230,6 +278,15 @@ public class VR_UserVideoUI : UserVideoUI
 			}
 		}
 	}
-		
-	#endregion
+
+    protected override void OnFailedGetStreamingLink()
+    {
+        if (VR_MainMenu.instance != null)
+        {
+            VR_MainMenu.instance.HideLoadingUI();
+            VR_MainMenu.instance.ShowNetworkAlert();
+        }
+    }
+
+    #endregion
 }

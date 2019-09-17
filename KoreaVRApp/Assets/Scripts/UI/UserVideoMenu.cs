@@ -15,11 +15,12 @@ public class UserVideoMenu : BasicMenuNavigation
 
 	public delegate void UserVideoDownloadCallback(UserVideoUI UI);
 
-	void Awake()
+    protected override void Awake()
 	{
 		base.Awake ();
 		instance = this;
-	}
+        cellViewSize = Utility.CELLVIEWSIZE;
+    }
 
 	private void Update (){
 
@@ -111,7 +112,7 @@ public class UserVideoMenu : BasicMenuNavigation
 		if (videos[dataIndex] is UserVideo)
 		{
 			// header views
-			return 500f;
+			return cellViewSize;
 		}
 
 		return 0f;

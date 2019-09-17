@@ -27,7 +27,7 @@ public class DownloadVideoUI : VideoUI
 	[SerializeField] private RawImage video_image = null;
 	[SerializeField] private Text video_name = null;
 	[SerializeField] private Text video_length = null;
-	[SerializeField] private Text video_size = null;
+	//[SerializeField] private Text video_size = null;
 	[SerializeField] private Slider video_DownloadProgressSlider = null;
 	[SerializeField] private Text video_DownloadProgressText = null;
 	[SerializeField] private Text video_DownloadSpeedText = null;
@@ -158,8 +158,8 @@ public class DownloadVideoUI : VideoUI
 		Debug.LogError (" ++++Pause()!");
 
 		if (videoDownloader != null) {
-			videoDownloader.Pause ();
-			SetDownloadStateUI (DownloadState.Pause);
+            SetDownloadStateUI(DownloadState.Pause);
+            videoDownloader.Pause ();
 		} else {
 
 		}
@@ -227,7 +227,7 @@ public class DownloadVideoUI : VideoUI
 	{
 		base.Setup (video);
 		video_name.text = video.videoInfo.video_name;
-		this.video_length.text = MakeRegistrationDateString() + " | " +((video.videoInfo.size / 1024) / 1024) + " MB"; 
+		this.video_length.text = MakeRegistrationDateString() + " / " +((video.videoInfo.size / 1024) / 1024) + " MB"; 
 
 		video_image.texture = null;
         videoDownloader = null;
@@ -248,7 +248,7 @@ public class DownloadVideoUI : VideoUI
 
 			float progress = (float)((double)fileInfo.Length * 100 / (double)totalSize);
 			video_DownloadProgressSlider.value = progress;
-			video_size.text = ((totalSize / 1024) / 1024) + " MB";
+			//video_size.text = ((totalSize / 1024) / 1024) + " MB";
 
 			if (progress == 100) {
 
@@ -281,7 +281,7 @@ public class DownloadVideoUI : VideoUI
 
 		} else {
 			
-			SetDownloadStateUI (DownloadState.Pause);
+			//SetDownloadStateUI (DownloadState.Pause);
 
 		}
 	}
@@ -496,4 +496,6 @@ public class DownloadVideoUI : VideoUI
 	{
 		Setup(DownloadMenu.instance.getVideoAtIndex(dataIndex));
 	}
+
+
 }

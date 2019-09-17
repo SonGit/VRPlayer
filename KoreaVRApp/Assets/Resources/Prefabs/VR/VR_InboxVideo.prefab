@@ -324,18 +324,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a83570f45097c924ea496b376ae848ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cellIdentifier: 
   rootLoading: {fileID: 6313824688974698852}
   thumbnailTexture: {fileID: 0}
+  screenShotTexture: {fileID: 0}
+  downloaded2D_Text: {fileID: 0}
+  downloaded3D_Text: {fileID: 0}
+  streaming2D_Text: {fileID: 0}
+  streaming3D_Text: {fileID: 0}
   root: {fileID: 2085245952911437737}
   playBnt: {fileID: 9145208977790757192}
   animUpLimit: -60
   video_image: {fileID: 7721163252840632005}
   video_name: {fileID: 189252365762953884}
-  video_length: {fileID: 387667792098571076}
-  video_size: {fileID: 0}
-  video_desc: {fileID: 0}
+  videoRegistration_videoSize: {fileID: 387667792098571076}
   videoDownloaderPrefab: {fileID: 0}
   favoriteBtn: {fileID: 0}
+  favoriteText: {fileID: 0}
+  unFavoriteText: {fileID: 0}
   unfavoriteBtn: {fileID: 0}
 --- !u!1 &3164902231382389349
 GameObject:

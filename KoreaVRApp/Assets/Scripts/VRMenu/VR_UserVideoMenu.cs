@@ -8,13 +8,14 @@ using EnhancedUI.EnhancedScroller;
 public class VR_UserVideoMenu : VR_BasicMenu
 {
 	public static VR_UserVideoMenu instance;
-	void Awake()
-	{
-		base.Awake ();
-		instance = this;
-	}
 
-	private void Update (){
+    protected override void Awake()
+    {
+        base.Awake();
+        instance = this;
+    }
+
+    private void Update (){
 
 	}
 

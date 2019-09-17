@@ -15,11 +15,12 @@ public class InboxMenu : BasicMenuNavigation
 
 	public delegate void UserVideoDownloadCallback(UserVideoUI UI);
 
-	void Awake()
-	{
+    protected override void Awake()
+    {
 		base.Awake ();
 		instance = this;
-	}
+        cellViewSize = Utility.CELLVIEWSIZE;
+    }
 
 	private void Update (){
 
@@ -36,6 +37,29 @@ public class InboxMenu : BasicMenuNavigation
 	public override void Init()
 	{
 		videos = GetUserVideo ();
+
+        for (int i = 0; i < videos.Count; i++)
+        {
+            // if Video Expired (406) -> Delete
+            if (videos[i].videoInfo.status == "406") {
+
+                try
+                {
+                    string path = Path.Combine(MainAllController.instance.user.GetPath(), videos[i].videoInfo.id);
+
+                    if (Directory.Exists(path))
+                    {
+                        Directory.Delete(path, true);
+
+                        Debug.Log("DELETE VIDEO................................: " + videos[i].videoInfo.id);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Debug.Log("DeleteVideo exception " + e.Message);
+                }
+            }
+        }
 
 		if (scroller != null){
 			scroller.ReloadData ();
@@ -108,7 +132,7 @@ public class InboxMenu : BasicMenuNavigation
 	public override float GetCellViewSize (EnhancedScroller scroller, int dataIndex)
 	{
 		// header views
-		return 500f;
+		return cellViewSize;
 	}
 
 	public override EnhancedScrollerCellView GetCellView (EnhancedScroller scroller, int dataIndex, int cellIndex)

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WalkthroughMenu : BasicMenu
+public class TutorialMenu : BasicMenu
 {
     [Header("Components")]
     [SerializeField] private Button BtnGetStarted;

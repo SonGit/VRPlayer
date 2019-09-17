@@ -594,7 +594,7 @@ public class VRPlayer : MonoBehaviour
 				PackingTopBottom ();
 
 				if (VR_SettingsManager.instance != null){
-					VR_SettingsManager.instance.ShowSettingTB ();
+					VR_SettingsManager.instance.TB1Btn ();
 				}
 
 			}
@@ -604,14 +604,15 @@ public class VRPlayer : MonoBehaviour
 
 				SphereMode ();
 
-				PackingNone ();
+				PackingLeftRight ();
 
-				if (VR_SettingsManager.instance != null){
-					VR_SettingsManager.instance.Init ();
-				}
+                if (VR_SettingsManager.instance != null)
+                {
+                    VR_SettingsManager.instance.LR1Btn();
+                }
 
 			}
-		}
+        }
 	}
 
 	void SetVideoNameLabel(Video video)

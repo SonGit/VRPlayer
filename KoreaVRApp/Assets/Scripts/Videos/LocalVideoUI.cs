@@ -39,9 +39,15 @@ public class LocalVideoUI: VideoUI
 
 		videoTitle.text = Path.GetFileNameWithoutExtension ((video as LocalVideo).videoURL); // Exeption "type .mp4"
 
-		videoLength_videoSize.text = MakeLengthString () + " | " + ((video as LocalVideo).videoSize / 1024f / 1024f).ToString("0.0") + " MB";
-		//videoImage.texture = null;
-		loadThumbnail = true;
+		videoLength_videoSize.text = MakeLengthString () + " / " + ((video as LocalVideo).videoSize / 1024f / 1024f).ToString("0.0") + " MB";
+        //videoImage.texture = null;
+
+        SetPlayVideoBntLanguage();
+
+    #if !UNITY_EDITOR
+        loadThumbnail = true;
+    #endif
+
     }
 	
     IEnumerator LoadThumbnail()
@@ -50,13 +56,13 @@ public class LocalVideoUI: VideoUI
 
 		string path = Application.persistentDataPath + "/localTemp/" + (video as LocalVideo).videoName;
 
-		#if UNITY_ANDROID
+#if UNITY_ANDROID
 		path = Application.persistentDataPath + "/" + (video as LocalVideo).videoName;
-		#endif
+#endif
 
-		#if UNITY_IOS
+#if UNITY_IOS
 		path = Application.persistentDataPath + "/localTemp/" + (video as LocalVideo).videoName;
-		#endif
+#endif
 
 		//Texture2D texture = LocalVideoManager.instance.GetThumbnailFromCache (path);
 		
@@ -82,7 +88,7 @@ public class LocalVideoUI: VideoUI
        
     }
 		
-	#region NativeUI AlertPopup	
+#region NativeUI AlertPopup	
 	/// <summary>
 	/// Gets the alert when not loggin.
 	/// </summary>
@@ -96,7 +102,7 @@ public class LocalVideoUI: VideoUI
         base.OnAlertDeleteComplete();
 	}
 
-    #endregion
+#endregion
 
     public override void OnLoadedThumbnail()
     {

@@ -16,17 +16,18 @@ public class UserVideoUI : VideoUI
 {
 	[SerializeField] protected RawImage video_image = null;
 	[SerializeField] protected Text video_name = null;
-	[SerializeField] protected Text video_length = null;
-	[SerializeField] protected Text video_size = null;
-	[SerializeField] protected Text video_desc = null;
-	//[SerializeField] protected RawImage bookmarkIcon = null;
+	[SerializeField] protected Text videoRegistration_videoSize = null;
+    //[SerializeField] protected Text video_desc = null;
+    //[SerializeField] protected RawImage bookmarkIcon = null;
 
-	public GameObject videoDownloaderPrefab = null;
+    public GameObject videoDownloaderPrefab = null;
 	private VideoDownloader videoDownloader;
 
 	[Header("Favorite")]
 	[SerializeField] protected GameObject favoriteBtn;
-	[SerializeField] protected GameObject unfavoriteBtn;
+    [SerializeField] protected Text favoriteText;
+    [SerializeField] protected Text unFavoriteText;
+    [SerializeField] protected GameObject unfavoriteBtn;
 
 	private string path;
 
@@ -52,75 +53,102 @@ public class UserVideoUI : VideoUI
 
 		float viseoSize  = video.videoInfo.size / 1024;
 
-		// compare KB With KB
-		if ((space * 1024) > viseoSize) {
-			
-			if (MainAllController.instance != null) {
+        
+        if (video.videoInfo.status == "200") // if Video can download (200)
+        {
+            // compare KB With KB
+            if ((space * 1024) > viseoSize)
+            {
 
-				MainAllController.instance.PlayButtonSound ();
+                if (MainAllController.instance != null)
+                {
 
-				if (video.isDownloaded ()) {
-					NativeUI.Alert ("", "You have downloaded this video!");
-					return;
-				}
+                    MainAllController.instance.PlayButtonSound();
 
-				GameObject videoDownloaderObj = GameObject.Find ("VideoDownLoader" + "-" + video.videoInfo.id);
+                    if (video.isDownloaded())
+                    {
+                        NativeUI.Alert("", "You have downloaded this video!");
+                        return;
+                    }
 
-				if (videoDownloaderObj != null) {
+                    GameObject videoDownloaderObj = GameObject.Find("VideoDownLoader" + "-" + video.videoInfo.id);
 
-					Debug.Log ("Already in Download Menu!!!");
-					DownloadMenu.instance.StartDownload (video);
-					GoToDownloadMenu ();
+                    if (videoDownloaderObj != null)
+                    {
 
-				} else {
-					string authToken = MainAllController.instance.user.token;
-					if (authToken != null) {
+                        Debug.Log("Already in Download Menu!!!");
+                        DownloadMenu.instance.StartDownload(video);
+                        GoToDownloadMenu();
 
-						ScreenLoading.instance.Play ();
+                    }
+                    else
+                    {
+                        string authToken = MainAllController.instance.user.token;
+                        if (authToken != null)
+                        {
 
-						Networking.instance.GetVideoLinkRequest (video.videoInfo.id, authToken, OnGetLink, OnFailedGetStreamingLink);
-					}
-				}
-			}
-		} else {
-			
-			if (SystemLanguageManager.instance != null){
-				if (SystemLanguageManager.instance.IsEnglishLanguage){
-					AndroidDialog.instance.showLoginDialog ("Usable capacity is not available!", OnAlertDownloadComplete, "Yes", "No", true);
-				}
+                            ScreenLoading.instance.Play();
 
-				if (SystemLanguageManager.instance.IsKoreanLanguage){
-					AndroidDialog.instance.showLoginDialog ("사용 가능한 용량을 사용할 수 없습니다!", OnAlertDownloadComplete, "예", "아니오", true);
-				}
+                            Networking.instance.GetVideoLinkRequest(video.videoInfo.id, authToken, OnGetLink, OnFailedGetStreamingLink);
+                        }
+                    }
+                }
+            }
+            else
+            {
 
-				if (SystemLanguageManager.instance.IsJapaneseLanguage){
-					AndroidDialog.instance.showLoginDialog ("使用可能容量がありません!", OnAlertDownloadComplete, "はい", "いいえ", true);
-				}
+                if (SystemLanguageManager.instance != null)
+                {
+                    if (SystemLanguageManager.instance.IsEnglishLanguage)
+                    {
+                        AndroidDialog.instance.showLoginDialog("Usable capacity is not available!", OnAlertDownloadComplete, "Yes", "No", true);
+                    }
 
-				if (SystemLanguageManager.instance.IsChineseLanguage){
-					AndroidDialog.instance.showLoginDialog ("可用容量不可用!", OnAlertDownloadComplete, "是", "沒有", true);
-				}
+                    if (SystemLanguageManager.instance.IsKoreanLanguage)
+                    {
+                        AndroidDialog.instance.showLoginDialog("사용 가능한 용량을 사용할 수 없습니다!", OnAlertDownloadComplete, "예", "아니오", true);
+                    }
 
-				if (SystemLanguageManager.instance.IsOtherLanguage){
-					AndroidDialog.instance.showLoginDialog ("Usable capacity is not available!", OnAlertDownloadComplete, "Yes", "No", true);
-				}
-			}
+                    if (SystemLanguageManager.instance.IsJapaneseLanguage)
+                    {
+                        AndroidDialog.instance.showLoginDialog("使用可能容量がありません!", OnAlertDownloadComplete, "はい", "いいえ", true);
+                    }
 
-		}
+                    if (SystemLanguageManager.instance.IsChineseLanguage)
+                    {
+                        AndroidDialog.instance.showLoginDialog("可用容量不可用!", OnAlertDownloadComplete, "是", "沒有", true);
+                    }
 
+                    if (SystemLanguageManager.instance.IsOtherLanguage)
+                    {
+                        AndroidDialog.instance.showLoginDialog("Usable capacity is not available!", OnAlertDownloadComplete, "Yes", "No", true);
+                    }
+                }
+
+            }
+        }
+        else if(video.videoInfo.status == "405") // if Video need payment (405)
+        {
+            Debug.Log("VIDEO" + "_" + video.videoInfo.id + " : " + "Need payment");
+            if (MainAllController.instance != null)
+            {
+                MainAllController.instance.PurchaseAlert();
+            }
+        }
 	}
 
 	private void OnAlertDownloadComplete(){
 	
 	}
 
-	public void OnFailedGetStreamingLink()
+	protected virtual void OnFailedGetStreamingLink()
 	{
-		ScreenLoading.instance.Stop ();
+        if (SystemLanguageManager.instance != null)
+        {
+            SystemLanguageManager.instance.ErrorNetworkAlert();
+        }
 
-		if (VR_MainMenu.instance != null) {
-			VR_MainMenu.instance.HideLoadingUI ();
-		}
+        ScreenLoading.instance.Stop ();
 	}
 
 	public void OnGetLink(GetLinkVideoResponse getLinkVideoResponse){
@@ -169,14 +197,22 @@ public class UserVideoUI : VideoUI
 
 				GoToDownloadMenu ();
 
-				VR_UserVideoMenu menu = UnityEngine.Object.FindObjectOfType<VR_UserVideoMenu> ();
-				if (menu != null) {
-					menu.FastRefresh ();
-				}
+                VR_UserVideoMenu vr_UserVideoMenu = UnityEngine.Object.FindObjectOfType<VR_UserVideoMenu>();
+                VR_FavoriteMenu vr_FavoriteMenu = UnityEngine.Object.FindObjectOfType<VR_FavoriteMenu>();
 
-				// Remove self from menu
-				//DestroySelf ();
-			}
+                if (vr_UserVideoMenu != null)
+                {
+                    vr_UserVideoMenu.FastRefresh();
+                }
+
+                if (vr_FavoriteMenu != null)
+                {
+                    vr_FavoriteMenu.FastRefresh();
+                }
+
+                // Remove self from menu
+                //DestroySelf ();
+            }
 
 		} catch (System.Exception e)
 		{
@@ -214,9 +250,8 @@ public class UserVideoUI : VideoUI
 		base.Setup (video);
 		video_name.text = video.videoInfo.video_name;
 
-		this.video_length.text = MakeRegistrationDateString() + " | " +((video.videoInfo.size / 1024) / 1024) + " MB"; ;
-		video_size.text = ((video.videoInfo.size / 1024) / 1024) + " MB";
-		video_desc.text = Regex.Unescape (video.videoInfo.description);
+		this.videoRegistration_videoSize.text = MakeRegistrationDateString() + " / " +((video.videoInfo.size / 1024) / 1024) + " MB";
+		//video_desc.text = Regex.Unescape (video.videoInfo.description);
 		video_image.texture = null;
 
 		CheckThumbnail ();
@@ -224,6 +259,9 @@ public class UserVideoUI : VideoUI
 		bool isVideoFavorited = MainAllController.instance.user.IsVideoFavorited (video);
 		//bookmarkIcon.enabled = isVideoFavorited;
 		SetupFavoriteBtns();
+
+        SetFavoriteLanguage();
+        SetPlayVideoBntLanguage();
 
         videoDownloader = null;
     }
@@ -338,12 +376,17 @@ public class UserVideoUI : VideoUI
 		}
     }
 
-	public virtual void OnFailedFavorite()
+	protected virtual void OnFailedFavorite()
 	{
 		if (ScreenLoading.instance != null){
 			ScreenLoading.instance.Stop ();
 		}
-	}
+
+        if (SystemLanguageManager.instance != null)
+        {
+            SystemLanguageManager.instance.ErrorNetworkAlert();
+        }
+    }
 
 	/// <summary>
 	/// Call this event when user click on unfavorite button
@@ -400,4 +443,11 @@ public class UserVideoUI : VideoUI
 	{
 		Setup(UserVideoMenu.instance.getVideoAtIndex(dataIndex));
 	}
+
+    protected void SetFavoriteLanguage() {
+        if (SystemLanguageManager.instance != null)
+        {
+            SystemLanguageManager.instance.SetFavorite_UnfavoriteLanguage(favoriteText,unFavoriteText);
+        }
+    }
 }

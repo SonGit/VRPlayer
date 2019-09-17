@@ -68,7 +68,8 @@ public class SystemLanguageManager : MonoBehaviour
 	private string After_playing_VR_movieString_English = "After playing VR movie, shake to open the screen setting window";
 	private string Switch_from_2D_mode_to_VR_modeString_English = "Switch from 2D mode to VR mode";
 	private string add_to_FavoritesString_English = "Add to Favorites";
-	private string this_content_is_available_after_purchaseString_English = "This content is available after purchase";
+    private string unFavoritesString_English = "Favorited";
+    private string this_content_is_available_after_purchaseString_English = "This content is available after purchase";
 	#endregion
 
 	#region VR_ScreenCursor
@@ -143,8 +144,8 @@ public class SystemLanguageManager : MonoBehaviour
 	private string networkString_Korean = "네트워크에 연결할 수 없습니다.\n네트워크 연결을 확인하고 다시 시도하십시오.";
 	private string noVideosString_Korean = "동영상 없음";
 	private string detailPageString_Korean = "상세페이지";
-	private string streaming2DString_Korean = "2D 스트리밍";
-	private string streaming3DString_Korean = "3D 스트리밍";
+	private string streaming2DString_Korean = "2D스트리밍";
+	private string streaming3DString_Korean = "3D스트리밍";
 	private string watchin2DString_Korean = "2D로보기";
 	private string watchin3DString_Korean = "3D로보기";
 	private string informationString_Korean = "기본정보";
@@ -175,12 +176,13 @@ public class SystemLanguageManager : MonoBehaviour
 	private string After_playing_VR_movieString_Korean = "VR 영상 재생 후 스마트폰을 위아래로 살짝 흔들어 화면 설정창을 연다";
 	private string Switch_from_2D_mode_to_VR_modeString_Korean = "2D 모드에서 VR 모드로 전환해서 감상할 수 있습니다";
 	private string add_to_FavoritesString_Korean = "즐겨찾기에 추가";
-	private string this_content_is_available_after_purchaseString_Korean = "이 콘텐츠는 구매 후 사용 가능합니다";
-	#endregion
+    private string unFavoritesString_Korean = "즐겨찾기";
+    private string this_content_is_available_after_purchaseString_Korean = "본 컨텐츠는 구매 후 이용 가능합니다"; 
+    #endregion
 
-	#region VR_ScreenCursor
+    #region VR_ScreenCursor
 
-	private string Hover_the_on_screenString_Korean = "화면 커서를 3초간 응시하시면 플레이어가 실행됩니다.";
+    private string Hover_the_on_screenString_Korean = "화면 커서를 3초간 응시하시면 플레이어가 실행됩니다.";
 	private string Precautions_AvoidString_Korean = "주의사항\n장시간 사용은 피하도록 하고, 눈의 피로, 멀미감과 같은 이상증상이 나타나면 즉시 사용을 중지하세요.";
 
 	#endregion
@@ -283,7 +285,8 @@ public class SystemLanguageManager : MonoBehaviour
 	private string After_playing_VR_movieString_Japanese = "VR動画を再生した後、振って画面設定ウィンドウを開く";
 	private string Switch_from_2D_mode_to_VR_modeString_Japanese = "2DモードからVRモードに切り替える";
 	private string add_to_FavoritesString_Japanese = "お気に入りに追加";
-	private string this_content_is_available_after_purchaseString_Japanese = "このコンテンツは購入後に利用可能です";
+    private string unFavoritesString_Japanese = "お気に入り";
+    private string this_content_is_available_after_purchaseString_Japanese = "このコンテンツは購入後に利用可能です";
 	#endregion
 
 	#region VR_ScreenCursor
@@ -391,7 +394,8 @@ public class SystemLanguageManager : MonoBehaviour
 	private string After_playing_VR_movieString_Chinese = "播放VR影片後，搖動以打開屏幕設置窗口";
 	private string Switch_from_2D_mode_to_VR_modeString_Chinese = "從2D模式切換到VR模式";
 	private string add_to_FavoritesString_Chinese = "添加到收藏夾";
-	private string this_content_is_available_after_purchaseString_Chinese = "購買後即可獲得此內容";
+    private string unFavoritesString_Chinese = "被收藏";
+    private string this_content_is_available_after_purchaseString_Chinese = "購買後即可獲得此內容";
 	#endregion
 
 	#region VR_ScreenCursor
@@ -442,10 +446,12 @@ public class SystemLanguageManager : MonoBehaviour
 	private string vr_RatioString_Chinese = "比";
 	private string vr_Are_you_sure_you_deviceString_Chinese = "您確定要將手機與VR設備斷開連接嗎？";
 
-	#endregion
+    #endregion
 
 
-	[Header("---- AccessMenu ----")]
+    #region Variable
+
+    [Header("---- AccessMenu ----")]
 	[SerializeField] private Text accessMenu_PhoneVideoTitle = null;
 	[SerializeField] private Text accessMenu_MyStorageName = null;
 
@@ -463,7 +469,7 @@ public class SystemLanguageManager : MonoBehaviour
 	[SerializeField] private Text accessMenu_HowtouseName = null;
 	[SerializeField] private Text accessMenu_VersionName = null;
 
-	[Header("---- LoginMenu ----")]
+    [Header("---- LoginMenu ----")]
 	[SerializeField] private Text loginMenu_Header = null;
 	[SerializeField] private Text loginMenu_AutoLogin = null;
 	[SerializeField] private Text loginMenu_Loginbnt = null;
@@ -483,7 +489,7 @@ public class SystemLanguageManager : MonoBehaviour
 	[SerializeField] private Text detailMenu_Header = null;
 	[SerializeField] private Text detailMenu_UnfavoriteBnt = null;
 	[SerializeField] private Text detailMenu_FavoriteBnt = null;
-	[SerializeField] private Text detailMenu_HaventDownloadBnt = null;
+	//[SerializeField] private Text detailMenu_HaventDownloadBnt = null;
 	[SerializeField] private Text detailMenu_Havent2DBnt = null;
 	[SerializeField] private Text detailMenu_Havent3DBnt = null;
 	[SerializeField] private Text detailMenu_Downloaded2DBnt = null;
@@ -583,8 +589,9 @@ public class SystemLanguageManager : MonoBehaviour
 	[SerializeField] private Text vr_MainMenu_VR_SensorNoButton = null;
 
 	[SerializeField] private Text vr_MainMenu_VR_UsablecapacityAlert = null;
+    [SerializeField] private Text vr_MainMenu_VR_PurchaseAlert = null;
 
-	[Header("---- VR_Settings ----")]
+    [Header("---- VR_Settings ----")]
 
 	[SerializeField] private Text vr_Settings_Top_VR_VideoTitle = null;
 	[SerializeField] private Text vr_Settings_Top_VR_ScreenTitle = null;
@@ -609,13 +616,50 @@ public class SystemLanguageManager : MonoBehaviour
 	[SerializeField] private Text vr_Settings_Bottom_Alert2DBnt_NoButton = null;
 
 
-	private bool isEnglishLanguage;
+    [Header("---- Tutorial ----")]
+    [SerializeField] private Text accessMenu00_Tutorial_TitleText = null;
+    [SerializeField] private Text accessMenu00_Tutorial_Info1Text = null;
+    [SerializeField] private Text accessMenu00_Tutorial_Info2Text = null;
+    [SerializeField] private Text accessMenu00_Tutorial_Info3Text = null;
+
+    [SerializeField] private Text accessMenu01_Tutorial_TitleText = null;
+    [SerializeField] private Text accessMenu01_Tutorial_Info1Text = null;
+    [SerializeField] private Text accessMenu01_Tutorial_Info2Text = null;
+
+    [SerializeField] private Text userVideoMenu02_Tutorial_TitleText = null;
+    [SerializeField] private Text userVideoMenu02_Tutorial_Info1Text = null;
+    [SerializeField] private Text userVideoMenu02_Tutorial_Info2Text = null;
+
+    [SerializeField] private Text userVideoMenu03_Tutorial_TitleText = null;
+    [SerializeField] private Text userVideoMenu03_Tutorial_Info1Text = null;
+    [SerializeField] private Text userVideoMenu03_Tutorial_Info2Text = null;
+
+    [SerializeField] private Text detailMenu_04_Tutorial_TitleText = null;
+    [SerializeField] private Text detailMenu_04_Tutorial_Info1Text = null;
+    [SerializeField] private Text detailMenu_04_Tutorial_Info2Text = null;
+    [SerializeField] private Text detailMenu_04_Tutorial_Info3Text = null;
+
+
+    [SerializeField] private Text downloadMenu_05_Tutorial_TitleText = null;
+    [SerializeField] private Text downloadMenu_05_Tutorial_Info1Text = null;
+    [SerializeField] private Text downloadMenu_05_Tutorial_Info2Text = null;
+    [SerializeField] private Text downloadMenu_05_Tutorial_Info3Text = null;
+    [SerializeField] private Text downloadMenu_05_Tutorial_Info4Text = null;
+
+    [SerializeField] private Text vrMode_06_Tutorial_TitleText = null;
+    [SerializeField] private Text vrMode_06_Tutorial_Info1Text = null;
+    [SerializeField] private Text vrMode_06_Tutorial_Info2Text = null;
+    [SerializeField] private Text vrMode_06_Tutorial_Info3Text = null;
+    [SerializeField] private Text vrMode_06_Tutorial_Info4Text = null;
+
+    
+    private bool isEnglishLanguage;
 	private bool isKoreanLanguage;
 	private bool isJapaneseLanguage;
 	private bool isChineseLanguage;
 	private bool isOtherLanguage;
 
-	public bool IsEnglishLanguage
+    public bool IsEnglishLanguage
 	{
 		get { return isEnglishLanguage; }
 		set { isEnglishLanguage = value; }
@@ -645,7 +689,10 @@ public class SystemLanguageManager : MonoBehaviour
 		set { isOtherLanguage = value; }
 	}
 
-	void Awake(){
+    #endregion
+
+
+    void Awake(){
 		instance = this;
 
 		LanguageViewable ();
@@ -710,39 +757,6 @@ public class SystemLanguageManager : MonoBehaviour
 			IsOtherLanguage = true;
 			break;
 		}
-		
-//		//This checks if your computer's operating system is in the English language
-//		if (Application.systemLanguage == SystemLanguage.English) {
-//			Debug.Log ("This system is in English............................................");
-//
-//			SetEnglishLanguage ();
-//		}
-//
-//		//Otherwise, if the system is Korean
-//		else if (Application.systemLanguage == SystemLanguage.Korean) {
-//			Debug.Log ("This system is in Korean.............................................");
-//
-//			SetKoreaLanguage ();
-//		}
-//
-//		//Otherwise, if the system is Japanese
-//		else if (Application.systemLanguage == SystemLanguage.Japanese) {
-//			Debug.Log ("This system is in Japanese...........................................");
-//
-//			SetJapaneseLanguage ();
-//		}
-//
-//		//Otherwise, if the system is Chinese
-//		else if (Application.systemLanguage == SystemLanguage.Chinese) {
-//			Debug.Log ("This system is in Chinese.............................................");
-//
-//			SetChineseLanguage ();
-//		} 
-//
-//		else {
-//			Debug.Log ("This system is in other language......................................");
-//			SetEnglishLanguage ();
-//		}
 	}
 
 	#region EnglishLanguage
@@ -784,10 +798,10 @@ public class SystemLanguageManager : MonoBehaviour
 
 	private void SetEnglishLanguage_DetailMenu(){
 		DisplayValueText (detailMenu_Header,detailPageTitleString_English);
-		DisplayValueText (detailMenu_UnfavoriteBnt,add_to_FavoritesString_English);
-		DisplayValueText (detailMenu_FavoriteBnt,add_to_FavoritesString_English);
-		DisplayValueText (detailMenu_HaventDownloadBnt,downloadString_English);
-		DisplayValueText (detailMenu_Havent2DBnt,streaming2DString_English);
+		DisplayValueText (detailMenu_UnfavoriteBnt, unFavoritesString_English);
+		DisplayValueText (detailMenu_FavoriteBnt, add_to_FavoritesString_English); 
+        //DisplayValueText (detailMenu_HaventDownloadBnt,downloadString_English);
+        DisplayValueText (detailMenu_Havent2DBnt,streaming2DString_English);
 		DisplayValueText (detailMenu_Havent3DBnt,streaming3DString_English);
 		DisplayValueText (detailMenu_Downloaded2DBnt,watchin2DString_English);
 		DisplayValueText (detailMenu_Downloaded3DBnt,watchin3DString_English);
@@ -897,7 +911,8 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (vr_MainMenu_VR_SensorNoButton,vr_NoString_English);
 
 		DisplayValueText (vr_MainMenu_VR_UsablecapacityAlert,vr_Usable_capacity_is_not_availableString_English);
-	}
+        DisplayValueText(vr_MainMenu_VR_PurchaseAlert, this_content_is_available_after_purchaseString_English);
+    }
 
 	private void SetEnglishLanguage_VR_Settings(){
 		DisplayValueText (vr_Settings_Top_VR_VideoTitle,vr_VideoString_English);
@@ -982,9 +997,9 @@ public class SystemLanguageManager : MonoBehaviour
 
 	private void SetKoreanLanguage_DetailMenu(){
 		DisplayValueText (detailMenu_Header,detailPageString_Korean);
-		DisplayValueText (detailMenu_UnfavoriteBnt,add_to_FavoritesString_Korean);
-		DisplayValueText (detailMenu_FavoriteBnt,add_to_FavoritesString_Korean);
-		DisplayValueText (detailMenu_HaventDownloadBnt,downloadString_Korean);
+		DisplayValueText (detailMenu_UnfavoriteBnt, unFavoritesString_Korean); 
+        DisplayValueText (detailMenu_FavoriteBnt, add_to_FavoritesString_Korean);
+		//DisplayValueText (detailMenu_HaventDownloadBnt,downloadString_Korean);
 		DisplayValueText (detailMenu_Havent2DBnt,streaming2DString_Korean);
 		DisplayValueText (detailMenu_Havent3DBnt,streaming3DString_Korean);
 		DisplayValueText (detailMenu_Downloaded2DBnt,watchin2DString_Korean);
@@ -1095,8 +1110,8 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (vr_MainMenu_VR_SensorNoButton,vr_NoString_Korean);
 
 		DisplayValueText (vr_MainMenu_VR_UsablecapacityAlert,vr_Usable_capacity_is_not_availableString_Korean);
-
-	}
+        DisplayValueText(vr_MainMenu_VR_PurchaseAlert, this_content_is_available_after_purchaseString_Korean);
+    }
 
 	private void SetKoreanLanguage_VR_Settings(){
 		DisplayValueText (vr_Settings_Top_VR_VideoTitle,vr_VideoString_Korean);
@@ -1180,10 +1195,10 @@ public class SystemLanguageManager : MonoBehaviour
 
 	private void SetJapaneseLanguage_DetailMenu(){
 		DisplayValueText (detailMenu_Header,detailPageString_Japanese);
-		DisplayValueText (detailMenu_UnfavoriteBnt,add_to_FavoritesString_Japanese);
-		DisplayValueText (detailMenu_FavoriteBnt,add_to_FavoritesString_Japanese);
-		DisplayValueText (detailMenu_HaventDownloadBnt,downloadString_Japanese);
-		DisplayValueText (detailMenu_Havent2DBnt,streaming2DString_Japanese);
+		DisplayValueText (detailMenu_UnfavoriteBnt, unFavoritesString_Japanese);
+		DisplayValueText (detailMenu_FavoriteBnt, add_to_FavoritesString_Japanese); 
+        //DisplayValueText (detailMenu_HaventDownloadBnt,downloadString_Japanese);
+        DisplayValueText (detailMenu_Havent2DBnt,streaming2DString_Japanese);
 		DisplayValueText (detailMenu_Havent3DBnt,streaming3DString_Japanese);
 		DisplayValueText (detailMenu_Downloaded2DBnt,watchin2DString_Japanese);
 		DisplayValueText (detailMenu_Downloaded3DBnt,watchin3DString_Japanese);
@@ -1294,7 +1309,8 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (vr_MainMenu_VR_SensorNoButton,vr_NoString_Japanese);
 
 		DisplayValueText (vr_MainMenu_VR_UsablecapacityAlert,vr_Usable_capacity_is_not_availableString_Japanese);
-	}
+        DisplayValueText(vr_MainMenu_VR_PurchaseAlert, this_content_is_available_after_purchaseString_Japanese);
+    }
 
 	private void SetJapaneseLanguage_VR_Settings(){
 		DisplayValueText (vr_Settings_Top_VR_VideoTitle,vr_VideoString_Japanese);
@@ -1379,10 +1395,10 @@ public class SystemLanguageManager : MonoBehaviour
 
 	private void SetChineseLanguage_DetailMenu(){
 		DisplayValueText (detailMenu_Header,detailPageString_Chinese);
-		DisplayValueText (detailMenu_UnfavoriteBnt,add_to_FavoritesString_Chinese);
-		DisplayValueText (detailMenu_FavoriteBnt,add_to_FavoritesString_Chinese);
-		DisplayValueText (detailMenu_HaventDownloadBnt,downloadString_Chinese);
-		DisplayValueText (detailMenu_Havent2DBnt,streaming2DString_Chinese);
+		DisplayValueText (detailMenu_UnfavoriteBnt, unFavoritesString_Chinese);
+		DisplayValueText (detailMenu_FavoriteBnt, add_to_FavoritesString_Chinese); 
+        //DisplayValueText (detailMenu_HaventDownloadBnt,downloadString_Chinese);
+        DisplayValueText (detailMenu_Havent2DBnt,streaming2DString_Chinese);
 		DisplayValueText (detailMenu_Havent3DBnt,streaming3DString_Chinese);
 		DisplayValueText (detailMenu_Downloaded2DBnt,watchin2DString_Chinese);
 		DisplayValueText (detailMenu_Downloaded3DBnt,watchin3DString_Chinese);
@@ -1492,7 +1508,8 @@ public class SystemLanguageManager : MonoBehaviour
 		DisplayValueText (vr_MainMenu_VR_SensorNoButton,vr_NoString_Chinese);
 
 		DisplayValueText (vr_MainMenu_VR_UsablecapacityAlert,vr_Usable_capacity_is_not_availableString_Chinese);
-	}
+        DisplayValueText(vr_MainMenu_VR_PurchaseAlert, this_content_is_available_after_purchaseString_Chinese);
+    }
 
 	private void SetChineseLanguage_VR_Settings(){
 		DisplayValueText (vr_Settings_Top_VR_VideoTitle,vr_VideoString_Chinese);
@@ -1541,8 +1558,234 @@ public class SystemLanguageManager : MonoBehaviour
 	private void DisplayValueText(Text text, string value){
 		if (text != null) {
 			text.text = value;
-		} else {
-			Debug.Log( "null...........................");
 		}
 	}
+
+    #region Set Language
+
+    public void SetFavorite_UnfavoriteLanguage(Text favoriteText, Text unfavoriteText)
+    {
+       
+        if (IsEnglishLanguage)
+        {
+            DisplayValueText(favoriteText, add_to_FavoritesString_English);
+            DisplayValueText(unfavoriteText, unFavoritesString_English);
+        }
+
+        if (IsKoreanLanguage)
+        {
+            DisplayValueText(favoriteText, add_to_FavoritesString_Korean);
+            DisplayValueText(unfavoriteText, unFavoritesString_Korean);
+        }
+
+        if (IsJapaneseLanguage)
+        {
+            DisplayValueText(favoriteText, add_to_FavoritesString_Japanese);
+            DisplayValueText(unfavoriteText, unFavoritesString_Japanese);
+        }
+
+        if (IsChineseLanguage)
+        {
+            DisplayValueText(favoriteText, add_to_FavoritesString_Chinese);
+            DisplayValueText(unfavoriteText, unFavoritesString_Chinese);
+        }
+
+        if (IsOtherLanguage)
+        {
+            DisplayValueText(favoriteText, add_to_FavoritesString_English);
+            DisplayValueText(unfavoriteText, unFavoritesString_English);
+        }
+        
+    }
+
+    public void SetPlay2D_3DLanguage(Text text2D, Text text3D)
+    {
+
+        if (IsEnglishLanguage)
+        {
+            DisplayValueText(text2D, watchin2DString_English);
+            DisplayValueText(text3D, watchin3DString_English);
+        }
+
+        if (IsKoreanLanguage)
+        {
+            DisplayValueText(text2D, watchin2DString_Korean);
+            DisplayValueText(text3D, watchin3DString_Korean);
+        }
+
+        if (IsJapaneseLanguage)
+        {
+            DisplayValueText(text2D, watchin2DString_Japanese);
+            DisplayValueText(text3D, watchin3DString_Japanese);
+        }
+
+        if (IsChineseLanguage)
+        {
+            DisplayValueText(text2D, watchin2DString_Chinese);
+            DisplayValueText(text3D, watchin3DString_Chinese);
+        }
+
+        if (IsOtherLanguage)
+        {
+            DisplayValueText(text2D, watchin2DString_English);
+            DisplayValueText(text3D, watchin3DString_English);
+        }
+
+    }
+
+    public void SetStream2D_3DLanguage(Text text2D, Text text3D)
+    {
+
+        if (IsEnglishLanguage)
+        {
+            DisplayValueText(text2D, streaming2DString_English);
+            DisplayValueText(text3D, streaming3DString_English);
+        }
+
+        if (IsKoreanLanguage)
+        {
+            DisplayValueText(text2D, streaming2DString_Korean);
+            DisplayValueText(text3D, streaming3DString_Korean);
+        }
+
+        if (IsJapaneseLanguage)
+        {
+            DisplayValueText(text2D, streaming2DString_Japanese);
+            DisplayValueText(text3D, streaming3DString_Japanese);
+        }
+
+        if (IsChineseLanguage)
+        {
+            DisplayValueText(text2D, streaming2DString_Chinese);
+            DisplayValueText(text3D, streaming3DString_Chinese);
+        }
+
+        if (IsOtherLanguage)
+        {
+            DisplayValueText(text2D, streaming2DString_English);
+            DisplayValueText(text3D, streaming3DString_English);
+        }
+
+    }
+
+    #endregion
+
+    #region Alert
+
+    public void UsernameFieldAlert() {
+        if (IsEnglishLanguage)
+        {
+            AndroidDialog.instance.showWarningDialog("Enter your email");
+        }
+
+        if (IsKoreanLanguage)
+        {
+            AndroidDialog.instance.showWarningDialog("이메일을 입력하십시오");
+        }
+
+        if (IsJapaneseLanguage)
+        {
+            AndroidDialog.instance.showWarningDialog("メールアドレスを入力");
+        }
+
+        if (IsChineseLanguage)
+        {
+            AndroidDialog.instance.showWarningDialog("輸入你的電子郵箱");
+        }
+
+        if (IsOtherLanguage)
+        {
+            AndroidDialog.instance.showWarningDialog("Enter your email");
+        }
+    }
+
+    public void PasswordFieldAlert()
+    {
+        if (IsEnglishLanguage)
+        {
+            AndroidDialog.instance.showWarningDialog("Enter your password");
+        }
+
+        if (IsKoreanLanguage)
+        {
+            AndroidDialog.instance.showWarningDialog("비밀번호를 입력하십시오");
+        }
+
+        if (IsJapaneseLanguage)
+        {
+            AndroidDialog.instance.showWarningDialog("パスワードを入力してください");
+        }
+
+        if (IsChineseLanguage)
+        {
+            AndroidDialog.instance.showWarningDialog("輸入您的密碼");
+        }
+
+        if (IsOtherLanguage)
+        {
+            AndroidDialog.instance.showWarningDialog("Enter your password");
+        }
+    }
+
+    public void ErrorLoginAlert()
+    {
+        if (IsEnglishLanguage)
+        {
+            AndroidDialog.instance.showWarningDialog("ID/Email does not exist");
+        }
+
+        if (IsKoreanLanguage)
+        {
+            AndroidDialog.instance.showWarningDialog("아이디/이메일이 존재하지 않습니다");
+        }
+
+        if (IsJapaneseLanguage)
+        {
+            AndroidDialog.instance.showWarningDialog("ID/メールが存在しません");
+        }
+
+        if (IsChineseLanguage)
+        {
+            AndroidDialog.instance.showWarningDialog("ID/電子郵件不存在");
+        }
+
+        if (IsOtherLanguage)
+        {
+            AndroidDialog.instance.showWarningDialog("ID/Email does not exist");
+        }
+    }
+
+    public void ErrorNetworkAlert()
+    {
+        if (IsEnglishLanguage)
+        {
+            AndroidDialog.instance.showWarningDialog("Please check your network connection and try again.");
+        }
+
+        if (IsKoreanLanguage)
+        {
+            AndroidDialog.instance.showWarningDialog("네트워크 연결을 확인하고 다시 시도하십시오.");
+        }
+
+        if (IsJapaneseLanguage)
+        {
+            AndroidDialog.instance.showWarningDialog("ネットワーク接続を確認してもう一度やり直してください。");
+        }
+
+        if (IsChineseLanguage)
+        {
+            AndroidDialog.instance.showWarningDialog("請檢查您的網絡連接，然後重試。");
+        }
+
+        if (IsOtherLanguage)
+        {
+            AndroidDialog.instance.showWarningDialog("Please check your network connection and try again.");
+        }
+    }
+
+    
+
+
+
+    #endregion
 }

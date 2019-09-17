@@ -11,10 +11,11 @@ public class DownloadMenu : BasicMenuNavigation
 {
 	public static DownloadMenu instance;
 
-	void Awake()
-	{
+    protected override void Awake()
+    {
 		instance = this;
-	}
+        cellViewSize = Utility.CELLVIEWSIZE;
+    }
 
 	protected override void Start ()
 	{
@@ -188,7 +189,7 @@ public class DownloadMenu : BasicMenuNavigation
 	public override float GetCellViewSize (EnhancedScroller scroller, int dataIndex)
 	{
 		// header views
-		return 500f;
+		return cellViewSize;
 	}
 
 	public override EnhancedScrollerCellView GetCellView (EnhancedScroller scroller, int dataIndex, int cellIndex)

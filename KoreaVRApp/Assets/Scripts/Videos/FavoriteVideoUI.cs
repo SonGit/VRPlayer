@@ -34,16 +34,19 @@ public class FavoriteVideoUI : UserVideoUI
 	{
 		this.video = video;
 		video_name.text = video.videoInfo.video_name;
-		//video_length.text = (video.videoInfo.length).ToString();
-		//this.video_length.text = "00:00:00";
+        //video_length.text = (video.videoInfo.length).ToString();
+        //this.video_length.text = "00:00:00";
 
-		video_size.text = MakeRegistrationDateString() + "  |  " + ((video.videoInfo.size / 1024) / 1024) + " MB";
-		video_desc.text = Regex.Unescape (video.videoInfo.description);
+        videoRegistration_videoSize.text = MakeRegistrationDateString() + " / " + ((video.videoInfo.size / 1024) / 1024) + " MB";
+		//video_desc.text = Regex.Unescape (video.videoInfo.description);
 		video_image.texture = null;
 
 		SetupFavoriteBtns ();
 
 		CheckThumbnail ();
+
+        SetFavoriteLanguage();
+        SetPlayVideoBntLanguage();
 
 		UiSwitch ();
 	}
@@ -132,7 +135,7 @@ public class FavoriteVideoUI : UserVideoUI
 		base.OnCompleteFavorite (callback);
 	}
 
-	public override void OnFailedFavorite ()
+	protected override void OnFailedFavorite ()
 	{
 		base.OnFailedFavorite ();
 	}

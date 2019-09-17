@@ -14,7 +14,7 @@ public class AlertMenu : MonoBehaviour
 	[SerializeField] private GameObject alertPurchase;
 
 	private float _delayCount = 0;
-	private float _delayTime = 2.5f;
+	private float _delayTime = 2.2f;
 
     // Start is called before the first frame update
     void Start()

@@ -24,7 +24,16 @@ public class VideoUI : EnhancedScrollerCellView
 	protected bool isDownloadThumbnail;
 	protected float delayCount;
 
-	public Video video
+    protected Video _video;
+
+    private bool downloadingThumbnail;
+
+    [SerializeField] protected Text downloaded2D_Text;
+    [SerializeField] protected Text downloaded3D_Text;
+    [SerializeField] protected Text streaming2D_Text;
+    [SerializeField] protected Text streaming3D_Text;
+
+    public Video video
 	{
 		get {
 			return _video;
@@ -35,15 +44,11 @@ public class VideoUI : EnhancedScrollerCellView
 			_video = value;
 		}
 	}
-
-	protected Video _video;
-
-	private bool downloadingThumbnail;
+	
 
     // Start is called before the first frame update
     void Start()
     {
-		print ("CREATE THUMBNAIL");
 		thumbnailTexture = new Texture2D(4, 4, TextureFormat.DXT1, false);
     }
 
@@ -78,13 +83,14 @@ public class VideoUI : EnhancedScrollerCellView
     }
 
     #region Go Detail page
+
     public void GoDetailVideo(){
 		if(MainAllController.instance != null){
 			MainAllController.instance.PlayButtonSound ();
 		}
 
 		if (MainAllController.instance != null){
-			MainAllController.instance.UserVideo_OnUserVideoDetail ();
+			MainAllController.instance.CurrentMenu_OnUserVideoDetailMenu ();
 		}
 
 		SetDetailVideoInfo ();
@@ -99,9 +105,12 @@ public class VideoUI : EnhancedScrollerCellView
 			userDetailMenu.Setup(video,this);
 		}
 	}
-	#endregion
+    #endregion
 
-	protected long GetDownloadProgress()
+
+    #region GetDownloadProgress
+
+    protected long GetDownloadProgress()
 	{
 		string filepath = MainAllController.instance.user.GetPathToFile (video.videoInfo.id,video.videoInfo.video_name);
 
@@ -119,9 +128,12 @@ public class VideoUI : EnhancedScrollerCellView
 		return 0;
 	}
 
+    #endregion
 
 
-	protected void LoadThumbnail(string thumbnailURL)
+    #region LoadThumbnail
+
+    protected void LoadThumbnail(string thumbnailURL)
 	{
 		try
 		{
@@ -155,15 +167,16 @@ public class VideoUI : EnhancedScrollerCellView
 	{
 		
 	}
-		
+
+    #endregion
 
 
-	#region DownloadThumbnail
+    #region DownloadThumbnail
 
-	/// <summary>
-	/// Attemp to check if thumbnail has been downloaded. It not, download and set thumbnail image
-	/// </summary>
-	public void CheckAndDownloadThumbnail()
+    /// <summary>
+    /// Attemp to check if thumbnail has been downloaded. It not, download and set thumbnail image
+    /// </summary>
+    public void CheckAndDownloadThumbnail()
 	{
 		string thumbnailURL = string.Empty;
 
@@ -356,6 +369,7 @@ public class VideoUI : EnhancedScrollerCellView
 
 	#endregion
 
+
 	#region LoadingScreen
 	public void PlayLoadingScreen()
 	{
@@ -370,9 +384,12 @@ public class VideoUI : EnhancedScrollerCellView
 			rootLoading.SetActive(false);
 		}
 	}
-	#endregion
+    #endregion
 
-	public void PlayIn2D()
+
+    #region Play 2D
+
+    public void PlayIn2D()
 	{		
 		if(MainAllController.instance != null){
 			MainAllController.instance.PlayButtonSound ();
@@ -391,7 +408,12 @@ public class VideoUI : EnhancedScrollerCellView
 		}
 	}
 
-	public virtual void PlayIn3D()
+    #endregion
+
+
+    #region Play 3D
+
+    public virtual void PlayIn3D()
 	{
 		if(MainAllController.instance != null){
 			MainAllController.instance.PlayButtonSound ();
@@ -401,13 +423,140 @@ public class VideoUI : EnhancedScrollerCellView
 			MainAllController.instance.Play3D (video, this);
 		}
 
-        if (playBnt != null)
+        if (vr_PlayBnt != null)
         {
-            playBnt.SetActive(false);
+            vr_PlayBnt.gameObject.SetActive(false);
         }
     }
 
-	System.TimeSpan ts;
+    #endregion
+
+
+    #region Streaming 2D
+
+    public void OnClickStreaming2D()
+    {
+        if (MainAllController.instance != null)
+        {
+            MainAllController.instance.PlayButtonSound();
+        }
+
+        if (video.videoInfo.status == "200")
+        {
+            Streaming2D(video.videoInfo.id);
+        }
+        else if (video.videoInfo.status == "405") // if Video need payment (405)
+        {
+            Debug.Log("VIDEO" + "_" + video.videoInfo.id + " : " + "Need payment");
+            if (MainAllController.instance != null)
+            {
+                MainAllController.instance.PurchaseAlert();
+            }
+        }
+    }
+
+    void Streaming2D(string id)
+    {
+        ScreenLoading.instance.Play();
+        Networking.instance.GetVideoLinkRequest(id, MainAllController.instance.user.token, OnGetStreamingLink2D, OnFailedGetStreamingLink2D);
+    }
+
+    void OnGetStreamingLink2D(GetLinkVideoResponse getLinkVideoResponse)
+    {
+        try
+        {
+            MainAllController.instance.Streaming2D(video, this, getLinkVideoResponse.link);
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("OnGetStreamingLink Exception " + e.Message);
+
+        }
+        finally
+        {
+
+            ScreenLoading.instance.Stop();
+        }
+    }
+
+    void OnFailedGetStreamingLink2D()
+    {
+        ScreenLoading.instance.Stop();
+
+        if (SystemLanguageManager.instance != null)
+        {
+            SystemLanguageManager.instance.ErrorNetworkAlert();
+        }
+    }
+
+    #endregion
+
+    #region Streaming 3D
+
+    /// <summary>
+    /// This is called when user clicked on 3D Streaming button
+    /// </summary>
+    public virtual void OnClickStreaming3D()
+    {
+        if (MainAllController.instance != null)
+        {
+            MainAllController.instance.PlayButtonSound();
+        }
+
+        if (video.videoInfo.status == "200")
+        {
+            Streaming3D(video.videoInfo.id);
+        }
+        else if (video.videoInfo.status == "405") // if Video need payment (405)
+        {
+            Debug.Log("VIDEO" + "_" + video.videoInfo.id + " : " + "Need payment");
+            if (MainAllController.instance != null)
+            {
+                MainAllController.instance.PurchaseAlert();
+            }
+        }
+    }
+
+    void Streaming3D(string id)
+    {
+        ScreenLoading.instance.Play();
+        Networking.instance.GetVideoLinkRequest(id, MainAllController.instance.user.token, OnGetStreamingLink, OnFailedGetStreamingLink);
+    }
+
+    void OnGetStreamingLink(GetLinkVideoResponse getLinkVideoResponse)
+    {
+        try
+        {
+            MainAllController.instance.Streaming3D(video, this, getLinkVideoResponse.link);
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("OnGetStreamingLink Exception " + e.Message);
+
+        }
+        finally
+        {
+
+            ScreenLoading.instance.Stop();
+        }
+    }
+
+    void OnFailedGetStreamingLink()
+    {
+        ScreenLoading.instance.Stop();
+
+        if (SystemLanguageManager.instance != null)
+        {
+            SystemLanguageManager.instance.ErrorNetworkAlert();
+        }
+    }
+
+    #endregion
+
+
+    #region Make Length Video
+
+    System.TimeSpan ts;
 	public string MakeLengthString()
 	{
 		if (video.videoInfo.length != null) {
@@ -427,18 +576,21 @@ public class VideoUI : EnhancedScrollerCellView
 		return string.Empty;
 	}
 
-	#region VR UI Animation
-	// Caching
-	private Vector3 currentPos;
+    #endregion
+
+
+    #region VR UI Animation
+    // Caching
+    private Vector3 currentPos;
 
 	private bool pointerEntered;
 
 	public Transform root;
 
 	[SerializeField]
-	private GameObject playBnt;
+	protected VR_FlashButton vr_PlayBnt;
 
-	[SerializeField]
+    [SerializeField]
 	private float animUpLimit = -60;
 
 	// Put this in Update()
@@ -471,28 +623,43 @@ public class VideoUI : EnhancedScrollerCellView
     public void OnPointerEnter()
 	{
 		pointerEntered = true;
-        if (playBnt != null)
+        if (vr_PlayBnt != null)
         {
-            playBnt.SetActive(true);
+            vr_PlayBnt.gameObject.SetActive(true);
         }
     }
 
 	public void OnPointerExit()
 	{
 		pointerEntered = false;
-        if (playBnt != null)
+        if (vr_PlayBnt != null)
         {
-            playBnt.SetActive(false);
+            vr_PlayBnt.gameObject.SetActive(false);
         }
     }
 
-	#endregion
+    #endregion
 
-	#region NativeUI AlertPopup	
-	/// <summary>
-	/// Gets the alert when not loggin.
-	/// </summary>
-	public virtual void GetAlertDelete(){
+
+    #region SetLanguage
+
+    protected void SetPlayVideoBntLanguage()
+    {
+        if (SystemLanguageManager.instance != null)
+        {
+            SystemLanguageManager.instance.SetPlay2D_3DLanguage(downloaded2D_Text,downloaded3D_Text);
+            SystemLanguageManager.instance.SetStream2D_3DLanguage(streaming2D_Text, streaming3D_Text);
+        }
+    }
+
+    #endregion
+
+
+    #region NativeUI AlertPopup	
+    /// <summary>
+    /// Gets the alert when not loggin.
+    /// </summary>
+    public virtual void GetAlertDelete(){
 
     #if UNITY_ANDROID
     
@@ -543,7 +710,10 @@ public class VideoUI : EnhancedScrollerCellView
     {
         pendingDelete = true;
     }
-#endregion
+    #endregion
+
+
+    #region CheckIfEnoughSpace
 
     /// <summary>
     /// Checks if enough space for download video.
@@ -571,15 +741,24 @@ public class VideoUI : EnhancedScrollerCellView
 		}
 	}
 
-	protected String MakeRegistrationDateString()
+    #endregion
+
+
+    #region MakeRegistrationDate
+
+    protected String MakeRegistrationDateString()
 	{
 		if (video != null && video.videoInfo != null) {
-			return video.videoInfo.dateTime.Date.Year + "-" + video.videoInfo.dateTime.Date.Month + "-" + video.videoInfo.dateTime.Date.Day;
+			return video.videoInfo.dateTime.Date.Year + "." + video.videoInfo.dateTime.Date.Month + "." + video.videoInfo.dateTime.Date.Day;
 		}
 		return String.Empty;
 	}
 
-	protected void Delete()
+    #endregion
+
+    #region Delete Video
+
+    protected void Delete()
 	{
 		if(MainAllController.instance != null){
 			MainAllController.instance.PlayButtonSound ();
@@ -599,6 +778,15 @@ public class VideoUI : EnhancedScrollerCellView
     {
 		yield return new WaitForSeconds (0.5f);
 
+        DeleteLocalVideo();
+
+        DeleteDownloadVideo();
+
+        DeleteInboxVideo();
+    }
+
+    public void DeleteLocalVideo()
+    {
         if (this is LocalVideoUI)
         {
             try
@@ -616,7 +804,10 @@ public class VideoUI : EnhancedScrollerCellView
                 menu.Refresh();
             }
         }
+    }
 
+    public void DeleteDownloadVideo()
+    {
         if (this is DownloadVideoUI)
         {
             string path = String.Empty;
@@ -640,19 +831,22 @@ public class VideoUI : EnhancedScrollerCellView
                 menu.Refresh();
             }
         }
+    }
 
+    public void DeleteInboxVideo()
+    {
         if (this is InboxVideoUI)
         {
-			string path = String.Empty;
+            string path = String.Empty;
 
             try
             {
-				path = Path.Combine (MainAllController.instance.user.GetPath(), video.videoInfo.id);
+                path = Path.Combine(MainAllController.instance.user.GetPath(), video.videoInfo.id);
 
-				if (Directory.Exists(path))
-				{
-					Directory.Delete(path, true);
-				}
+                if (Directory.Exists(path))
+                {
+                    Directory.Delete(path, true);
+                }
             }
             catch (Exception e)
             {
@@ -666,5 +860,7 @@ public class VideoUI : EnhancedScrollerCellView
             }
         }
     }
+
+    #endregion
 
 }

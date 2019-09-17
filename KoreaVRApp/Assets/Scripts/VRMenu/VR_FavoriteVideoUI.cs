@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class VR_FavoriteVideoUI : UserVideoUI
+public class VR_FavoriteVideoUI : VR_UserVideoUI
 {
+    [Header("Component")]
+    [SerializeField] Button downloadBnt;
 
     // Start is called before the first frame update
     void Start()
@@ -23,11 +26,13 @@ public class VR_FavoriteVideoUI : UserVideoUI
 			this.video = video;
 			video_name.text = video.videoInfo.video_name;
 			//video_length.text = (video.videoInfo.length).ToString();
-			this.video_length.text = MakeLengthString ();
+			this.videoRegistration_videoSize.text = MakeLengthString ();
 			SetupFavoriteBtns ();
 			video_image.texture = null;
 
 			CheckThumbnail ();
+
+            UiSwitch();
         }
 	
 	}
@@ -38,10 +43,54 @@ public class VR_FavoriteVideoUI : UserVideoUI
 		base.Update ();
 	}
 
-	/// <summary>
-	/// Call this event when user click on favorite button
-	/// </summary>
-	public override void OnClickFavoriteButton ()
+    public override void UiSwitch()
+    {
+        base.UiSwitch();
+
+        if (video != null)
+        {
+            if (video.isDownloaded())
+            {
+                ShowDownloadedUI();
+            }
+            else
+            {
+                ShowHavenotDownloadedUI();
+            }
+
+        }
+        else
+        {
+            Debug.Log("VIDEO IS NULL!");
+        }
+    }
+
+    void ShowDownloadedUI()
+    {
+        if (vr_PlayBnt != null)
+        {
+            vr_PlayBnt.gameObject.SetActive(false);
+            vr_PlayBnt.onClick.RemoveAllListeners();
+            vr_PlayBnt.onClick.AddListener(PlayIn3D);
+            downloadBnt.gameObject.SetActive(false);
+        }
+    }
+
+    void ShowHavenotDownloadedUI()
+    {
+        if (vr_PlayBnt != null)
+        {
+            vr_PlayBnt.gameObject.SetActive(false);
+            vr_PlayBnt.onClick.RemoveAllListeners();
+            vr_PlayBnt.onClick.AddListener(ClickPlayBnt);
+            downloadBnt.gameObject.SetActive(true);
+        }
+    }
+
+    /// <summary>
+    /// Call this event when user click on favorite button
+    /// </summary>
+    public override void OnClickFavoriteButton ()
 	{
 		if (VR_MainMenu.instance != null) {
 
@@ -57,7 +106,8 @@ public class VR_FavoriteVideoUI : UserVideoUI
 				}
 			} else {
 				VR_MainMenu.instance.ShowNetworkAlert ();
-			}
+                VR_MainMenu.instance.HideLoadingUI();
+            }
 		}
 	}
 
@@ -80,10 +130,11 @@ public class VR_FavoriteVideoUI : UserVideoUI
 		}
 	}
 
-	public override void OnFailedFavorite ()
+	protected override void OnFailedFavorite ()
 	{
 		if (VR_MainMenu.instance != null){
 			VR_MainMenu.instance.HideLoadingUI ();
+            VR_MainMenu.instance.ShowNetworkAlert();
 		}
 	}
 
@@ -106,7 +157,8 @@ public class VR_FavoriteVideoUI : UserVideoUI
 				}
 			} else {
 				VR_MainMenu.instance.ShowNetworkAlert ();
-			}
+                VR_MainMenu.instance.HideLoadingUI();
+            }
 		}
 	}
 

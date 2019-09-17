@@ -21,8 +21,9 @@ public class UserDetailMenu : BasicMenuNavigation
 	[SerializeField] private Text video_date = null;
 	[SerializeField] private Text video_genre = null;
 	[SerializeField] private Button BtnDownload;
+    
 
-	[Header("---- Favorite ----")]
+    [Header("---- Favorite ----")]
 	[SerializeField] private GameObject favoriteBtn;
 	[SerializeField] private GameObject unfavoriteBtn;
 
@@ -39,7 +40,10 @@ public class UserDetailMenu : BasicMenuNavigation
     private byte[] raw ;
 	[SerializeField] private ScreenShotUI[] ScreenShotUIArray;
 
-	protected override void Start ()
+    Video video;
+    VideoUI currentShowUI;
+
+    protected override void Start ()
 	{
 		base.Start ();
 		ResetScrollView ();
@@ -61,7 +65,9 @@ public class UserDetailMenu : BasicMenuNavigation
 		MainAllController.instance.OnDownloadedVideo += OnDownloadedVideo;
 	}
 
-	public Text GetVideoName()
+    #region Get Info
+
+    public Text GetVideoName()
 	{
 		if (video_name != null){
 			return video_name;
@@ -117,10 +123,15 @@ public class UserDetailMenu : BasicMenuNavigation
 		return null;
 	}
 
-	/// <summary>
-	/// Resets the scroll view (RectTransform).
-	/// </summary>
-	public void ResetScrollView(){
+    #endregion
+
+
+    #region ResetScrollView
+
+    /// <summary>
+    /// Resets the scroll view (RectTransform).
+    /// </summary>
+    public void ResetScrollView(){
         StartCoroutine(ResetScroll());
 	}
 
@@ -136,10 +147,28 @@ public class UserDetailMenu : BasicMenuNavigation
         yield return null;
     }
 
-	Video video;
-	VideoUI currentShowUI;
+    #endregion
 
-	public void Setup(Video video, VideoUI currentShowUI)
+
+    #region OnClickDownloadBnt
+
+    private void OnClickDownload()
+    {
+        if (currentShowUI)
+        {
+            if (currentShowUI is UserVideoUI)
+            {
+                (currentShowUI as UserVideoUI).Download();
+            }
+        }
+    }
+
+    #endregion
+
+
+    #region Setup Detail page
+
+    public void Setup(Video video, VideoUI currentShowUI)
 	{
 		GetVideoName().text = video.videoInfo.video_name;
 		GetVideoModel ().text = video.videoInfo.actor;
@@ -178,19 +207,33 @@ public class UserDetailMenu : BasicMenuNavigation
         ResetScrollView();
     }
 
-	#region Streaming 3D
+    #endregion
 
-	/// <summary>
-	/// This is called when user clicked on 3D Streaming button
-	/// </summary>
-	public void OnClickStreaming3D()
+
+    #region Streaming 3D
+
+    /// <summary>
+    /// This is called when user clicked on 3D Streaming button
+    /// </summary>
+    public void OnClickStreaming3D()
 	{
-		Streaming3D (video.videoInfo.id);
-
 		if(MainAllController.instance != null){
 			MainAllController.instance.PlayButtonSound ();
 		}
-	}
+
+        if (video.videoInfo.status == "200")
+        {
+            Streaming3D(video.videoInfo.id);
+        }
+        else if (video.videoInfo.status == "405") // if Video need payment (405)
+        {
+            Debug.Log("VIDEO" + "_" + video.videoInfo.id + " : " + "Need payment");
+            if (MainAllController.instance != null)
+            {
+                MainAllController.instance.PurchaseAlert();
+            }
+        }
+    }
 
 	void Streaming3D(string id)
 	{
@@ -217,20 +260,37 @@ public class UserDetailMenu : BasicMenuNavigation
 	void OnFailedGetStreamingLink()
 	{
 		ScreenLoading.instance.Stop ();
-	}
+
+        if (SystemLanguageManager.instance != null)
+        {
+            SystemLanguageManager.instance.ErrorNetworkAlert();
+        }
+    }
 
 	#endregion
+
 
 	#region Streaming 2D
 
 	public void OnClickStreaming2D()
 	{
-		Streaming2D (video.videoInfo.id);
-
 		if(MainAllController.instance != null){
 			MainAllController.instance.PlayButtonSound ();
 		}
-	}
+
+        if (video.videoInfo.status == "200")
+        {
+            Streaming2D(video.videoInfo.id);
+        }
+        else if (video.videoInfo.status == "405") // if Video need payment (405)
+        {
+            Debug.Log("VIDEO" + "_" + video.videoInfo.id + " : " + "Need payment");
+            if (MainAllController.instance != null)
+            {
+                MainAllController.instance.PurchaseAlert();
+            }
+        }
+    }
 
 	void Streaming2D(string id)
 	{
@@ -257,24 +317,23 @@ public class UserDetailMenu : BasicMenuNavigation
 	void OnFailedGetStreamingLink2D()
 	{
 		ScreenLoading.instance.Stop ();
-	}
+
+        if (SystemLanguageManager.instance != null)
+        {
+            SystemLanguageManager.instance.ErrorNetworkAlert();
+        }
+    }
 
 	#endregion
 
-	private void OnClickDownload()
-	{
-		if (currentShowUI) {
-			if (currentShowUI is UserVideoUI) {
-				(currentShowUI as UserVideoUI).Download ();
-			}
-		}
-	}
 
-	/// <summary>
-	/// Downloads the thumbnail.
-	/// </summary>
-	/// <param name="url">URL.</param>
-	IEnumerator DownloadThumbnail(string url, RawImage image)
+    #region DownloadThumbnail
+
+    /// <summary>
+    /// Downloads the thumbnail.
+    /// </summary>
+    /// <param name="url">URL.</param>
+    IEnumerator DownloadThumbnail(string url, RawImage image)
 	{
 		yield return new WaitForSeconds (.5f);
 
@@ -334,16 +393,22 @@ public class UserDetailMenu : BasicMenuNavigation
 
 	}
 
+
 	void DownloadDataCompleted(object sender,
 		DownloadDataCompletedEventArgs e)
 	{
 		raw = e.Result;
 	}
 
-	/// <summary>
-	/// Call this event when user click on favorite button
-	/// </summary>
-	public void OnClickFavoriteButton()
+    #endregion
+
+
+    #region Favorite/Unfavorite Button
+
+    /// <summary>
+    /// Call this event when user click on favorite button
+    /// </summary>
+    public void OnClickFavoriteButton()
 	{
 		if(MainAllController.instance != null){
 			MainAllController.instance.PlayButtonSound ();
@@ -380,7 +445,12 @@ public class UserDetailMenu : BasicMenuNavigation
 	void OnFailedFavorite()
 	{
 		ScreenLoading.instance.Stop ();
-	}
+
+        if (SystemLanguageManager.instance != null)
+        {
+            SystemLanguageManager.instance.ErrorNetworkAlert();
+        }
+    }
 
 	/// <summary>
 	/// Call this event when user click on unfavorite button
@@ -428,8 +498,11 @@ public class UserDetailMenu : BasicMenuNavigation
 		}
 	}
 
-	#region Play Video
-	public void PlayIn2D()
+    #endregion
+
+
+    #region Play Video 2D/3D
+    public void PlayIn2D()
 	{	
 		if(MainAllController.instance != null){
 			MainAllController.instance.PlayButtonSound ();
@@ -461,6 +534,7 @@ public class UserDetailMenu : BasicMenuNavigation
 	}
 	#endregion
 
+
 	#region UI switch when user is downloaded/not downloaded
 	void UiSwitch( VideoUI currentShowUI)
 	{
@@ -480,8 +554,8 @@ public class UserDetailMenu : BasicMenuNavigation
 					ShowHavenotDownloadedUI ();
 				}
 
-				// Show download button
-				BtnDownload.gameObject.SetActive (true);
+                // Show download button
+                BtnDownload.interactable = true;
 			}
 
 		}
@@ -497,9 +571,9 @@ public class UserDetailMenu : BasicMenuNavigation
 					ShowHavenotDownloadedUI ();
 				}
 
-				// Hide download button
-				BtnDownload.gameObject.SetActive (false);
-			}
+                // Hide download button
+                BtnDownload.interactable = false;
+            }
 
 		}
 
@@ -514,9 +588,9 @@ public class UserDetailMenu : BasicMenuNavigation
 					ShowHavenotDownloadedUI ();
 				}
 
-				// Hide download button
-				BtnDownload.gameObject.SetActive (false);
-			}
+                // Hide download button
+                BtnDownload.interactable = true;
+            }
 
 		}
 	}
@@ -532,11 +606,13 @@ public class UserDetailMenu : BasicMenuNavigation
 		downloadedUI.SetActive (false);
 		haventDownloadedUI.SetActive (true);
 	}
-	#endregion
+    #endregion
 
-	// This event is called when a video has been downloaded
-	// If the downloaded video is this video, make sure to change UI accordingly
-	void OnDownloadedVideo(Video anotherVideo)
+
+    #region OnDownloadedVideo
+    // This event is called when a video has been downloaded
+    // If the downloaded video is this video, make sure to change UI accordingly
+    void OnDownloadedVideo(Video anotherVideo)
 	{
 		if (video != null && anotherVideo != null) {
 			if (video.videoInfo.id == anotherVideo.videoInfo.id) {
@@ -548,9 +624,12 @@ public class UserDetailMenu : BasicMenuNavigation
 
 	}
 
-	#region ScreenShot
+    #endregion
 
-	private ScreenShotUI screenShotUI;
+
+    #region ScreenShot
+
+    private ScreenShotUI screenShotUI;
 
 	void SetupScreenShot(Video video)
 	{

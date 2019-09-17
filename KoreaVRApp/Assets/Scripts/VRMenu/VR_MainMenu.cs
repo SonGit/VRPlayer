@@ -38,8 +38,7 @@ public class VR_MainMenu : MonoBehaviour
 	private float _delayCount = 0;
 	private float _delayTime = 2.5f;
 	Video video;
-	VR_InboxVideoUI vr_InboxVideoUI;
-	VR_UserVideoUI vr_UserVideoUI;
+	VideoUI videoUI;
 
 	void Awake()
 	{
@@ -354,14 +353,34 @@ public class VR_MainMenu : MonoBehaviour
 
 		HideLoginAlert ();
 	}
-	#endregion
+    #endregion
 
-	#region DeleteAlert
-	public void ShowDeleteAlert(Video video, VR_InboxVideoUI vr_InboxVideoUI){
+    #region LogoutAlert
+
+    public void VRLogoutBnt_Onclick()
+    {
+        bool isConnect = CheckNetworkConnection();
+        if (isConnect)
+        {
+            if (MainAllController.instance != null)
+            {
+                MainAllController.instance.SceneVR_OnLogout();
+            }
+        }
+        else
+        {
+            ShowNetworkAlert();
+        }
+    }
+
+    #endregion
+
+    #region DeleteAlert
+    public void ShowDeleteAlert(Video video, VideoUI videoUI){
 		if (deleteAlert != null ) {
 			deleteAlert.SetActive (true);
 			this.video = video;
-			this.vr_InboxVideoUI = vr_InboxVideoUI;
+			this.videoUI = videoUI;
 		}else{
 			Debug.LogError ("Null................");
 		}
@@ -456,10 +475,10 @@ public class VR_MainMenu : MonoBehaviour
 	#endregion
 
 	#region StreamingAlert
-	public void ShowStreamingAlert(VR_UserVideoUI vr_UserVideoUI){
+	public void ShowStreamingAlert(VideoUI videoUI){
 		if (streamingAlert != null ) {
 			streamingAlert.SetActive (true);
-			this.vr_UserVideoUI = vr_UserVideoUI;
+			this.videoUI = videoUI;
 		}else{
 			Debug.LogError ("Null................");
 		}
@@ -474,8 +493,8 @@ public class VR_MainMenu : MonoBehaviour
 	}
 
 	public void ClickYesButton_StreamingAlert(){
-		if (this.vr_UserVideoUI != null){
-			this.vr_UserVideoUI.OnClickStreaming3D ();
+		if (this.videoUI != null){
+			this.videoUI.OnClickStreaming3D ();
 		}
 
 		HideStreamingAlert ();

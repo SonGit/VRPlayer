@@ -16,8 +16,8 @@ public class InboxVideoUI : VideoUI
 	[SerializeField] protected RawImage video_image;
 	[SerializeField] protected Text video_name;
 	[SerializeField] protected Text video_length;
-	[SerializeField] protected Text video_size;
-	[SerializeField] protected Text video_desc;
+	//[SerializeField] protected Text video_size;
+	//[SerializeField] protected Text video_desc;
 	[SerializeField] protected Button videoPlay2D;
 	[SerializeField] protected Button videoPlayVR;
 	[SerializeField] protected Button videoDelete;
@@ -48,8 +48,10 @@ public class InboxVideoUI : VideoUI
 		//video_length.text = (video.videoInfo.length).ToString();
 		this.video_length.text = MakeRegistrationDateString() + " | " +((video.videoInfo.size / 1024) / 1024) + " MB"; ;
 		//video_size.text = ((video.videoInfo.size / 1024) / 1024) + " MB";
-		video_desc.text = Regex.Unescape (video.videoInfo.description);
+		//video_desc.text = Regex.Unescape (video.videoInfo.description);
 		video_image.texture = null;
+
+        SetPlayVideoBntLanguage();
 
 		CheckThumbnail ();
 	}

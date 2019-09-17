@@ -19,11 +19,15 @@ public class VR_LocalVideoUI : LocalVideoUI
 			this.video = video;
 			this.videoTitle.text = Path.GetFileNameWithoutExtension ((video as LocalVideo).videoURL); // Exeption "type .mp4"
 			this.videoLength_videoSize.text = MakeLengthString ();
-			//videoImage.texture = null;
+            //videoImage.texture = null;
+
+        #if !UNITY_EDITOR
             loadThumbnail = true;
+        #endif
+
         }
 
-	}
+    }
 		
 
 	public override void PlayIn3D ()

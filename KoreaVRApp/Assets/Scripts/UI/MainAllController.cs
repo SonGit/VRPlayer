@@ -473,7 +473,7 @@ public class MainAllController : MonoBehaviour
 		}
 	}
 
-	void OnGetUserVideoList(Video_Info[] videoList)
+    void OnGetUserVideoList(Video_Info[] videoList)
 	{
 		try
 		{
@@ -501,11 +501,13 @@ public class MainAllController : MonoBehaviour
                     videoList[i].size = 76500421;
                 }
 
-				UserVideo userVideo = new UserVideo (videoList[i]);
-                print(videoList[i].size); 
+                Debug.Log(videoList[i].id + "_" + "VIDEO STATUS" + " : " + videoList[i].status);
 
-                user.userVideos.Add (userVideo);
-			}
+                Debug.Log(videoList[i].id + "_" + "VIDEO SIZE" + " : " + videoList[i].size);
+
+                UserVideo userVideo = new UserVideo(videoList[i]);
+                user.userVideos.Add(userVideo);
+            }
 
 			Debug.LogError ("Updated UserVideos completed!!!!!!!!");
 
@@ -582,9 +584,14 @@ public class MainAllController : MonoBehaviour
 
 	void OnErrorGetUserVideo()
 	{
-		//NativeUI.AlertPopup alert = NativeUI.Alert("Notification!", "Login isn't correct!");
+        //NativeUI.AlertPopup alert = NativeUI.Alert("Notification!", "Login isn't correct!");
 
-		Debug.LogError ("+++++++++++++++++++++++++++++ERROR");
+        if (SystemLanguageManager.instance != null)
+        {
+            SystemLanguageManager.instance.ErrorNetworkAlert();
+        }
+
+        Debug.LogError ("+++++++++++++++++++++++++++++ERROR");
 
 		if (ScreenLoading.instance != null) {
 			ScreenLoading.instance.Stop ();
@@ -604,6 +611,11 @@ public class MainAllController : MonoBehaviour
 	{
 
 		Debug.LogError ("+++++++++++++++++++++++++++++ERROR");
+
+        if (SystemLanguageManager.instance != null)
+        {
+            SystemLanguageManager.instance.ErrorNetworkAlert();
+        }
 
 		if (ScreenLoading.instance != null) {
 			ScreenLoading.instance.Stop ();
@@ -827,7 +839,7 @@ public class MainAllController : MonoBehaviour
 
 
 	#region UserVideoMenu	
-	public void UserVideo_OnUserVideoDetail()
+	public void CurrentMenu_OnUserVideoDetailMenu()
 	{
 		accessMenu.Close ();
 

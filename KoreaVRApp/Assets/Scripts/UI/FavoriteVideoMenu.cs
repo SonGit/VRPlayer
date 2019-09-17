@@ -15,7 +15,8 @@ public class FavoriteVideoMenu : BasicMenuNavigation
 	{
 		base.Awake ();
 		instance = this;
-	}
+        cellViewSize = Utility.CELLVIEWSIZE;
+    }
 
 	private void Update (){
 		
@@ -107,7 +108,7 @@ public class FavoriteVideoMenu : BasicMenuNavigation
 		if (videos[dataIndex] is FavoriteVideo)
 		{
 			// header views
-			return 500f;
+			return cellViewSize;
 		}
 
 		return 0f;

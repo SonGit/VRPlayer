@@ -8,14 +8,13 @@ public class VR_FavoriteMenu : VR_BasicMenu
 {
 	
 	public static VR_FavoriteMenu instance;
+    protected override void Awake()
+    {
+        base.Awake();
+        instance = this;
+    }
 
-	void Awake()
-	{
-		base.Awake ();
-		instance = this;
-	}
-
-	protected override void Start ()
+    protected override void Start ()
 	{
 		base.Start ();
 		//MainAllController.instance.OnGetFavoriteVideo += SetupEnhancedScroller;

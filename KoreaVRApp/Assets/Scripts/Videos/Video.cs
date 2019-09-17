@@ -34,6 +34,8 @@ public class Video_Info
 
     public long size { get; set; }
 
+    public string status { get; set; }
+
     public DateTime dateTime
     {
         get {
