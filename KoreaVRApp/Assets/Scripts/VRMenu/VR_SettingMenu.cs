@@ -54,7 +54,13 @@ public class VR_SettingMenu : MonoBehaviour
 //		CheckOOB ();
 //#endif
 
+        if(!isInTouchZone && touchzone.gameObject.activeInHierarchy)
         CheckOOB();
+
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            ShowSetting();
+        }
     }
 
 	public void CloseButton_OnClick(){
@@ -74,7 +80,7 @@ public class VR_SettingMenu : MonoBehaviour
 	public void ShowSetting(){
 		if (!Root.activeSelf){
 			Root.SetActive (true);
-
+            touchzone.gameObject.SetActive(true);
             _isShowSetting = true;
 
             if (VR_TopMenuManager.instance != null){
@@ -111,7 +117,8 @@ public class VR_SettingMenu : MonoBehaviour
 	public void HideSetting(){
 		if (Root.activeSelf){
 			Root.SetActive (false);
-		}
+            touchzone.gameObject.SetActive(false);
+        }
 
         _isShowSetting = false;
 
@@ -190,28 +197,42 @@ public class VR_SettingMenu : MonoBehaviour
 
 	public void CheckOOB()
 	{
-		if (eventSystem == null) {
-			Debug.Log ("Event System not found!");
-			return;
-		}
 
-		if (Root.activeSelf) {
-			if (!eventSystem.IsPointerOverGameObject ()) {
-				_delayCount += Time.deltaTime;
+        _delayCount += Time.deltaTime;
 
-				if (_delayCount >= _delayTime && Root.activeSelf) {
-					HideSetting ();
-					if (sceneVR != null){
-						sceneVR.HideProgressBar ();
-					}
-					_delayCount = 0;
-					print ("Hiding>>>>>");
-				}
+        if (_delayCount >= _delayTime)
+        {
+            HideSetting();
+            if (sceneVR != null)
+            {
+                sceneVR.HideProgressBar();
+            }
+            _delayCount = 0;
+            print("Hiding>>>>>");
+        }
 
-			} else {
-				_delayCount = 0;
-			}
-		}
+  //      if (eventSystem == null) {
+		//	Debug.Log ("Event System not found!");
+		//	return;
+		//}
+
+		//if (Root.activeSelf) {
+		//	if (!eventSystem.IsPointerOverGameObject ()) {
+		//		_delayCount += Time.deltaTime;
+  //              print("--------------------------------------------");
+  //              if (_delayCount >= _delayTime && Root.activeSelf) {
+		//			HideSetting ();
+		//			if (sceneVR != null){
+		//				sceneVR.HideProgressBar ();
+		//			}
+		//			_delayCount = 0;
+		//			print ("Hiding>>>>>");
+		//		}
+
+		//	} else {
+		//		_delayCount = 0;
+		//	}
+		//}
 
 	}
 
@@ -220,4 +241,20 @@ public class VR_SettingMenu : MonoBehaviour
 			MainAllController.instance.ModeVR_OnMediaPlayerMenu ();
 		}
 	}
+
+    public Transform touchzone;
+    bool isInTouchZone;
+
+    public void OnTEnter()
+    {
+        print("OnTEnter");
+        isInTouchZone = true;
+        _delayCount = 0;
+    }
+
+    public void OnTOut()
+    {
+        print("OnTOut");
+        isInTouchZone = false;
+    }
 }

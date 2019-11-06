@@ -25,6 +25,9 @@ public class VR_SettingSize : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (_vrplayer == null)
+            return;
+
 		if (_vrplayer.currentMode is CinemaMode || _vrplayer.currentMode is FlatMode) {
 			_slider.interactable = true;
 			minus.interactable = true;
