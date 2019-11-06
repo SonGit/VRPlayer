@@ -381,7 +381,7 @@ public class BasicMenu : MonoBehaviour, IEnhancedScrollerDelegate
 
 	public virtual void SortByDate()
 	{
-		videos = videos.OrderBy(obj => obj.videoInfo.dateTime).ToList();
+		videos = videos.OrderByDescending(obj => obj.videoInfo.dateTime).ToList();
 
 		scroller.RefreshActiveCellViews();
 

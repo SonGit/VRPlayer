@@ -190,4 +190,22 @@ public class FavoriteVideoUI : UserVideoUI
 	{
 		Setup(FavoriteVideoMenu.instance.getVideoAtIndex(dataIndex));
 	}
+
+    #region Play 3D
+
+    public override void PlayIn3D()
+    {
+        if (MainAllController.instance != null)
+        {
+            MainAllController.instance.PlayButtonSound();
+
+            MainAllController.instance.GoVRPplayerMenu();
+
+            MainAllController.instance.IsPlayVideo3D = true;
+
+            MainAllController.instance.SetPlayVideo3DInfo(video, this);
+        }
+    }
+
+    #endregion
 }

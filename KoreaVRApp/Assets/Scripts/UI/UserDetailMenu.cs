@@ -524,14 +524,17 @@ public class UserDetailMenu : BasicMenuNavigation
 
 	public void PlayIn3D()
 	{
-		if (MainAllController.instance != null){
-			MainAllController.instance.Play3D (video, currentShowUI);
-		}
+        if (MainAllController.instance != null)
+        {
+            MainAllController.instance.PlayButtonSound();
 
-		if(MainAllController.instance != null){
-			MainAllController.instance.PlayButtonSound ();
-		}
-	}
+            MainAllController.instance.GoVRPplayerMenu();
+
+            MainAllController.instance.IsPlayVideo3D = true;
+
+            MainAllController.instance.SetPlayVideo3DInfo(video, currentShowUI);
+        }
+    }
 	#endregion
 
 

@@ -163,7 +163,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string push_notification_settingsString_Korean = "푸시 알림 설정";
 	private string receive_PUSH_notificationString_Korean = "푸시 알림 수신";
 	private string usable_capacityString_Korean = "사용 가능한 용량";
-	private string welcomeString_Korean = "환영";
+	private string welcomeString_Korean = "환영합니다";
 	private string experience_realistic_virtual_realityString_Korean = "VR UDON 으로 짜릿하고 실감나는 가상현실을 체험하세요";
 	private string connect_your_mobile_phone_to_your_deviceString_Korean = "휴대 전화를 기기에 연결하십시오";
 	private string run_vr_PlayerString_Korean = "VR 플레이어 실행";
@@ -177,7 +177,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string Switch_from_2D_mode_to_VR_modeString_Korean = "2D 모드에서 VR 모드로 전환해서 감상할 수 있습니다";
 	private string add_to_FavoritesString_Korean = "즐겨찾기에 추가";
     private string unFavoritesString_Korean = "즐겨찾기";
-    private string this_content_is_available_after_purchaseString_Korean = "본 컨텐츠는 구매 후 이용 가능합니다"; 
+    private string this_content_is_available_after_purchaseString_Korean = "본 컨텐츠는 구매 후 이용 가능합니다."; 
     #endregion
 
     #region VR_ScreenCursor
@@ -197,8 +197,9 @@ public class SystemLanguageManager : MonoBehaviour
 	private string vr_Mid_VideoListString_Korean = "동영상 목록";
 	private string vr_Mid_FavoriteString_Korean = "즐겨찾기";
 	private string vr_LoginrequiredString_Korean = "로그인이 필요합니다";
-	private string vr_Move_to_loginString_Korean = "로그인 페이지로 이동하시겠습니까? 로그인 페이지로 이동시 플레이어 화면이 종료됩니다.";
-	private string vr_YesString_Korean = "예";
+	private string vr_Move_to_loginString_Korean = "로그인 페이지로 이동 하시겠습니까? 로그인 페이지로 이동시 플레이어 화면이 종료됩니다.";
+
+    private string vr_YesString_Korean = "예";
 	private string vr_NoString_Korean = "아니오";
 	private string vr_DeleterequiredString_Korean = "삭제 필요";
 	private string vr_DeleteString_Korean = "삭제하시겠습니까?";
@@ -207,7 +208,7 @@ public class SystemLanguageManager : MonoBehaviour
 	private string vr_StreamingrequiredString_Korean = "스트리밍 요구 됨";
 	private string vr_StreamingString_Korean = "스트리밍?";
 	private string vr_Application_will_beString_Korean = "센서보정 페이지로 이동하게 되면 영상이 종료됩니다. 계속 하시겠습니까?";
-	private string vr_Sensor_calibrationString_Korean = "센서 보정";
+	private string vr_Sensor_calibrationString_Korean = "센서보정";
 	private string vr_Usable_capacity_is_not_availableString_Korean = "사용 가능한 용량을 사용할 수 없습니다";
 	#endregion
 

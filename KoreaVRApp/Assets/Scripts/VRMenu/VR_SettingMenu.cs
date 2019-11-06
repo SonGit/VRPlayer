@@ -50,9 +50,11 @@ public class VR_SettingMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		#if UNITY_ANDROID && !UNITY_EDITOR
-		CheckOOB ();
-		#endif 
+//#if UNITY_ANDROID && !UNITY_EDITOR
+//		CheckOOB ();
+//#endif
+
+        CheckOOB();
     }
 
 	public void CloseButton_OnClick(){

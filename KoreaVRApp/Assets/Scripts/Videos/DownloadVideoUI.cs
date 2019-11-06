@@ -37,9 +37,6 @@ public class DownloadVideoUI : VideoUI
 	[SerializeField] private Button video_Cancel = null;
 	[SerializeField] private GameObject videoDownloaderPrefab = null;
 
-    [Header("Components")]
-    [SerializeField] private GameObject grayDownloadedUI;
-
     private string fullpathfile;
 	private string path;
 	private FileInfo fileInfo;
@@ -301,7 +298,6 @@ public class DownloadVideoUI : VideoUI
 				SetActive (video_DownloadProgressSlider.gameObject, false);
 				SetActive (video_DownloadProgressText.gameObject, false);
 				SetActive (video_DownloadSpeedText.gameObject, false);
-                SetActive(grayDownloadedUI, false);
                 break;
 			case DownloadState.Downloading:
 				SetActive (video_Download.gameObject, false);
@@ -311,7 +307,6 @@ public class DownloadVideoUI : VideoUI
 				SetActive (video_DownloadProgressSlider.gameObject, true);
 				SetActive (video_DownloadProgressText.gameObject, true);
 				SetActive (video_DownloadSpeedText.gameObject, true);
-                SetActive(grayDownloadedUI, false);
                 break;
 			case DownloadState.Pause:
 				SetActive (video_Download.gameObject, false);
@@ -321,7 +316,6 @@ public class DownloadVideoUI : VideoUI
 				SetActive (video_DownloadProgressSlider.gameObject, true);
 				SetActive (video_DownloadProgressText.gameObject, true);
 				SetActive (video_DownloadSpeedText.gameObject, true);
-                SetActive(grayDownloadedUI, false);
                 break;
 			case DownloadState.Complete:
 				SetActive (video_Download.gameObject, false);
@@ -331,7 +325,6 @@ public class DownloadVideoUI : VideoUI
 				SetActive (video_DownloadProgressSlider.gameObject, false);
 				SetActive (video_DownloadProgressText.gameObject, false);
 				SetActive (video_DownloadSpeedText.gameObject, false);
-                SetActive(grayDownloadedUI, true);
                 break;
 			case DownloadState.Fail:
 				SetActive (video_Download.gameObject, false);
@@ -341,7 +334,6 @@ public class DownloadVideoUI : VideoUI
 				SetActive (video_DownloadProgressSlider.gameObject, false);
 				SetActive (video_DownloadProgressText.gameObject, false);
 				SetActive (video_DownloadSpeedText.gameObject, false);
-                SetActive(grayDownloadedUI, false);
                 break;
 			case DownloadState.Cancel:
 				SetActive (video_Download.gameObject, true);
@@ -351,7 +343,6 @@ public class DownloadVideoUI : VideoUI
 				SetActive (video_DownloadProgressSlider.gameObject, false);
 				SetActive (video_DownloadProgressText.gameObject, false);
 				SetActive (video_DownloadSpeedText.gameObject, false);
-                SetActive(grayDownloadedUI, false);
                 break;
 			default:
 				break;

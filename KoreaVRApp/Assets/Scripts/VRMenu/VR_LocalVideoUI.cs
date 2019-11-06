@@ -33,12 +33,18 @@ public class VR_LocalVideoUI : LocalVideoUI
 	public override void PlayIn3D ()
 	{
 		if (MainAllController.instance != null){
-			MainAllController.instance.Play3D (video, this);
+            MainAllController.instance.SetPlayVideo3DInfo(video, this);
+            MainAllController.instance.Play3D (video, this);
 		}
-	}
+
+        if (vr_PlayBnt != null)
+        {
+            vr_PlayBnt.gameObject.SetActive(false);
+        }
+    }
 
 
-	public override void Update ()
+    public override void Update ()
 	{
 		if (loadThumbnail)
 		{

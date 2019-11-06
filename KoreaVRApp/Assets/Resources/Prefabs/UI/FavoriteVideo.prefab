@@ -1151,6 +1151,62 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+--- !u!1 &4059410393994597181
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6128350993901826393}
+  - component: {fileID: 4381923786955978101}
+  m_Layer: 5
+  m_Name: Space
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6128350993901826393
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4059410393994597181}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1679708069333887881}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 620, y: -90}
+  m_SizeDelta: {x: 177.14285, y: 180}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4381923786955978101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4059410393994597181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1679637790, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: 1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &4183499753326994051
 GameObject:
   m_ObjectHideFlags: 0
@@ -1635,6 +1691,7 @@ GameObject:
   - component: {fileID: 7891176075305385542}
   - component: {fileID: 1648852939544305851}
   - component: {fileID: 4694199236133335673}
+  - component: {fileID: 763967424242690942}
   m_Layer: 5
   m_Name: Play2D
   m_TagString: Untagged
@@ -1660,8 +1717,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 330, y: -90}
-  m_SizeDelta: {x: 580, y: 180}
+  m_AnchoredPosition: {x: 265.7143, y: -90}
+  m_SizeDelta: {x: 531.4286, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7891176075305385542
 CanvasRenderer:
@@ -1753,6 +1810,26 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &763967424242690942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5132919880590808262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1679637790, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: 3
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &5170277933326617167
 GameObject:
   m_ObjectHideFlags: 0
@@ -2284,6 +2361,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2890836839138777991}
+  - {fileID: 6128350993901826393}
   - {fileID: 4553013595020276886}
   m_Father: {fileID: 7263869988194106188}
   m_RootOrder: 1
@@ -2306,8 +2384,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 40
-    m_Right: 40
+    m_Left: 0
+    m_Right: 0
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
@@ -2471,7 +2549,7 @@ MonoBehaviour:
   streaming2D_Text: {fileID: 8981327994104670828}
   streaming3D_Text: {fileID: 1718439559774882037}
   root: {fileID: 0}
-  playBnt: {fileID: 0}
+  vr_PlayBnt: {fileID: 0}
   animUpLimit: -60
   video_image: {fileID: 252161218543803613}
   video_name: {fileID: 6708028590235568610}
@@ -2482,6 +2560,7 @@ MonoBehaviour:
   favoriteText: {fileID: 3875087071686396852}
   unFavoriteText: {fileID: 3600620572386757050}
   unfavoriteBtn: {fileID: 8121507221427778709}
+  grayDownloadedUI: {fileID: 0}
   downloadedUI: {fileID: 1679708069333887881}
   havenotDownloadedUI: {fileID: 3105812395961530528}
 --- !u!1 &6466415674125210557
@@ -3276,6 +3355,7 @@ GameObject:
   - component: {fileID: 1527963412588542278}
   - component: {fileID: 1595123343856468972}
   - component: {fileID: 7865698691632623523}
+  - component: {fileID: 4141722337651804815}
   m_Layer: 5
   m_Name: Play3D
   m_TagString: Untagged
@@ -3297,12 +3377,12 @@ RectTransform:
   - {fileID: 5684348900517076032}
   - {fileID: 5519866454963586509}
   m_Father: {fileID: 1679708069333887881}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 910, y: -90}
-  m_SizeDelta: {x: 580, y: 180}
+  m_AnchoredPosition: {x: 974.2857, y: -90}
+  m_SizeDelta: {x: 531.4286, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1527963412588542278
 CanvasRenderer:
@@ -3394,6 +3474,26 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &4141722337651804815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8133538388359556951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1679637790, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: 3
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &8234203870622100524
 GameObject:
   m_ObjectHideFlags: 0

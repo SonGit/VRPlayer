@@ -124,7 +124,7 @@ public class StorageMenu : BasicMenuNavigation
 
 	public override void SortByDate()
 	{
-		videos = videos.OrderBy(obj => (obj as LocalVideo).videoDate).ToList();
+		videos = videos.OrderByDescending(obj => (obj as LocalVideo).videoDate).ToList();
 
 		scroller.RefreshActiveCellViews();
 

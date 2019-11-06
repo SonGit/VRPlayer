@@ -28,8 +28,9 @@ public class UserVideoUI : VideoUI
     [SerializeField] protected Text favoriteText;
     [SerializeField] protected Text unFavoriteText;
     [SerializeField] protected GameObject unfavoriteBtn;
+    [SerializeField] private GameObject grayDownloadedUI;
 
-	private string path;
+    private string path;
 
 	UserVideoMenu.UserVideoDownloadCallback callback;
 
@@ -263,12 +264,57 @@ public class UserVideoUI : VideoUI
         SetFavoriteLanguage();
         SetPlayVideoBntLanguage();
 
+        UiSwitch();
+
         videoDownloader = null;
     }
-	#endregion
+    #endregion
+
+    void OnDownloadedVideo(Video anotherVideo)
+    {
+        if (video != null && anotherVideo != null)
+        {
+            if (video.videoInfo.id == anotherVideo.videoInfo.id)
+            {
+                UiSwitch();
+            }
+        }
+        else
+        {
+            Debug.Log("OnDownloadedVideo Null references!!!");
+        }
+
+    }
+
+    public override void UiSwitch()
+    {
+        base.UiSwitch();
+
+        if (video != null)
+        {
+            if (video.isDownloaded())
+            {
+                if (grayDownloadedUI != null)
+                {
+                    grayDownloadedUI.SetActive(true);
+                }
+            }
+            else
+            {
+                if (grayDownloadedUI != null)
+                {
+                    grayDownloadedUI.SetActive(false);
+                }
+            }
+        }
+        else
+        {
+            Debug.Log("VIDEO IS NULL!");
+        }
+    }
 
 
-	void DestroySelf()
+    void DestroySelf()
 	{
 		if (video is FavoriteVideo) {
 			FavoriteVideoMenu menu = Object.FindObjectOfType<FavoriteVideoMenu> ();

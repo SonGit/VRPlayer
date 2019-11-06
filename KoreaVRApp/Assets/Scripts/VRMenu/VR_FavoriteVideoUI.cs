@@ -181,5 +181,19 @@ public class VR_FavoriteVideoUI : VR_UserVideoUI
 	{
 		VR_FavoriteMenu.instance.Rearrange ();
 	}
-		
+
+    public override void PlayIn3D()
+    {
+        if (MainAllController.instance != null)
+        {
+            MainAllController.instance.SetPlayVideo3DInfo(video, this);
+            MainAllController.instance.Play3D(video, this);
+        }
+
+        if (vr_PlayBnt != null)
+        {
+            vr_PlayBnt.gameObject.SetActive(false);
+        }
+    }
+
 }

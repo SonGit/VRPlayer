@@ -49,4 +49,18 @@ public class VR_InboxVideoUI : UserVideoUI
 
 		vr_MainMenu.ShowDeleteAlert (video, this);
 	}
+
+    public override void PlayIn3D()
+    {
+        if (MainAllController.instance != null)
+        {
+            MainAllController.instance.SetPlayVideo3DInfo(video, this);
+            MainAllController.instance.Play3D(video, this);
+        }
+
+        if (vr_PlayBnt != null)
+        {
+            vr_PlayBnt.gameObject.SetActive(false);
+        }
+    }
 }

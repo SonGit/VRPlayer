@@ -107,19 +107,31 @@ public class MainAllController : MonoBehaviour
 
 	private bool isGoVR;
 	private bool isShowRecenterPanel;
+    private bool isPlayVideo3D;
 
-	/// <summary>
-	/// Gets or sets a value indicating whether this instance is show recenter panel.
-	/// </summary>
-	/// <value><c>true</c> if this instance is show recenter panel; otherwise, <c>false</c>.</value>
-	public bool IsShowRecenterPanel
+    private VideoUI videoUI;
+    private Video video;
+    private bool isStreaming;
+    private string urlStreaming;
+
+    /// <summary>
+    /// Gets or sets a value indicating whether this instance is show recenter panel.
+    /// </summary>
+    /// <value><c>true</c> if this instance is show recenter panel; otherwise, <c>false</c>.</value>
+    public bool IsShowRecenterPanel
 	{
 		get { return isShowRecenterPanel; }
 		set { isShowRecenterPanel = value; }
 	}
 
-	//Resolution
-	public int maxWidth;
+    public bool IsPlayVideo3D
+    {
+        get { return isPlayVideo3D; }
+        set { isPlayVideo3D = value; }
+    }
+
+    //Resolution
+    public int maxWidth;
 	public int maxHeight;
 
 	void Awake()
@@ -211,55 +223,55 @@ public class MainAllController : MonoBehaviour
 		}
 
 		if (storageMenu != null && accessMenu != null){
-			storageMenu.OnBack += storageMenu_OnAccessMenu;
-			storageMenu.OnVR += storageMenu_OnVRPlayerMenu;
+			storageMenu.OnBack += StorageMenu_OnAccessMenu;
+			storageMenu.OnVR += StorageMenu_OnVRPlayerMenu;
 		}else {
 			Debug.LogError ("Null");
 		}
 
 		if (settingsMenu != null && accessMenu != null){
-			settingsMenu.OnBack += settingsMenu_OnAccessMenu;
+			settingsMenu.OnBack += SettingsMenu_OnAccessMenu;
 		}else {
 			Debug.LogError ("Null");
 		}
 
 		if (loginMenu != null && accessMenu != null){
-			loginMenu.OnBack += loginMenu_OnMyStorage;
+			loginMenu.OnBack += LoginMenu_OnMyStorage;
 		}else {
 			Debug.LogError ("Null");
 		}
 
 		if (userVideoMenu != null && accessMenu != null){
-			userVideoMenu.OnBack += myVideoMenu_OnAccessMenu;
-			userVideoMenu.OnVR += userVideoMenu_OnVRPlayerMenu;
+			userVideoMenu.OnBack += MyVideoMenu_OnAccessMenu;
+			userVideoMenu.OnVR += UserVideoMenu_OnVRPlayerMenu;
 		}else {
 			Debug.LogError ("Null");
 		}
 
 		if (favoriteMenu != null && accessMenu != null){
-			favoriteMenu.OnBack += favoriteMenu_OnAccessMenu;
-			favoriteMenu.OnVR += favoriteMenu_OnVRPlayerMenu;
+			favoriteMenu.OnBack += FavoriteMenu_OnAccessMenu;
+			favoriteMenu.OnVR += FavoriteMenu_OnVRPlayerMenu;
 		}else {
 			Debug.LogError ("Null");
 		}
 
 		if (downloadMenu != null && accessMenu != null){
-			downloadMenu.OnBack += downloadMenu_OnAccessMenu;
-			downloadMenu.OnVR += downloadMenu_OnVRPlayerMenu;
+			downloadMenu.OnBack += DownloadMenu_OnAccessMenu;
+			downloadMenu.OnVR += DownloadMenu_OnVRPlayerMenu;
 		}else {
 			Debug.LogError ("Null");
 		}
 
 		if (userDetailMenu != null && userVideoMenu != null){
-			userDetailMenu.OnBack += userDetailMenu_OnUserVideoMenu;
-			userDetailMenu.OnVR += userDetailMenu_OnVRPlayerMenu;
+			userDetailMenu.OnBack += UserDetailMenu_OnUserVideoMenu;
+			userDetailMenu.OnVR += UserDetailMenu_OnVRPlayerMenu;
 		}else {
 			Debug.LogError ("Null");
 		}
 
 		if (accessMenu != null && inboxMenu != null){
-			inboxMenu.OnBack += inboxMenu_OnAccessMenu;
-			inboxMenu.OnVR += inboxMenu_OnVRPlayerMenu;
+			inboxMenu.OnBack += InboxMenu_OnAccessMenu;
+			inboxMenu.OnVR += InboxMenu_OnVRPlayerMenu;
 		}else {
 			Debug.LogError ("Null");
 		}
@@ -854,10 +866,10 @@ public class MainAllController : MonoBehaviour
 
 	public void ReturnToLastMenuFromUserDetail()
 	{
-		userDetailMenu_OnUserVideoMenu ();
+		UserDetailMenu_OnUserVideoMenu ();
 	}
 
-	private void userDetailMenu_OnUserVideoMenu()
+	private void UserDetailMenu_OnUserVideoMenu()
 	{
 		// Return to respective last accessed menu
 		if (lastMenu is UserVideoMenu) {
@@ -884,24 +896,24 @@ public class MainAllController : MonoBehaviour
 		AccessMenu_OnAffiliatedVideo ();
 	}
 
-	private void userDetailMenu_OnVRPlayerMenu()
+	private void UserDetailMenu_OnVRPlayerMenu()
 	{
 		GoVRPplayerMenu ();
 	}
 
-	private void myVideoMenu_OnAccessMenu()
+	private void MyVideoMenu_OnAccessMenu()
 	{
 		accessMenu.Open ();
 	}
 
-	private void userVideoMenu_OnVRPlayerMenu()
+	private void UserVideoMenu_OnVRPlayerMenu()
 	{
 		GoVRPplayerMenu ();
 	}
 	#endregion
 
 	#region SettingMenu
-	private void settingsMenu_OnAccessMenu()
+	private void SettingsMenu_OnAccessMenu()
 	{
 		accessMenu.Open();
 	}
@@ -919,12 +931,12 @@ public class MainAllController : MonoBehaviour
 
 
 	#region storageMenu
-	private void storageMenu_OnAccessMenu()
+	private void StorageMenu_OnAccessMenu()
 	{
 		accessMenu.Open ();
 	}
 
-	private void storageMenu_OnVRPlayerMenu()
+	private void StorageMenu_OnVRPlayerMenu()
 	{
 		GoVRPplayerMenu ();
 	}
@@ -932,7 +944,7 @@ public class MainAllController : MonoBehaviour
 	#endregion
 
 	#region login/LogoutMenu
-	private void loginMenu_OnMyStorage()
+	private void LoginMenu_OnMyStorage()
 	{
 		AccessMenu_OnMyStorage ();
 	}
@@ -945,12 +957,12 @@ public class MainAllController : MonoBehaviour
 	#endregion
 
 	#region FavoriteMenu
-	private void favoriteMenu_OnAccessMenu()
+	private void FavoriteMenu_OnAccessMenu()
 	{
 		accessMenu.Open ();
 	}
 
-	private void favoriteMenu_OnVRPlayerMenu()
+	private void FavoriteMenu_OnVRPlayerMenu()
 	{
 		GoVRPplayerMenu ();
 	}
@@ -963,12 +975,12 @@ public class MainAllController : MonoBehaviour
 	#endregion
 
 	#region DownloadMenu
-	private void downloadMenu_OnAccessMenu()
+	private void DownloadMenu_OnAccessMenu()
 	{
 		accessMenu.Open ();
 	}
 
-	private void downloadMenu_OnVRPlayerMenu()
+	private void DownloadMenu_OnVRPlayerMenu()
 	{
 		GoVRPplayerMenu ();
 	}
@@ -982,11 +994,11 @@ public class MainAllController : MonoBehaviour
 
 
 	#region InboxMenu
-	private void inboxMenu_OnAccessMenu()
+	private void InboxMenu_OnAccessMenu()
 	{
 		accessMenu.Open ();
 	}
-	private void inboxMenu_OnVRPlayerMenu()
+	private void InboxMenu_OnVRPlayerMenu()
 	{
 		GoVRPplayerMenu ();
 	}
@@ -1012,9 +1024,10 @@ public class MainAllController : MonoBehaviour
 		vrPlayerMenu.IsShowVRPlayer = false;
 		currentMenu.SetActive (true);
 		accessMenu.SetHandleViewable (true);
+        isPlayVideo3D = false;
 	}
 
-	private void GoVRPplayerMenu(){
+	public void GoVRPplayerMenu(){
 		if (!(currentMenu is VRPlayerMenu)) {
             //currentMenu.SetActive (false);
         	vrPlayerMenu.SetActive (true);
@@ -1030,9 +1043,15 @@ public class MainAllController : MonoBehaviour
 		if (isSensorNotComplete) {
 			GoToSensorMenu ();
 		} else {
-			if (!(currentScene is SceneVR)){
-				GoToSceneVR ();
-			}	
+            if (isPlayVideo3D)
+            {
+                Play3D(this.video,this.videoUI);
+                isPlayVideo3D = false;
+            }
+            else
+            {
+                GoToSceneVR();
+            }	
 		}
 	}
 
@@ -1242,10 +1261,6 @@ public class MainAllController : MonoBehaviour
 
 	public void Play3D(Video video, VideoUI videoUI)
 	{
-		this.video = video;
-		this.videoUI = videoUI;
-		isStreaming = false;
-
 		if (currentScene is SceneVR) {
 			(currentScene as SceneVR).PlayFromURL (video,videoUI);
 		} else {
@@ -1256,6 +1271,13 @@ public class MainAllController : MonoBehaviour
 		}
 	}
 
+    public void SetPlayVideo3DInfo(Video video, VideoUI videoUI)
+    {
+        this.video = video;
+        this.videoUI = videoUI;
+        isStreaming = false;
+    }
+
 	public void Play2D(Video video, VideoUI videoUI)
 	{
 		this.video = video;
@@ -1264,11 +1286,6 @@ public class MainAllController : MonoBehaviour
 
 		ModeVR_OnMediaPlayerMenu ();
 	}
-
-	VideoUI videoUI;
-	Video video;
-	bool isStreaming;
-	string urlStreaming;
 
 	private void Play3D_2D()
 	{
@@ -1297,7 +1314,7 @@ public class MainAllController : MonoBehaviour
 			Streaming3D (video,videoUI,urlStreaming);
 		} else {
 			mediaPlayerMenu.Resume ();
-			Play3D (video, videoUI);
+			Play3D (this.video,this.videoUI);
 		}
 	}
 
@@ -1374,7 +1391,7 @@ public class MainAllController : MonoBehaviour
 	void GoToScene2D()
 	{
 		isGoVR = false;
-		IsShowRecenterPanel = false;
+        isShowRecenterPanel = false;
 		HideVR_CloseButton ();
 			
 		if (ScreenLoading.instance != null) {
@@ -1401,7 +1418,7 @@ public class MainAllController : MonoBehaviour
 
     void GoTo2DMediaPlayer()
     {
-		IsShowRecenterPanel = false;
+        isShowRecenterPanel = false;
 		HideVR_CloseButton ();
 		HideScreenSwitchSceneMode ();
 
@@ -1430,7 +1447,7 @@ public class MainAllController : MonoBehaviour
 
 	void GoTo2DSceneSensor()
 	{
-		IsShowRecenterPanel = false;
+        isShowRecenterPanel = false;
 		HideVR_CloseButton ();
 		HideScreenSwitchSceneMode ();
 
@@ -1758,7 +1775,7 @@ public class MainAllController : MonoBehaviour
 					}
 						
 					if (currentMenu is UserDetailMenu){
-						userDetailMenu_OnUserVideoMenu ();
+						UserDetailMenu_OnUserVideoMenu ();
 						return;
 					}
 
