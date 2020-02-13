@@ -13,4 +13,10 @@ public class GameEvent
     public static string showMenuCubemap = "vr:show_menu_cubemap";
     public static string closeMenuCubemap = "vr:close_menu_cubemap";
 
+    public static string loadLocalVideos = "vr:load_local_video";
+
+    public static string sendVideos = "vr:send_videos";
+
+    public static string setPageNumber = "vr:set_page_number";
+    public static string goToPage = "vr:go_to_page";
 }
