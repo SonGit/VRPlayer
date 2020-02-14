@@ -10,6 +10,15 @@ namespace VRUdon.VR
         public GameObject container;
         public Text text;
 
+        public void On()
+        {
+            print("Test1");
+        }
+        public void Test2()
+        {
+            print("Test2");
+        }
+
         /// <summary>
         /// This function just takes the Demo data and displays it
         /// </summary>
