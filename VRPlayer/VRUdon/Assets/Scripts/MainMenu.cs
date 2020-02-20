@@ -12,7 +12,7 @@ public class MainMenu : MonoBehaviour
        // MessageDispatcher.SendMessageData(GameEvent.showScreenCursor, EnumMessageDelay.IMMEDIATE);
       //  MessageDispatcher.SendMessageData(GameEvent.closeMenuCubemap, EnumMessageDelay.IMMEDIATE);
         yield return new WaitForSeconds(1);
-        MessageDispatcher.SendMessageData(GameEvent.loadLocalVideos, EnumMessageDelay.IMMEDIATE);
+        //MessageDispatcher.SendMessageData(GameEvent.loadLocalVideos, EnumMessageDelay.IMMEDIATE);
     }
 
     // Update is called once per frame

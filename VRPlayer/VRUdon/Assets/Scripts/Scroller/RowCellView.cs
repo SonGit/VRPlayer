@@ -1,5 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Net;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +11,22 @@ namespace VRUdon.VR
     public class RowCellView : MonoBehaviour
     {
         public GameObject container;
-        public Text text;
+
+        /// <summary>
+        /// References to Components
+        /// </summary>
+        [SerializeField] private Button DownloadButton;
+        [SerializeField] private Button FavoriteButton;
+        [SerializeField] private Button UnfavoriteButton;
+        [SerializeField] private LoadingIcon LoadingIcon;
+        [SerializeField] private RawImage thumbnail;
+        [SerializeField] private Text text;
+
+        /// <summary>
+        /// Local References
+        /// </summary>
+        private Video video;
+        private Texture2D thumbnailTexture;
 
         public void On()
         {
@@ -32,13 +50,140 @@ namespace VRUdon.VR
 
             if (data != null)
             {
-                if(data is LocalVideo)
+                // Release thumbnail texture
+                thumbnail.texture = null;
+
+                // Remember the current displayed video
+                video = data;
+
+                //If Video is a local video
+                if (video is LocalVideo)
                 {
-                    LocalVideo d = data as LocalVideo;
+                    LocalVideo d = video as LocalVideo;
                     // set the text if the cell is inside the data range
                     text.text = d.videoName;
                 }
+
+                // If Video us a UserVideo
+                if(video is UserVideo)
+                {
+                    // Check if thumbnail exists in cache (temp folder)...
+                    if(!IsThumbnailExists(video.videoInfo.id))
+                    {
+                        //... if not, start download thumbnail
+                        StartCoroutine(DownloadThumbnail(video.videoInfo.thumbnail_link));
+                    }else
+                    {
+                        //... if exists, loading straight from path
+                        LoadThumbnail(video.videoInfo.id);
+                    }
+                }
             }
         }
+
+        // Check if thumbnail exists at this path
+        private bool IsThumbnailExists(string video_id)
+        {
+            if(File.Exists(User.GetPathToVideoThumbnail(video_id)))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
+        }
+
+        // Cache for downloaded thumbnail binary data
+        private byte[] thumbnailRaw;
+        /// <summary>
+        /// Downloads the thumbnail.
+        /// </summary>
+        /// <param name="url">URL.</param>
+        protected IEnumerator DownloadThumbnail(string url)
+        {
+            // Release
+            thumbnailRaw = null;
+
+            yield return new WaitForSeconds(.25f);
+
+            using (WebClient client = new WebClient())
+            {
+                try
+                {
+                    // Try to download from URL
+                    client.DownloadDataCompleted += DownloadThumbnailDataCompleted;
+                    client.DownloadDataAsync(new System.Uri(url));
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("DownloadThumbnail Exception! " + e.Message);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Event called when downloaded thumbnail is completed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void DownloadThumbnailDataCompleted(object sender, DownloadDataCompletedEventArgs e)
+        {
+            thumbnailRaw = e.Result;
+
+            // Try to write data to temp folder
+            File.WriteAllBytes(User.GetPathToVideoThumbnail(video.videoInfo.id), thumbnailRaw);
+
+            // Release texture
+            if (thumbnailTexture == null)
+            {
+                thumbnailTexture = new Texture2D(4, 4, TextureFormat.RGB565, false);
+            }
+
+            // Load data to texture
+            thumbnailTexture.LoadImage(thumbnailRaw);
+
+            // Assign texture to thumbnail object
+            thumbnail.texture = thumbnailTexture;
+
+            print("Thumbnail downloaded to " + User.GetPathToVideoThumbnail(video.videoInfo.id));
+        }
+
+        /// <summary>
+        /// Load thumbnail from path, locally
+        /// </summary>
+        /// <param name="video_id"></param>
+        void LoadThumbnail(string video_id)
+        {
+            try
+            {
+                // Read texture
+                byte[] fileData = File.ReadAllBytes(User.GetPathToVideoThumbnail(video_id));
+
+                // Release texture
+                if (thumbnailTexture == null)
+                {
+                    thumbnailTexture = new Texture2D(4, 4, TextureFormat.RGB565, false);
+                }
+                // Load data to texture
+                thumbnailTexture.LoadImage(fileData);
+
+                // Optional
+                thumbnailTexture.name = video.videoInfo.id;
+
+                // Assign texture to thumbnail object
+                thumbnail.texture = thumbnailTexture;
+            }
+            catch (Exception e)
+            {
+                Debug.Log("Exception!  " + e.Message);
+            }
+            finally
+            {
+         
+            }
+        }
+
     }
 }

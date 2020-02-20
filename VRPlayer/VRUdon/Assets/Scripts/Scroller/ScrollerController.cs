@@ -44,7 +44,16 @@ public class ScrollerController : MonoBehaviour, IEnhancedScrollerDelegate
         _allVideos = ((List<Video>)rMessage.Data);
 
         // Get The first 8 videos to render
-        _data = _allVideos.GetRange(0,8);
+        // If length is not long enough, just take all of it
+        if (_allVideos.Count < PageController.videoPerPage)
+        {
+            _data = _allVideos.GetRange(0, _allVideos.Count);
+        }
+        else
+        {
+            // Get The first 8 videos to render
+            _data = _allVideos.GetRange(0, PageController.videoPerPage);
+        }
 
         // load in a large set of data
         LoadData();
