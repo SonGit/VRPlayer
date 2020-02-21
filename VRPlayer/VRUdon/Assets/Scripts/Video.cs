@@ -55,6 +55,8 @@ namespace VRUdon.VR
             }
         }
 
+        public bool favorited { get; set; }
+
     }
 
 
@@ -206,6 +208,8 @@ namespace VRUdon.VR
         {
             string filepath = String.Empty;
         }
+
+        public bool favorited;
     }
 
 

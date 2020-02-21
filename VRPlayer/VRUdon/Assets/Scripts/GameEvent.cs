@@ -19,4 +19,21 @@ public class GameEvent
 
     public static string setPageNumber = "vr:set_page_number";
     public static string goToPage = "vr:go_to_page";
+
+    // Call By UI string
+    public static string openLocalVideoScreen = "vr:open_local_video_screen";
+    public static string openDownloadVideoScreen = "vr:open_download_video_screen";
+    public static string openMyVideoScreen = "vr:open_my_video_screen";
+    public static string openFavoriteVideoScreen = "vr:open_favorite_video_screen";
+
+    //
+    public static string showLocalVideoScreen = "vr:show_local_video_screen";
+    public static string showDownloadVideoScreen = "vr:show_download_video_screen";
+    public static string showUserVideoScreen = "vr:show_user_video_screen";
+    public static string showFavoriteUserVideoScreen = "vr:show_user_favorite_video_screen";
+
+    public static string InitScreen = "vr:init_screen";
+
+    public static string userLoggedIn = "vr:user_logged_in";
 }
+

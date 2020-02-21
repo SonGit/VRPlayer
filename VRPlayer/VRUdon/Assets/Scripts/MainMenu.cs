@@ -8,16 +8,13 @@ public class MainMenu : MonoBehaviour
     // Start is called before the first frame update
     IEnumerator Start()
     {
-        //yield return new WaitForEndOfFrame();
-       // MessageDispatcher.SendMessageData(GameEvent.showScreenCursor, EnumMessageDelay.IMMEDIATE);
-      //  MessageDispatcher.SendMessageData(GameEvent.closeMenuCubemap, EnumMessageDelay.IMMEDIATE);
-        yield return new WaitForSeconds(1);
-        //MessageDispatcher.SendMessageData(GameEvent.loadLocalVideos, EnumMessageDelay.IMMEDIATE);
+        yield return new WaitForSeconds(.5f);
+        MessageDispatcher.SendMessageData(GameEvent.showLocalVideoScreen, null);
     }
 
-    // Update is called once per frame
-    void Update()
+    void ShowLocalVideoScreen(IMessage rMessage)
     {
-        
+      
     }
-}
+
+ }

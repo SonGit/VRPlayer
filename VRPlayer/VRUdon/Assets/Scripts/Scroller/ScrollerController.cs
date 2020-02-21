@@ -30,8 +30,26 @@ public class ScrollerController : MonoBehaviour, IEnhancedScrollerDelegate
 
     void Awake()
     {
+        MessageDispatcher.AddListener(GameEvent.InitScreen, Init);
         MessageDispatcher.AddListener(GameEvent.sendVideos, Receive);
         MessageDispatcher.AddListener(GameEvent.goToPage, GetDataAtPage);
+    }
+    /// <summary>
+    /// Reset 
+    /// </summary>
+    /// <param name="rMessage"></param>
+    void Init(IMessage rMessage)
+    {
+        // set up the videos
+        _allVideos = new List<Video>();
+        _data = new List<Video>();
+
+        // load in a large set of data
+        LoadData();
+
+        MessageDispatcher.SendMessageData(GameEvent.goToPage, 0);
+        // Inform the page controller to setup page numbers UI
+        MessageDispatcher.SendMessageData(GameEvent.setPageNumber, _allVideos);
     }
 
     /// <summary>

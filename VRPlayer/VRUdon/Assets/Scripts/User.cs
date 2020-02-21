@@ -10,6 +10,8 @@ namespace VRUdon.VR
     {
         public List<Video> userVideos = new List<Video>();
 
+        public List<Video> favoriteVideos = new List<Video>();
+
         public string auth_token;
 
         public string username;
@@ -20,6 +22,7 @@ namespace VRUdon.VR
         void Start()
         {
             CreateTempFolder();
+
             Networking.instance.LoginRequest(test_id, "pass", OnGetLogin);
         }
 
@@ -30,20 +33,8 @@ namespace VRUdon.VR
                 auth_token = response.auth_token;
                 username = test_id;
 
-                Networking.instance.GetUserVideoRequest(auth_token, OnGetUserVideoList);
+                MessageDispatcher.SendMessageData(GameEvent.userLoggedIn, this, EnumMessageDelay.NEXT_UPDATE);
             }
-        }
-        void OnGetUserVideoList(Video_Info[] videoList)
-        {
-            userVideos = new List<Video>();
-
-            for (int i = 0; i < videoList.Length; i++)
-            {
-                UserVideo userVideo = new UserVideo(videoList[i]);
-                userVideos.Add(userVideo);
-            }
-
-            MessageDispatcher.SendMessageData(GameEvent.sendVideos, userVideos, EnumMessageDelay.NEXT_UPDATE);
         }
 
         public string GetPathToFile(string videoID, string filename)

@@ -367,7 +367,7 @@ public class Networking : MonoBehaviour
 		
 		string errorMsg = string.Empty;
 
-		string URL = string.Format ("https://m.fetishwoman.co.kr/api/app/v1/GetFavoriteVideos?auth_token={0}", authToken);
+		string URL = string.Format ("https://api.fewoov.com/api/app/v1/GetFavoriteVideos?auth_token={0}", authToken);
 
 		var request = (HttpWebRequest)WebRequest.Create(URL);
 

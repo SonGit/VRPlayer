@@ -38,6 +38,10 @@ public class PageButton : MonoBehaviour
     {
         GetComponent<Toggle>().isOn = true;
     }
+    public void Deactivate()
+    {
+        GetComponent<Toggle>().isOn = false;
+    }
 
     public void GoToPage(bool enabled)
     {

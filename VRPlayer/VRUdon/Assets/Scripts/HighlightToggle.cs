@@ -88,10 +88,10 @@ public class HighlightToggle : Toggle
                     OnExit();
                 }
 
-                //if(!string.IsNullOrWhiteSpace(eventString))
-                //{
-                //    MessageDispatcher.SendMessageData(eventString, null);
-                //}
+                if (!string.IsNullOrWhiteSpace(_message))
+                {
+                    MessageDispatcher.SendMessageData(_message, null);
+                }
 
                 ExecuteEvents.Execute(gameObject, _pointerEvt, ExecuteEvents.pointerClickHandler);
 

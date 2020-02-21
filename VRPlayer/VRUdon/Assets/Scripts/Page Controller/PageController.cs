@@ -72,6 +72,9 @@ namespace VRUdon.VR
                 if(pageButtons[i].page == currentPage)
                 {
                     pageButtons[i].Activate();
+                }else
+                {
+                    pageButtons[i].Deactivate();
                 }
             }
 

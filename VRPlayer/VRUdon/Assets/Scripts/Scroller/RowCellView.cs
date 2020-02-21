@@ -62,6 +62,9 @@ namespace VRUdon.VR
                     LocalVideo d = video as LocalVideo;
                     // set the text if the cell is inside the data range
                     text.text = d.videoName;
+
+                    FavoriteButton.gameObject.SetActive(false);
+                    UnfavoriteButton.gameObject.SetActive(false);
                 }
 
                 // If Video us a UserVideo
@@ -77,6 +80,22 @@ namespace VRUdon.VR
                         //... if exists, loading straight from path
                         LoadThumbnail(video.videoInfo.id);
                     }
+
+                    // set the text if the cell is inside the data range
+                    text.text = video.videoInfo.video_name;
+
+                    if(video.videoInfo.favorited)
+                    {
+                        FavoriteButton.gameObject.SetActive(true);
+                        UnfavoriteButton.gameObject.SetActive(false);
+                    }
+                    else
+                    {
+                        FavoriteButton.gameObject.SetActive(false);
+                        UnfavoriteButton.gameObject.SetActive(true);
+                    }
+
+                    print(video.videoInfo.video_name + " favorited " + video.videoInfo.favorited);
                 }
             }
         }
@@ -145,7 +164,7 @@ namespace VRUdon.VR
             thumbnailTexture.LoadImage(thumbnailRaw);
 
             // Assign texture to thumbnail object
-            thumbnail.texture = thumbnailTexture;
+            //thumbnail.texture = thumbnailTexture;
 
             print("Thumbnail downloaded to " + User.GetPathToVideoThumbnail(video.videoInfo.id));
         }
@@ -173,7 +192,7 @@ namespace VRUdon.VR
                 thumbnailTexture.name = video.videoInfo.id;
 
                 // Assign texture to thumbnail object
-                thumbnail.texture = thumbnailTexture;
+                //thumbnail.texture = thumbnailTexture;
             }
             catch (Exception e)
             {
