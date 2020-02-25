@@ -1,4 +1,5 @@
-﻿using System;
+﻿using com.ootii.Messages;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -202,6 +203,11 @@ namespace VRUdon.VR
             {
          
             }
+        }
+
+        public void Favorite()
+        {
+            MessageDispatcher.SendMessageData(GameEvent.onFavoriteVideo,video);
         }
 
     }

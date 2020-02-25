@@ -16,7 +16,7 @@ public class Recenter : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        MessageDispatcher.AddListener(GameEvent.nodEvent, OnReceiveRecenterMessage);
+        MessageDispatcher.AddListener(GameEvent.recenterEvent, OnReceiveRecenterMessage);
     }
 
     void OnReceiveRecenterMessage(IMessage rMessage)

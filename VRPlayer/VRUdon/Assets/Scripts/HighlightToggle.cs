@@ -60,6 +60,7 @@ public class HighlightToggle : Toggle
         {
             if (_offSprite)
             {
+                MessageDispatcher.SendMessageData(_messageOff, null);
                 image.sprite = _offSprite;
             }
 

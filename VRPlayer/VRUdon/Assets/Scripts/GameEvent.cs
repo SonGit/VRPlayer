@@ -5,7 +5,6 @@ using UnityEngine;
 public class GameEvent
 {
     public static string recenterEvent = "vr:recenter";
-    public static string nodEvent = "vr:nod";
 
     public static string showScreenCursor = "vr:show_screen_cursor";
     public static string closeScreenCursor = "vr:close_screen_cursor";
@@ -35,5 +34,21 @@ public class GameEvent
     public static string InitScreen = "vr:init_screen";
 
     public static string userLoggedIn = "vr:user_logged_in";
+
+    public static string onFavoriteVideo = "vr:favorite_video";
+    public static string onDoneFavoriteVideo = "vr:done_favorite_video";
+
+    // VR Settings
+    public static string pauseVideo = "vr:pause_video";
+    public static string resumeVideo = "vr:resume_video";
+    public static string lockScreen = "vr:lock_screen";
+    public static string unlockScreen = "vr:unlock_screen";
+
+    // VR Player
+    public static string showFlatVR = "vr:show_flat_vr";
+    public static string showCinemaVR = "vr:show_cinema_vr";
+    public static string showStereoVR = "vr:show_stereo_vr";
+    public static string showSphereVR = "vr:show_sphere_vr";
+
 }
 

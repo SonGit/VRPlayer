@@ -8,10 +8,6 @@ namespace VRUdon.VR
 {
     public class User : MonoBehaviour
     {
-        public List<Video> userVideos = new List<Video>();
-
-        public List<Video> favoriteVideos = new List<Video>();
-
         public string auth_token;
 
         public string username;
