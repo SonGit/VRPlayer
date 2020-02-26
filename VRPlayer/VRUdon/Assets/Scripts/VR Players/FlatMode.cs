@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using RenderHeads.Media.AVProVideo;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +7,14 @@ namespace VRUdon.VR
 {
     public class FlatMode : VRMode
     {
-        public GameObject Cubemap;
+        public RectTransform avproUGUI;
+
+        [SerializeField]
+        private GameObject cubemap;
+
+        [SerializeField]
+        private ApplyToMaterial applyToMaterial;
+
         // Start is called before the first frame update
         void Awake()
         {
@@ -21,13 +29,33 @@ namespace VRUdon.VR
         public override void Show()
         {
             base.Show();
-            Cubemap.SetActive(false);
+            cubemap.SetActive(false);
+
+            avproUGUI.localPosition = new Vector3(-100, -200, -370);
         }
 
         public override void Hide()
         {
             base.Hide();
-            Cubemap.SetActive(true);
+            cubemap.SetActive(true);
+
+            avproUGUI.localPosition = new Vector3(10, -10, 0);
         }
+
+        public override void Ratio_43(float scale)
+        {
+            avproUGUI.sizeDelta = new Vector2(1280 * scale, 962 * scale);
+        }
+
+        public override void Ratio_169(float scale)
+        {
+            avproUGUI.sizeDelta = new Vector2(1280 * scale, 768 * scale);
+        }
+
+        public override void Ratio_1851(float scale)
+        {
+            avproUGUI.sizeDelta = new Vector2(1280 * scale, 692 * scale);
+        }
+
     }
 }

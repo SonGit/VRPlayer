@@ -43,12 +43,26 @@ public class GameEvent
     public static string resumeVideo = "vr:resume_video";
     public static string lockScreen = "vr:lock_screen";
     public static string unlockScreen = "vr:unlock_screen";
+    public static string setBrightness = "vr:set_brightness";
+    public static string setSize = "vr:set_size";
+
+    public static string packingLR = "vr:set_packing_lr";
+    public static string packingTB = "vr:set_packing_tb";
+    public static string packingNone = "vr:set_packing_none";
+
+    public static string setRatio43 = "vr:set_ratio_43";
+    public static string setRatio169 = "vr:set_ratio_169";
+    public static string setRatio1851 = "vr:set_ratio_1851";
+    public static string setRatioOriginal = "vr:set_ratio_original";
 
     // VR Player
     public static string showFlatVR = "vr:show_flat_vr";
     public static string showCinemaVR = "vr:show_cinema_vr";
     public static string showStereoVR = "vr:show_stereo_vr";
     public static string showSphereVR = "vr:show_sphere_vr";
+    public static string showAutoVR = "vr:show_auto_vr";
 
+    public static string openVideoSetting = "vr:open_video_setting";
+    public static string openScreenSetting = "vr:open_screen_setting";
 }
 

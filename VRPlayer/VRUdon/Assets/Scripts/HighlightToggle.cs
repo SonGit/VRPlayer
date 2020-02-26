@@ -40,7 +40,7 @@ public class HighlightToggle : Toggle
     // Start is called before the first frame update
     void Start()
     {
-        isOn = false;
+        ValueChanged();
         onValueChanged.AddListener(delegate {
             ValueChanged();
         });
@@ -50,17 +50,20 @@ public class HighlightToggle : Toggle
         // Change sprite according to active state
         if (isOn)
         {
+            MessageDispatcher.SendMessageData(_message, null);
             if (_onSprite)
             {
+
                 image.sprite = _onSprite;
             }
 
         }
         else
         {
+            MessageDispatcher.SendMessageData(_messageOff, null);
             if (_offSprite)
             {
-                MessageDispatcher.SendMessageData(_messageOff, null);
+
                 image.sprite = _offSprite;
             }
 
@@ -87,11 +90,6 @@ public class HighlightToggle : Toggle
                 else
                 {
                     OnExit();
-                }
-
-                if (!string.IsNullOrWhiteSpace(_message))
-                {
-                    MessageDispatcher.SendMessageData(_message, null);
                 }
 
                 ExecuteEvents.Execute(gameObject, _pointerEvt, ExecuteEvents.pointerClickHandler);

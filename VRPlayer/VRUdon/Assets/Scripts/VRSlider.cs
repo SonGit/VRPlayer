@@ -40,7 +40,6 @@ public class VRSlider : Slider,IPointerEnterHandler
                 timeCount += Time.deltaTime;
             }else
             {      
-                print("dragging");
                 ExecuteEvents.Execute(gameObject, _pointerEvt, ExecuteEvents.dragHandler);
             }
 

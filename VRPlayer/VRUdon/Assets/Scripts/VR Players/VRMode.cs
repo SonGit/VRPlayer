@@ -60,6 +60,37 @@ namespace VRUdon.VR
                 root.SetActive(false);
             }
         }
+
+        public virtual void Ratio_43(float scale)
+        {
+     
+        }
+
+        public virtual void Ratio_169(float scale)
+        {
+  
+        }
+
+        public virtual void Ratio_1851(float scale)
+        {
+
+        }
+
+        public virtual void PackingTopBottom()
+        {
+            mediaPlayer.m_StereoPacking = StereoPacking.TopBottom;
+        }
+
+        public virtual void PackingLeftRight()
+        {
+            mediaPlayer.m_StereoPacking = StereoPacking.LeftRight;
+        }
+
+        public virtual void PackingNone()
+        {
+            mediaPlayer.m_StereoPacking = StereoPacking.None;
+        }
+
     }
 
 }

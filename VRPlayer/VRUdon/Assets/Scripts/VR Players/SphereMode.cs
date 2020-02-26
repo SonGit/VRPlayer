@@ -1,10 +1,14 @@
-﻿using System.Collections;
+﻿using RenderHeads.Media.AVProVideo;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace VRUdon.VR
 {
     public class SphereMode : VRMode
     {
+        [SerializeField]
+        private ApplyToMesh applyToMesh;
+
         // Start is called before the first frame update
         void Awake()
         {
@@ -15,6 +19,29 @@ namespace VRUdon.VR
         void Update()
         {
 
+        }
+
+        public override void PackingTopBottom()
+        {
+            base.PackingTopBottom();
+            UpdateMesh();
+        }
+
+        public override void PackingLeftRight()
+        {
+            base.PackingLeftRight();
+            UpdateMesh();
+        }
+
+        public override void PackingNone()
+        {
+            base.PackingNone();
+            UpdateMesh();
+        }
+
+        void UpdateMesh()
+        {
+            applyToMesh.ForceUpdate();
         }
     }
 
