@@ -7,6 +7,9 @@ using UnityEngine.UI;
 public class ReticleLoading : MonoBehaviour
 {
     [SerializeField]
+    private SpriteRenderer reticle;
+
+    [SerializeField]
     private Transform loadingIcon;
 
     [SerializeField]
@@ -28,12 +31,26 @@ public class ReticleLoading : MonoBehaviour
     void Awake()
     {
         MessageDispatcher.AddListener(GameEvent.nodEvent, StartLoading);
+
+        MessageDispatcher.AddListener(GameEvent.openVRSetting, ShowReticle);
+        MessageDispatcher.AddListener(GameEvent.closeVRSetting, HideReticle);
     }
 
     private void Start()
     {
         loadingIcon.gameObject.SetActive(false);
         Hide();
+
+        reticle.enabled = false;
+    }
+    void ShowReticle(IMessage rMessage)
+    {
+        reticle.enabled = true;
+    }
+
+    void HideReticle(IMessage rMessage)
+    {
+        reticle.enabled = false;
     }
 
     void StartLoading(IMessage rMessage)
@@ -68,6 +85,7 @@ public class ReticleLoading : MonoBehaviour
     {
         loadingIcon.gameObject.SetActive(true);
         reticleLabel.enabled = true;
+        reticle.enabled = true;
     }
     void Hide()
     {

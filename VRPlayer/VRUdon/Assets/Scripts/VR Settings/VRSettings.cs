@@ -19,8 +19,6 @@ namespace VRUdon.VR
             MessageDispatcher.AddListener(GameEvent.gazingAtNothing, OnGazeAtNothing);
 
             MessageDispatcher.AddListener(GameEvent.recenterEvent, OnOpen);
-            MessageDispatcher.AddListener(GameEvent.openVRSetting, OnOpen);
-            MessageDispatcher.AddListener(GameEvent.closeVRSetting, OnClose);
         }
 
         void OpenVideoSetting(IMessage rMessage)
@@ -48,11 +46,13 @@ namespace VRUdon.VR
         void OnOpen(IMessage rMessage)
         {
             gameObject.SetActive(true);
+            MessageDispatcher.SendMessageData(GameEvent.openVRSetting, null);
         }
 
         public void Close()
         {
             gameObject.SetActive(false);
+            MessageDispatcher.SendMessageData(GameEvent.closeVRSetting, null);
         }
     }
 }
