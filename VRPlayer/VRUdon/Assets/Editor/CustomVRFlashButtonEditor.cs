@@ -16,6 +16,6 @@ public class CustomVRFlashButtonEditor : UnityEditor.UI.ButtonEditor
 
         component._text = (Graphic)EditorGUILayout.ObjectField("Text Graphic", component._text, typeof(Graphic), true);
         component._loopable = EditorGUILayout.Toggle("Loopable", component._loopable);
-
+        component._vrSlider = (VRSlider)EditorGUILayout.ObjectField("attached VR slider", component._vrSlider, typeof(VRSlider), true);
     }
 }

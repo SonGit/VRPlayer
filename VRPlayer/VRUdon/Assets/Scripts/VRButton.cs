@@ -24,12 +24,15 @@ public class VRButton : Button, IPointerEnterHandler
 
     public bool _loopable = false;
 
+    public VRSlider _vrSlider;
+
     // Start is called before the first frame update
     void Start()
     {
 
     }
 
+    public bool dragging;
 
     // Update is called once per frame
     void Update()
@@ -59,15 +62,24 @@ public class VRButton : Button, IPointerEnterHandler
                 //}
 
                 ExecuteEvents.Execute(gameObject, _pointerEvt, ExecuteEvents.pointerClickHandler);
+                dragging = true;
 
             }
 
+
+
+        }
+
+        if (dragging && _vrSlider)
+        {
+            _vrSlider.StartDragging(_pointerEvt);
         }
     }
 
     public void OnEnter()
     {
         _PointerEnter = true;
+        dragging = false;
         Reset();
         StartCoroutine(Blinking());
     }
@@ -76,6 +88,7 @@ public class VRButton : Button, IPointerEnterHandler
     {
         StopAllCoroutines();
         _PointerEnter = false;
+        dragging = false;
         Reset();
     }
 

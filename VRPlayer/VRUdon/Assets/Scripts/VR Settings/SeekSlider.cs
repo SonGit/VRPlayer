@@ -58,6 +58,7 @@ namespace VRUdon.VR
             if (mediaPlayer && _videoSeekSlider && _videoSeekSlider.value != _setVideoSeekSliderValue)
             {
                 mediaPlayer.Control.Seek(value * mediaPlayer.Info.GetDurationMs());
+                _setVideoSeekSliderValue = value;
             }
         }
 

@@ -13,7 +13,9 @@ public class VRSlider : Slider,IPointerEnterHandler
 
 	PointerEventData _pointerEvt;
 
-	public override void OnPointerExit(PointerEventData pointerEventData)
+    public bool seekSlider;
+
+    public override void OnPointerExit(PointerEventData pointerEventData)
 	{
 		base.OnPointerExit (pointerEventData);
 		hover = false;
@@ -22,29 +24,46 @@ public class VRSlider : Slider,IPointerEnterHandler
 		
 	public override void OnPointerEnter(PointerEventData pointerEventData)
 	{
-		base.OnPointerEnter (pointerEventData);
+        if(seekSlider)
+        {
+            base.OnPointerEnter(pointerEventData);
 
-		_pointerEvt = pointerEventData;
-		_pointerEvt.pointerPressRaycast = _pointerEvt.pointerCurrentRaycast;
+            _pointerEvt = pointerEventData;
+            _pointerEvt.pointerPressRaycast = _pointerEvt.pointerCurrentRaycast;
 
-        hover = true;
-        Reset();
+            hover = true;
+            Reset();
+        }
+    }
+
+    public void StartDragging(PointerEventData pointerEventData)
+    {
+        if(pointerEventData == null)
+        {
+            return;
+        }
+
+        _pointerEvt = pointerEventData;
+        _pointerEvt.pointerPressRaycast = _pointerEvt.pointerCurrentRaycast;
+        ExecuteEvents.Execute(gameObject, _pointerEvt, ExecuteEvents.dragHandler);
     }
 
 	void Update()
 	{
-		if (hover) {
+        if (hover)
+        {
 
-            if(timeCount < 1.15f)
+            if (timeCount < 1.15f)
             {
                 timeCount += Time.deltaTime;
-            }else
-            {      
+            }
+            else
+            {
                 ExecuteEvents.Execute(gameObject, _pointerEvt, ExecuteEvents.dragHandler);
             }
 
-		}
-	}
+        }
+    }
 
     void Reset()
     {

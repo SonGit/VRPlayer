@@ -323,7 +323,7 @@ MonoBehaviour:
   reticle: {fileID: 1988831700}
   loadingIcon: {fileID: 263801520}
   reticleLabel: {fileID: 136518935}
-  loadTime: 1.5
+  loadTime: 1
   loadTimeCount: 0
   isLoading: 0
   speed: 2
@@ -512,62 +512,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 00:00:00
---- !u!1 &250917682
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 250917684}
-  - component: {fileID: 250917683}
-  m_Layer: 0
-  m_Name: VCR
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &250917683
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 250917682}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bdb8b60922708534498e2539232f026c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _mediaPlayer: {fileID: 0}
-  _mediaPlayerB: {fileID: 0}
-  _mediaDisplay: {fileID: 0}
-  _bufferedSliderRect: {fileID: 0}
-  _videoSeekSlider: {fileID: 0}
-  _audioVolumeSlider: {fileID: 0}
-  _AutoStartToggle: {fileID: 0}
-  _MuteToggle: {fileID: 0}
-  _location: 2
-  _folder: AVProVideoSamples/
-  _videoFiles:
-  - BigBuckBunny_720p30.mp4
-  - SampleSphere.mp4
---- !u!4 &250917684
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 250917682}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &263801519
 GameObject:
   m_ObjectHideFlags: 0
@@ -856,7 +800,7 @@ Transform:
   m_Children:
   - {fileID: 1389805531}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &421429438
 GameObject:
@@ -1478,7 +1422,7 @@ RectTransform:
   - {fileID: 1261830326}
   - {fileID: 1418879448}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1567,7 +1511,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1047993719
 MonoBehaviour:
@@ -1881,7 +1825,7 @@ MonoBehaviour:
   vrModeOnly: 0
   clickTime: 0.1
   hotspot: {x: 0.5, y: 0.5}
-  lookingAtNothingTimeout: 3
+  lookingAtNothingTimeout: 1.75
   lookingAtNothingTimeCount: 0
 --- !u!114 &1187456668
 MonoBehaviour:
@@ -2396,7 +2340,7 @@ Transform:
   - {fileID: 855805451}
   - {fileID: 205904458}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1642190754
 GameObject:
@@ -2439,7 +2383,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1742712820
 GameObject:
@@ -2700,7 +2644,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1910140067
 GameObject:
@@ -4963,6 +4907,8 @@ MonoBehaviour:
   eventStrinsg: 
   _text: {fileID: 0}
   _loopable: 0
+  _vrSlider: {fileID: 2185341222526949173}
+  dragging: 1
 --- !u!222 &1390161593777646423
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5842,6 +5788,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   hover: 0
+  seekSlider: 1
 --- !u!114 &2098304742325004229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5935,6 +5882,8 @@ MonoBehaviour:
   eventStrinsg: 
   _text: {fileID: 0}
   _loopable: 1
+  _vrSlider: {fileID: 0}
+  dragging: 1
 --- !u!1 &2131870214242158069
 GameObject:
   m_ObjectHideFlags: 0
@@ -6048,6 +5997,8 @@ MonoBehaviour:
   eventStrinsg: 
   _text: {fileID: 0}
   _loopable: 1
+  _vrSlider: {fileID: 0}
+  dragging: 1
 --- !u!222 &2179633150582334958
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6172,6 +6123,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   hover: 0
+  seekSlider: 0
 --- !u!114 &2185341222526949174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7201,6 +7153,8 @@ MonoBehaviour:
   eventStrinsg: 
   _text: {fileID: 0}
   _loopable: 0
+  _vrSlider: {fileID: 7301140850769029882}
+  dragging: 1
 --- !u!222 &3163227611365517119
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7941,6 +7895,8 @@ MonoBehaviour:
   eventStrinsg: 
   _text: {fileID: 667524759816867461}
   _loopable: 0
+  _vrSlider: {fileID: 0}
+  dragging: 1
 --- !u!222 &3939882004541908560
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10951,6 +10907,8 @@ MonoBehaviour:
   eventStrinsg: 
   _text: {fileID: 5433895862783297012}
   _loopable: 0
+  _vrSlider: {fileID: 0}
+  dragging: 1
 --- !u!224 &6230704130448546201
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11520,6 +11478,8 @@ MonoBehaviour:
   eventStrinsg: 
   _text: {fileID: 8344999529449567558}
   _loopable: 0
+  _vrSlider: {fileID: 0}
+  dragging: 1
 --- !u!114 &6542896843965721850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12106,6 +12066,8 @@ MonoBehaviour:
   eventStrinsg: 
   _text: {fileID: 0}
   _loopable: 1
+  _vrSlider: {fileID: 0}
+  dragging: 1
 --- !u!224 &6948961544643894107
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12797,6 +12759,8 @@ MonoBehaviour:
   eventStrinsg: 
   _text: {fileID: 0}
   _loopable: 0
+  _vrSlider: {fileID: 7371581937091242073}
+  dragging: 1
 --- !u!114 &7242213294518761605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13000,6 +12964,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   hover: 0
+  seekSlider: 0
 --- !u!114 &7304290703824823399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13176,6 +13141,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   hover: 0
+  seekSlider: 0
 --- !u!1 &7375973661115290532
 GameObject:
   m_ObjectHideFlags: 0
@@ -13253,6 +13219,8 @@ MonoBehaviour:
   eventStrinsg: 
   _text: {fileID: 0}
   _loopable: 1
+  _vrSlider: {fileID: 0}
+  dragging: 1
 --- !u!114 &7379432370572792192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13575,6 +13543,8 @@ MonoBehaviour:
   eventStrinsg: 
   _text: {fileID: 0}
   _loopable: 1
+  _vrSlider: {fileID: 0}
+  dragging: 1
 --- !u!114 &7648748402751676328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14545,6 +14515,8 @@ MonoBehaviour:
   eventStrinsg: 
   _text: {fileID: 0}
   _loopable: 1
+  _vrSlider: {fileID: 0}
+  dragging: 1
 --- !u!1 &8391014757279040545
 GameObject:
   m_ObjectHideFlags: 0
@@ -14556,7 +14528,6 @@ GameObject:
   - component: {fileID: 8334195177266873314}
   - component: {fileID: 2477791879277992152}
   - component: {fileID: 1836116776091993867}
-  - component: {fileID: 8391014757279040546}
   m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
@@ -14564,53 +14535,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &8391014757279040546
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8391014757279040545}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07bc9713bc94432448d85b0812360db4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 1836116776091993867}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls: []
-  _timeCountdown: 1
-  eventStrinsg: 
-  _text: {fileID: 0}
-  _loopable: 0
 --- !u!114 &8392151938621430146
 MonoBehaviour:
   m_ObjectHideFlags: 0
