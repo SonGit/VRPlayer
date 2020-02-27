@@ -20,6 +20,7 @@
 //   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //   THE SOFTWARE.
 
+using com.ootii.Messages;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -160,7 +161,12 @@ public class GazeInputModule : BaseInputModule {
     }
   }
 
-  void UpdateReticle(GameObject previousGazedObject) {
+    public float lookingAtNothingTimeout = 3;
+
+    [SerializeField]
+    private float lookingAtNothingTimeCount = 0;
+
+    void UpdateReticle(GameObject previousGazedObject) {
     if (gazePointer == null) {
       return;
     }
@@ -171,7 +177,23 @@ public class GazeInputModule : BaseInputModule {
     bool isInteractive = pointerData.pointerPress != null ||
         ExecuteEvents.GetEventHandler<IPointerClickHandler>(gazeObject) != null;
 
-    if (gazeObject == previousGazedObject) {
+        if(gazeObject)
+        {
+            lookingAtNothingTimeCount = 0;
+        }
+        else
+        {
+            lookingAtNothingTimeCount += Time.deltaTime;
+
+            if(lookingAtNothingTimeCount > lookingAtNothingTimeout)
+            {
+                lookingAtNothingTimeCount = 0;
+                print("Looking At Nothing");
+                MessageDispatcher.SendMessageData(GameEvent.gazingAtNothing, null);
+            }
+        }
+
+        if (gazeObject == previousGazedObject) {
       if (gazeObject != null) {
         gazePointer.OnGazeStay(camera, gazeObject, intersectionPosition, isInteractive);
       }

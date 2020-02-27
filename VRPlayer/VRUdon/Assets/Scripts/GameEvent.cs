@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameEvent
 {
     public static string recenterEvent = "vr:recenter";
+    public static string nodEvent = "vr:nod";
 
     public static string showScreenCursor = "vr:show_screen_cursor";
     public static string closeScreenCursor = "vr:close_screen_cursor";
@@ -64,5 +65,10 @@ public class GameEvent
 
     public static string openVideoSetting = "vr:open_video_setting";
     public static string openScreenSetting = "vr:open_screen_setting";
+
+    // VR Settings open/close
+    public static string gazingAtNothing = "vr:gazing_at_nothing";
+    public static string closeVRSetting = "vr:close_setting";
+    public static string openVRSetting = "vr:open_setting";
 }
 

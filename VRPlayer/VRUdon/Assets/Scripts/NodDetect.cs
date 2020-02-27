@@ -37,7 +37,7 @@ public class NodDetect : MonoBehaviour
         if (angularVelocity.magnitude > Threshold)
         {
            // print("Recentering at angularVelocity  " + angularVelocity.magnitude);
-            MessageDispatcher.SendMessageData(GameEvent.recenterEvent, angularVelocity.magnitude);
+            MessageDispatcher.SendMessageData(GameEvent.nodEvent, angularVelocity.magnitude);
         }
         //#endif
     }
