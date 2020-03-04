@@ -53,7 +53,7 @@ public class VRSlider : Slider,IPointerEnterHandler
         if (hover)
         {
 
-            if (timeCount < 1.15f)
+            if (timeCount < 0.5f)
             {
                 timeCount += Time.deltaTime;
             }

@@ -21,6 +21,9 @@ namespace VRUdon.VR
         [SerializeField]
         private Text _currentTimeLabel;
 
+        [SerializeField]
+        private Text _totalTimeLabel;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -72,7 +75,10 @@ namespace VRUdon.VR
             if (_currentTimeLabel)
             {
                 ts = TimeSpan.FromMilliseconds(time);
-                _currentTimeLabel.text = String.Format("{0:00}", ts.Hours) + ":" + String.Format("{0:00}", ts.Minutes) + ":" + String.Format("{0:00}", ts.Seconds); ;
+                _currentTimeLabel.text = String.Format("{0:00}", ts.Hours) + ":" + String.Format("{0:00}", ts.Minutes) + ":" + String.Format("{0:00}", ts.Seconds); 
+
+                ts = TimeSpan.FromMilliseconds(mediaPlayer.Info.GetDurationMs());
+                _totalTimeLabel.text = String.Format("{0:00}", ts.Hours) + ":" + String.Format("{0:00}", ts.Minutes) + ":" + String.Format("{0:00}", ts.Seconds);
             }
         }
     }
