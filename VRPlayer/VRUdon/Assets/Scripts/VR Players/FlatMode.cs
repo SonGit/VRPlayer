@@ -31,7 +31,7 @@ namespace VRUdon.VR
             base.Show();
             cubemap.SetActive(false);
 
-            avproUGUI.localPosition = new Vector3(-100, -200, -370);
+            avproUGUI.localPosition = new Vector3(-20, -200, -400);
         }
 
         public override void Hide()
